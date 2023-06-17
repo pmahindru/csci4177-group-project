@@ -1,0 +1,88 @@
+/* This is my own css */
+.postAd-main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.postAd-section1 {
+    margin: 10px;
+    padding: 10px;
+    margin: auto;
+}
+
+.postAd-section-form {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(230, 230, 230);
+    margin: 10px;
+    padding: 10px;
+}
+
+.postAd-section2, .postAd-section3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.postAd-dropdown {
+    padding: 10px;
+    margin: 5px;
+    font-size: 12px;
+}
+
+.postAd-section2 div, .postAd-section3 div {
+    margin: 10px;
+    padding: 10px;
+}
+
+.postAd-section2 div input, .postAd-section3 div input {
+    margin: 10px;
+    padding: 10px;
+}
+
+.postAd-section3 div p {
+    color: red;
+    font-weight: bold;
+}
+
+.postAd-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.postAd-button button {
+    padding: 15px;
+    margin: 15px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.postAd-button button a {
+    color: black;
+    text-decoration: none;
+}
+
+.required-star-in-form {
+    margin-left: 1px;
+    color: red;
+    font-weight: bold;
+}
+
+.hide-div {
+    display: none;
+}
+
+@media (max-width: 750px) {
+    .postAd-main-container {
+        padding-top: 70px;
+    }
+}
+
+@media (max-width: 310px) {
+    .postAd-main-container {
+        overflow: hidden;
+    }
+}
