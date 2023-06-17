@@ -1,0 +1,112 @@
+/* This is my own css */
+.footer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    margin-top: auto;
+    background-color: #241833;
+}
+
+/* text in the footer */
+.footer-text span {
+    color: white;
+    margin: 10px;
+    font-weight: lighter;
+}
+
+.footer-text span a {
+    color: white;
+    text-decoration: none;
+}
+
+.website-name-footer {
+    font-size: 25px;
+}
+
+/* horizontal line */
+.hr-line-footer {
+    border: none;
+    border-top: 1px solid white;
+    margin: 15px;
+    width: 50%;
+}
+
+/* social media link */
+.social-media-links-footer {
+    display: flex;
+    font-size: 30px;
+}
+
+.footer-icon {
+    padding: 5px;
+    margin: 5px;
+    color: white;
+}
+
+/* bottom text after social media */
+.bottom-text-footer {
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    font-weight: lighter;
+}
+
+/* tab and mobile media query */
+@media (max-width: 560px) {
+    .footer {
+        display: flex;
+        flex-direction: row;
+        padding: 10px;
+    }
+
+    .footer-text span, .social-media-links, .bottom-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer-text span {
+        font-size: 10px;
+    }
+
+    .website-name-footer {
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    .hr-line-footer {
+        transform: rotate(-90deg);
+        width: 20%;
+    }
+
+    .footer-icon {
+        margin: 0px;
+    }
+
+    .bottom-text-footer {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .social-media-links-footer {
+        font-size: 18px;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 300px) {
+    .hr-line-footer {
+        display: none;
+    }
+
+    .footer {
+        padding: 5px;
+    }
+
+    .footer-text, .footer-text span {
+        margin: 5px;
+    }
+}

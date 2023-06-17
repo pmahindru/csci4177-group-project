@@ -1,0 +1,69 @@
+.dashboardBuyer-main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboardBuyer-section1 {
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.dashboardBuyer-section2 {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(230, 230, 230);
+    margin: 10px;
+    padding: 10px;
+}
+
+.dashboardBuyer-card-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.dashboardBuyer-card-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.6);
+    padding: 10px;
+    margin: 10px;
+    height: 200px;
+    width: 200px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.dashboardBuyer-card-view:hover {
+    transform: scale(1.2);
+}
+
+.dashboardBuyer-card-view-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboardBuyer-card-view-text h3 {
+    margin: 0px;
+    font-weight: lighter;
+}
+
+@media (max-width: 807px) {
+    .dashboardBuyer-main-container {
+        padding-top: 70px;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboardBuyer-card-view {
+        padding: 5px;
+        margin: 5px;
+        height: 150px;
+        width: 150px;
+    }
+}
