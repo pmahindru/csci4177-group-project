@@ -7,6 +7,7 @@ import DashBoardSeller from "./components/seller-portal/dashboard-seller/dashboa
 import Preview from "./components/seller-portal/postadd/preview";
 import CreateNewAd from "./components/seller-portal/postadd/createnewads";
 import DashBoardBuyer from "./components/buyers-portal/dashboard/dashboard-buyer";
+import AboutUs from "./components/about_us";
 
 function App() {
   // this array contains only seller portal
@@ -40,6 +41,7 @@ function App() {
 
           {/* commons page for the both portal */}
           {/* <Route path='/account' element={}/> */}
+          <Route path='/about_us' element={<AboutUs />}/>
         </Routes>
 
         {/* Footer */}
