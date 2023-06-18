@@ -28,6 +28,11 @@ import CustomerSupport from "./components/customer-support/customer_support";
 import NotFound from "./components/notfoundpage";
 import OrderSeller from "./components/seller-portal/orders-seller/orders_seller";
 import NotificationSetting from "./components/account/notificationsetting";
+import OrderHistoryPage from "./components/buyers-portal/orders-buyers/orderhistory/orderhistory";
+import Favourites from "./components/buyers-portal/orders-buyers/favourites/favourites";
+import OrdersBuyers from "./components/buyers-portal/orders-buyers/orders-buyers";
+import TrackOrders from "./components/buyers-portal/orders-buyers/trackorders/trackorders";
+import CreateReview from "./components/buyers-portal/orders-buyers/review/createreview";
 
 function App() {
   // this array contains only seller portal
@@ -52,7 +57,12 @@ function App() {
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
 
           {/* For Buyer's Portal */}
-          <Route path="/" element={<DashBoardBuyer/>}/>
+          <Route path='/' element={<DashBoardBuyer/>}/>
+          <Route path='/orders' element={<OrdersBuyers/>}/>
+          <Route path='/orderhistory' element={<OrderHistoryPage/>}/>
+          <Route path='/favourites' element={<Favourites/>}/>
+          <Route path='/trackorders' element={<TrackOrders/>}/>
+          <Route path='/createreview' element={<CreateReview/>}/>
 
           {/* For Seller's Portal */}
           <Route path="/dashboard" element={<DashBoardSeller/>}/>
