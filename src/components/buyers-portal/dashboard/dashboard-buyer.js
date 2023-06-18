@@ -12,7 +12,7 @@ function DashBoardBuyer() {
                 <div className='dashboardBuyer-card-list'>
                     <div className="dashboardBuyer-card-view">
                         <div className="dashboardBuyer-card-view-text">
-                            <h3 className="card-title">Tyre</h3>
+                            <h3 className="card-title">Tires</h3>
                         </div>
                     </div>
                     <div className="dashboardBuyer-card-view">
