@@ -1,10 +1,10 @@
 /* styles.css */
 
-.app {
+.analytic-app {
   display: flex;
   flex-direction: column;
-  background-color: lightgrey;
   padding: 20px;
+  background-color: white;
 }
 
 .section-insights,
@@ -14,7 +14,7 @@
 .sub-section-insights,
 .sub-section-overview-chats,
 .sub-section-overview {
-  background-color: white;
+  background-color: lightgray;
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 20px;
@@ -23,7 +23,7 @@
 .section-insights {
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid #ccc;
+  border: 1px solid white;
 }
 
 .section-overview {
@@ -44,6 +44,7 @@
 .sub-section-overview-chats {
   flex-basis: calc(50% - 10px);
   box-sizing: border-box;
+  background-color: white;
   border: 1px solid #ccc;
   margin: 5px;
   padding: 10px;
@@ -67,7 +68,7 @@
 .section-listings-header,
 .section-overview-header,
 .section-insights-header {
-  padding-right: 100%;
+  padding-right: 90%;
 }
 
 @media screen and (max-width: 768px) {
@@ -289,7 +290,9 @@
 }
 
 .seller-rating-page {
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2;
+   */
+  background-color: white;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -329,7 +332,7 @@
 }
 
 .active-ads-page {
-  background-color: #f2f2f2;
+  background-color: white;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -374,7 +377,7 @@
 /* styles.css */
 
 .delete-page {
-  background-color: #f2f2f2;
+  background-color: white;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -399,6 +402,11 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
   margin-bottom: 20px;
+}
+
+.delete-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .item-details {
@@ -433,7 +441,7 @@
 /* styles.css */
 
 .renew-page {
-  background-color: #f2f2f2;
+  background-color: white;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -458,6 +466,11 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
   margin-bottom: 20px;
+}
+
+.renew-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .item-details {
@@ -487,7 +500,7 @@
 }
 
 .sold-page {
-  background-color: #f2f2f2;
+  background-color: white;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -541,7 +554,7 @@
 }
 
 .drafts-page {
-  background-color: #f2f2f2;
+  background-color: white;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -566,6 +579,11 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
   margin-bottom: 20px;
+}
+
+.draft-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .draft-details {
@@ -633,6 +651,7 @@
   width: 300px;
   margin: 10px;
   padding: 20px;
+  background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

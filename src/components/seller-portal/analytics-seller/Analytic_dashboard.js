@@ -176,7 +176,8 @@ const AnalyticalDashboard = () => {
   };
 
   return (
-    <div className="app">
+    <div className="analytic-app">
+      <h2 style={{ marginBottom: "30px" }}>Analytical</h2>
       <div className="section-overview">
         <div className="section-overview-header">
           <h2>Overview</h2>
@@ -214,7 +215,7 @@ const AnalyticalDashboard = () => {
       </div>
       <div className="section-listings">
         <div className="section-listings-header">
-          <h2>Your Listings</h2>
+          <h2>Your Ads</h2>
         </div>
 
         <Link
