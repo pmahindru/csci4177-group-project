@@ -4,7 +4,7 @@ import { styled } from '@mui/system';
 import car from '../images/download.jpg';
 import TextField from '@mui/material/TextField';
 import Rating from "@mui/material/Rating";
-
+import {useState} from 'react';
 const SingleLineTextField = () => {
   return <input type="text" style={{ width: '100%' }} />;
 };
@@ -61,8 +61,11 @@ const StyledButton = styled(Button)({
 });
 
 const CreateReviewCard = (ad) => {
+  const [rating, setRating] = useState('');
   const { product, status, address, photoUrl } = ad;
-
+  const handleRatingChange = (event) => {
+      setRating(event.target.value);
+  }
   return (
     <div style={{ paddingBottom: '5px' }}>
       <StyledCard>
@@ -77,7 +80,7 @@ const CreateReviewCard = (ad) => {
         <Grid item xs={4} md={4}>
           <StyledTypography>
             <h2>Overall Rating</h2>
-            <Rating defaultValue={2} precision={0.5} />
+            <Rating defaultValue={2} precision={0.5} onChange={handleRatingChange}/>
           </StyledTypography>
         </Grid>
         <Grid item xs={5} md={6}>

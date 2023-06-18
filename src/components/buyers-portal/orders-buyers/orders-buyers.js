@@ -11,7 +11,7 @@ const OrdersBuyers = () => {
       </div>
       <div style={{ padding: '20px' }}>
         <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
-          {/* Add your content here */}
+          
         </Grid>
       </div>
     </>
