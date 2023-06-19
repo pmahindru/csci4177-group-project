@@ -16,6 +16,9 @@ import ChatPage from "./components/seller-portal/analytics-seller/ChatPage";
 import SellerRatingPage from "./components/seller-portal/analytics-seller/SellerRatingPage";
 import RenewPage from "./components/seller-portal/analytics-seller/RenewPage";
 import SoldPage from "./components/seller-portal/analytics-seller/SoldPage";
+import Login from "./components/login-register/Login";
+import Signup from "./components/login-register/Signup";
+import ForgotPassword from "./components/login-register/ForgotPassword";
 
 function App() {
   // this array contains only seller portal
@@ -33,8 +36,9 @@ function App() {
 
         <Routes>
           {/* For Login and Register Pages */}
-          {/* <Route path='/login' element={}/> */}
-          {/* <Route path='/register' element={}/> */}
+          <Route path='/login' element={<Login/>}/> 
+          <Route path='/signup' element={<Signup/>}/>
+          <Route path='/forgotpassword' element={<ForgotPassword/>}/>
 
           {/* For Buyer's Portal */}
           <Route path="/" element={<DashBoardBuyer />} />
