@@ -10,14 +10,7 @@ const SingleLineTextField = () => {
   return <input type="text" style={{ width: '100%' }} />;
 };
 
-const MultilineTextField = () => {
-  return (
-    <textarea
-      style={{ width: '100%', height: '100%' }}
-      placeholder="Enter text"
-    ></textarea>
-  );
-};
+
 
 const StyledTypography = styled(Typography)({
   margin: '10px',
