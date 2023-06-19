@@ -17,7 +17,7 @@ function AboutUs() {
                 <li> Pranav Mahindru - Full Stack Developer </li>
                 <li> Joel Kuruvilla - TBD. </li>
                 <li> Saiz Charolia - TBD. </li>
-                <li> Patrick Wooden - TBD. </li>
+                <li> Patrick Wooden - Full Stack Developer </li>
                 <li> Parth Patel - TBD. </li>
                 <br></br>
                 <h3> Project Overseen by (Course Admin.): </h3>

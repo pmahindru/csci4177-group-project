@@ -7,9 +7,14 @@ nav {
 }
 
 .navbar-website-name {
+    margin: 2vh 1% 1px 1%; /*[TLBR]*/
+}
+
+.navbar-website-name-text {
+    width: fit-content;
     font-size: 18px;
     font-weight: bold;
-    margin: 10px;
+    margin: 2px;
     list-style: none;
 }
 
@@ -48,8 +53,8 @@ nav {
 /* search */
 .navbar-search {
     height: 100%;
-    flex: 0.9;
-    margin: 1vh 1%;
+    flex: 1;
+    margin: 1vh 2%;
     background-color: white;
     border-radius: 24px;
 }
