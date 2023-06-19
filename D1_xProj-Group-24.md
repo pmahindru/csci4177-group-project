@@ -164,6 +164,79 @@ The code above was created by adapting the code in [mui](https://mui.com/materia
 - <Why> [mui](https://mui.com/material-ui/react-rating/)'s Code was used because it allows us to allow users to enter a star rating with their product when creating a review
 - <How> [mui](https://mui.com/material-ui/react-rating/)'s Code was modified by only adding a onchange handler so we are ablet to save the rating the user gives a product and store that in their review data and can be displayed on the sellers profile later.
 
+
+### orders-nav.js
+
+*Lines 47-76*
+
+```
+        <li className={currentLocation === "/order-history" ? "active_page_navigation" : ""} onClick={() => setActive('order-history')}>
+            <NavLink to=""> Order History </NavLink>
+          </li>
+
+          <li className={currentLocation === "/track-orders" ? "active_page_navigation" : ""} onClick={() => setActive('track-orders')}>
+            <NavLink to=""> Track Orders </NavLink>
+          </li>
+          <li className={currentLocation === "/" ? "active_page_navigation" : ""} onClick={() => setActive('favourites')}>
+            <NavLink to=""> Favourites </NavLink>
+          </li>
+          <li className={currentLocation === "/" ? "active_page_navigation" : ""} onClick={() => setActive('payments')}>
+            <NavLink to=""> Payments </NavLink>
+          </li>
+          <li className={currentLocation === "/rating-review" ? "active_page_navigation" : ""} onClick={() => setActive('rating-review')}>
+            <NavLink to=""> Rating/Review </NavLink>
+          </li>
+          <li className={currentLocation === "/" ? "active_page_navigation" : ""} onClick={() => setActive('cart')}>
+            <NavLink to=""> Cart </NavLink>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+    <div>
+    {active === 'order-history' && <OrderHistoryPage/>}
+    {active === 'track-orders' && <TrackOrders/>}
+    {active === 'favourites' && <Favourites/>}
+    {active === 'payments' && <AccountPayments/>}
+    {active === 'rating-review' && <RatingAndReviews/>}
+    {active === 'cart' && <Cart/>}
+
+```
+
+The code above was created by adapting the code in [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts) as shown below: 
+
+```
+<button onClick={() => setActive('FirstCard)}> One</button>
+
+
+<div>
+{active === "FirstCard" && <Card data={Data} cardIndex='0'/>}
+```
+
+- <How> The code in [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts) was implemented by Patrick Wooden
+- <Why> [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts)'s Code was used because it allowed for all the order page components to be rendered and displayed on the orders page without being moved to another page.
+- <How> [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts)'s Code was modified by placing the onclick handler inside a navlink instead of a button. I also used different names for the states as well as returned pages that were created like orderhistory and did not pass any data into them. I also removed the cardIndex that they had used.
+### createreview.js
+
+*Lines 83*
+
+```
+<Rating defaultValue={2} precision={0.5} onChange={handleRatingChange}/>
+
+
+```
+
+The code above was created by adapting the code in [mui](https://mui.com/material-ui/react-rating/) as shown below: 
+
+```
+<Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+```
+
+- <How> The code in [mui](https://mui.com/material-ui/react-rating/) was implemented by Patrick Wooden
+- <Why> [mui](https://mui.com/material-ui/react-rating/)'s Code was used because it allows us to allow users to enter a star rating with their product when creating a review
+- <How> [mui](https://mui.com/material-ui/react-rating/)'s Code was modified by only adding a onchange handler so we are ablet to save the rating the user gives a product and store that in their review data and can be displayed on the sellers profile later.
+
+-->
 -->
 
 Pranav Mahindru
