@@ -7,11 +7,8 @@ import DashBoardSeller from "./components/seller-portal/dashboard-seller/dashboa
 import Preview from "./components/seller-portal/postadd/preview";
 import CreateNewAd from "./components/seller-portal/postadd/createnewads";
 import DashBoardBuyer from "./components/buyers-portal/dashboard/dashboard-buyer";
-import OrderHistoryPage from "./components/buyers-portal/orders-buyers/orderhistory/orderhistory";
-import Favourites from "./components/buyers-portal/orders-buyers/favourites/favourites";
 import OrdersBuyers from "./components/buyers-portal/orders-buyers/orders-buyers";
-import TrackOrders from "./components/buyers-portal/orders-buyers/trackorders/trackorders";
-import CreateReview from "./components/buyers-portal/orders-buyers/review/createreview";
+
 function App() {
   // this array contains only seller portal
   const array = [
@@ -35,10 +32,6 @@ function App() {
           {/* For Buyer's Portal */}
           <Route path='/' element={<DashBoardBuyer/>}/>
           <Route path='/orders' element={<OrdersBuyers/>}/>
-          <Route path='/orderhistory' element={<OrderHistoryPage/>}/>
-          <Route path='/favourites' element={<Favourites/>}/>
-          <Route path='/trackorders' element={<TrackOrders/>}/>
-          <Route path='/createreview' element={<CreateReview/>}/>
           {/* For Seller's Portal */}
           <Route path='/dashboard' element={<DashBoardSeller/>}/>
           <Route path='/postAd' element={<CreateNewAd/>}/>
