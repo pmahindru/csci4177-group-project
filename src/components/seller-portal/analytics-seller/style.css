@@ -672,9 +672,54 @@
   }
 
   .graph-container {
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
+    .graphs-container {
+      margin: 10px;
+      padding: 0;
+    }
+
+    .graphs-page {
+      padding: 10px;
+    }
+
+    .graph-container {
+      width: calc(100% - 40px);
+      margin: 10px 20px;
+      padding: 10px;
+    }
+
+    .graph-container canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+    .graph-container .chartjs-render-monitor {
+      font-size: 12px;
+    }
+  }
+
+  .toggle-button {
+    display: block;
+  }
+
+  .graphs-page {
+    display: block;
+  }
+
+  .insights-page {
+    display: none;
+  }
+
+  @media screen and (max-width: 428px) {
+    .toggle-button {
+      display: none;
+    }
+
+    .graphs-page {
+      display: none;
+    }
+
+    .insights-page {
+      display: block;
+    }
   }
 
   .graphs-page {

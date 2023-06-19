@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 import "@fortawesome/fontawesome-free/css/all.css";
@@ -29,6 +29,26 @@ const AnalyticalDashboard = () => {
   const [selectedItem, setSelectedItem] = useState("Item 1");
 
   const [isGraphsPageVisible, setIsGraphsPageVisible] = useState(true);
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 428);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 429);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      setIsGraphsPageVisible(false);
+    }
+  }, [isMobile]);
 
   const itemData = {
     "Item 1": {
@@ -202,11 +222,9 @@ const AnalyticalDashboard = () => {
             <h2>
               2{" "}
               <span className="stars">
-                {/* Render stars based on average rating */}
                 {Array.from(Array(Math.floor(averageRating)), (_, index) => (
                   <i key={index} className="fas fa-star"></i>
                 ))}
-                {/* Render half star if average rating is not a whole number */}
                 {averageRating % 1 !== 0 && (
                   <i className="fas fa-star-half-alt"></i>
                 )}
@@ -313,9 +331,11 @@ const AnalyticalDashboard = () => {
             </Link>
           </div>
         )}
-        <div className="toggle-button" onClick={toggleGraphsPage}>
-          {isGraphsPageVisible ? "Show Insights" : "Show Graph"}
-        </div>
+        {!isMobile && (
+          <div className="toggle-button" onClick={toggleGraphsPage}>
+            {isGraphsPageVisible ? "Show Insights" : "Show Graph"}
+          </div>
+        )}
       </div>
     </div>
   );
