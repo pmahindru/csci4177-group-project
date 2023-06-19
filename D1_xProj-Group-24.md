@@ -146,7 +146,7 @@ The code above was created by adapting the code in [mui](https://mui.com/materia
 
 ### createreview.js
 
-*Lines 83*
+*Lines 75*
 
 ```
 <Rating defaultValue={2} precision={0.5} onChange={handleRatingChange}/>
