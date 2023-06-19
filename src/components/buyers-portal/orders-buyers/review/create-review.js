@@ -10,8 +10,6 @@ const SingleLineTextField = () => {
   return <input type="text" style={{ width: '100%' }} />;
 };
 
-
-
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
