@@ -29,6 +29,8 @@ const AnalyticalDashboard = () => {
     soldItems.reduce((sum, item) => sum + item.rating, 0) / soldItems.length;
   const [selectedItem, setSelectedItem] = useState("Item 1");
 
+  const [isGraphsPageVisible, setIsGraphsPageVisible] = useState(true);
+
   const itemData = {
     "Item 1": {
       clicksData: {
@@ -150,6 +152,10 @@ const AnalyticalDashboard = () => {
     setSelectedItem(item);
   };
 
+  const toggleGraphsPage = () => {
+    setIsGraphsPageVisible(!isGraphsPageVisible);
+  };
+
   const renderGraphs = () => {
     if (!itemData[selectedItem]) {
       return null;
@@ -258,22 +264,58 @@ const AnalyticalDashboard = () => {
           <p>Need attention</p>
         </div>
       </div>
+
       <div className="section-insights">
-        <div className="graphs-page">
-          <h2 className="graphs-title">Insights</h2>
-          <div className="item-selector">
-            <label htmlFor="item-select">Select Item:</label>
-            <select
-              id="item-select"
-              value={selectedItem}
-              onChange={(e) => handleChangeItem(e.target.value)}
-            >
-              <option value="Item 1">Item 1</option>
-              <option value="Item 2">Item 2</option>
-              <option value="Item 3">Item 3</option>
-            </select>
+        {isGraphsPageVisible ? (
+          <div className="graphs-page">
+            <div className="section-insights-header">
+              <h2>Insights</h2>
+            </div>
+            <div className="item-selector">
+              <label htmlFor="item-select">Select Item:</label>
+              <select
+                id="item-select"
+                value={selectedItem}
+                onChange={(e) => handleChangeItem(e.target.value)}
+              >
+                <option value="Item 1">Item 1</option>
+                <option value="Item 2">Item 2</option>
+                <option value="Item 3">Item 3</option>
+              </select>
+            </div>
+            <div className="graphs-container">{renderGraphs()}</div>
           </div>
-          <div className="graphs-container">{renderGraphs()}</div>
+        ) : (
+          <div className="insights-page">
+            <div className="section-insights-header">
+              <h2>Insights</h2>
+            </div>
+
+            <Link
+              to="/analytics/"
+              className="sub-section-overview link-unstyled"
+            >
+              <h2>25</h2>
+              <p>Click on Ads</p>
+            </Link>
+            <Link
+              to="/analytics"
+              className="sub-section-overview link-unstyled"
+            >
+              <h2>2</h2>
+              <p>Ad Saves</p>
+            </Link>
+            <Link
+              to="/analytics/"
+              className="sub-section-overview link-unstyled"
+            >
+              <h2>2</h2>
+              <p>Ad shares</p>
+            </Link>
+          </div>
+        )}
+        <div className="toggle-button" onClick={toggleGraphsPage}>
+          {isGraphsPageVisible ? "Show Insights" : "Show Graph"}
         </div>
       </div>
     </div>
