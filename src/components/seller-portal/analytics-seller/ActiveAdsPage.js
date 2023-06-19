@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
-import "@fortawesome/fontawesome-free/css/all.css";
 
 const ActiveAdsPage = () => {
   // Dummy data for active ads
@@ -16,7 +15,6 @@ const ActiveAdsPage = () => {
       title: "Item 2",
       status: "Active",
     },
-    // Add more active ads
   ];
 
   return (

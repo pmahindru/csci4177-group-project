@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
-import "@fortawesome/fontawesome-free/css/all.css";
 
 const DeletePage = () => {
   const [items, setItems] = useState([
     { id: 1, name: "Item 1" },
     { id: 2, name: "Item 2" },
     { id: 3, name: "Item 3" },
-    // Add more items as needed
   ]);
 
   const handleDelete = (itemId) => {

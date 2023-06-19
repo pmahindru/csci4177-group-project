@@ -22,7 +22,6 @@ const AnalyticalDashboard = () => {
       rating: 3.8,
       review: "Decent product. Could be better.",
     },
-    // Add more sold items with reviews
   ];
 
   const averageRating =
@@ -299,7 +298,7 @@ const AnalyticalDashboard = () => {
               <p>Click on Ads</p>
             </Link>
             <Link
-              to="/analytics"
+              to="/analytics/"
               className="sub-section-overview link-unstyled"
             >
               <h2>2</h2>

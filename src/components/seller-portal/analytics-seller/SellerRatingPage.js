@@ -18,7 +18,6 @@ const SellerRatingPage = () => {
       rating: 3.8,
       review: "Decent product. Could be better.",
     },
-    // Add more sold items with reviews
   ];
 
   return (
@@ -29,11 +28,9 @@ const SellerRatingPage = () => {
           <h3>{item.name}</h3>
           <div className="rating">
             <span className="stars">
-              {/* Render stars based on rating */}
               {Array.from(Array(Math.floor(item.rating)), (_, index) => (
                 <i key={index} className="fas fa-star"></i>
               ))}
-              {/* Render half star if rating is not a whole number */}
               {item.rating % 1 !== 0 && (
                 <i className="fas fa-star-half-alt"></i>
               )}

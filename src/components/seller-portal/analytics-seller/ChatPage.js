@@ -12,12 +12,12 @@ const ChatPage = () => {
 
   const handleChatClose = () => {
     setSelectedChat(null);
-    history("/analytics"); // Redirect to AnalyticalDashboard page
+    history("/analytics");
   };
 
   const handleSendMessage = () => {
     if (pendingMessage.trim() === "") {
-      return; // Don't send empty messages
+      return;
     }
 
     const newMessage = {
@@ -31,7 +31,7 @@ const ChatPage = () => {
       return updatedChat;
     });
 
-    setPendingMessage(""); // Clear the input field
+    setPendingMessage("");
   };
 
   const handleKeyDown = (event) => {

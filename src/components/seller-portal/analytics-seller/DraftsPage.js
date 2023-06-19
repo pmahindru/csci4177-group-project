@@ -14,7 +14,6 @@ const DraftsPage = () => {
       title: "Draft 2",
       createdDate: "2023-06-14",
     },
-    // Add more draft items as needed
   ]);
 
   return (

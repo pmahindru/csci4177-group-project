@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
-import "@fortawesome/fontawesome-free/css/all.css";
 
 const SoldPage = () => {
   // Dummy data for sold items
@@ -16,7 +15,6 @@ const SoldPage = () => {
       title: "Item 2",
       soldDate: "2023-06-12",
     },
-    // Add more sold items
   ];
 
   return (

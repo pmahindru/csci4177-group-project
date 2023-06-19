@@ -1,5 +1,3 @@
-/* styles.css */
-
 .analytic-app {
   display: flex;
   flex-direction: column;
@@ -48,14 +46,14 @@
   border: 1px solid #ccc;
   margin: 5px;
   padding: 10px;
-  transition: background-color 0.3s ease; /* Add transition effect for smooth hover */
+  transition: background-color 0.3s ease;
 }
 
 .sub-section-listings:hover,
 .sub-section-insights:hover,
 .sub-section-overview-chats:hover,
 .sub-section-overview:hover {
-  background-color: #f0f0f0; /* Change the background color on hover */
+  background-color: #f0f0f0;
 }
 
 .sub-section-listings > *:not(:last-child),
@@ -149,7 +147,7 @@
 
 .chat-session-header {
   display: flex;
-  justify-content: space-between; /* Add this line to align items at the ends */
+  justify-content: space-between;
   align-items: center;
   padding: 20px;
   border-bottom: 1px solid #ccc;
@@ -373,9 +371,6 @@
   font-size: 14px;
 }
 
-/* styles.css */
-/* styles.css */
-
 .delete-page {
   background-color: white;
   padding: 20px;
@@ -412,7 +407,7 @@
 .item-details {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Added */
+  justify-content: space-between;
 }
 
 .item-name {
@@ -437,8 +432,6 @@
   text-decoration: none;
   font-size: 14px;
 }
-
-/* styles.css */
 
 .renew-page {
   background-color: white;
@@ -476,7 +469,7 @@
 .item-details {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Added */
+  justify-content: space-between;
 }
 
 .item-name {
@@ -669,6 +662,19 @@
 @media screen and (max-width: 600px) {
   .graph-container {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .graphs-container {
+    margin: 10px;
+    padding: 5px;
+  }
+}
+
+@media screen and (max-width: 805px) {
+  .analytic-app {
+    padding: 70px;
   }
 }
 
