@@ -8,7 +8,7 @@ import Preview from "./components/seller-portal/postadd/preview";
 import CreateNewAd from "./components/seller-portal/postadd/createnewads";
 import DashBoardBuyer from "./components/buyers-portal/dashboard/dashboard-buyer";
 import OrdersBuyers from "./components/buyers-portal/orders-buyers/orders-buyers";
-
+import OrderHistoryPage from "./components/buyers-portal/orders-buyers/orderhistory/order-history";
 function App() {
   // this array contains only seller portal
   const array = [
@@ -32,6 +32,7 @@ function App() {
           {/* For Buyer's Portal */}
           <Route path='/' element={<DashBoardBuyer/>}/>
           <Route path='/orders' element={<OrdersBuyers/>}/>
+          <Route path='/order-history' element={<OrderHistoryPage/>}/>
           {/* For Seller's Portal */}
           <Route path='/dashboard' element={<DashBoardSeller/>}/>
           <Route path='/postAd' element={<CreateNewAd/>}/>
