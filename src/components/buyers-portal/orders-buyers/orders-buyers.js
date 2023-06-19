@@ -1,25 +1,12 @@
 import React from 'react';
-import { Grid } from '@mui/material';
-import SubNavMenu from './orders-nav';
-
-import '../orders-buyers/orders-nav.css';
-import OrderHistoryPage from './orderhistory/order-history';
-import TrackOrders from './trackorders/track-orders';
-import Favourites from './favourites/favourites';
+import '../orders-buyers/orders-navbar.css';
+import OrdersNavbar from './orders-navbar';
 
 const OrdersBuyers = () => {
   return (
-    <>
-    <div className='wrapper-div'>
-                  <SubNavMenu />
-            </div>
-      <div className="custom-subnav" style={{ zIndex: 100 }}>
-       
-      </div>
-      <div style={{ padding: '20px' }}>
-      
-      </div>
-    </>
+    <div>
+      <OrdersNavbar />
+    </div>
   );
 };
 

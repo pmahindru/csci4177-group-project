@@ -34,6 +34,7 @@ import OrdersBuyers from "./components/buyers-portal/orders-buyers/orders-buyers
 import TrackOrders from "./components/buyers-portal/orders-buyers/trackorders/trackorders";
 import CreateReview from "./components/buyers-portal/orders-buyers/review/createreview";
 
+import OrderHistoryPage from "./components/buyers-portal/orders-buyers/orderhistory/order-history";
 function App() {
   // this array contains only seller portal
   const array = ["/dashboard", "/analytics", "/business_orders", "/postAd", "/preview",
@@ -64,6 +65,7 @@ function App() {
           <Route path='/trackorders' element={<TrackOrders/>}/>
           <Route path='/createreview' element={<CreateReview/>}/>
 
+          <Route path='/order-history' element={<OrderHistoryPage/>}/>
           {/* For Seller's Portal */}
           <Route path="/dashboard" element={<DashBoardSeller/>}/>
           <Route path="/postAd" element={<CreateNewAd/>}/>
