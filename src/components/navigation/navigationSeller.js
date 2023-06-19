@@ -44,8 +44,8 @@ function NavBarSeller() {
   return (
     <nav>
       {/* logo */}
-      <div onClick={handleOnClickNavBar}>
-        <li className="navbar-website-name">
+      <div className="navbar-website-name" onClick={handleOnClickNavBar}>
+        <li className="navbar-website-name-text">
           <NavLink to="/"> ShopAesthetics </NavLink>
         </li>
       </div>

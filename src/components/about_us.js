@@ -15,10 +15,10 @@ function AboutUs() {
             <h2 className='AboutUs_Titles'> Meet the ShopAesthetics Team </h2>
             <ul className='AboutUs_ContentTeam'>
                 <li> Pranav Mahindru - Full Stack Developer </li>
-                <li> Joel Kuruvilla - TBD. </li>
-                <li> Saiz Charolia - TBD. </li>
+                <li> Joel Kuruvilla - Full Stack Developer </li>
+                <li> Saiz Charolia - Full Stack Developer </li>
                 <li> Patrick Wooden - Full Stack Developer </li>
-                <li> Parth Patel - TBD. </li>
+                <li> Parth Patel - Full Stack Developer </li>
                 <br></br>
                 <h3> Project Overseen by (Course Admin.): </h3>
                 <li> Gabriella Mosquera - Professor </li>
