@@ -14,18 +14,14 @@ function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [formError, setFormError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
   
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
-      setFormError('Please fill in all fields');
+      alert('Please fill in all fields');
       return;
     }
     
@@ -34,32 +30,30 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     // Date Accessed: 06/12/2023
     const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()]).{8,}$/;
     if (!passwordRegex.test(password)) {
-      setPasswordError(
-        'Password should be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one special character (!@#$%^&*())'
-      );
+      alert('Password should be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one special character (!@#$%^&*())');
       return;
     }
   
     if (password !== confirmPassword) {
-      setPasswordError('Passwords do not match.');
+      alert('Passwords do not match.');
       return;
     }
 
     window.location.href = '/';
   };
-  
 
   return (
     <div className="signup-container">
-      <div className="company-info">
-        <div className="headlines">
+      <div className="signup-text-image">
           {/* 
               Image referred from icon8
               URL: https://icons8.com/illustrations/illustration/bloom-online-store
               Date Accessed: 06/12/2023 
           */}
-          <img src={simage} alt="Image2 " />
-        </div>
+          <img src={simage} alt="Image2" className="signup-image"/>
+          <h3>
+            Join us today<br/>Become a part of our vibrant ShopAesthetics
+          </h3>
       </div>
       <div className="signup-form">
         <div className="signup">
@@ -133,9 +127,8 @@ const [showConfirmPassword, setShowConfirmPassword] = useState(false);
                 </span>
               </div>
             </div>
-            {passwordError && <p>{passwordError}</p>}
-            {formError && <p>{formError}</p>}
             <button type="submit">Register</button>
+            <button><a href="/login"> Back to Login </a></button>
           </form>
         </div>
       </div>

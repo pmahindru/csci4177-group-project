@@ -1,3 +1,4 @@
+/* Created By: Pranav Mahindru*/
 import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./navigation.css";
@@ -46,131 +47,61 @@ function NavBarSeller() {
       {/* logo */}
       <div className="navbar-website-name" onClick={handleOnClickNavBar}>
         <li className="navbar-website-name-text">
-          <NavLink to="/"> ShopAesthetics </NavLink>
+          <NavLink onClick={() => handleOnClickNavBarReload("/")}> Category </NavLink>
         </li>
       </div>
 
       {/* navigation link */}
       <div>
-        <ul
-          className={`navbar-links + ${clicked ? "active_navigation" : ""}`}
-          onClick={handleOnClickNavBar}
-        >
-          <li
-            to="/dashboard"
-            className={
-              currentLocation === "/dashboard" ? "active_page_navigation" : ""
-            }
-            onClick={handleOnClickNavBar}
-          >
+        <ul className={`navbar-links + ${clicked ? "active_navigation" : ""}`} onClick={handleOnClickNavBar}>
+          <li className={currentLocation === "/dashboard" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
             <NavLink to="/dashboard"> Dashboard </NavLink>
           </li>
-          <li
-            to="/analytics"
-            className={
-              currentLocation === "/analytics" ? "active_page_navigation" : ""
-            }
-            onClick={handleOnClickNavBar}
-          >
+          <li className={currentLocation === "/analytics" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
             <NavLink to="/analytics"> Analytics </NavLink>
           </li>
-          <li
-            to="/business_orders"
-            className={
-              currentLocation === "/business_orders"
-                ? "active_page_navigation"
-                : ""
-            }
-            onClick={handleOnClickNavBar}
-          >
+          <li className={currentLocation === "/business_orders" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
             <NavLink to="/business_orders"> Orders </NavLink>
           </li>
-          <li
-            to="/postAd"
-            className={
-              currentLocation === "/postAd" ? "active_page_navigation" : ""
-            }
-            onClick={handleOnClickNavBar}
-          >
+          <li className={currentLocation === "/postAd" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
             <NavLink to="/postAd"> Post Ad </NavLink>
           </li>
-          <li to="#">
+          <li>
             <NavLink to="#">
               <MessageIcon />
             </NavLink>
           </li>
-          <li to="#">
+          <li>
             <NavLink to="#">
               <Notification />
             </NavLink>
           </li>
-          <li
-            onClick={handleDropDownToggle}
-            className={`dropdown ${openDropDown ? "open" : ""}`}
-          >
+          <li onClick={handleDropDownToggle} className={`dropdown ${openDropDown ? "open" : ""}`}>
             <NavLink> Account </NavLink>
             <div className={`dropdown-menu ${openDropDown ? "show" : ""}`}>
               <ul>
                 <li>
                   <NavLink onClick={() => handleOnClickNavBarReload("/")}>
-                    {" "}
-                    Switch to Buyer{" "}
+                    Switch to Buyer
                   </NavLink>
                 </li>
-                <li
-                  className={
-                    currentLocation === "/profile_setting"
-                      ? "active_page_navigation"
-                      : ""
-                  }
-                  onClick={handleOnClickNavBar}
-                >
-                  <NavLink to="/profile_setting"> Profile Setting </NavLink>
+                <li className={currentLocation === "/profile_setting" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
+                  <NavLink onClick={() => handleOnClickNavBarReload("/profile_setting")}> Profile Setting </NavLink>
                 </li>
-                <li
-                  className={
-                    currentLocation === "/notification_setting"
-                      ? "active_page_navigation"
-                      : ""
-                  }
-                  onClick={handleOnClickNavBar}
-                >
-                  <NavLink to="/notification_setting">
-                    {" "}
-                    Notification Setting{" "}
-                  </NavLink>
+                <li className={currentLocation === "/notification_setting" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
+                  <NavLink onClick={() => handleOnClickNavBarReload("/notification_setting")}> Notification Setting </NavLink>
                 </li>
-                <li
-                  className={
-                    currentLocation === "/about_us"
-                      ? "active_page_navigation"
-                      : ""
-                  }
-                  onClick={handleOnClickNavBar}
-                >
-                  <NavLink to="/about_us"> About Us </NavLink>
+                <li className={currentLocation === "/about_us" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
+                  <NavLink onClick={() => handleOnClickNavBarReload("/about_us")}> About Us </NavLink>
                 </li>
-                <li
-                  className={
-                    currentLocation === "/customer_support"
-                      ? "active_page_navigation"
-                      : ""
-                  }
-                  onClick={handleOnClickNavBar}
-                >
-                  <NavLink to="/customer_support"> Customer Support </NavLink>
+                <li className={currentLocation === "/customer_support" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
+                  <NavLink onClick={() => handleOnClickNavBarReload("/customer_support")}> Customer Support </NavLink>
                 </li>
               </ul>
             </div>
           </li>
-          <li
-            to="/login"
-            className={
-              currentLocation === "/login" ? "active_page_navigation" : ""
-            }
-            onClick={handleOnClickNavBar}
-          >
-            <NavLink to="/login">
+          <li className={currentLocation === "/login" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
+            <NavLink onClick={() => handleOnClickNavBarReload("/login")}>
               Sign In
               <br />
               Sign Up

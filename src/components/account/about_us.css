@@ -6,20 +6,23 @@
     margin: 5px 10%;
 }
 
-.AboutUs > .AboutUs_Titles {
-    margin: 5vh 0 1% 0; /*[TLBR]*/
+.AboutUs>.AboutUs_Titles {
+    /*[TLBR]*/
+    margin: 5vh 0 1% 0;
 }
 
-.AboutUs > .AboutUs_ContentMain {
+.AboutUs>.AboutUs_ContentMain {
     margin: 0vh 7%;
     line-height: 1.5;
 }
-.AboutUs > .AboutUs_ContentTeam {
+
+.AboutUs>.AboutUs_ContentTeam {
     list-style: none;
     margin: 1vh;
     padding: 0%;
 }
-.AboutUs > .AboutUs_ContentDisclaimers {
+
+.AboutUs>.AboutUs_ContentDisclaimers {
     margin: 5%;
     font-size: 90%;
 }
@@ -28,4 +31,16 @@
     .AboutUs {
         margin: 7vh 10%;
     }
-  }
+}
+
+@media (max-width: 370px) {
+    .AboutUs>.AboutUs_Titles {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 280px) {
+    .AboutUs>.AboutUs_Titles {
+        font-size: 22px;
+    }
+}

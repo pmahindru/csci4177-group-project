@@ -1,0 +1,68 @@
+/* Created By: Pranav Mahindru*/
+/* This is my own css */
+.customerSupport-main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.customerSupport-section1 {
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.customerSupport-section2 {
+    background-color: rgb(230, 230, 230);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.customerSupport-section2 div {
+    padding: 5px;
+    margin: 10px;
+}
+
+/* dropdown */
+.customerSupport-main-dropdown {
+    background-color: #420092;
+    width: 80%;
+    color: white;
+}
+
+.customerSupport-dropdown-menu span a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.customerSupport-dropdown {
+    position: relative;
+}
+
+.customerSupport-dropdown .customerSupport-dropdown-menu {
+    display: none;
+    top: 100%;
+    text-align: center;
+}
+
+.customerSupport-dropdown-menu hr {
+    margin-bottom: 10px;
+    border: 1px dotted white;
+}
+
+.customerSupport-dropdown.open .customerSupport-dropdown-menu {
+    display: block;
+}
+
+@media (max-width: 807px) {
+    .customerSupport-main-container {
+        padding-top: 70px;
+    }
+}
+
+@media (max-width: 400px) {}
+
+@media (max-width: 350px) {}

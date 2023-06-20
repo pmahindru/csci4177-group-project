@@ -5,123 +5,140 @@
 */
 
 .signup-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
+  display: flex;
+  background-color: white;
+}
+
+.signup-text-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 2;
+  margin: 10px;
+  padding: 10px;
+  font-weight: bold;
+  color: #6102dc;
+  text-align: center;
+}
+
+.signup-image {
+  width: 300px;
+}
+
+.signup-form {
+  background-color: #f7f7f9;
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.signup {
+  display: flex;
+  flex-flow: column;
+  margin: 0 2rem;
+  width: 100%;
+}
+
+.signup h2, .signup h1 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.signup-form label,
+.signup-form input,
+.signup-form button {
+  display: block;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.signup-form button a {
+  text-decoration: none;
+  color: white;
+}
+
+.signup-form input {
+  height: 50px;
+}
+
+.signup-form .forgot-password {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.signup-form button {
+  height: 40px;
+  color: white;
+  border: none;
+  font-size: medium;
+}
+
+.signup-form button {
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: white;
+  background-color: #6C4998;
+}
+
+.signup-form button:hover {
+  background-color: #483165;
+  color: white;
+}
+
+.password-input {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 55%;
+  right: 10px;
+  transform: translateY(-60%);
+  cursor: pointer;
+}
+
+@media (max-width: 685px) {
+  .signup-text-image {
+    margin: 8px;
+    padding: 8px;
   }
-  
-  .company-info {
+
+  .signup-image {
+    width: 250px;
+  }
+}
+
+@media (max-width: 560px) {
+  .signup-container {
     display: flex;
-    flex: 1;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding-top: 70px;
   }
-  
-  .company {
-    margin-bottom: 20px;
-    font-size: large;
-    width: 80%;
-    text-align: center;
+
+  .signup-text-image {
+    margin: 6px;
+    padding: 6px;
   }
-  
+
+  .signup-image {
+    width: 200px;
+  }
+
   .signup-form {
-    background-color: #f7f7f9;
-    flex: 2;
-    display: flex;
-    justify-content: center;
+    background-color: white;
+    min-height: 50vh;
     align-items: center;
-    height: 100%;
-    min-height: 100vh;
   }
-  
-  .signup {
-    display: flex;
-    flex-flow: column;
-    margin: 0 2rem;
-    width: 65%;
-    
-  }
-  
-  .signup h2, .signup h1 {
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-  
+
   .signup-form label,
   .signup-form input,
-  button {
-    display: block;
-    margin-bottom: 0.5rem;
-    width: 100%;
-    box-sizing: border-box;
+  .signup-form button {
+    padding: 5px;
   }
-  
-  .signup-form input{
-    height: 30px;
-  }
-  
-  .signup-form .forgot-password {
-    text-align: right;
-    margin-bottom: 1rem;
-  }
-  
-  button {
-    height: 40px;
-    color: black;
-    border: none;
-    font-size: medium;
-    margin-top: 20px;
-    
-  }
-  
-  .signup-form button[type="submit"] {
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    background-color: #7851A9;
-  }
-  
-  .signup-form button[type="submit"]:hover {
-    background-color: purple;
-    color: white;
-
-  }
-  
-  .signup-form .signup-link {
-    text-align: right;
-  }
-  
-  .headlines h4 {
-    align-items: center;
-    margin-top: -20px;
-  }
-  
-  .password-input {
-    position: relative;
-  }
-  
-  .password-toggle {
-    position: absolute;
-    top: 55%;
-    right: 10px;
-    transform: translateY(-60%);
-    cursor: pointer;
-  }
-  
-  .signup-form p {
-    color: red;
-  }
-  
-  .headlines img{
-    height: auto;
-    width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    margin-top: 80%;
-  }
-  
-  
+}

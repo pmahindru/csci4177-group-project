@@ -1,3 +1,4 @@
+/* Created By: Parth Patel*/
 .analytic-app {
   display: flex;
   flex-direction: column;
@@ -17,12 +18,6 @@
   padding: 20px;
   margin-bottom: 20px;
 }
-
-/* .section-insights {
-  display: flex;
-  flex-wrap: wrap;
-  border: 1px solid white;
-} */
 
 .section-overview {
   display: flex;
@@ -56,10 +51,10 @@
   background-color: #f0f0f0;
 }
 
-.sub-section-listings > *:not(:last-child),
-.sub-section-insights > *:not(:last-child),
-.sub-section-overview-chats > *:not(:last-child),
-.sub-section-overview > *:not(:last-child) {
+.sub-section-listings>*:not(:last-child),
+.sub-section-insights>*:not(:last-child),
+.sub-section-overview-chats>*:not(:last-child),
+.sub-section-overview>*:not(:last-child) {
   margin-bottom: 10px;
 }
 
@@ -70,6 +65,7 @@
 }
 
 @media screen and (max-width: 768px) {
+
   .sub-section-listings,
   .sub-section-insights,
   .sub-section-overview-chats,
@@ -233,6 +229,7 @@
     flex-basis: auto;
   }
 }
+
 .link-unstyled {
   text-decoration: none;
   color: inherit;
@@ -245,11 +242,13 @@
 }
 
 .close-icon {
+  padding-top: 30px;
   display: inline-block;
   width: 24px;
   height: 24px;
+  font-weight: bold;
   fill: none;
-  stroke: #333;
+  stroke: #000000;
   stroke-width: 2px;
   transition: stroke 0.3s ease;
 }
@@ -278,9 +277,10 @@
   color: #777;
   margin-top: 5px;
 }
+
 .close-button1 {
   position: absolute;
-  top: 45px;
+  top: 50px;
   right: 40px;
   background-color: transparent;
   border: none;
@@ -619,6 +619,7 @@
 .graphs-page {
   padding: 20px;
 }
+
 .insights-page {
   padding: 20px;
 }
@@ -691,6 +692,7 @@
       width: 100% !important;
       height: auto !important;
     }
+
     .graph-container .chartjs-render-monitor {
       font-size: 12px;
     }
@@ -728,8 +730,8 @@
 }
 
 @media screen and (max-width: 805px) {
-  .analytic-app {
-    padding: 70px;
+  .analytic-app, .chat-page {
+    padding-top: 70px;
   }
 }
 

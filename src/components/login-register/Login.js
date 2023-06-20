@@ -16,42 +16,63 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    /**
+     * Pranav Mahindru added the regex and check for login page
+     * regex take from online reference are in the README FILE  
+     * validate register form
+    */
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-    if (!email || !password) {
-      setError('Please fill in all fields');
-      return;
+    // Regex for password referred from stackoverflow
+    // URL: https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+    // Date Accessed: 06/12/2023
+    const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()]).{8,}$/;
+    if (email === '' || password === '')
+    {
+        alert('Form is Empty');
+        return;
+    }
+    if (!(emailRegex).test(email))
+    {
+        alert('Email is not valid');
+        return;
+    }
+    if (!(passwordRegex).test(password))
+    {
+        alert('Password is not valid');
+        return;
     }
 
-    window.location.href = '/';
-
+    /**
+     * set it empty and show alert 
+     */
     setEmail('');
     setPassword('');
-    setError('');
+    alert("Successfully login");
+
+    window.location.href = '/';
   };
 
   return (
     <div className="login-container">
-      <div className="company-info">
-        <div className="company">
-          <div className="headlines">
-            {/* 
-              Image referred from icon8
-              URL: https://icons8.com/illustrations/illustration/taxi-online-shop
-              Date Accessed: 06/11/2023            
-            */}
-            <img src={limage} alt="Image1" />
-          </div>
-        </div>
+      <div className="login-text-image">
+          {/* 
+            Image referred from icon8
+            URL: https://icons8.com/illustrations/illustration/taxi-online-shop
+            Date Accessed: 06/11/2023            
+          */}
+          <img src={limage} alt="Image1" className="login-image" />
+          <h3>
+            Discover the extraordinary on our ShopAesthetics where rare gems defy the norm and unleash your unique style
+          </h3>
       </div>
       <div className="login-form">
         <div className="login">
           <h2>Login</h2>
-
           {/* 
             Form referred from handsonreact
             URL: https://handsonreact.com/docs/forms
@@ -75,7 +96,6 @@ const Login = () => {
                 className="password-toggle"
                 onClick={() => setShowPassword(!showPassword)}
               >
-
                 {/* 
                   Eye Splash and Eye icon referred from fontawesome
                   URL: https://fontawesome.com/v4/icon/eye-slash 
@@ -83,7 +103,6 @@ const Login = () => {
                   Date Accessed: 06/11/2023
                   */}
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-
               </span>
             </div>
             <div className="forgot-password">
@@ -93,7 +112,6 @@ const Login = () => {
             <div className="signup-link">
               Don't have an account? <a href="/Signup">Sign up</a>
             </div>
-            {error && <p>{error}</p>}
           </form>
         </div>
       </div>
