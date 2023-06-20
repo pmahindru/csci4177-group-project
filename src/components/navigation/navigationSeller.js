@@ -47,7 +47,7 @@ function NavBarSeller() {
       {/* logo */}
       <div className="navbar-website-name" onClick={handleOnClickNavBar}>
         <li className="navbar-website-name-text">
-          <NavLink onClick={() => handleOnClickNavBarReload("/")}> Category </NavLink>
+          <NavLink onClick={() => handleOnClickNavBarReload("/")}> ShopAesthetics </NavLink>
         </li>
       </div>
 

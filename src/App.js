@@ -57,6 +57,7 @@ function App() {
           <Route path='/' element={<DashBoardBuyer/>}/>
           <Route path='/orders' element={<OrdersBuyers/>}/>
           <Route path='/createreview' element={<CreateReview/>}/>
+          
           {/* For Seller's Portal */}
           <Route path="/dashboard" element={<DashBoardSeller/>}/>
           <Route path="/postAd" element={<CreateNewAd/>}/>

@@ -1,43 +1,63 @@
+<!-- 
+    This is README file is given by the prof Gabriella Mosquera.
+-->
 
+# xProj-Group-24 (ShopAesthetics)
 
 This project is the creation of ShopAesthetics proposed online marketplace where authenticity and security of a monitored marketplace meets the community of people who want to enhance their aesthetic lifestyle. Our online marketplce aims to provide the users with aesthetically pleasing UI/UX while providing effecient marketplace features. Currently this project only has front end stlying and effects for the created web pages, the back end functionality will be added at a later point.
 
-
-* *Date Created*: DD 06 2023
+* *Date Created*: 20 06 2023
 * *Last Modification Date*: 20 06 2023
-* *Project URL*: <http://example.com/>
-* *Git URL*: <https://git.cs.dal.ca/mahindru/csci-4177-5709-xproj-group-24>
+* *Project URL*: https://csci-4177-grp-project-xproj-group-24.netlify.app/
+* *Git URL*: https://git.cs.dal.ca/mahindru/csci-4177-5709-xproj-group-24
 
 ## Authors
 
-* [Name](email@dal.ca) - *(Developer)*
-* [Patrick Wooden](pt308649@dal.ca) - *(Developer)*
-* [Name](email@dal.ca) - *(Developer)*
-* [Name](email@dal.ca) - *(Developer)*
-* [Name](email@dal.ca) - *(Developer)*
-<!-- put all citation here -->
+* [Pranav Mahindru](pranav.mahindru@dal.ca) - *Full Stack Developer*
+* [Patrick Wooden](pt308649@dal.ca) -  *Full Stack Developer*
+* [Joel Kuruvilla](email@dal.ca) -  *Full Stack Developer*
+* [Saiz Charolia](sz500426@dal.ca) -  *Full Stack Developer*
+* [Parth Patel](pr715312@dal.ca) -  *Full Stack Developer*
 
-<!--
-    Your Name, File Name, Line Number + (piece of code), Small Description (why did you take that), Link of the website
- -->
+## Testing
 
-Patrick wooden
+Test if the website is responsive by changing the size of the browser. 
+
+Tested form validation is working properly by inputting wrong values or leaving them blank (Login and Register)
+
+Tested navigation links
+
+Tested button navigation if it redirecting to the expected page
+
+## Deployment
+
+Deployed using netify which was taught in lab 
+
+[1] Login - Dalhousie University, https://dal.brightspace.com/d2l/le/content/274269/viewContent/3608571/View (accessed June 20, 2023). 
+
+## Built With
+
+React - [1] Login - Dalhousie University, https://dal.brightspace.com/d2l/le/content/274269/viewContent/3608648/View (accessed June 20, 2023). - The web framework used
+
+## Sources Used
+
+## Patrick wooden (Order buyer) - Citation
+
+*****
 
 ### order-history.js
 
 *Lines 54-56 and line 86*
 
-```
-   const handleClick = (event) => {
-    navigate("/createreview", { state: { id: id, product: product, photoUrl: photoUrl } });
-    };
+const handleClick = (event) => {
+navigate("/createreview", { state: { id: id, product: product, photoUrl: photoUrl } });
+};
 
-   <StyledButton variant="contained" onClick={handleClick}>Review</StyledButton>
+<StyledButton variant="contained" onClick={handleClick}>Review</StyledButton>
 
 The code above was created by adapting the code in [reactrouter](https://v5.reactrouter.com/web/api/location) as shown below:
 
 ```
-
 {
 key: 'ac3df4', // not with HashHistory!
 pathname: '/somewhere',
@@ -47,82 +67,78 @@ state: {
 [userDefined]: true
 }
 }
-
 ```
 
 - <How> The code in [reactrouter](https://v5.reactrouter.com/web/api/location) was implemented by Patrick Wooden
 - <Why> [reactrouter](https://v5.reactrouter.com/web/api/location)'s Code was used because it allowed for me to pass the values of my states to the profile page
 - <How> [reactouter](https://v5.reactrouter.com/web/api/location)'s Code was modified by not using the same state values, instead using my own and also only using the state part in the code above
 
+*****
 
 ### order-history.js
 
 *Lines 133-137*
 
 ```
-
 {orders.map((order) => (
 <Grid item xs={12} md={12}>
 <OrderHistoryCard key={order.id} product={order.product} status={order.status} address={order.address} photo={order.photoUrl} />
 </Grid>
 ))}
-
 ```
 
 The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
 
 ```
-
 (posts.map((item) =>
 // Presently we only fetch
 // title from the API
 
 <h4>{item.title}</h4>)
 )
-
 ```
 
 - <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
 - <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
 - <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and used my own card component I created.
+
+*****
 
 ### track-order.js
 
 *Lines 113-118*
 
 ```
-     {orders.map((order) => (
-            <Grid item xs={12} md={12}>
+{orders.map((order) => (
+  <Grid item xs={12} md={12}>
 
-              <TrackOrdersCard key={order.id} product={order.product} status={order.status} address={order.expecteddate} photo={order.photoUrl} />
-            </Grid>
-          ))}
+    <TrackOrdersCard key={order.id} product={order.product} status={order.status} address={order.expecteddate} photo={order.photoUrl} />
+  </Grid>
+))}
 ```
 
 The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
 
 ```
-
 (posts.map((item) =>
 // Presently we only fetch
 // title from the API
 
 <h4>{item.title}</h4>)
 )
-
 ```
 
 - <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
 - <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
 - <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and used my own card component I created.
 
+*****
 
 ### favourites.js
 
 *Lines 39-47 and 75-77*
 
 ```
-
 const [anchorEl, setAnchorEl] = useState(null);
 
 const handleClick = (event) => {
@@ -138,13 +154,11 @@ setAnchorEl(null);
  <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
   <MenuItem onClick={handleClose}>Remove from Favorites</MenuItem>
 </Menu>
-
 ```
 
 The code above was created by adapting the code in [mui](https://mui.com/material-ui/react-menu/) as shown below:
 
 ```
-
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -220,20 +234,19 @@ export default function LongMenu() {
 - <Why> [mui](https://mui.com/material-ui/react-menu/)'s Code was used because It allows us to hide more options for each ad on the favourite page, like removing an ad from the favourites list so the page looks cleaner overall.
 - <How> [mui](https://mui.com/material-ui/react-menu/)'s Code was modified by only have one menu item and creating that individual one instead of creating a map and looping though multiple options like the website shows. I also do not set a key to each menu item or use the selected={} like they do in the example
 
+*****
+
 ### create-review.js
 
 *Lines 68*
 
 ```
-
 <Rating defaultValue={2} precision={0.5} onChange={handleRatingChange}/>
-
 ```
 
 The code above was created by adapting the code in [mui](https://mui.com/material-ui/react-rating/) as shown below:
 
 ```
-
 <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
 ```
 
@@ -241,45 +254,45 @@ The code above was created by adapting the code in [mui](https://mui.com/materia
 - <Why> [mui](https://mui.com/material-ui/react-rating/)'s Code was used because it allows us to allow users to enter a star rating with their product when creating a review
 - <How> [mui](https://mui.com/material-ui/react-rating/)'s Code was modified by changing the default value to 1 and making the percision change to 1. This will be further modified in the future by adding a onchange handler so we are able to save the rating the user gives a product and store that in their review data and can be displayed on the sellers profile later. As there is no backend implemented into this project yet this section does not look very modified so I wanted to make this note so markers know that this code will be further modified and not just used like this.
 
+*****
 
 ### orders-buyers.js
 
 *Lines 31-56*
 
 ```
-        <NavLink href="/order-history" className="simple-navbar-link" onClick={() => handleNavLinkClick('order-history')}>Order History</NavLink>
-          </li>
-          <li className={`order-navbar-item ${active === 'track-orders' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="/track-orders" className="simple-navbar-link" onClick={() => handleNavLinkClick('track-orders')}>Track Orders</NavLink>
-          </li>
-          <li className={`order-navbar-item ${active === 'favourites' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('favourites')}>Favourites</NavLink>
-          </li>
-          <li className={`order-navbar-item ${active === 'payments' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('payments')}>Payments</NavLink>
-          </li>
-          <li className={`order-navbar-item ${active === 'rating-review' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('rating-review')}>Rating/Review</NavLink>
-          </li>
-          <li className={`order-navbar-item ${active === 'cart' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('cart')}>Cart</NavLink>
-          </li>
-        </ul>
-      </nav>
-      <div className='PageContainer'>
-        {active === 'order-history' && <OrderHistoryPage />}
-        {active === 'track-orders' && <TrackOrders />}
-        {active === 'favourites' && <Favourites />}
-        {active === 'payments' && <AccountPayments />}
-        {active === 'rating-review' && <RatingAndReviews />}
-        {active === 'cart' && <Cart />}
+<NavLink href="/order-history" className="simple-navbar-link" onClick={() => handleNavLinkClick('order-history')}>Order History</NavLink>
+  </li>
+  <li className={`order-navbar-item ${active === 'track-orders' ? 'active_page_navigation' : ''}`}>
+    <NavLink href="/track-orders" className="simple-navbar-link" onClick={() => handleNavLinkClick('track-orders')}>Track Orders</NavLink>
+  </li>
+  <li className={`order-navbar-item ${active === 'favourites' ? 'active_page_navigation' : ''}`}>
+    <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('favourites')}>Favourites</NavLink>
+  </li>
+  <li className={`order-navbar-item ${active === 'payments' ? 'active_page_navigation' : ''}`}>
+    <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('payments')}>Payments</NavLink>
+  </li>
+  <li className={`order-navbar-item ${active === 'rating-review' ? 'active_page_navigation' : ''}`}>
+    <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('rating-review')}>Rating/Review</NavLink>
+  </li>
+  <li className={`order-navbar-item ${active === 'cart' ? 'active_page_navigation' : ''}`}>
+    <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('cart')}>Cart</NavLink>
+  </li>
+</ul>
+</nav>
+<div className='PageContainer'>
+  {active === 'order-history' && <OrderHistoryPage />}
+  {active === 'track-orders' && <TrackOrders />}
+  {active === 'favourites' && <Favourites />}
+  {active === 'payments' && <AccountPayments />}
+  {active === 'rating-review' && <RatingAndReviews />}
+  {active === 'cart' && <Cart />}
 ```
 
 The code above was created by adapting the code in [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts) as shown below:
 
 ```
 <button onClick={() => setActive('FirstCard)}> One</button>
-
 
 <div>
 {active === "FirstCard" && <Card data={Data} cardIndex='0'/>}
@@ -289,35 +302,13 @@ The code above was created by adapting the code in [h3webdevtuts](https://www.yo
 - <Why> [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts)'s Code was used because it allowed for all the order page components to be rendered and displayed on the orders page without being moved to another page. I also used this code for making the current page in the orders navbar be a different color to show it is the active link
 - <How> [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts)'s Code was modified by placing the onclick handler inside a navlink instead of a button. I also used different names for the states as well as returned pages that were created like orderhistory and did not pass any data into them. I also removed the cardIndex that they had used. I also modified it for the NavLinks by adding a condtional modifier for applying the active_page_navigation styling when active was equal to that page.
 
-### createreview.js
-
-_Lines 83_
-
-```
-<Rating defaultValue={2} precision={0.5} onChange={handleRatingChange}/>
-
-
-```
-
-The code above was created by adapting the code in [mui](https://mui.com/material-ui/react-rating/) as shown below:
-
-```
-<Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-```
-
-- <How> The code in [mui](https://mui.com/material-ui/react-rating/) was implemented by Patrick Wooden
-- <Why> [mui](https://mui.com/material-ui/react-rating/)'s Code was used because it allows us to allow users to enter a star rating with their product when creating a review
-- <How> [mui](https://mui.com/material-ui/react-rating/)'s Code was modified by only adding a onchange handler so we are ablet to save the rating the user gives a product and store that in their review data and can be displayed on the sellers profile later.
-
 Sources for images used:
 The images below were used in this assignment with proper author attributions which were retrived off Creative Commons
 "Catalana LEGO Sports Car" by dluders is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/?ref=openverse.
 
-Pranav Mahindru
-buyers dashboard, footer, navigation, add icons, seller dashboard, seller post Ad and preview Ad
-are taken from the A1, I will put all citation from my A1 individuals.
+*****
 
-Parth Patel - Citation
+## Parth Patel (Seller Analytics) - Citation
 
 I used the css file and code file from assignment 1 - individual with following citations:
 
@@ -328,21 +319,37 @@ I used the css file and code file from assignment 1 - individual with following 
 - React School. (n.d.). Button - React UI Components. react.school. Available: https://react.school/ui/button. Accessed: June 06, 2023
 - W3Schools. (n.d.). ES6 Array Methods. w3schools.com. Available: https://www.w3schools.com/react/react_es6_array_methods.asp. Accessed: June 06, 2023
 
+*****
+
 Parth Patel, Analytic_dashboard.js, Line 8 Chart.register(...registerables), I used this code to register the chart controller, https://stackoverflow.com/questions/65002923/chart-js-where-do-i-find-which-components-should-be-registered. Accessed: June 06, 2023c
+
+*****
 
 Parth Patel, ChatPage.js, Line 75-77, Close button icon, I referred to this code style the close button, https://stackoverflow.com/questions/63459047/tri-state-close-button. Accessed: June 06, 2023
 
+*****
+
 Parth Patel, DeletePage.js, Line 12-14, handleDelete(), I referred to this code to implement a filter and delet functionality, https://stackoverflow.com/questions/69323625/how-can-i-filter-out-an-item-by-its-id. Accessed: June 06, 2023
+
+*****
 
 Parth Patel, RenewPage.js, Line 13-19, handleRenew(), I referred to this code to learn how to store previous string array value amnd change its flag, https://stackoverflow.com/questions/64815353/how-is-the-previtem-getting-the-value-of-the-previous-item. Accessed: June 06, 2023
 
+*****
+
 Parth Patel, SellerRatingPage.js, Line 35, <i className="fas fa-star-half-alt"></i>, I used this code to show the half star srting for the page. I imported @fortawesome/fontawesome-free/css/all.css , https://www.w3schools.com/icons/tryit.asp?icon=fas_fa-star-half-alt&unicon=f5c0. Accessed: June 06, 2023
+
+*****
 
 Parth Patel, SellerRatingPage.js, Line 32, <i key={index} className="fas fa-star"></i>, I used this code to show the star srting for the page. I imported @fortawesome/fontawesome-free/css/all.css , https://www.w3schools.com/icons/tryit.asp?icon=far_fa-star&unicon=f005. Accessed: June 06, 2023
 
+*****
+
 Parth Patel, Analytic_dashboard.js, Line 5, react-chartjs-2 , I used this library to create line, bar and pie charts for the page . I imported react-chartjs-2, and lerant how to use it from: https://www.chartjs.org/docs/latest/getting-started/. Accessed: June 06, 2023
 
-Saiz Charolia
+*****
+
+## Saiz Charolia (Login/Register/forgetPassword) - Citation
 
 1. css referred from Assignment 1 (Individual Submission)
    URL: https://git.cs.dal.ca/charolia/csci-4177-5709-assignments/-/tree/main/Assignment1
@@ -354,6 +361,8 @@ Saiz Charolia
    Author: Saiz Charolia
    Date Accessed: 06/11/2023
 
+*****
+
 3. Login page and validation referred from Contact Mentor
    URL: https://contactmentor.com/login-form-react-js-code/
    Date Accessed: 06/11/2023
@@ -361,6 +370,8 @@ Saiz Charolia
 4. Image referred from icon8
    URL: https://icons8.com/illustrations/illustration/taxi-online-shop
    Date Accessed: 06/11/2023
+
+*****
 
 5. Form referred from handsonreact
    URL: https://handsonreact.com/docs/forms
@@ -371,6 +382,8 @@ Saiz Charolia
    https://fontawesome.com/v4/icon/eye
    Date Accessed: 06/11/2023
 
+*****
+
 7. Registeration form referred from geeksforgeeks
    URL: https://www.geeksforgeeks.org/how-to-develop-user-registration-form-in-reactjs/
    Date Accessed: 06/12/2023
@@ -378,6 +391,8 @@ Saiz Charolia
 8. Regex for password referred from stackoverflow
    URL: https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
    Date Accessed: 06/12/2023
+
+*****
 
 9. Image referred from icon8
    URL: https://icons8.com/illustrations/illustration/bloom-online-store
@@ -387,6 +402,8 @@ Saiz Charolia
     URL: https://www.section.io/engineering-education/registration-form-react.js-firebase/
     Date Accessed: 06/12/2023
 
+*****
+
 11. Forgot password referred from codevoweb
     URL: https://codevoweb.com/forgot-reset-password-in-reactjs-and-axios/
     Date Accessed: 06/13/2023
@@ -395,6 +412,281 @@ Saiz Charolia
     URL: https://www.makeuseof.com/password-reset-forgot-react-node-how-handle/
     Date Accessed: 06/13/2023
 
+*****
+
 13. Image referred from icon8
     URL: https://icons8.com/illustrations/illustration/abstract-password-recovery
     Date Accessed: 06/13/2023
+
+*****
+
+## Pranav Mahindru (Buyer dashboard, Navigation, footer, Seller Dashboard, Customer Support, Create/Preview Ad) - Citation
+
+*****
+
+### register.js and login.js
+
+*Lines 42-43* for login.js
+
+```
+/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+```
+
+The code above was created by adapting the code is shown below: 
+
+[1] “JavaScript : Email validation,” w3resource, https://www.w3resource.com/javascript/form/email-validation.php#:~:text=To%20get%20a%20valid%20email,%5D%2B (accessed June 20, 2023).
+
+```
+/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+```
+
+I am not able to change the regex because it was used for the form validation in the register and login page
+
+*****
+
+### createnewad.js
+
+*Lines 175*  
+
+```
+<input type='file' multiple onChange={handleImage} accept='image/png,image/jpg,image/jpeg' />
+```
+
+The code above was created by adapting the code is shown below: 
+
+[2] K. Nalawade, “How to implement multiple file uploads in react?,” Medium, https://levelup.gitconnected.com/how-to-implement-multiple-file-uploads-in-react-4cdcaadd0f6e (accessed June 20, 2023). 
+
+```
+Copy and paste the snippet of code you are referencing
+<input id='fileUpload' type='file' multiple accept='application/pdf, image/png'/>
+```
+
+I am not able to change this because I need to upload png/jpg/jpeg multiple image. I used `multiple` and `accept` in the code. 
+
+*****
+
+### footer.css
+
+*Lines 8*  
+
+```
+margin-top: auto;
+```
+
+The code above was created by adapting the code is shown below: 
+
+[3] “Sticky footer in react (best solution),” YouTube, https://www.youtube.com/watch?v=pggIVY5eOGM (accessed June 20, 2023).
+
+```
+margin-top: auto;
+```
+
+I saw the video and I  used the `margin-top: auto;` to make sure that footer should be bottom of the page
+
+*****
+
+### navbarbuyer.js
+
+*Lines 56-110*  
+
+```
+<li><NavLink to='/' state={getLocation.state} className={currentPath === '/' ? 'active_page' : ''}> Dashboard </NavLink></li>
+<li><NavLink to='/analytics' state={getLocation.state} className={currentPath === '/analytics' ? 'active_page' : ''}> Analytics </NavLink></li>
+<li><NavLink to='/orders' state={getLocation.state} className={currentPath === '/orders' ? 'active_page' : ''}> Orders </NavLink></li>
+<li><NavLink to='/postAd' state={getLocation.state} className={currentPath === '/postAd' ? 'active_page' : ''}> Post Ad </NavLink></li>
+<li><NavLink to='#' state={getLocation.state}><MessageIcon/></NavLink></li>
+<li><NavLink to='#' state={getLocation.state}><NotificationIcon/></NavLink></li>
+<li><NavLink to='/account' state={getLocation.state} className={currentPath === '/account' ? 'active_page' : ''}> Account </NavLink></li>
+<li><NavLink to='/login' state={getLocation.state} className={currentPath === '/login' ? 'active_page' : ''}> Sign In<br/>Sign Up </NavLink></li>
+```
+
+The code above was created by adapting the code is shown below: 
+
+[4] R. singh, “How to pass state or data in react-router V6,” Medium, https://medium.com/frontendweb/how-to-pass-state-or-data-in-react-router-v6-c366db9ee2f4 (accessed June 20, 2023). 
+
+[5] “REACT router: Declarative routing for react,” ReactRouterWebsite, https://v5.reactrouter.com/web/api/NavLink (accessed June 20, 2023).
+
+```
+<NavLink
+  to="/faq"
+  className={isActive =>
+    "nav-link" + (!isActive ? " unselected" : "")
+  }
+>
+  FAQs
+</NavLink>
+```
+
+I  read the whole docs and learn about NavLink also put the condition in it so that I change the color of navigation link for the current page and redirect to the another page.
+
+*****
+
+### navbarbuyer.js
+
+*Lines 19*  && *Lines 34*  
+
+```
+setClicked((prevState) => (!prevState))
+```
+
+The code above was created by adapting the code is shown below: 
+
+[6] user11224591user11224591 et al., “React’s SETSTATE method with Prevstate Argument,” Stack Overflow, https://stackoverflow.com/questions/55495198/reacts-setstate-method-with-prevstate-argument (accessed June 20, 2023). 
+
+```
+Increment = () => {
+this.setState((prevState) => ({
+    options: prevState.count + 1)
+}));
+}
+```
+
+I took a reference used in the navigation bar in mobile version and it work like a `toggle`.
+
+*****
+
+### for all css files
+
+[7] T. V. Damme et al., “A complete guide to flexbox: CSS-tricks,” CSS, https://css-tricks.com/snippets/css/a-guide-to-flexbox/ (accessed June 20, 2023).  
+
+I took reference from the above link and learnt more about the flex styling in css.
+
+*****   
+
+### App.js
+
+*Lines 42-89* 
+
+```
+<BrowserRouter>
+    <NavBarBuyer/>
+    <Routes>
+    {/* for User management */}
+    <Route path='/login' element={<LoginPage/>}/>
+    <Route path='/register' element={<RegisterPage/>}/>
+
+    {/* for other pages */}
+    <Route path='/' element={<DashBoard/>}/>
+    <Route path='/postAd' element={<CreateNewAd/>}/>
+    <Route path='/analytics' element={<Analytics/>}/>
+    <Route path='/orders' element={<Orders/>}/>
+    <Route path='/preview' element={<Preview/>}/>
+    </Routes>
+    <Footer/>
+    {/* top button here */}
+</BrowserRouter>
+```
+
+[8] enamul haqueenamul haque 99511 gold badge99 silver badges1717 bronze badges et al., “Switch’ is not exported from ‘react-router-dom,’” Stack Overflow, https://stackoverflow.com/questions/69843615/switch-is-not-exported-from-react-router-dom (accessed June 20, 2023). 
+
+[9] React router, https://www.w3schools.com/react/react_router.asp (accessed June 20, 2023).
+
+```
+<BrowserRouter>
+    <Routes>
+    <Route path="/" element={<Home />} />
+    </Routes>
+</BrowserRouter>
+```
+
+I took the reference for routing in website using the Routes because not able to use Switch.
+
+*****  
+
+### useState and useEffect
+
+[10] Login - Dalhousie University, https://dal.brightspace.com/d2l/le/content/274269/viewContent/3608648/View (accessed June 20, 2023).
+
+I took reference from the above link and learnt more about useState and useEffect.
+
+***** 
+
+### under icons folder
+
+[11] React icons - github pages, https://react-icons.github.io/react-icons/icons?name=md (accessed June 20, 2023).
+
+I took reference from the above link and imported all the icons from there which I used in the website.
+
+***** 
+
+### preview.js
+
+*Lines 51-55* 
+
+```
+{
+    getObject[0]['sendImageFiles'].map((images,index)=>(
+        <div key={index}>
+            <div>{getObject[0]['sendImageFiles'][index]['name']}</div>
+        </div>
+    ))
+}
+```
+
+[12] Tim Mouskhelichvili, “How to loop through an array of objects in react?,” Tim Mouskhelichvili, https://timmousk.com/blog/react-loop-through-array-of-objects/ (accessed June 20, 2023).  
+
+```
+animals.forEach((animal, index) => {
+    list.push(
+      <div key={index}>
+        <div>Type: {animal.type}</div>
+        <div>Age: {animal.age}</div>
+      </div>
+    );
+  });
+```
+
+I took reference from the above link and learnt about loop around the div and show responses.
+
+***** 
+
+### IN All pages
+
+```
+const getLocation = useLocation();
+```
+
+or 
+
+```
+navigate('/preview', {state: {
+    data: [{sendImageFiles: selectImageFiles},
+    {sendTitle: title},{sendPrice: price},{sendDescription: description},{sendProduct_tag: product_tag},
+    {sendLocation: location},{sendCondition: selectCondition},{sendPayments: selectPayments}],
+    getUserData
+}});
+```
+
+[13] N. M, “How to pass data between pages in react-router-DOM V6?,” in, https://plainenglish.io/blog/how-to-pass-data-between-pages-in-react-router-dom-v6#2-through-url-states (accessed June 20, 2023).  
+
+```
+navigate and getting the data using useLocation
+```
+
+I took reference from the above link and learnt about how to useLocation and navigate with the data and show them in the UI.
+
+***** 
+
+### createnewad.js
+
+*Lines 41* 
+
+```
+saveInFiles[i] = URL.createObjectURL(e.target.files[i]);
+```
+
+[14] “How to upload image and preview it using reactjs ?,” GeeksforGeeks, https://www.geeksforgeeks.org/how-to-upload-image-and-preview-it-using-reactjs/ (accessed June 20, 2023).    
+
+```
+URL.createObjectURL
+```
+
+I took reference from the above link and learnt about URL.createObjectURL to show image in the preview.js.
+
+***** 
+
+## Acknowledgments
+
+
+
+*****
