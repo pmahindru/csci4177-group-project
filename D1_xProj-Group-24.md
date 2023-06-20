@@ -2,6 +2,9 @@
 
 <!--
     Your Name, File Name, Line Number + (piece of code), Small Description (why did you take that), Link of the website
+ -->
+
+ Patrick wooden
 
 ### orderhistory.js
 
@@ -60,21 +63,21 @@ location.state;
 *Lines 133-137*
 
 ```
-  {orders.map((order) => (
-          <Grid item xs={12} md={12}>
-            <OrderHistoryCard key={order.id} product={order.product} status={order.status} address={order.address} photo={order.photoUrl} />
-          </Grid>
-        ))}
+{orders.map((order) => (
+  <Grid item xs={12} md={12}>
+    <OrderHistoryCard key={order.id} product={order.product} status={order.status} address={order.address} photo={order.photoUrl} />
+  </Grid>
+))}
 ```
 
 The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below: 
 
 ```
 (posts.map((item) =>
-                        // Presently we only fetch 
-                        // title from the API 
-                        <h4>{item.title}</h4>)
-                    )
+    // Presently we only fetch 
+    // title from the API 
+    <h4>{item.title}</h4>)
+)
 ```
 
 - <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
@@ -97,10 +100,10 @@ The code above was created by adapting the code in [geeksforgeeks](https://www.g
 
 ```
 (posts.map((item) =>
-                        // Presently we only fetch 
-                        // title from the API 
-                        <h4>{item.title}</h4>)
-                    )
+    // Presently we only fetch 
+    // title from the API 
+    <h4>{item.title}</h4>)
+)
 ```
 
 - <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
@@ -125,8 +128,8 @@ The code above was created by adapting the code in [geeksforgeeks](https://www.g
 
 -------------------------
  <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-              <MenuItem onClick={handleClose}>Remove from Favorites</MenuItem>
-            </Menu>
+  <MenuItem onClick={handleClose}>Remove from Favorites</MenuItem>
+</Menu>
 
 ```
 
@@ -134,10 +137,10 @@ The code above was created by adapting the code in [mui](https://mui.com/materia
 
 ```
 (posts.map((item) =>
-                        // Presently we only fetch 
-                        // title from the API 
-                        <h4>{item.title}</h4>)
-                    )
+    // Presently we only fetch 
+    // title from the API 
+    <h4>{item.title}</h4>)
+)
 ```
 
 - <How> The code in [mui](https://mui.com/material-ui/react-menu/) was implemented by Patrick Wooden
@@ -170,31 +173,31 @@ The code above was created by adapting the code in [mui](https://mui.com/materia
 *Lines 37-61*
 
 ```
-                    <NavLink href="/order-history" className="simple-navbar-link"  onClick={() => handleNavLinkClick('order-history')}>Order History</NavLink>
-              </li>
-              <li className={`order-navbar-item ${active === 'track-orders' ? 'active_page_navigation' : ''}`}>
-                  <NavLink href="/track-orders" className="simple-navbar-link" onClick={() => handleNavLinkClick('track-orders')}>Track Orders</NavLink>
-              </li>
-              <li className={`order-navbar-item ${active === 'favourites' ? 'active_page_navigation' : ''}`}>
-                  <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('favourites')}>Favourites</NavLink>
-              </li>
-              <li className={`order-navbar-item ${active === 'payments' ? 'active_page_navigation' : ''}`}>
-                  <NavLink href="#" className="simple-navbar-link"  onClick={() => handleNavLinkClick('payments')}>Payments</NavLink>
-              </li>
-              <li className={`order-navbar-item ${active === 'rating-review' ? 'active_page_navigation' : ''}`}>
-                  <NavLink href="#" className="simple-navbar-link"  onClick={() => handleNavLinkClick('rating-review')}>Rating/Review</NavLink>
-              </li>
-              <li className={`order-navbar-item ${active === 'cart' ? 'active_page_navigation' : ''}`}>
-                  <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('cart')}>Cart</NavLink>
-              </li>
-          </ul>
-      </nav><div className='PageContainer'>
-              {active === 'order-history' && <OrderHistoryPage />}
-              {active === 'track-orders' && <TrackOrders />}
-              {active === 'favourites' && <Favourites />}
-              {active === 'payments' && <AccountPayments />}
-              {active === 'rating-review' && <RatingAndReviews />}
-              {active === 'cart' && <Cart />}
+        <NavLink href="/order-history" className="simple-navbar-link"  onClick={() => handleNavLinkClick('order-history')}>Order History</NavLink>
+  </li>
+  <li className={`order-navbar-item ${active === 'track-orders' ? 'active_page_navigation' : ''}`}>
+      <NavLink href="/track-orders" className="simple-navbar-link" onClick={() => handleNavLinkClick('track-orders')}>Track Orders</NavLink>
+  </li>
+  <li className={`order-navbar-item ${active === 'favourites' ? 'active_page_navigation' : ''}`}>
+      <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('favourites')}>Favourites</NavLink>
+  </li>
+  <li className={`order-navbar-item ${active === 'payments' ? 'active_page_navigation' : ''}`}>
+      <NavLink href="#" className="simple-navbar-link"  onClick={() => handleNavLinkClick('payments')}>Payments</NavLink>
+  </li>
+  <li className={`order-navbar-item ${active === 'rating-review' ? 'active_page_navigation' : ''}`}>
+      <NavLink href="#" className="simple-navbar-link"  onClick={() => handleNavLinkClick('rating-review')}>Rating/Review</NavLink>
+  </li>
+  <li className={`order-navbar-item ${active === 'cart' ? 'active_page_navigation' : ''}`}>
+      <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('cart')}>Cart</NavLink>
+  </li>
+</ul>
+</nav><div className='PageContainer'>
+  {active === 'order-history' && <OrderHistoryPage />}
+  {active === 'track-orders' && <TrackOrders />}
+  {active === 'favourites' && <Favourites />}
+  {active === 'payments' && <AccountPayments />}
+  {active === 'rating-review' && <RatingAndReviews />}
+  {active === 'cart' && <Cart />}
 ```
 
 The code above was created by adapting the code in [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts) as shown below: 
@@ -234,8 +237,6 @@ The code above was created by adapting the code in [mui](https://mui.com/materia
 Sources for images used:
 The images below were used in this assignment with proper author attributions which were retrived off Creative Commons
 "Catalana LEGO Sports Car" by dluders is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/?ref=openverse.
--->
--->
 
 Pranav Mahindru
 buyers dashboard, footer, navigation, add icons, seller dashboard, seller post Ad and preview Ad
