@@ -91,7 +91,7 @@ const CreateReviewCard = (ad) => {
 
 const CreateReview = () => {
   return (
-    <div style={{ padding: '20px' }} className="order-create-review">
+    <div style={{ padding: '20px' }}>
       <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={12} alignItems="center">
           <Grid container justifyContent="center">
