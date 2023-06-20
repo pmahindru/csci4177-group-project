@@ -15,7 +15,7 @@ This project is the creation of ShopAesthetics proposed online marketplace where
 
 * [Pranav Mahindru](pranav.mahindru@dal.ca) - *Full Stack Developer*
 * [Patrick Wooden](pt308649@dal.ca) -  *Full Stack Developer*
-* [Joel Kuruvilla](email@dal.ca) -  *Full Stack Developer*
+* [Joel Kuruvilla](jl567056@dal.ca) -  *Full Stack Developer*
 * [Saiz Charolia](sz500426@dal.ca) -  *Full Stack Developer*
 * [Parth Patel](pr715312@dal.ca) -  *Full Stack Developer*
 
@@ -685,8 +685,12 @@ I took reference from the above link and learnt about URL.createObjectURL to sho
 
 ***** 
 
+## Joel Kuruvilla (About Us/ touched up navigation/ bug fixes) - Citation
+
+There are no citation for about us page.
+
 ## Acknowledgments
 
-
+Everyone refer to their A1 assignment code
 
 *****
