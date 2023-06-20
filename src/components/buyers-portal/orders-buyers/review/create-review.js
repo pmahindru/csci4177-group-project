@@ -65,7 +65,7 @@ const CreateReviewCard = (ad) => {
         <Grid item xs={4} md={4}>
           <StyledTypography>
             <h2>Overall Rating</h2>
-            <Rating defaultValue={2} precision={0.5}/>
+            <Rating defaultValue={1} precision={1}/>
           </StyledTypography>
         </Grid>
         <Grid item xs={5} md={6}>
