@@ -13,7 +13,7 @@ import CreateNewAd from "./components/seller-portal/postadd/createnewads";
 import DashBoardBuyer from "./components/buyers-portal/dashboard/dashboard-buyer";
 import AboutUs from "./components/account/about_us";
 import ProfileSetting from "./components/account/profilesetting";
-import Analytical_dashboard from "./components/seller-portal/analytics-seller/Analytic_dashboard";
+import AnalyticalDashboard from "./components/seller-portal/analytics-seller/Analytic_dashboard";
 import ActiveAdsPage from "./components/seller-portal/analytics-seller/ActiveAdsPage";
 import DeletePage from "./components/seller-portal/analytics-seller/DeletePage";
 import DraftsPage from "./components/seller-portal/analytics-seller/DraftsPage";
@@ -28,6 +28,8 @@ import CustomerSupport from "./components/customer-support/customer_support";
 import NotFound from "./components/notfoundpage";
 import OrderSeller from "./components/seller-portal/orders-seller/orders_seller";
 import NotificationSetting from "./components/account/notificationsetting";
+import OrdersBuyers from "./components/buyers-portal/orders-buyers/orders-buyers";
+import CreateReview from "./components/buyers-portal/orders-buyers/review/create-review";
 
 function App() {
   // this array contains only seller portal
@@ -52,14 +54,15 @@ function App() {
           <Route path='/forgotpassword' element={<ForgotPassword/>}/>
 
           {/* For Buyer's Portal */}
-          <Route path="/" element={<DashBoardBuyer/>}/>
-
+          <Route path='/' element={<DashBoardBuyer/>}/>
+          <Route path='/orders' element={<OrdersBuyers/>}/>
+          <Route path='/createreview' element={<CreateReview/>}/>
           {/* For Seller's Portal */}
           <Route path="/dashboard" element={<DashBoardSeller/>}/>
           <Route path="/postAd" element={<CreateNewAd/>}/>
           <Route path="/preview" element={<Preview/>}/>
           <Route path='/business_orders' element={<OrderSeller/>}/>
-          <Route path="/analytics" element={<Analytical_dashboard/>}/>
+          <Route path="/analytics" element={<AnalyticalDashboard/>}/>
           <Route path="/analytics/active-ads" element={<ActiveAdsPage/>}/>
           <Route path="/analytics/delete-ads" element={<DeletePage/>}/>
           <Route path="/analytics/draft-ads" element={<DraftsPage/>}/>
