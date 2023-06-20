@@ -1,3 +1,4 @@
+/* Created By: Pranav Mahindru*/
 import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./navigation.css";
@@ -47,7 +48,7 @@ function NavBarBuyer() {
       {/* logo */}
       <div className="navbar-website-name" onClick={handleOnClickNavBar}>
         <li className="navbar-website-name-text">
-          <NavLink to="/">ShopAesthetics</NavLink>
+          <NavLink onClick={() => handleOnClickNavBarReload("/")}>ShopAesthetics</NavLink>
         </li>
       </div>
 

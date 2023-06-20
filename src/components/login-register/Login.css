@@ -6,24 +6,24 @@
 
 .login-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: white;
 }
 
-.company-info {
+.login-text-image {
   display: flex;
-  flex: 1;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  flex: 2;
+  margin: 10px;
+  padding: 10px;
+  font-weight: bold;
+  color: #6102dc;
+  text-align: center;
 }
 
-.company {
-  margin-bottom: 20px;
-  font-size: large;
-  width: 80%;
-  text-align: center;
+.login-image {
+  width: 300px;
 }
 
 .login-form {
@@ -32,7 +32,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
   min-height: 100vh;
 }
 
@@ -40,8 +39,7 @@
   display: flex;
   flex-flow: column;
   margin: 0 2rem;
-  width: 65%;
-  
+  width: 100%;
 }
 
 .login h2 {
@@ -51,15 +49,15 @@
 
 .login-form label,
 .login-form input,
-button {
+.login-form button {
   display: block;
   margin-bottom: 0.5rem;
   width: 100%;
   box-sizing: border-box;
 }
 
-.login-form input{
-  height: 30px;
+.login-form input {
+  height: 50px;
 }
 
 .login-form .forgot-password {
@@ -67,13 +65,22 @@ button {
   margin-bottom: 1rem;
 }
 
-button {
+.login-form .forgot-password a {
+  color: rgb(33, 33, 33);
+  text-decoration: none;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.login-form .forgot-password a:hover {
+  color: #5607be;
+}
+
+.login-form button {
   height: 40px;
-  
   color: white;
   border: none;
   font-size: medium;
-  
 }
 
 .login-form button[type="submit"] {
@@ -82,7 +89,7 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease;
   color: white;
-  background-color:  #6C4998;
+  background-color: #6C4998;
 }
 
 .login-form button[type="submit"]:hover {
@@ -94,9 +101,19 @@ button {
   text-align: right;
 }
 
-.headlines h4 {
-  align-items: center;
-  margin-top: -20px;
+.login-form .signup-link {
+  text-align: right;
+}
+
+.login-form .signup-link a {
+  color: rgb(33, 33, 33);
+  text-decoration: none;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.login-form .signup-link a:hover {
+  color: #5607be;
 }
 
 .password-input {
@@ -111,18 +128,42 @@ button {
   cursor: pointer;
 }
 
-.login-form p {
-  color: red;
+@media (max-width: 685px) {
+  .login-text-image {
+    margin: 8px;
+    padding: 8px;
+  }
+
+  .login-image {
+    width: 250px;
+  }
 }
 
-.headlines img{
-  height: auto;
-  width: 340px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  margin-top: 80%;
+@media (max-width: 560px) {
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px;
+  }
+
+  .login-text-image {
+    margin: 6px;
+    padding: 6px;
+  }
+
+  .login-image {
+    width: 200px;
+  }
+
+  .login-form {
+    background-color: white;
+    min-height: 50vh;
+    align-items: center;
+  }
+
+  .login-form label,
+  .login-form input,
+  .login-form button {
+    padding: 5px;
+  }
 }
-
-
-

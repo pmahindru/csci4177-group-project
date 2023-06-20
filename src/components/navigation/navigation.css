@@ -1,3 +1,4 @@
+/* Created By: Pranav Mahindru*/
 nav {
     display: flex;
     justify-content: space-between;
@@ -7,14 +8,15 @@ nav {
 }
 
 .navbar-website-name {
-    margin: 2vh 1% 1px 1%; /*[TLBR - Top, Left, Bottom, Right]*/
+    /*[TLBR - Top, Left, Bottom, Right]*/
+    margin: 2vh 1% 1px 1%;
 }
 
 .navbar-website-name-text {
     width: fit-content;
     font-size: 18px;
     font-weight: bold;
-    margin: 2px;
+    margin: 1px;
     list-style: none;
 }
 
@@ -27,6 +29,8 @@ nav {
     display: flex;
     list-style: none;
     padding: 10px;
+    /*[TLBR - Top, Left, Bottom, Right]*/
+    margin: 1vh 0% 0px 0%;
 }
 
 .navbar-links li {
@@ -117,10 +121,6 @@ nav {
 }
 
 @media (max-width: 860px) {
-    .navbar-search {
-        margin: 2px;
-    }
-
     .navbar-search-input i {
         font-size: 18px;
     }
@@ -134,7 +134,8 @@ nav {
     .mobile-version {
         display: block;
         padding: 5px;
-        margin: 5px;
+        /*[TLBR - Top, Left, Bottom, Right]*/
+        margin: 1.2vh 0% 0px 1%;
     }
 
     nav {
@@ -146,7 +147,7 @@ nav {
         display: flex;
         flex-direction: column;
         position: fixed;
-        top: 55px;
+        top: 50px;
         right: -300px;
         height: 100vh;
         width: 240px;
@@ -189,18 +190,17 @@ nav {
     .navbar-search-input input {
         font-size: 8px;
     }
-
-    .navbar-website-name {
-        font-size: 12px;
-        margin-left: 2px;
-        margin-right: 2px;
-    }
 }
 
 @media (max-width: 300px) {
     .navbar-search {
         padding: 0%;
-        margin: 0px;
+    }
+}
+
+@media (max-width: 350px) {
+    .navbar-website-name-text {
+        font-size: 12px;
     }
 }
 

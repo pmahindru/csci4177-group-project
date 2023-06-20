@@ -1,3 +1,4 @@
+/* Created By: Pranav Mahindru*/
 import Facebook from '../icons/facebook';
 import Instagram from '../icons/insta';
 import Twitter from '../icons/twitter';
@@ -23,9 +24,6 @@ function Footer() {
                 </span>
                 <span className='website-name-footer'>
                     ShopAesthetics
-                </span>
-                <span>
-                    <NavLink onClick={() => handleOnClickNavBarReload("/customer_support")}> Contact us </NavLink>
                 </span>
                 <span>
                     <NavLink onClick={() => handleOnClickNavBarReload("/customer_support")}> Customer Support </NavLink>

@@ -1,3 +1,4 @@
+/* Created By: Pranav Mahindru*/
 /* This is my own css */
 .footer {
     display: flex;
@@ -22,6 +23,7 @@
 
 .website-name-footer {
     font-size: 25px;
+    font-weight: bold !important;
 }
 
 /* horizontal line */
@@ -53,7 +55,31 @@
 }
 
 /* tab and mobile media query */
-@media (max-width: 560px) {
+@media (max-width: 670px) {
+    .footer-text span {
+        font-size: 18px;
+    }
+
+    .bottom-text-footer {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 656px) {
+    .footer-text span {
+        font-size: 16px;
+    }
+
+    .footer-icon {
+        margin: 4px;
+    }
+
+    .bottom-text-footer {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 600px) {
     .footer {
         display: flex;
         flex-direction: row;
@@ -66,25 +92,44 @@
     }
 
     .footer-text span {
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .website-name-footer {
-        font-size: 10px;
-        font-weight: bold;
+        font-size: 14px !important;
     }
 
     .hr-line-footer {
         transform: rotate(-90deg);
+        margin: 5px;
         width: 20%;
     }
 
     .footer-icon {
-        margin: 0px;
+        margin: 2px;
     }
 
     .bottom-text-footer {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 490px) {
+    .footer-text span {
         font-size: 10px;
+    }
+
+    .website-name-footer {
+        font-size: 12px !important;
+    }
+
+    .hr-line-footer {
+        display: none;
+    }
+
+    .social-media-links-footer {
+        font-size: 20px;
+        padding: 10px;
     }
 }
 
@@ -93,15 +138,10 @@
         font-size: 18px;
         display: flex;
         flex-direction: column;
-        padding: 10px;
     }
 }
 
 @media (max-width: 300px) {
-    .hr-line-footer {
-        display: none;
-    }
-
     .footer {
         padding: 5px;
     }

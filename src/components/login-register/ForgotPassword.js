@@ -19,10 +19,8 @@ function ForgotPassword() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isCodeSent, setIsCodeSent] = useState(false);
   const [isCodeValid, setIsCodeValid] = useState(false);
-  const [passwordError, setPasswordError] = useState('');
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -46,6 +44,7 @@ function ForgotPassword() {
     if (resetCode === '1234') {
       setIsCodeValid(true);
     } else {
+      alert("Code is not Match please try again");
       setIsCodeValid(false);
     }
   };
@@ -58,36 +57,32 @@ function ForgotPassword() {
     // Date Accessed: 06/13/2023
     const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()]).{8,}$/;
     if (!passwordRegex.test(newPassword)) {
-      setPasswordError(
-        'Password should be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one special character (!@#$%^&*())'
-      );
+      alert('Password should be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one special character (!@#$%^&*())');
       return;
     }
   
     if (newPassword !== confirmPassword) {
-      setPasswordError('Passwords do not match.');
+      alert('Passwords do not match.');
       return;
     }
 
-    window.location.href = '/';
+    alert('Successfully Password Updated\nPlease Login with new Password');
+    window.location.href = '/login';
   };
-  
 
   return (
     <div className="forgotpassword-container">
-      <div className="company-info">
-        <div className="company">
-          <div className="headlines">
-            {/* 
-              Image referred from icon8
-              URL: https://icons8.com/illustrations/illustration/abstract-password-recovery
-              Date Accessed: 06/13/2023 
-          */}
-          <img src={fimage} alt="Image3 " />
-          </div>
-        </div>
+      <div className="forgotpassword-text-image ">
+         {/* 
+            Image referred from icon8
+            URL: https://icons8.com/illustrations/illustration/abstract-password-recovery
+            Date Accessed: 06/13/2023 
+        */}
+        <img src={fimage} alt="Image3" className="forgotpassword-image"/>
+        <h3>
+          Don't Worry<br/>You can change Password
+        </h3>
       </div>
-
       <div className="forgotpassword-form">
         <div className='forgotpassword'>
           <h2>Forgot Password</h2>
@@ -96,7 +91,6 @@ function ForgotPassword() {
           // Form referred from sectio.io
           // URL: https://www.section.io/engineering-education/registration-form-react.js-firebase/
           // Date Accessed: 06/12/2023
-      
             <form onSubmit={handleSendCode}>
               <label>
                 Registered Email:
@@ -109,6 +103,7 @@ function ForgotPassword() {
               </label>
               <br />
               <button type="submit">Send Reset Code</button>
+              <button><a href="/login"> Back to Login </a></button>
             </form>
           )}
 
@@ -163,20 +158,16 @@ function ForgotPassword() {
                   className="password-toggle"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
-                  
                   <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
                 </span>
               </div>
               <br />
               <button type="submit">Reset Password</button>
-              {passwordError && <p>{passwordError}</p>}
             </form>
           )}
-
         </div>
       </div>
     </div>
-    
   );
 }
 
