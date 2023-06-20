@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./style.css";
 
 const DraftsPage = () => {
-  const [drafts, setDrafts] = useState([
+  const [drafts] = useState([
     {
       id: 1,
       title: "Draft 1",

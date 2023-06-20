@@ -6,7 +6,6 @@ import { styled } from '@mui/system';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { useNavigate } from "react-router-dom";
 
-
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
@@ -69,17 +68,17 @@ const OrderHistoryCard = (order) => {
         </Grid>
         <Grid item xs={4} md={4} sx={{ margin: '10px' }}>
           <StyledTypography>
-            <p>{product}</p>
+            {product}
           </StyledTypography>
         </Grid>
         <Grid item xs={4} md={4}>
           <StyledTypography>
-            <p>Status: {status}</p>
+            Status: {status}
           </StyledTypography>
         </Grid>
         <Grid item xs={5} md={6}>
           <StyledTypography>
-            <p> Shipped to: {address}</p>
+            Shipped to: {address}
           </StyledTypography>
         </Grid>
         <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
@@ -109,7 +108,7 @@ const OrderHistoryPage = () => {
       address: '456 Halifax Road',
     },
     {
-      id: 2,
+      id: 3,
       product: 'bat',
       photoUrl: '',
       status: 'Delivered',
@@ -132,7 +131,7 @@ const OrderHistoryPage = () => {
           </Typography>
         </Grid>
         {orders.map((order) => (
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} key={order.id}>
             <OrderHistoryCard key={order.id} product={order.product} status={order.status} address={order.address} photo={order.photoUrl} />
           </Grid>
         ))}

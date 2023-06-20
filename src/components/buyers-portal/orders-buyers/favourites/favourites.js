@@ -1,6 +1,6 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useState } from 'react';
-import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
+import { Grid, Card, CardMedia, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import car from '../images/download.jpg';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -35,8 +35,6 @@ const StyledCardMedia = styled(CardMedia)({
   paddingTop: '5px',
 });
 
-
-
 const FavouritesCard = (ad) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -48,7 +46,7 @@ const FavouritesCard = (ad) => {
     setAnchorEl(null);
   };
 
-  const { product, status, address, photoUrl } = ad;
+  const { product, status, address } = ad;
 
   return (
     <div style={{ paddingBottom: '5px' }}>
@@ -89,21 +87,18 @@ const Favourites = () => {
     {
       id: 1,
       product: 'Car',
-      photoUrl: 'https://',
       adstatus: 'Active',
       seller: 'YoungMark',
     },
     {
       id: 2,
       product: 'bat',
-      photoUrl: '',
       adstatus: 'Removed',
       seller: 'Kevin23',
     },
     {
       id: 2,
       product: 'Bike',
-      photoUrl: '',
       adstatus: 'Paused',
       seller: 'Bobby346',
     },

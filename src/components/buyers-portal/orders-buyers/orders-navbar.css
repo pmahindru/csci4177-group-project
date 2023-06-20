@@ -1,73 +1,71 @@
 .order-navbar {
-    width: 100%;
-    background-color: #7a7878;
-    padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .order-navbar-list {
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-  }
-  
-  .order-navbar-item {
-    flex-grow: 1;
-    margin-right: 10px;
-    text-align: center;
-    width: 16%;
-    color: white;
-  }
-  
+  width: 100%;
+  background-color: #7a7878;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  z-index: -1;
+}
+
+.order-navbar-list {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.order-navbar-item {
+  flex-grow: 1;
+  margin-right: 10px;
+  text-align: center;
+  width: 16%;
+  color: white;
+}
+
+.order-navbar-links {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  width: 100%;
+  font-size: 18px;
+}
+
+.order-navbar-links li {
+  margin-left: 20px;
+  flex-grow: 1;
+}
+
+.order-navbar-links li a {
+  color: white;
+  text-decoration: none;
+}
+
+.order-navbar-links li a:hover {
+  color: #d9bcff;
+}
+
+@media screen and (max-width: 805px) {
   .order-navbar-links {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    list-style: none;
-    padding: 10px;
-    margin: 0;
-    width: 100%;
-    font-size: 18px;
+    font-size: 12px;
   }
-  
-  .order-navbar-links li {
-    margin-left: 20px;
-    flex-grow: 1;
-  }
-  
-  .order-navbar-links li a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .order-navbar-links li a:hover {
-    color: #d9bcff;
-  }
-  
 
-  
+  .order-navbar {
+    margin-top: 70px;
+    margin-bottom: 70px;
+  }
 
-  @media screen and (max-width: 805px) {
-    .order-navbar-links {
-      font-size: 12px;
-    }
-  
-    .order-navbar {
-      margin-top: 70px;
-      margin-bottom: 70px;
-    }
-    .PageContainer{
-        margin-top: 120px;
-    }
+  .PageContainer {
+    margin-top: 120px;
   }
-  
-  @media screen and (max-width: 400px) {
-    .simple-navbar-link {
-      font-size: 10px;
-    }
+}
+
+@media screen and (max-width: 400px) {
+  .simple-navbar-link {
+    font-size: 10px;
   }
-  
+}

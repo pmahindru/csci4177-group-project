@@ -1,6 +1,6 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React from 'react';
-import { Grid, Card,CardMedia, Button, Typography } from '@mui/material';
+import { Grid, Card,CardMedia, Typography } from '@mui/material';
 import car from "../images/download.jpg";
 import { styled } from '@mui/system';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -36,7 +36,7 @@ const StyledCardMedia = styled(CardMedia)({
 
 
 const TrackOrdersCard = (order) => {
-    const{product, status, address, photoUrl} = order;
+    const{product, status, address} = order;
     return (
       
       <div style={{ paddingBottom: '5px' }}>
