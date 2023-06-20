@@ -61,7 +61,7 @@ const TrackOrdersCard = (order) => {
             </Grid>
             <Grid item xs={5} md={6}>
               <StyledTypography>
-                <p> Shipped to: {address}</p>
+                <p> Expected Arrival Date: {address}</p>
               </StyledTypography>
             </Grid>
           </StyledCard>
