@@ -13,8 +13,10 @@ export const createUser = async (data) => {
 
 export const getAllUser = async () => {
     try {
-        const res = await axios.post(`${baseURL}/`);
+        const res = await axios.get(`${baseURL}/`);
+        console.log(res);
         return res.data; 
+        
     } catch (error) {
         console.error(error);
     }
