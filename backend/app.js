@@ -21,7 +21,7 @@ app.use(express.json());
 app.get("/api/",async(request,response)=>{
     try {
         // Connect the client to the server    (optional starting in v4.7)
-         await client.connect();
+        await client.connect();
     
         const db = client.db("User_Management");
         const collection = db.collection("Signup");
@@ -75,7 +75,3 @@ app.post("/api/register", async(request,response)=>{
 });
 
 module.exports = app;
-  
-  
-  
-
