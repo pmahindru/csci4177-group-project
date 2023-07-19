@@ -1,11 +1,11 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
 import car from "../images/download.jpg";
 import { styled } from '@mui/system';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { useNavigate } from "react-router-dom";
-
+import { getOrderHistory } from '../../../../api';
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
@@ -91,30 +91,21 @@ const OrderHistoryCard = (order) => {
   );
 };
 
-const OrderHistoryPage = () => {
-  const orders = [
-    {
-      id: 1,
-      product: 'Car',
-      photoUrl: '',
-      status: 'Shipped',
-      address: '1234 James Winfield',
-    },
-    {
-      id: 2,
-      product: 'bat',
-      photoUrl: '',
-      status: 'Delivered',
-      address: '456 Halifax Road',
-    },
-    {
-      id: 3,
-      product: 'bat',
-      photoUrl: '',
-      status: 'Delivered',
-      address: '456 Halifax Road',
-    },
-  ];
+const OrderHistoryPage =  () => {
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    const fetchOrderHistory = async () => {
+      try {
+        const result = await getOrderHistory();
+        console.log(result.data);
+        setOrders(result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchOrderHistory();
+  }, []);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -129,12 +120,14 @@ const OrderHistoryPage = () => {
             <span>Order by Date</span>
             <CalendarMonthIcon style={{ marginLeft: '5px' }} />
           </Typography>
+          {orders.map((order) => (
+        <div key={order._id}>
+          <p>Order ID: {order._id}</p>
+          
+        </div>
+      ))}
         </Grid>
-        {orders.map((order) => (
-          <Grid item xs={12} md={12} key={order.id}>
-            <OrderHistoryCard key={order.id} product={order.product} status={order.status} address={order.address} photo={order.photoUrl} />
-          </Grid>
-        ))}
+        
       </Grid>
     </div>
   );

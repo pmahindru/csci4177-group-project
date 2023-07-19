@@ -12,13 +12,15 @@ import './Login.css';
 import limage from '../images/login.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-
+import { getAllUser } from '../../api';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    const t = await getAllUser();
+    console.log(t);
     e.preventDefault();
     /**
      * Pranav Mahindru added the regex and check for login page
