@@ -4,7 +4,8 @@
 
 # xProj-Group-24 (ShopAesthetics)
 
-This project is the creation of ShopAesthetics proposed online marketplace where authenticity and security of a monitored marketplace meets the community of people who want to enhance their aesthetic lifestyle. Our online marketplce aims to provide the users with aesthetically pleasing UI/UX while providing effecient marketplace features. Currently this project only has front end stlying and effects for the created web pages, the back end functionality will be added at a later point.
+This project is the creation of ShopAesthetics proposed online marketplace where authenticity and security of a monitored marketplace meets the community of people who want to enhance their aesthetic lifestyle. Our online marketplce aims to provide users with aesthetically pleasing UI/UX while providing effecient marketplace features. Currently this project only has front end stlying and effects for the created web pages, the back end functionality will be added at a later point.
+Before running or working with this codebase please ensure you install node modules in the root project directory, the frontend directory and finally the backend directory!
 
 * *Date Created*: 20 06 2023
 * *Last Modification Date*: 20 06 2023
