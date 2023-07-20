@@ -74,6 +74,39 @@ app.post("/api/register", async(request,response)=>{
     }
 });
 
+app.post("/api/login", async (request, response) => {
+  try {
+    const { email, password } = request.body;
+
+    // Connect the client to the server (optional starting in v4.7)
+    await client.connect();
+
+    const db = client.db("User_Management");
+    const collection = db.collection("Signup");
+
+    // Check if a user with the provided email exists in the database
+    const user = await collection.findOne({ email : email });
+    console.log(user);
+
+    if (!user) {
+      return response.status(404).json({ message: 'User not found' });
+    }
+
+    if (user.password !== password) {
+      return response.status(401).json({ message: 'Invalid password' });
+    }
+
+    return response.status(201).json({ message: 'Login successful' });
+
+    await client.close();
+    console.log("closed!");
+
+  } catch (error) {
+    console.log("Error during login:", error);
+    response.status(500).json(error);
+  } 
+});
+
 module.exports = app;
   
   

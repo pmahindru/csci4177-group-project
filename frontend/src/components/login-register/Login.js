@@ -12,14 +12,18 @@ import './Login.css';
 import limage from '../images/login.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { loginUser } from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
     /**
      * Pranav Mahindru added the regex and check for login page
      * regex take from online reference are in the README FILE  
@@ -47,15 +51,24 @@ const Login = () => {
         return;
     }
 
-    /**
-     * set it empty and show alert 
-     */
-    setEmail('');
-    setPassword('');
-    alert("Successfully login");
+    const logg  = await loginUser({ email, password });
+    console.log(logg);
 
-    window.location.href = '/';
+    if (logg.response === undefined){
+      alert(logg.message);
+      navigate('/');
+      return;
+    }
+    
+    if (logg.response.status === 401){
+      alert(logg.response.data.message);
+    }else{
+      alert(logg.response.data.message);
+      navigate('/Signup'); 
+    }
+
   };
+
 
   return (
     <div className="login-container">

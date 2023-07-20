@@ -21,3 +21,13 @@ export const getAllUser = async () => {
         console.error(error);
     }
 }
+
+export const loginUser = async (data) => {
+    try {
+      const res = await axios.post(`${baseURL}/login`, data);
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      return error
+    }
+}
