@@ -32,13 +32,17 @@ const registerUser = async (req,res) => {
 const loginUser = async (req,res) => {
     try {
         const validateUser = {
-            "email" : req.body.email,
-            "password" : req.body.password
+            "email" : req.body.email
         };
-        const data = await model.loginUser(validateUser);
+        const data = await model.loginUserModel(validateUser);
 
         if (!data) {
             res.status(400).json({ message: 'User not found' });
+            return;
+        }
+        if (data.password !== req.body.password) {
+            res.status(401).json({ message: 'Invalid Password' });
+            return;
         }
 
         res.status(200).json(data);

@@ -51,21 +51,21 @@ const Login = () => {
         return;
     }
 
-    const logg  = await loginUser({ email, password });
-    console.log(logg);
+    const data  = await loginUser({ email, password });
 
-    // if (logg.response === undefined){
-    //   alert(logg.message);
-    //   navigate('/');
-    //   return;
-    // }
-    
-    // if (logg.response.status === 401){
-    //   alert(logg.response.data.message);
-    // }else{
-    //   alert(logg.response.data.message);
-    //   navigate('/Signup'); 
-    // }
+    if (data.response === undefined){
+      alert('Login successful');
+      localStorage.setItem('user_info', JSON.stringify(data));
+      localStorage.setItem('isLoggedIn', true);
+      navigate('/');
+      return;
+    }
+    if (data.response.status === 401){
+      alert(data.response.data.message);
+    }else{
+      alert(data.response.data.message);
+      navigate('/Signup'); 
+    }
   };
 
 

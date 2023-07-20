@@ -48,7 +48,7 @@ const registerUser = async (data) => {
     }
 }
 
-const loginUser = async (data) => {
+const loginUserModel = async (data) => {
   try {
     // connection with db
     await client.connect();
@@ -71,5 +71,5 @@ const loginUser = async (data) => {
 module.exports = {
     getAllUserSignup,
     registerUser,
-    loginUser,
+    loginUserModel,
 }

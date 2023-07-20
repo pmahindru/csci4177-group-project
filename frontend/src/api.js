@@ -27,7 +27,6 @@ export const loginUser = async (data) => {
       const res = await axios.post(`${baseURL}/login`, data);
       return res.data;
     } catch (error) {
-      console.error(error);
       return error
     }
 }
