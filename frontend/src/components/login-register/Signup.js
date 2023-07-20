@@ -50,7 +50,7 @@ function RegisterPage() {
 
       await createUser(data);
       
-      const t = await getAllUser();
+      const t = await getAllUser(); 
       console.log(t);
 
       // alert('User registered successfully');

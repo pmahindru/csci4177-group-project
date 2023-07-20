@@ -48,7 +48,28 @@ const registerUser = async (data) => {
     }
 }
 
+const loginUser = async (data) => {
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("User_Management");
+    const collection = db.collection("Signup");
+
+    const user = await collection.findOne(data);
+
+    await client.close();
+    
+    return user;
+  } catch (error) {
+    return error;
+  }
+}
+
+
 module.exports = {
     getAllUserSignup,
     registerUser,
+    loginUser,
 }

@@ -12,5 +12,6 @@ const baseURL = "/api";
 // call the controller method
 app.get(`${baseURL}/`, controller.getSignUpUser);
 app.post(`${baseURL}/register`, controller.registerUser);
+app.post(`${baseURL}/login`, controller.loginUser);
 
 module.exports = app;
