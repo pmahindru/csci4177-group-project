@@ -29,7 +29,30 @@ const registerUser = async (req,res) => {
     }
 }
 
+const loginUser = async (req,res) => {
+    try {
+        const validateUser = {
+            "email" : req.body.email
+        };
+        const data = await model.loginUserModel(validateUser);
+
+        if (!data) {
+            res.status(400).json({ message: 'User not found' });
+            return;
+        }
+        if (data.password !== req.body.password) {
+            res.status(401).json({ message: 'Invalid Password' });
+            return;
+        }
+
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
 module.exports = {
     getSignUpUser,
     registerUser,
+    loginUser,
 }
