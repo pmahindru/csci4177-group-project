@@ -92,11 +92,15 @@ const OrderHistoryCard = (order) => {
 };
 
 const OrderHistoryPage =  () => {
+  const storedData = localStorage.getItem('user_info');
+  const parsedData = JSON.parse(storedData);
+  const user_id = parsedData._id;
+
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     const fetchOrderHistory = async () => {
       try {
-        const result = await getOrderHistory();
+        const result = await getOrderHistory(user_id);
         console.log(result.data);
         setOrders(result);
       } catch (error) {

@@ -138,7 +138,43 @@ const createPayment = async (req,res) => {
         console.error('Error adding payment method:', error);
       }
 }
+const getFavourites = async (req, res) => {
+  try {
+    const userId = req.params.userId
+    const data = await model.getFavourites(userId);
+  
 
+      res.status(200).json(data);
+  } catch (error) {
+    console.log("Error");
+    res.status(500).json(error);
+  }
+};
+const deleteFavourite = async (req, res) => {
+  try {
+    const favouriteId = req.params.favouriteId;
+    
+    const data = await model.deleteFavourite(favouriteId);
+  
+
+      res.status(200).json(data);
+  } catch (error) {
+    console.log("Error");
+    res.status(500).json(error);
+  }
+};
+const getReviews = async (req, res) => {
+  try {
+    const userId = req.params.userId
+    const data = await model.getReviews(userId);
+  
+
+      res.status(200).json(data);
+  } catch (error) {
+    console.log("Error");
+    res.status(500).json(error);
+  }
+};
 module.exports = {
     getSignUpUser,
     registerUser,
@@ -149,4 +185,7 @@ module.exports = {
     deletePaymentMethod,
     createPayment,
     getCart,
+    getFavourites,
+    deleteFavourite,
+    getReviews,
 }

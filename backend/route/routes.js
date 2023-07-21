@@ -19,4 +19,6 @@ app.put(`${baseURL}/payments/:paymentId`, controller.editPayment);
 app.delete(`${baseURL}/payments/:paymentId`, controller.deletePaymentMethod);
 app.post(`${baseURL}/create-payment`, controller.createPayment);
 app.get(`${baseURL}/cart/:userId`, controller.getCart);
+app.get(`${baseURL}/reviews/:userId`, controller.getReviews);
+app.get(`${baseURL}/favourites/:userId`, controller.getFavourites);
 module.exports = app;

@@ -42,7 +42,7 @@ export const getAllPayments = async (userId) => {
 }
 export const getOrderHistory = async (userId) => {
     try {
-        const orderHistoryResponse = await axios.get(`${baseURL}/payments/${userId}`);
+        const orderHistoryResponse = await axios.get(`${baseURL}/order-history/${userId}`);
         console.log(orderHistoryResponse.data);
         return orderHistoryResponse.data;
     }

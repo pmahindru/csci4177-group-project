@@ -242,6 +242,63 @@ const deletePaymentMethod = async(paymentId) => {
     throw error;
   }
 }
+const getFavourites = async (userId) => {
+  try {
+    // Connect the client to the server (optional starting in v4.7)
+    await client.connect();
+
+    
+    //call db name and collection
+    const orderdb = client.db("Order_Management");
+    const orderCollection = orderdb.collection("Favourites");
+
+    //put into an array as we need to get each ad details to return to the user
+    const orderList = await orderCollection.find({ user_id : userId }).toArray();
+    const addb = client.db("Seller_Management");
+    const adCollection = addb.collection("post_ad");
+    const ordersWithAdDetails = await Promise.all(orderList.map(async (order) => {
+      const adId = order.ad_id;
+      
+      const ad = await adCollection.findOne({ _id: adId });
+      return {
+        ...order,
+        ad_details: ad,
+      };
+    }));
+    await client.close();
+    console.log("closed!");
+    console.log(ordersWithAdDetails);
+    return ordersWithAdDetails;
+
+    // Ensures that the client will close when you finish/error
+    
+  }catch (error) {
+    console.error(error); // Log the actual error message
+    response.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+const deleteFavourite = async(favouriteId) => {
+  try {
+   
+
+    // Connect the client to the server    (optional starting in v4.7)
+    await client.connect();
+    
+    
+    const db = client.db("Order_Management");
+    const Collection = db.collection("Favourites");
+    const deleteResult = await Collection.deleteOne({ _id: favouriteId });
+    console.log(deleteResult);
+  
+    // Ensures that the client will close when you finish/error
+    await client.close();
+    
+    return deleteResult;
+  } catch (error) {
+    console.log("Error");
+    throw error;
+  }
+}
 module.exports = {
     getAllUserSignup,
     registerUser,
@@ -253,5 +310,8 @@ module.exports = {
     deletePaymentMethod,
     getReviews,
     getCart,
+    getFavourites,
+    deleteFavourite,
+
 
 }
