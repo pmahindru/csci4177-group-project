@@ -1,7 +1,11 @@
+/* Created By: Patrick Wooden | 2023-July-16 */
 import React, { useEffect, useState } from 'react';
 import "./payments.css";
-import { getPaymentMethod, updatePaymentMethod } from '../../../../api';
+import { deletePaymentMethod, getPaymentMethod, updatePaymentMethod } from '../../../../api';
 const EditPaymentModal = ({ paymentId, onClose }) => {
+    const storedData = localStorage.getItem('user_info');
+    const parsedData = JSON.parse(storedData);
+    const user_id = parsedData._id;
     console.log(paymentId);
     const [cvv, setCVV] = useState('');
     const [expiryMonth, setExpiryMonth] = useState('');
@@ -46,7 +50,12 @@ const EditPaymentModal = ({ paymentId, onClose }) => {
        
     };
     const handleRemovePayment = async () => {
-        
+        try{
+          await deletePaymentMethod(paymentId);
+        }catch (error) {
+          alert('Failed to remove payment method');
+          console.error('Error removing payment method:', error);
+        }
     }
     useEffect(() => {
         const fetchPaymentData = async () => {
@@ -115,18 +124,18 @@ const EditPaymentModal = ({ paymentId, onClose }) => {
                 onChange={handleExpiryYearChange}
               >
                     <option value=''>--Select Year--</option>
-                    <option value='1'>2023</option>
-                    <option value='2'>2024</option>
-                    <option value='3'>2025</option>
-                    <option value='4'>2026</option>
-                    <option value='5'>2027</option>
-                    <option value='6'>2028</option>
-                    <option value='7'>2029</option>
-                    <option value='8'>2030</option>
-                    <option value='9'>2031</option>
-                    <option value='10'>2032</option>
-                    <option value='11'>2033</option>
-                    <option value='12'>2034</option>
+                    <option value='23'>2023</option>
+                    <option value='24'>2024</option>
+                    <option value='25'>2025</option>
+                    <option value='26'>2026</option>
+                    <option value='27'>2027</option>
+                    <option value='28'>2028</option>
+                    <option value='29'>2029</option>
+                    <option value='30'>2030</option>
+                    <option value='31'>2031</option>
+                    <option value='32'>2032</option>
+                    <option value='33'>2033</option>
+                    <option value='34'>2034</option>
               </select>
             </div>
             <div className="formRow">
@@ -138,7 +147,7 @@ const EditPaymentModal = ({ paymentId, onClose }) => {
               />
             </div>
             <div className="formRow">
-              <button type="button">
+              <button type="button"onClick={handleRemovePayment}>
                 Remove Payment Method
               </button>
             </div>

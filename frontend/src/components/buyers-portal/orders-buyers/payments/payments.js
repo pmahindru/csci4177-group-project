@@ -7,6 +7,9 @@ import { getAllPayments } from '../../../../api';
 import "./payments.css";
 
 const AccountPayments = () => {
+  const storedData = localStorage.getItem('user_info');
+  const parsedData = JSON.parse(storedData);
+  const userId = parsedData._id;
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [payments, setPayments] = useState([]);
@@ -35,7 +38,7 @@ const AccountPayments = () => {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const result = await getAllPayments();
+        const result = await getAllPayments(userId);
         console.log(result.data);
         setPayments(result);
       } catch (error) {

@@ -1,8 +1,14 @@
+/* Created By: Patrick Wooden | 2023-July-16 */
 import React, { useState } from 'react';
 import "./payments.css";
 import { createPayment } from '../../../../api';
 const CreatePaymentModal = ({ onClose }) => {
-    const [cardNumber, setCardNumber] = useState('');
+    const storedData = localStorage.getItem('user_info');
+    const parsedData = JSON.parse(storedData);
+    const user_id = parsedData._id;
+
+
+    const [card_number, setCardNumber] = useState('');
     const [cvv, setCVV] = useState('');
     const [expiryMonth, setExpiryMonth] = useState('');
     const [expiryYear, setExpiryYear] = useState('');
@@ -41,15 +47,15 @@ const CreatePaymentModal = ({ onClose }) => {
     };
   
     const handleCreatePayment = async () => {
-        const userId = '1';
-        const expiryDate = `${expiryMonth}/${expiryYear}`;
-        if (!cardNumber || !cvv || !expiryDate || !firstName || !lastName || !address) {
+        
+        const expiry = `${expiryMonth}/${expiryYear}`;
+        if (!card_number || !cvv || !expiry || !firstName || !lastName || !address) {
             alert('Please fill in all fields');
             return;
           }
         try{
             const paymentData ={
-                userId, cardNumber, cvv, expiryDate, firstName, lastName, address
+                user_id, card_number, cvv, expiry, firstName, lastName, address
             };
             await createPayment(paymentData);
             alert("Payment added successfully")
@@ -72,7 +78,7 @@ const CreatePaymentModal = ({ onClose }) => {
               <input
                 id="cardNumberInput"
                 type="text"
-                value={cardNumber}
+                value={card_number}
                 onChange={handleCardNumberChange}
                 pattern="[0-9]*"
                 inputMode="numeric"
