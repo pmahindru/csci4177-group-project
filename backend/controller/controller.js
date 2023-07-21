@@ -705,7 +705,6 @@ const userNotificationSettingsUpdate = async (req, res) => { //Notifications UPD
   }
 };
 
-
 module.exports = {
   getSignUpUser,
   registerUser,
