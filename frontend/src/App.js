@@ -30,7 +30,6 @@ import OrderSeller from "./components/seller-portal/orders-seller/orders_seller"
 import NotificationSetting from "./components/account/notificationsetting";
 import OrdersBuyers from "./components/buyers-portal/orders-buyers/orders-buyers";
 import CreateReview from "./components/buyers-portal/orders-buyers/review/create-review";
-import { useEffect, useState } from "react";
 
 function App() {
   // this array contains only seller portal
@@ -38,12 +37,8 @@ function App() {
                 "/analytics/active-ads", "/analytics/delete-ads", "/analytics/draft-ads", "/analytics/chat", 
                 "/analytics/seller-rating", "/analytics/renew", "/analytics/sold"];
   
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
-  useEffect(() => {
-    const getLocalStorage = localStorage.getItem("isLoggedIn");
-    setUserLoggedIn(getLocalStorage)
-  }, []);
-  
+  const userLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
   return (
     <div className="App">
       <BrowserRouter>
