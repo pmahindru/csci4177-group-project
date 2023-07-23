@@ -27,7 +27,7 @@ const StyledCard = styled(Card)({
   display: 'flex',
   flexDirection: 'row',
   padding: '15px',
-  width: '50%',
+  width: '100%',
   alignItems: 'center',
   marginRight: '10px',
   border: '1px solid',
