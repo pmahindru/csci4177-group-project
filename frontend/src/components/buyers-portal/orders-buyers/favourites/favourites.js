@@ -47,8 +47,11 @@ const FavouritesCard = ({ favourite }) => {
   
   const [anchorEl, setAnchorEl] = useState(null);
 
+const OrderHistoryCard = (order) => {
+  const { id, product,price, address, photoUrl } = order;
+  const navigate = useNavigate();
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    navigate("/createreview", { state: { id: id, product: product, photoUrl: photoUrl } });
   };
 
   const handleClose = () => {

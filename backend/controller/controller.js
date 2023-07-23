@@ -705,6 +705,20 @@ const userNotificationSettingsUpdate = async (req, res) => { //Notifications UPD
   }
 };
 
+const editReview = async (req, res) => {
+  try {
+    const reviewId = req.params.reviewId;
+    const reviewData = req.body;
+    const data = await model.editReview(reviewId, reviewData);
+  
+
+      res.status(200).json(data);
+  } catch (error) {
+    console.log("Error");
+    res.status(500).json(error);
+  }
+};
+
 module.exports = {
   getSignUpUser,
   registerUser,
