@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './createnewads.css';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { savePostAd } from '../../../api';
 
 function CreateNewAd() {
     const [selectImageFiles, setSelectImageFiles] = useState([]);
@@ -21,7 +22,6 @@ function CreateNewAd() {
     */
     const handleDropdownType = (e) =>{
         setdropdowntype(e.target.value);
-        console.log(e.target.value);
     };
 
     const handleImage = (e) => {
@@ -45,52 +45,69 @@ function CreateNewAd() {
 
     const handleChangeTitle = (e) =>{
         settitle(e.target.value);
-        console.log(e.target.value);
     };
 
     const handleChangePrice = (e) =>{
         setprice(e.target.value);
-        console.log(e.target.value);
     };
 
     const handleChangeDescription = (e) =>{
         setdescription(e.target.value);
-        console.log(e.target.value);
     };
 
     const handleChangeProductTag = (e) =>{
         setproduct_tag(e.target.value);
-        console.log(e.target.value);
     };
 
     const handleChangeLocation = (e) =>{
         setlocation(e.target.value);
-        console.log(e.target.value);
     };
 
     const handleDropdownCategory = (e) =>{
         setCategory(e.target.value);
-        console.log(e.target.value);
     };
 
     const handleDropdownCondition = (e) =>{
         setCondition(e.target.value);
-        console.log(e.target.value);
     };
 
     const handleDropdownPayments = (e) =>{
         setPayments(e.target.value);
-        console.log(e.target.value);
     };
 
     /*
      *when user save show alert and redirect to dashboard page
     */
     const navigate = useNavigate();
-    const handleSaveAd = (e) =>{
+    const getLocalStorage = localStorage.getItem("user_info");
+    const userInfo = JSON.parse(getLocalStorage);
+    const handleSaveAd = async (e) =>{
         e.preventDefault();
-        alert("Save Successfully");
-        navigate('/dashboard');
+        const data = {
+            "user_id": userInfo["_id"],
+            "image" : selectImageFiles,
+            "title" : title,
+            "price" : price,
+            "description" : description,
+            "prod_tags" : product_tag,
+            "location" : location,
+            "condition" : selectCondition,
+            "payments_type" : selectPayments,
+            "type" : selectCategory,
+            "category" : dropdowntype,
+            "status" :  "draft"
+        };
+
+        var res = await savePostAd(data) ;
+
+        if (res.response === undefined) {
+            alert(res.message);
+            navigate('/dashboard');
+        } 
+        else {
+            alert(res.message);
+            navigate('/dashboard');
+        }
     };
 
     const handlePreview = (e) =>{
@@ -103,7 +120,8 @@ function CreateNewAd() {
         navigate('/preview', {state: {
             data: [{sendImageFiles: selectImageFiles},
             {sendTitle: title},{sendPrice: price},{sendDescription: description},{sendProduct_tag: product_tag},
-            {sendLocation: location},{sendCondition: selectCondition},{sendPayments: selectPayments}]
+            {sendLocation: location},{sendCondition: selectCondition},{sendPayments: selectPayments},
+            {category: selectCategory},{type: dropdowntype}]
         }});
     };
 

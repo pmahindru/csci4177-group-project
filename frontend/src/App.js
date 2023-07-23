@@ -3,7 +3,7 @@
   update by others with respect to their pages
 */
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import NavBarSeller from "./components/navigation/navigationSeller.js";
 import NavBarBuyer from "./components/navigation/navigationBuyer.js";
 import Footer from "./components/footer/footer.js";
@@ -30,24 +30,20 @@ import OrderSeller from "./components/seller-portal/orders-seller/orders_seller"
 import NotificationSetting from "./components/account/notificationsetting";
 import OrdersBuyers from "./components/buyers-portal/orders-buyers/orders-buyers";
 import CreateReview from "./components/buyers-portal/orders-buyers/review/create-review";
+import { useEffect, useState } from "react";
 
 function App() {
   // this array contains only seller portal
-  const array = [
-    "/dashboard",
-    "/analytics",
-    "/business_orders",
-    "/postAd",
-    "/preview",
-    "/analytics/active-ads",
-    "/analytics/delete-ads",
-    "/analytics/draft-ads",
-    "/analytics/chat",
-    "/analytics/seller-rating",
-    "/analytics/renew",
-    "/analytics/sold",
-  ];
-
+  const array = ["/dashboard", "/analytics", "/business_orders", "/postAd", "/preview",
+                "/analytics/active-ads", "/analytics/delete-ads", "/analytics/draft-ads", "/analytics/chat", 
+                "/analytics/seller-rating", "/analytics/renew", "/analytics/sold"];
+  
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  useEffect(() => {
+    const getLocalStorage = localStorage.getItem("isLoggedIn");
+    setUserLoggedIn(getLocalStorage)
+  }, []);
+  
   return (
     <div className="App">
       <BrowserRouter>
@@ -60,40 +56,34 @@ function App() {
 
         <Routes>
           {/* For Login and Register Pages */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path='/login' element={userLoggedIn ? <Navigate to="/"/> : <Login/>}/> 
+          <Route path='/signup' element={userLoggedIn ? <Navigate to="/"/> : <Signup/>}/>
+          <Route path='/forgotpassword' element={userLoggedIn ? <Navigate to="/"/> : <ForgotPassword/>}/>
 
           {/* For Buyer's Portal */}
-          <Route path="/" element={<DashBoardBuyer />} />
-          <Route path="/orders" element={<OrdersBuyers />} />
-          <Route path="/createreview" element={<CreateReview />} />
-
+          <Route path='/' element={<DashBoardBuyer/>}/>
+          <Route path='/orders' element={userLoggedIn ? <OrdersBuyers/> : <Navigate to="/login"/>}/>
+          <Route path='/createreview' element={userLoggedIn ? <CreateReview/> : <Navigate to="/login"/>}/>
+          
           {/* For Seller's Portal */}
-          <Route path="/dashboard" element={<DashBoardSeller />} />
-          <Route path="/postAd" element={<CreateNewAd />} />
-          <Route path="/preview" element={<Preview />} />
-          <Route path="/business_orders" element={<OrderSeller />} />
-          <Route path="/analytics" element={<AnalyticalDashboard />} />
-          <Route path="/analytics/active-ads" element={<ActiveAdsPage />} />
-          <Route path="/analytics/delete-ads" element={<DeletePage />} />
-          <Route path="/analytics/draft-ads" element={<DraftsPage />} />
-          <Route path="/analytics/chat" element={<Chat />} />
-          <Route
-            path="/analytics/seller-rating"
-            element={<SellerRatingPage />}
-          />
-          <Route path="/analytics/renew" element={<RenewPage />} />
-          <Route path="/analytics/sold" element={<SoldPage />} />
+          <Route path="/dashboard" element={userLoggedIn ? <DashBoardSeller/> : <Navigate to="/login"/>}/>
+          <Route path="/postAd" element={userLoggedIn ? <CreateNewAd/> : <Navigate to="/login"/>}/>
+          <Route path="/preview" element={userLoggedIn ? <Preview/> : <Navigate to="/login"/>}/>
+          <Route path='/business_orders' element={userLoggedIn ? <OrderSeller/> : <Navigate to="/login"/>}/>
+          <Route path="/analytics" element={userLoggedIn ? <AnalyticalDashboard/> : <Navigate to="/login"/>}/>
+          <Route path="/analytics/active-ads" element={userLoggedIn ? <ActiveAdsPage/> : <Navigate to="/login"/>}/>
+          <Route path="/analytics/delete-ads" element={userLoggedIn ? <DeletePage/> : <Navigate to="/login"/>}/>
+          <Route path="/analytics/draft-ads" element={userLoggedIn ? <DraftsPage/> : <Navigate to="/login"/>}/>
+          <Route path="/analytics/chat" element={userLoggedIn ? <Chat/> : <Navigate to="/login"/>}/>
+          <Route path="/analytics/seller-rating" element={userLoggedIn ? <SellerRatingPage/> : <Navigate to="/login"/>}/>
+          <Route path="/analytics/renew" element={userLoggedIn ? <RenewPage/> : <Navigate to="/login"/>}/>
+          <Route path="/analytics/sold" element={userLoggedIn ? <SoldPage/> : <Navigate to="/login"/>}/>
 
           {/* commons page for the both portal */}
-          <Route path="/about_us" element={<AboutUs />} />
-          <Route path="/customer_support" element={<CustomerSupport />} />
-          <Route path="/profile_setting" element={<ProfileSetting />} />
-          <Route
-            path="/notification_setting"
-            element={<NotificationSetting />}
-          />
+          <Route path='/about_us' element={<AboutUs/>}/>
+          <Route path='/customer_support' element={<CustomerSupport/>}/>
+          <Route path='/profile_setting' element={userLoggedIn ? <ProfileSetting/> : <Navigate to="/login"/>}/>
+          <Route path='/notification_setting' element={userLoggedIn ? <NotificationSetting/> : <Navigate to="/login"/>}/>
 
           {/* error handle */}
           {/* [1] M. Gathoni, “How to create a 404 page in react using react router,” MUO, 

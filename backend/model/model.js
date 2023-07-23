@@ -3,11 +3,9 @@
 // Date Accessed: 07/23/2023
 // Used by Saiz Charolia
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
-const crypto = require("crypto");
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
-const uri =
-  "mongodb+srv://Team24:qwhoZh2NkExdtQu5@shopaestheticscluster.za4i1fn.mongodb.net/";
+const uri = "mongodb+srv://Team24:qwhoZh2NkExdtQu5@shopaestheticscluster.za4i1fn.mongodb.net/";
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -186,6 +184,7 @@ const getOrderHistory = async (userId) => {
     return error;
   }
 };
+
 //get every item in a cart for a user using user_id (Patrick Wooden)
 const getCart = async (userId) => {
   try {
@@ -218,6 +217,7 @@ const getCart = async (userId) => {
     return error;
   }
 };
+
 //delete a item in a users cart based on the items id (Patrick Wooden)
 const deleteCartItem = async (itemId) => {
   try {
@@ -237,6 +237,7 @@ const deleteCartItem = async (itemId) => {
     return error;
   }
 };
+
 //get all the payment methods a user has using user id (Patrick Wooden)
 const getPayments = async (userId) => {
   try {
@@ -255,6 +256,7 @@ const getPayments = async (userId) => {
     return error;
   }
 };
+
 //create a new payment method using data sent from controller (Patrick Wooden)
 const createPayment = async (data) => {
   try {
@@ -272,6 +274,7 @@ const createPayment = async (data) => {
     return error;
   }
 };
+
 //create a new review using data sent over from controller(Patrick Wooden)
 const createReview = async (data) => {
   try {
@@ -289,6 +292,7 @@ const createReview = async (data) => {
     return error;
   }
 };
+
 //edit a payment method using the paymentId and paymentData sent over from controller (Patrick Wooden)
 const editPayment = async (paymentId, paymentData) => {
   try {
@@ -602,32 +606,95 @@ const findMessages = async (query) => {
   }
 };
 
+// add new post Ad (pranav mahindru)
+const addNewPostAd = async (data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("post_ad");
+
+      const postedAd = await collection.insertOne(data);
+
+      await client.close();
+
+      return postedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
+// save post Ad (pranav mahindru)
+const savePostAd = async (data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("save_ad");
+
+      const postedAd = await collection.insertOne(data);
+
+      await client.close();
+
+      return postedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all post Ad (pranav mahindru)
+const getAllPostedAd = async () => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("post_ad");
+
+      const postedAd = await collection.find().toArray();
+
+      await client.close();
+
+      return postedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
 module.exports = {
-  getAllUserSignup,
-  registerUser,
-  loginUserModel,
-  saveResetCode,
-  verifyCode,
-  saveNewPassword,
-  checkEmailExists,
-  getOrderHistory,
-  getPayments,
-  createPayment,
-  editPayment,
-  deletePaymentMethod,
-  getReviews,
-  getCart,
-  deleteCartItem,
-  getFavourites,
-  deleteFavourite,
-  createReview,
-  getReview,
-  editReview,
-  getTrackedOrders,
-  createOrder,
-  createFavourite,
-  createCartItem,
-  addMessageModel,
-  findMessages,
-  findUsers,
-};
+    getAllUserSignup,
+    registerUser,
+    loginUserModel,
+    getAllPostedAd,
+    addNewPostAd,
+    savePostAd,
+    saveResetCode,
+    verifyCode,
+    saveNewPassword,
+    checkEmailExists,
+    getOrderHistory,
+    getPayments,
+    createPayment,
+    editPayment,
+    deletePaymentMethod,
+    getReviews,
+    getCart,
+    deleteCartItem,
+    getFavourites,
+    deleteFavourite,
+    createReview,
+    getReview,
+    editReview,
+    getTrackedOrders,
+    createOrder,
+    createFavourite,
+    createCartItem,
+    addMessageModel,
+    findMessages,
+    findUsers,
+}

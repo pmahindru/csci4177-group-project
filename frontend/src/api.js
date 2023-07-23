@@ -281,3 +281,33 @@ export const profileUserDetails = async (data) => {
     return error;
   }
 };
+
+// ADD NEW POST ADD APIs CALL
+export const addNewPostAd = async (data) => {
+    try {
+      const res = await axios.post(`${baseURL}/seller/addPost`, data);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// SAVE POST ADD APIs CALL
+export const savePostAd = async (data) => {
+    try {
+      const res = await axios.post(`${baseURL}/seller/savePost`, data);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// GET ALL POSTED ADD APIs CALL
+export const getAllPostedAd = async () => {
+    try {
+      const res = await axios.get(`${baseURL}/seller/getPost`);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}

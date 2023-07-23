@@ -1,39 +1,111 @@
 /* Created By: Pranav Mahindru*/
-import React from 'react';
+import React, { useState } from 'react';
 import './preview.css'
 import { useLocation, NavLink, useNavigate } from 'react-router-dom';
+import { addNewPostAd, savePostAd } from '../../../api';
+import ReactLoading from "react-loading";
 
 function Preview() {
     const getLocationState = useLocation().state;
     const navigate = useNavigate();
+    const [checkPublish, setPublish] = useState(false);
 
     if (getLocationState === null || getLocationState === undefined) {
-        return(
-           <div className='previewAd-main-container'>
-                {/* heading */}
-                <div className='previewAd-section1'>
-                    <h2>Something Went Wrong <br/> Please Try Again </h2>
+        if (checkPublish === true) {
+            return(
+                <div className='preview-loading'>
+                    <h2>
+                        Take couple of minutes
+                        <br/>
+                        <br/>
+                        <ReactLoading type="bars" color="#3f1a6b" height={200} width={100}/>
+                    </h2>
                 </div>
-                <a href='/dashboard'>Go To Main Page</a>
+            );
+        }
+        return(
+            <div className='customerSupport-main-container'>
+                <div className='customerSupport-section1'>
+                    <h2>
+                        Something Went Wrong
+                        <br/> 
+                        Please Try Again
+                    </h2>
+                </div>
+                <div className='customerSupport-section1'>
+                    <a href="/dashboard">
+                        Go To Main Page
+                    </a>
+                </div>
             </div>
         );
     }
 
     const getPostDetails = getLocationState.data;
+    
+    // get the local storage item
+    const getLocalStorage = localStorage.getItem("user_info");
+    
+    const userInfo = JSON.parse(getLocalStorage);
+    if (Object.keys(getLocalStorage)) {
+        var getUserFullName = userInfo["firstName"] + " " + userInfo["lastName"];
+        var getUserEmail = userInfo["email"];
 
-    var getUserFullName = 'ken';
-    var getUserFullAddress = 'halifax';
-    var getUserEmail = 'ken@gmail.com';
-    var getUserPhoneNumber = '9872536362';
+        var getUserFullAddress;
+        if (userInfo["address"]) {
+            getUserFullAddress = userInfo["address"];
+        }
+        else{
+            getUserFullAddress = "-";
+        }
+
+        var getUserPhoneNumber;
+        if (userInfo["phone"]) {
+            getUserPhoneNumber = userInfo["phone"];
+        }
+        else{
+            getUserPhoneNumber = "-";
+        }
+    }
+
+    const addToDb = async (table_name) => {
+        const data = {
+            "user_id": userInfo["_id"],
+            "image" : getPostDetails[0]['sendImageFiles'],
+            "title" : getPostDetails[1]['sendTitle'],
+            "price" : getPostDetails[2]['sendPrice'],
+            "description" : getPostDetails[3]['sendDescription'],
+            "prod_tags" : getPostDetails[4]['sendProduct_tag'] ?? "No Tags",
+            "location" : getPostDetails[5]['sendLocation'],
+            "condition" : getPostDetails[6]['sendCondition'],
+            "payments_type" : getPostDetails[7]['sendPayments'],
+            "type" : getPostDetails[8]['category'],
+            "category" : getPostDetails[9]['type'],
+            "status" : table_name === "save_ad" ? "draft" : "approved"
+        };
+
+        setPublish((prevState) => !prevState);
+
+        var res = table_name === "save_ad" ? await savePostAd(data) : await addNewPostAd(data);
+
+        if (res.response === undefined) {
+            alert(res.message);
+            navigate('/dashboard');
+        } 
+        else {
+            alert(res.message);
+            navigate('/dashboard');
+        }
+    }
 
     const handleSaveAd = (e) =>{
-        alert("Save Successfully");
-        navigate('/dashboard');
+        e.preventDefault();
+        addToDb("save_ad");
     };
 
     const handlePreview = (e) =>{
-        alert("Published Successfully");
-        navigate('/dashboard');
+        e.preventDefault();
+        addToDb("post_ad");
     };
 
     return (

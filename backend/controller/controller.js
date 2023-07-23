@@ -381,6 +381,7 @@ const createCartItem = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
 const addMessage = async (req, res, next) => {
   try {
     const { from, to, message } = req.body;
@@ -431,31 +432,109 @@ const getAllUsers = async (req, res, next) => {
     res.status(500).json(ex);
   }
 };
+
+// SELLER PORTAL CONTROLLER METHODS
+// add new post Ad (Pranav Mahindru)
+const addNewPostAd = async (req,res) => {
+    try {
+        if (Object.keys(req.body).length === 0) {
+            res.status(401).json({message: "Invalid Input"});
+            return;
+        }
+
+        const add_new_post = {
+            "_id" : uuid.v4(),
+            "user_id": req.body.user_id,
+            "category" : req.body.category,
+            "condition" : req.body.condition,
+            "description" : req.body.description,
+            "image" : req.body.image,
+            "location" : req.body.location,
+            "payments_type" : req.body.payments_type,
+            "price" : req.body.price,
+            "prod_tags" : req.body.prod_tags,
+            "title" : req.body.title,
+            "type" : req.body.type,
+            "status" : req.body.status
+        };
+        // send to the model
+        await model.addNewPostAd(add_new_post);
+        res.status(200).json({message: "Successfully Add New Ad"});
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+// save post Ad (Pranav Mahindru)
+const savePostAd = async (req,res) => {
+    try {
+        if (Object.keys(req.body).length === 0) {
+            res.status(401).json({message: "Invalid Input"});
+            return;
+        }
+
+        const save_post = {
+            "_id" : uuid.v4(),
+            "user_id": req.body.user_id,
+            "category" : req.body.category,
+            "condition" : req.body.condition,
+            "description" : req.body.description,
+            "image" : req.body.image,
+            "location" : req.body.location,
+            "payments_type" : req.body.payments_type,
+            "price" : req.body.price,
+            "prod_tags" : req.body.prod_tags,
+            "title" : req.body.title,
+            "type" : req.body.type,
+            "status" : req.body.status
+        };
+        
+        // send to the model
+        await model.savePostAd(save_post);
+        res.status(200).json({message: "Successfully Save Ad"});
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
+// get all posted Ad (Pranav Mahindru)
+const getAllPostedAd = async (req,res) => {
+    try {
+        const data = await model.getAllPostedAd();
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
 module.exports = {
-  getSignUpUser,
-  registerUser,
-  loginUser,
-  getOrderHistory,
-  createOrder,
-  getPayments,
-  editPayment,
-  deletePaymentMethod,
-  createPayment,
-  getCart,
-  deleteCartItem,
-  getFavourites,
-  deleteFavourite,
-  getReviews,
-  createReview,
-  getReview,
-  editReview,
-  getTrackedOrders,
-  createFavourite,
-  createCartItem,
-  generateResetCode,
-  verifyResetCode,
-  resetNewPassword,
-  addMessage,
-  getMessages,
-  getAllUsers,
-};
+    getSignUpUser,
+    registerUser,
+    loginUser,
+    getAllPostedAd,
+    addNewPostAd,
+    savePostAd,
+    generateResetCode,
+    verifyResetCode,
+    resetNewPassword,
+    getOrderHistory,
+    createOrder,
+    getPayments,
+    editPayment,
+    deletePaymentMethod,
+    createPayment,
+    getCart,
+    deleteCartItem,
+    getFavourites,
+    deleteFavourite,
+    getReviews,
+    createReview,
+    getReview,
+    editReview,
+    getTrackedOrders,
+    createFavourite,
+    createCartItem,
+    addMessage,
+    getMessages,
+    getAllUsers,
+}

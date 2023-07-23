@@ -7,6 +7,7 @@ const controller = require("../controller/controller");
 app.use(cors());
 app.use(express.json());
 
+// base url
 const baseURL = "/api";
 
 // calling the controller method
@@ -33,12 +34,13 @@ app.post(`${baseURL}/favourites`, controller.createFavourite);
 app.post(`${baseURL}/cart`, controller.createCartItem);
 app.delete(`${baseURL}/favourites/:favouriteId`, controller.deleteFavourite);
 app.get(`${baseURL}/track-orders/:userId`, controller.getTrackedOrders);
-module.exports = app;
-
 //api for add
 app.post(`${baseURL}/addmsg`, controller.addMessage);
 app.post(`${baseURL}/getmsg`, controller.getMessages);
-
 app.get(`${baseURL}/allusers/:id`, controller.getAllUsers);
+// SELLER PORTAL ROUTES
+app.post(`${baseURL}/seller/addPost`, controller.addNewPostAd);
+app.post(`${baseURL}/seller/savePost`, controller.savePostAd);
+app.get(`${baseURL}/seller/getPost`, controller.getAllPostedAd);
 
 module.exports = app;
