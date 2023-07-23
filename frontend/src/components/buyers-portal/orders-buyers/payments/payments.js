@@ -17,7 +17,6 @@ const AccountPayments = () => {
 
   const handleCreateModalOpen = () => {
     setIsCreateModalOpen(true);
-    console.log("gets here");
   };
 
   const handleCreateModalClose = () => {
@@ -48,7 +47,7 @@ const AccountPayments = () => {
 
     fetchPayments();
   }, []);
-const payment7 = "64b5cbb0008f0d694323a9c2";
+
   return (
     <div className="container">
       <h1>Payment Page</h1>
@@ -56,7 +55,7 @@ const payment7 = "64b5cbb0008f0d694323a9c2";
       {payments.map((payment) => (
         <div className="cards" key={payment._id}>
           <div>
-            <p>Last 4 Digits: {payment.card_number}</p>
+            <p>Card Number: {payment.card_number}</p>
             <p>Expiry Date: {payment.expiry}</p>
             <button className="button" onClick={() => handleEditModalOpen(payment._id)}>Edit</button>
             {isEditModalOpen && selectedPaymentId === payment._id && (

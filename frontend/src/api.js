@@ -50,8 +50,46 @@ export const getOrderHistory = async (userId) => {
         console.error(error);
     }
 }
-
-
+export const getCart = async (userId) => {
+    try {
+        const cartResponse = await axios.get(`${baseURL}/cart/${userId}`);
+        console.log(cartResponse.data);
+        return cartResponse.data;
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
+export const getFavourites = async (userId) => {
+    try {
+        const favouriteResponse = await axios.get(`${baseURL}/favourites/${userId}`);
+        console.log(favouriteResponse.data);
+        return favouriteResponse.data;
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
+export const getReviews = async (userId) => {
+    try {
+        const reviewResponse = await axios.get(`${baseURL}/reviews/${userId}`);
+        console.log(reviewResponse.data);
+        return reviewResponse.data;
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
+export const getReview = async (userId,adId) => {
+    try {
+        const reviewResponse = await axios.get(`${baseURL}/review/${userId}/${adId}`);
+        console.log(reviewResponse.data);
+        return reviewResponse.data;
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
 export const createPayment = async (data) => {
     try {
         const res = await axios.post(`${baseURL}/create-payment`,data);
@@ -63,7 +101,7 @@ export const createPayment = async (data) => {
 
 export const createReview = async (data) => {
     try {
-        const res = await axios.post(`${baseURL}/create-review`,data);
+        const res = await axios.post(`${baseURL}/reviews`,data);
         return res.data; 
     } catch (error) {
         console.error(error);
@@ -82,6 +120,14 @@ export const getPaymentMethod = async (paymentId) => {
 export const updatePaymentMethod = async(paymentId,  updatedPaymentData) => {
     try{
         const res = await axios.put(`${baseURL}/payments/${paymentId}`, updatedPaymentData);
+        return res.data
+    }catch (error){
+        console.error(error);
+    }
+}
+export const editReview = async(reviewId, reviewData) => {
+    try{
+        const res = await axios.put(`${baseURL}/reviews/${reviewId}`, reviewData);
         return res.data
     }catch (error){
         console.error(error);

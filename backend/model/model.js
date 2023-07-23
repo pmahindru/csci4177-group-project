@@ -176,6 +176,24 @@ const createPayment = async (data) => {
     throw error; // Propagate the error back to the calling function
   }
 };
+const createReview = async (data) => {
+  try {
+    // Connect the client to the server (optional starting in v4.7)
+    await client.connect();
+    
+    const db = client.db("Order_Management");
+    const collection = db.collection("Reviews");
+    const newReview = await collection.insertOne(data);
+
+    // Ensures that the client will close when you finish/error
+    await client.close();
+    console.log("closed!");
+    return newReview;
+  } catch (error) {
+    console.error(error);
+    throw error; // Propagate the error back to the calling function
+  }
+};
 const editPayment = async(paymentId, paymentData) => {
   try {
    
@@ -218,6 +236,50 @@ const getReviews = async (userId) => {
   } catch (error) {
     console.log("Error");
     response.status(500).json(error);
+  }
+}
+const getReview = async (userId,adId) => {
+  try {
+   
+
+    // Connect the client to the server    (optional starting in v4.7)
+    await client.connect();
+    
+    
+    const db = client.db("Order_Management");
+    const Collection = db.collection("Reviews");
+    const review = await Collection.findOne({ user_id: userId, ad_id: adId });
+    console.log(review);
+  
+    // Ensures that the client will close when you finish/error
+    await client.close();
+    console.log("closed!");
+    return review;
+  } catch (error) {
+    console.log("Error");
+    response.status(500).json(error);
+  }
+}
+const editReview = async(reviewId, reviewData) => {
+  try {
+   
+
+    // Connect the client to the server    (optional starting in v4.7)
+    await client.connect();
+    
+    
+    const db = client.db("Order_Management");
+    const Collection = db.collection("Reviews");
+    const review = await Collection.updateOne({ _id: reviewId }, {$set: reviewData});
+    console.log(review);
+  
+    // Ensures that the client will close when you finish/error
+    await client.close();
+    
+    return review;
+  } catch (error) {
+    console.log("Error");
+    throw error;
   }
 }
 const deletePaymentMethod = async(paymentId) => {
@@ -312,6 +374,7 @@ module.exports = {
     getCart,
     getFavourites,
     deleteFavourite,
-
-
+    createReview,
+    getReview,
+    editReview,
 }

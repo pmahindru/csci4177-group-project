@@ -4,7 +4,7 @@ import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
 import car from "../images/download.jpg";
 import { styled } from '@mui/system';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { useNavigate } from "react-router-dom";
+import CreateReview from '../review/create-review';
 import { getOrderHistory } from '../../../../api';
 const StyledTypography = styled(Typography)({
   margin: '10px',
@@ -48,32 +48,35 @@ const StyledButton = styled(Button)({
   },
 });
 
-const OrderHistoryCard = (order) => {
-  const { id, product, status, address, photoUrl } = order;
-  const navigate = useNavigate();
-  const handleClick = (event) => {
-    navigate("/createreview", { state: { id: id, product: product, photoUrl: photoUrl } });
-  };
+const OrderHistoryCard = ({order, handleCreateModalOpen}) => {
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const { id, address,  ad_details } = order;
+  const price = ad_details.price;
+  const photoUrl = ad_details.image;
+  console.log(photoUrl[0]);
+  const [selectedAdId, setAdId] = useState('');
+  
+  
 
   return (
     <div style={{ paddingBottom: '5px' }}>
       <StyledCard>
         <Grid item xs={4} md={4}>
-          <StyledCardMedia
-            component="img"
-            height="auto"
-            image={car}
-            alt="Product Image"
-          />
+        {photoUrl && photoUrl.length > 0 ? (
+            <StyledCardMedia
+              component="img"
+              height="auto"
+              image={photoUrl[0]} 
+              alt="Product Image"
+            />
+          ) : (
+            <div>No Image Available</div>
+          )}
         </Grid>
-        <Grid item xs={4} md={4} sx={{ margin: '10px' }}>
-          <StyledTypography>
-            {product}
-          </StyledTypography>
-        </Grid>
+       
         <Grid item xs={4} md={4}>
           <StyledTypography>
-            Status: {status}
+            Price: {price}
           </StyledTypography>
         </Grid>
         <Grid item xs={5} md={6}>
@@ -83,7 +86,7 @@ const OrderHistoryCard = (order) => {
         </Grid>
         <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
           <StyledTypography sx={{ flexGrow: 1 }}>
-            <StyledButton variant="contained" onClick={handleClick}>Review</StyledButton>
+            <StyledButton variant="contained" onClick={() => handleCreateModalOpen(ad_details._id)}>Review</StyledButton>
           </StyledTypography>
         </Grid>
       </StyledCard>
@@ -95,6 +98,20 @@ const OrderHistoryPage =  () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [sortOrder, setSortOrder] = useState('desc');
+  
+  
+  const [selectedAdId, setAdId] = useState('');
+  const handleCreateModalOpen = (adId) => {
+    setAdId(adId);
+    console.log(selectedAdId);
+    setIsCreateModalOpen(true);
+  };
+
+  const handleCreateModalClose = () => {
+    setIsCreateModalOpen(false);
+  };
 
   const [orders, setOrders] = useState([]);
   useEffect(() => {
@@ -102,14 +119,22 @@ const OrderHistoryPage =  () => {
       try {
         const result = await getOrderHistory(user_id);
         console.log(result.data);
-        setOrders(result);
+
+        const sortedData = result.sort((a,b) => {
+          if (sortOrder === 'desc') {
+            return new Date(a.date_purchased) - new Date(b.date_purchased);
+          } else {
+            return new Date(b.date_purchased) - new Date(a.date_purchased);
+          }
+        });
+        setOrders(sortedData);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchOrderHistory();
-  }, []);
+  }, [sortOrder]);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -122,16 +147,28 @@ const OrderHistoryPage =  () => {
         <Grid item xs={12}>
           <Typography variant="h6" style={{ display: 'flex', alignItems: 'center' }}>
             <span>Order by Date</span>
-            <CalendarMonthIcon style={{ marginLeft: '5px' }} />
+            <CalendarMonthIcon style={{ marginLeft: '5px' }} onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} />
           </Typography>
-          {orders.map((order) => (
-        <div key={order._id}>
-          <p>Order ID: {order._id}</p>
-          
+          {orders.length === 0 ? (
+            <p>No bought orders</p>
+          ) : (
+            orders.map((order) => (
+              <div key={order._id}>
+                
+                <OrderHistoryCard
+                   order={order}
+                   handleCreateModalOpen={handleCreateModalOpen}
+                ></OrderHistoryCard>
+              </div>
+            ))
+          )}
+          {isCreateModalOpen && (
+        <div className="modalOverlay">
+          <CreateReview onClose={handleCreateModalClose} selectedAdId={selectedAdId}/>
         </div>
-      ))}
+      )}
         </Grid>
-        
+    
       </Grid>
     </div>
   );

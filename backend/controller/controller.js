@@ -128,15 +128,37 @@ const createPayment = async (req,res) => {
         console.log(newPayment);
         const response = await model.createPayment(newPayment);
         if (response && response.data) {
-            alert('Payment added successfully');
-            onClose();
+            res.status(200).json(data);
           } else {
-            alert('Failed to add payment method');
+            res.status(500).json(error);
           }
     } catch (error) {
-        alert('Failed to add payment method');
+        res.status(500).json(error);
         console.error('Error adding payment method:', error);
       }
+}
+const createReview = async (req,res) => {
+  try {
+    console.log("request received:", req.body);
+    const newReview = {
+      "_id": uuid.v4(),
+      "user_id": req.body.user_id,
+      "star_rating": req.body.star_rating,
+      "review": req.body.review,
+      "ad_id": req.body.ad_id,
+      "title": req.body.title,
+    };
+    console.log(newReview);
+    const response = await model.createReview(newReview);
+    if (response && response.data) {
+      res.status(200).json(response);
+    } else {
+      res.status(500).json(error);
+    }
+  } catch (error) {
+    res.status(500).json(error);
+    console.error('Error adding review:', error);
+  }
 }
 const getFavourites = async (req, res) => {
   try {
@@ -175,6 +197,32 @@ const getReviews = async (req, res) => {
     res.status(500).json(error);
   }
 };
+const getReview = async (req, res) => {
+  try {
+    const adId = req.params.adId
+    const userId = req.params.userId
+    const data = await model.getReview(userId,adId);
+  
+
+      res.status(200).json(data);
+  } catch (error) {
+    console.log("Error");
+    res.status(500).json(error);
+  }
+};
+const editReview = async (req, res) => {
+  try {
+    const reviewId = req.params.reviewId;
+    const reviewData = req.body;
+    const data = await model.editReview(reviewId, reviewData);
+  
+
+      res.status(200).json(data);
+  } catch (error) {
+    console.log("Error");
+    res.status(500).json(error);
+  }
+};
 module.exports = {
     getSignUpUser,
     registerUser,
@@ -188,4 +236,7 @@ module.exports = {
     getFavourites,
     deleteFavourite,
     getReviews,
+    createReview,
+    getReview,
+    editReview,
 }

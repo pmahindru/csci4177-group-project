@@ -1,12 +1,11 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
-import React, { useState } from 'react';
-import { Grid, Card, CardMedia, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
+import car from "../images/download.jpg";
 import { styled } from '@mui/system';
-import car from '../images/download.jpg';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 
+import { useNavigate } from "react-router-dom";
+import { getFavourites } from '../../../../api';
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
@@ -22,101 +21,125 @@ const StyledCard = styled(Card)({
   display: 'flex',
   flexDirection: 'row',
   padding: '15px',
-  width: '100%',
-  alignItems: 'center',
-  marginRight: '10px',
+  width: '50%',
+  justifyContent: 'center', 
+  alignItems: 'center', 
+  position: 'absolute',
+  top: '50%',
+  left: '50%', 
+  transform: 'translate(-50%, -50%)',
   border: '1px solid',
   borderRadius: '16px',
   backgroundColor: 'rgb(230,230,230)',
 });
 
 const StyledCardMedia = styled(CardMedia)({
-  objectFit: 'contain',
-  paddingTop: '5px',
+  objectFit: "contain",
+  paddingTop: "5px",
 });
 
-const FavouritesCard = (ad) => {
-  const [anchorEl, setAnchorEl] = useState(null);
+const StyledButton = styled(Button)({
+  width: '25%',
+  butonSize: 'small',
+  fontSize: '10px',
+  '@media (min-width: 600px)': {
+    fontSize: '10px',
+    buttonSize: 'medium',
+  },
+  '@media (min-width: 807px)': {
+    fontSize: '12px',
+    buttonSize: 'large',
+  },
+});
 
+const OrderHistoryCard = (order) => {
+  const { id, product,price, address, photoUrl } = order;
+  const navigate = useNavigate();
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    navigate("/createreview", { state: { id: id, product: product, photoUrl: photoUrl } });
   };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const { product, status, address } = ad;
 
   return (
     <div style={{ paddingBottom: '5px' }}>
       <StyledCard>
         <Grid item xs={4} md={4}>
-          <StyledCardMedia component="img" height="auto" image={car} alt="Product Image" />
+          <StyledCardMedia
+            component="img"
+            height="auto"
+            image={car}
+            alt="Product Image"
+          />
         </Grid>
         <Grid item xs={4} md={4} sx={{ margin: '10px' }}>
           <StyledTypography>
-            <p>{product}</p>
+            {product}
           </StyledTypography>
         </Grid>
         <Grid item xs={4} md={4}>
           <StyledTypography>
-            <p>Status: {status}</p>
+            Price: {price}
           </StyledTypography>
         </Grid>
         <Grid item xs={5} md={6}>
           <StyledTypography>
-            <p> Seller: {address}</p>
+            Shipped to: {address}
           </StyledTypography>
         </Grid>
-        <Grid item xs={1} md={1} sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-end' }}>
-          <div style={{ position: 'relative', top: 0, right: 0 }}>
-            <MoreVertIcon onClick={handleClick} />
-            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-              <MenuItem onClick={handleClose}>Remove from Favorites</MenuItem>
-            </Menu>
-          </div>
+        <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
+          <StyledTypography sx={{ flexGrow: 1 }}>
+            <StyledButton variant="contained" onClick={handleClick}>Review</StyledButton>
+          </StyledTypography>
         </Grid>
       </StyledCard>
     </div>
   );
 };
 
-const Favourites = () => {
-  const ads = [
-    {
-      id: 1,
-      product: 'Car',
-      adstatus: 'Active',
-      seller: 'YoungMark',
-    },
-    {
-      id: 2,
-      product: 'bat',
-      adstatus: 'Removed',
-      seller: 'Kevin23',
-    },
-    {
-      id: 2,
-      product: 'Bike',
-      adstatus: 'Paused',
-      seller: 'Bobby346',
-    },
-  ];
+const Favourites =  () => {
+  const storedData = localStorage.getItem('user_info');
+  const parsedData = JSON.parse(storedData);
+  const user_id = parsedData._id;
+
+  const [favourites, setFavourites] = useState([]);
+  useEffect(() => {
+    const fetchFavourites = async () => {
+      try {
+        const result = await getFavourites(user_id);
+        console.log(result.data);
+        setFavourites(result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchFavourites();
+  }, []);
 
   return (
     <div style={{ padding: '20px' }}>
       <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={12} alignItems="center">
           <Grid container justifyContent="center">
-            <h1> Favourites </h1>
+            <h1>Favourites</h1>
           </Grid>
         </Grid>
-        {ads.map((ad) => (
-          <Grid item xs={12} md={12}>
-            <FavouritesCard key={ad.id} product={ad.product} status={ad.adstatus} address={ad.seller} photo={ad.photoUrl} />
-          </Grid>
-        ))}
+        <Grid item xs={12}>
+        
+          {favourites.map((favourite) => (
+        <div key={favourite._id}>
+          
+          <OrderHistoryCard
+          key={favourite._id}
+          id={favourite._id}
+          adId ={favourite.ad_id}
+          photoUrl={favourite.ad_details.image[0]}
+          price={favourite.ad_details.price}
+          product={favourite.ad_details.title}
+            ></OrderHistoryCard>
+        </div>
+      ))}
+        </Grid>
+    
       </Grid>
     </div>
   );

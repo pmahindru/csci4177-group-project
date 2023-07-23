@@ -1,52 +1,54 @@
-.order-card {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+
+.container {
+  padding: 20px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  padding: 15px;
+  margin-bottom: 10px;
   border: 1px solid;
   border-radius: 16px;
   background-color: rgb(230, 230, 230);
+  padding: 15px;
+  font-size: 10px; /* Default font size */
+  width: 75%;
 }
 
-.order-card-image img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-}
-
-.order-card-details {
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  gap: 10px;
-}
-
-.order-card-details p {
-  margin: 0;
-  font-size: 14px;
-}
-
-.order-card-button {
+.cards img {
+  max-width: 100px;
+  height: auto;
   padding: 5px;
+}
+
+.cards p {
+  margin: 10px;
   font-size: 10px;
 }
 
+.button {
+  flex: 1;
+  text-align: center;
+}
+
+.cards > div {
+  flex: 1;
+  padding: 5px; 
+}
+
+
 @media (min-width: 600px) {
-  .order-card {
-    grid-template-columns: auto 1fr auto auto;
-    gap: 10px;
-    align-items: flex-start;
+  .cards {
+    
+    font-size: 14px; 
   }
+}
 
-  .order-card-image img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
 
-  .order-card-details {
-    margin-left: 0;
-    grid-column: span 2;
-    align-items: flex-start;
+@media (min-width: 807px) {
+  .cards {
+    
+    font-size: 18px; 
   }
 }
