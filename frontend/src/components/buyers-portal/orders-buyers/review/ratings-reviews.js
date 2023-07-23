@@ -120,7 +120,7 @@ const Rating_Reviews = () => {
       }
     };
     fetchReviews();
-  }, []);
+  }, [selectedAdId]);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -132,6 +132,7 @@ const Rating_Reviews = () => {
         </Grid>
         <Grid item xs={12}>
           {reviews.length === 0 ? (
+            //this checks to see if there are any reviews the user has made. If there is not then a message saying that there are no reviews is displayed
             <div className="center-container">
               <h2 className="reviewLabel">No Reviews Created</h2>
             </div>
@@ -154,6 +155,11 @@ const Rating_Reviews = () => {
               <CreateReview onClose={handleCreateReviewClose} selectedAdId={selectedAdId} />
             </div>
           )}
+          {isCreateModalOpen && (
+        <div className="modalOverlay">
+          <CreateReview onClose={handleCreateReviewOpenClose} selectedAdId={selectedAdId}/>
+        </div>
+      )}
         </Grid>
       </Grid>
     </div>

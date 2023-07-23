@@ -274,7 +274,7 @@ const deleteCartItem = async (itemId) => {
     const Collection = db.collection("Cart");
     const deleteResult = await Collection.deleteOne({ _id: itemId });
 
-    // Ensures that the client will close when you finish/error
+    
     
 
     return deleteResult;
@@ -292,7 +292,6 @@ const getPayments = async (userId) => {
   try {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
-
     //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Payments");
@@ -347,7 +346,6 @@ const editPayment = async (paymentId, paymentData) => {
   try {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
-
     //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Payments");
@@ -403,7 +401,6 @@ const getReview = async (userId, adId) => {
   try {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
-
     //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Reviews");
@@ -421,7 +418,6 @@ const editReview = async (reviewId, reviewData) => {
   try {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
-
     //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Reviews");
@@ -443,7 +439,6 @@ const deletePaymentMethod = async (paymentId) => {
   try {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
-
     //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Payments");
@@ -496,7 +491,6 @@ const deleteFavourite = async (favouriteId) => {
   try {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
-
     //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Favourites");

@@ -91,7 +91,7 @@ const FavouritesCard = ({ favourite }) => {
             {title}
           </StyledTypography>
         </Grid>
-        <Grid item xs={4} md={4}>
+        <Grid item xs={3} md={3}>
           <StyledTypography>
             Price: {price}
           </StyledTypography>
@@ -132,7 +132,10 @@ const Favourites = () => {
     };
 
     fetchFavourites();
-  }, []);
+  }, [user_id]);
+
+   
+  
 
   return (
     <div style={{ padding: '20px' }}>
