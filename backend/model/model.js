@@ -89,16 +89,17 @@ const getOrderHistory = async (userId) => {
         ad_details: ad,
       };
     }));
+     // Ensures that the client will close when you finish/error
     await client.close();
     console.log("closed!");
     console.log(ordersWithAdDetails);
     return ordersWithAdDetails;
 
-    // Ensures that the client will close when you finish/error
+   
     
   }catch (error) {
-    console.error(error); // Log the actual error message
-    response.status(500).json({ error: 'Internal Server Error' });
+    console.error(error); 
+    return error; 
   }
 }
 const getCart = async (userId) => {
@@ -108,32 +109,33 @@ const getCart = async (userId) => {
 
     
     //call db name and collection
-    const orderdb = client.db("Order_Management");
-    const orderCollection = orderdb.collection("Cart");
+    const cartdb = client.db("Order_Management");
+    const cartCollection = cartdb.collection("Cart");
 
     //put into an array as we need to get each ad details to return to the user
-    const orderList = await orderCollection.find({ user_id : userId }).toArray();
+    const cartList = await cartCollection.find({ user_id : userId }).toArray();
     const addb = client.db("Seller_Management");
     const adCollection = addb.collection("post_ad");
-    const ordersWithAdDetails = await Promise.all(orderList.map(async (order) => {
-      const adId = order.ad_id;
+    const cartWithAdDetails = await Promise.all(cartList.map(async (item) => {
+      const adId = item.ad_id;
       
       const ad = await adCollection.findOne({ _id: adId });
       return {
-        ...order,
+        ...item,
         ad_details: ad,
       };
     }));
+    // Ensures that the client will close when you finish/error
     await client.close();
     console.log("closed!");
-    console.log(ordersWithAdDetails);
-    return ordersWithAdDetails;
+    console.log(cartWithAdDetails);
+    return cartWithAdDetails;
 
-    // Ensures that the client will close when you finish/error
+    
     
   }catch (error) {
-    console.error(error); // Log the actual error message
-    response.status(500).json({ error: 'Internal Server Error' });
+    console.error(error);
+    return error; 
   }
 };
 const getPayments = async (userId) => {
@@ -143,7 +145,7 @@ const getPayments = async (userId) => {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
     
-    
+    //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Payments");
     const payment = await Collection.find({ user_id: userId }).toArray();
@@ -155,14 +157,14 @@ const getPayments = async (userId) => {
     return payment;
   } catch (error) {
     console.log("Error");
-    response.status(500).json(error);
+    return error;
   }
 }
 const createPayment = async (data) => {
   try {
     // Connect the client to the server (optional starting in v4.7)
     await client.connect();
-    
+    //call db name and collection
     const db = client.db("Order_Management");
     const collection = db.collection("Payments");
     const newPayment = await collection.insertOne(data);
@@ -173,14 +175,14 @@ const createPayment = async (data) => {
     return newPayment;
   } catch (error) {
     console.error(error);
-    throw error; // Propagate the error back to the calling function
+    return error; 
   }
 };
 const createReview = async (data) => {
   try {
     // Connect the client to the server (optional starting in v4.7)
     await client.connect();
-    
+    //call db name and collection
     const db = client.db("Order_Management");
     const collection = db.collection("Reviews");
     const newReview = await collection.insertOne(data);
@@ -191,7 +193,7 @@ const createReview = async (data) => {
     return newReview;
   } catch (error) {
     console.error(error);
-    throw error; // Propagate the error back to the calling function
+    return error; 
   }
 };
 const editPayment = async(paymentId, paymentData) => {
@@ -201,7 +203,7 @@ const editPayment = async(paymentId, paymentData) => {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
     
-    
+    //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Payments");
     const payment = await Collection.updateOne({ _id: paymentId }, {$set: paymentData});
@@ -213,29 +215,43 @@ const editPayment = async(paymentId, paymentData) => {
     return payment;
   } catch (error) {
     console.log("Error");
-    throw error;
+    return error;
   }
 }
 const getReviews = async (userId) => {
   try {
-   
-
-    // Connect the client to the server    (optional starting in v4.7)
+    // Connect the client to the server (optional starting in v4.7)
     await client.connect();
+
     
-    
-    const db = client.db("Order_Management");
-    const Collection = db.collection("Reviews");
-    const review = await Collection.find({ user_id: userId }).toArray();
-    console.log(review);
-  
+    //call db name and collection
+    const reviewdb = client.db("Order_Management");
+    const reviewsCollection = reviewdb.collection("Reviews");
+
+    //put into an array as we need to get each ad details to return to the user
+    const reviewsList = await reviewsCollection.find({ user_id : userId }).toArray();
+    const addb = client.db("Seller_Management");
+    const adCollection = addb.collection("post_ad");
+    const reviewsWithAdDetails = await Promise.all(reviewsList.map(async (review) => {
+      const adId = review.ad_id;
+      
+      const ad = await adCollection.findOne({ _id: adId });
+      return {
+        ...review,
+        ad_details: ad,
+      };
+    }));
     // Ensures that the client will close when you finish/error
     await client.close();
     console.log("closed!");
-    return review;
-  } catch (error) {
-    console.log("Error");
-    response.status(500).json(error);
+    console.log(reviewsWithAdDetails);
+    return reviewsWithAdDetails;
+
+    
+    
+  }catch (error) {
+    console.error(error); 
+    return error;
   }
 }
 const getReview = async (userId,adId) => {
@@ -245,7 +261,7 @@ const getReview = async (userId,adId) => {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
     
-    
+    //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Reviews");
     const review = await Collection.findOne({ user_id: userId, ad_id: adId });
@@ -257,7 +273,7 @@ const getReview = async (userId,adId) => {
     return review;
   } catch (error) {
     console.log("Error");
-    response.status(500).json(error);
+    return error;
   }
 }
 const editReview = async(reviewId, reviewData) => {
@@ -267,7 +283,7 @@ const editReview = async(reviewId, reviewData) => {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
     
-    
+    //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Reviews");
     const review = await Collection.updateOne({ _id: reviewId }, {$set: reviewData});
@@ -279,7 +295,7 @@ const editReview = async(reviewId, reviewData) => {
     return review;
   } catch (error) {
     console.log("Error");
-    throw error;
+    return error;
   }
 }
 const deletePaymentMethod = async(paymentId) => {
@@ -289,7 +305,7 @@ const deletePaymentMethod = async(paymentId) => {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
     
-    
+    //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Payments");
     const deleteResult = await Collection.deleteOne({ _id: paymentId });
@@ -301,7 +317,7 @@ const deletePaymentMethod = async(paymentId) => {
     return deleteResult;
   } catch (error) {
     console.log("Error");
-    throw error;
+    return error;
   }
 }
 const getFavourites = async (userId) => {
@@ -311,32 +327,33 @@ const getFavourites = async (userId) => {
 
     
     //call db name and collection
-    const orderdb = client.db("Order_Management");
-    const orderCollection = orderdb.collection("Favourites");
+    const favouritedb = client.db("Order_Management");
+    const favouriteCollection = favouritedb.collection("Favourites");
 
     //put into an array as we need to get each ad details to return to the user
-    const orderList = await orderCollection.find({ user_id : userId }).toArray();
+    const favouriteList = await favouriteCollection.find({ user_id : userId }).toArray();
     const addb = client.db("Seller_Management");
     const adCollection = addb.collection("post_ad");
-    const ordersWithAdDetails = await Promise.all(orderList.map(async (order) => {
-      const adId = order.ad_id;
+    const favouritesWithAdDetails = await Promise.all(favouriteList.map(async (favourite) => {
+      const adId = favourite.ad_id;
       
       const ad = await adCollection.findOne({ _id: adId });
       return {
-        ...order,
+        ...favourite,
         ad_details: ad,
       };
     }));
+    // Ensures that the client will close when you finish/error
     await client.close();
     console.log("closed!");
-    console.log(ordersWithAdDetails);
-    return ordersWithAdDetails;
+    console.log(favouritesWithAdDetails);
+    return favouritesWithAdDetails;
 
-    // Ensures that the client will close when you finish/error
+    
     
   }catch (error) {
-    console.error(error); // Log the actual error message
-    response.status(500).json({ error: 'Internal Server Error' });
+    console.error(error); 
+    return error;
   }
 }
 const deleteFavourite = async(favouriteId) => {
@@ -346,7 +363,7 @@ const deleteFavourite = async(favouriteId) => {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
     
-    
+    //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Favourites");
     const deleteResult = await Collection.deleteOne({ _id: favouriteId });
@@ -358,7 +375,7 @@ const deleteFavourite = async(favouriteId) => {
     return deleteResult;
   } catch (error) {
     console.log("Error");
-    throw error;
+    return error;
   }
 }
 module.exports = {

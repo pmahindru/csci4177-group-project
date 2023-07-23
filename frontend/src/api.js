@@ -142,3 +142,11 @@ export const deletePaymentMethod = async(paymentId) => {
         console.error(error);
     }
 }
+export const deleteFavourite = async(favouriteId) => {
+    try{
+        const res = await axios.delete(`${baseURL}/favourites/${favouriteId}`);
+        return res.data;
+    }catch (error){
+        console.error(error);
+    }
+}

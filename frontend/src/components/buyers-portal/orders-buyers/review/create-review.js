@@ -29,6 +29,7 @@ const CreateReview = ({ onClose, selectedAdId }) => {
             setExistingReview(true);
             setId(response._id);
             
+            
           } else {
             
             setRating(0);
@@ -72,6 +73,7 @@ const CreateReview = ({ onClose, selectedAdId }) => {
               
               await editReview(reviewId,reviewData);
               alert('Review edited successfully');
+              
               onClose();
             } else {
             

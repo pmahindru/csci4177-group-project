@@ -48,10 +48,10 @@ const StyledButton = styled(Button)({
   },
 });
 
-const OrderHistoryCard = ({order, handleCreateModalOpen}) => {
+const OrderHistoryCard = ({order, handleCreateReviewOpen}) => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const { id, address,  ad_details } = order;
-  const price = ad_details.price;
+  const price = `$${ad_details.price}`;
   const photoUrl = ad_details.image;
   console.log(photoUrl[0]);
   const [selectedAdId, setAdId] = useState('');
@@ -76,7 +76,7 @@ const OrderHistoryCard = ({order, handleCreateModalOpen}) => {
        
         <Grid item xs={4} md={4}>
           <StyledTypography>
-            Price: {price}
+            Total: {price}
           </StyledTypography>
         </Grid>
         <Grid item xs={5} md={6}>
@@ -86,7 +86,7 @@ const OrderHistoryCard = ({order, handleCreateModalOpen}) => {
         </Grid>
         <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
           <StyledTypography sx={{ flexGrow: 1 }}>
-            <StyledButton variant="contained" onClick={() => handleCreateModalOpen(ad_details._id)}>Review</StyledButton>
+            <StyledButton variant="contained" onClick={() => handleCreateReviewOpen(ad_details._id)}>Review</StyledButton>
           </StyledTypography>
         </Grid>
       </StyledCard>
@@ -103,13 +103,13 @@ const OrderHistoryPage =  () => {
   
   
   const [selectedAdId, setAdId] = useState('');
-  const handleCreateModalOpen = (adId) => {
+  const handleCreateReviewOpen = (adId) => {
     setAdId(adId);
     console.log(selectedAdId);
     setIsCreateModalOpen(true);
   };
 
-  const handleCreateModalClose = () => {
+  const handleCreateReviewClose = () => {
     setIsCreateModalOpen(false);
   };
 
@@ -157,14 +157,14 @@ const OrderHistoryPage =  () => {
                 
                 <OrderHistoryCard
                    order={order}
-                   handleCreateModalOpen={handleCreateModalOpen}
+                   handleCreateReviewOpen={handleCreateReviewOpen}
                 ></OrderHistoryCard>
               </div>
             ))
           )}
           {isCreateModalOpen && (
         <div className="modalOverlay">
-          <CreateReview onClose={handleCreateModalClose} selectedAdId={selectedAdId}/>
+          <CreateReview onClose={handleCreateReviewClose} selectedAdId={selectedAdId}/>
         </div>
       )}
         </Grid>

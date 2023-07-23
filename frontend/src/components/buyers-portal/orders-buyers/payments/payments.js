@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import CreatePaymentModal from './createpayment';
 import EditPaymentModal from './editpayment';
-import { Grid } from '@mui/material';
 import { getAllPayments } from '../../../../api';
 import "./payments.css";
 
@@ -15,21 +14,21 @@ const AccountPayments = () => {
   const [payments, setPayments] = useState([]);
   const [selectedPaymentId, setSelectedPaymentId] = useState(null);
 
-  const handleCreateModalOpen = () => {
+  const handleCreatePayment = () => {
     setIsCreateModalOpen(true);
   };
 
-  const handleCreateModalClose = () => {
+  const handleCreatePaymentClose = () => {
     setIsCreateModalOpen(false);
   };
 
-  const handleEditModalOpen = (paymentId) => {
+  const handleEditPayment = (paymentId) => {
     setSelectedPaymentId(paymentId);
     setIsEditModalOpen(true);
     console.log(paymentId);
   };
 
-  const handleEditModalClose = () => {
+  const handleEditPaymentClose = () => {
     setSelectedPaymentId(null);
     setIsEditModalOpen(false);
   };
@@ -57,11 +56,11 @@ const AccountPayments = () => {
           <div>
             <p>Card Number: {payment.card_number}</p>
             <p>Expiry Date: {payment.expiry}</p>
-            <button className="button" onClick={() => handleEditModalOpen(payment._id)}>Edit</button>
+            <button className="button" onClick={() => handleEditPayment(payment._id)}>Edit</button>
             {isEditModalOpen && selectedPaymentId === payment._id && (
               <EditPaymentModal
                 paymentId={selectedPaymentId}
-                onClose={handleEditModalClose}
+                onClose={handleEditPaymentClose}
               />
             )}
           </div>
@@ -69,11 +68,11 @@ const AccountPayments = () => {
       ))}
 
     
-      <button className="button" onClick={handleCreateModalOpen}>Add a Payment</button>
+      <button className="button" onClick={handleCreatePayment}>Add a Payment</button>
 
       {isCreateModalOpen && (
         <div className="modalOverlay">
-          <CreatePaymentModal onClose={handleCreateModalClose} />
+          <CreatePaymentModal onClose={handleCreatePaymentClose} />
         </div>
       )}
 
@@ -82,7 +81,7 @@ const AccountPayments = () => {
           
           <EditPaymentModal
             paymentId={selectedPaymentId}
-            onClose={handleEditModalClose}
+            onClose={handleEditPaymentClose}
           />
         </div>
       )}

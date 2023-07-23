@@ -1,11 +1,13 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
-import car from "../images/download.jpg";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/system';
-
-import { useNavigate } from "react-router-dom";
-import { getFavourites } from '../../../../api';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CreateReview from '../review/create-review';
+import { getFavourites, deleteFavourite } from '../../../../api';
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
@@ -21,13 +23,9 @@ const StyledCard = styled(Card)({
   display: 'flex',
   flexDirection: 'row',
   padding: '15px',
-  width: '50%',
-  justifyContent: 'center', 
-  alignItems: 'center', 
-  position: 'absolute',
-  top: '50%',
-  left: '50%', 
-  transform: 'translate(-50%, -50%)',
+  width: '100%',
+  alignItems: 'center',
+  marginRight: '10px',
   border: '1px solid',
   borderRadius: '16px',
   backgroundColor: 'rgb(230,230,230)',
@@ -52,42 +50,66 @@ const StyledButton = styled(Button)({
   },
 });
 
-const OrderHistoryCard = (order) => {
-  const { id, product,price, address, photoUrl } = order;
-  const navigate = useNavigate();
+const FavouritesCard = ({favourite}) => {
+  
+  const { id, address,  ad_details } = favourite;
+  const price = `$${ad_details.price}`;
+  const title = ad_details.title;
+  const photoUrl = ad_details.image;
+  console.log(photoUrl[0]);
+  const [selectedAdId, setAdId] = useState('');
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const handleClick = (event) => {
-    navigate("/createreview", { state: { id: id, product: product, photoUrl: photoUrl } });
+    setAnchorEl(event.currentTarget);
   };
+
+  const handleClose = () => {
+    
+  };
+  const handleRemoveFavourite = async () => {
+    try{
+      await deleteFavourite(favourite._id);
+      setAnchorEl(null);
+    }catch (error) {
+      alert('Failed to remove favourite ad');
+      console.error('Error removing ad from favourites:', error);
+    }
+  }
+  
 
   return (
     <div style={{ paddingBottom: '5px' }}>
       <StyledCard>
         <Grid item xs={4} md={4}>
-          <StyledCardMedia
-            component="img"
-            height="auto"
-            image={car}
-            alt="Product Image"
-          />
+        {photoUrl && photoUrl.length > 0 ? (
+            <StyledCardMedia
+              component="img"
+              height="auto"
+              image={photoUrl[0]} 
+              alt="Product Image"
+            />
+          ) : (
+            <div>No Image Available</div>
+          )}
         </Grid>
-        <Grid item xs={4} md={4} sx={{ margin: '10px' }}>
+        <Grid item xs={5} md={6}>
           <StyledTypography>
-            {product}
+            {title}
           </StyledTypography>
         </Grid>
-        <Grid item xs={4} md={4}>
+        <Grid item xs={3} md={3}>
           <StyledTypography>
             Price: {price}
           </StyledTypography>
         </Grid>
-        <Grid item xs={5} md={6}>
-          <StyledTypography>
-            Shipped to: {address}
-          </StyledTypography>
-        </Grid>
+       
         <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
           <StyledTypography sx={{ flexGrow: 1 }}>
-            <StyledButton variant="contained" onClick={handleClick}>Review</StyledButton>
+          <MoreVertIcon onClick={handleClick} />
+            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+              <MenuItem onClick={handleRemoveFavourite}>Remove from Favorites</MenuItem>
+            </Menu>
           </StyledTypography>
         </Grid>
       </StyledCard>
@@ -99,8 +121,10 @@ const Favourites =  () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
+  const [selectedAdId, setAdId] = useState('');
 
   const [favourites, setFavourites] = useState([]);
+  
   useEffect(() => {
     const fetchFavourites = async () => {
       try {
@@ -113,7 +137,10 @@ const Favourites =  () => {
     };
 
     fetchFavourites();
-  }, []);
+  }, [user_id]);
+
+   
+  
 
   return (
     <div style={{ padding: '20px' }}>
@@ -124,20 +151,24 @@ const Favourites =  () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-        
-          {favourites.map((favourite) => (
-        <div key={favourite._id}>
-          
-          <OrderHistoryCard
-          key={favourite._id}
-          id={favourite._id}
-          adId ={favourite.ad_id}
-          photoUrl={favourite.ad_details.image[0]}
-          price={favourite.ad_details.price}
-          product={favourite.ad_details.title}
-            ></OrderHistoryCard>
-        </div>
-      ))}
+         
+          {favourites.length === 0 ? (
+            <div className="center-container">
+            <h2>No Ads Favourited</h2>
+            </div>
+          ) : (
+            favourites.map((favourite) => (
+              <div key={favourite._id}>
+                
+                <FavouritesCard
+                   key={favourite._id}
+                   favourite={favourite}
+                   
+                ></FavouritesCard>
+              </div>
+            ))
+          )}
+   
         </Grid>
     
       </Grid>

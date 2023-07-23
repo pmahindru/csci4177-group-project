@@ -24,4 +24,5 @@ app.get(`${baseURL}/review/:userId/:adId`, controller.getReview);
 app.get(`${baseURL}/cart/:userId`, controller.getCart);
 app.get(`${baseURL}/reviews/:userId`, controller.getReviews);
 app.get(`${baseURL}/favourites/:userId`, controller.getFavourites);
+app.delete(`${baseURL}/favourites/:favouriteId`, controller.deleteFavourite);
 module.exports = app;
