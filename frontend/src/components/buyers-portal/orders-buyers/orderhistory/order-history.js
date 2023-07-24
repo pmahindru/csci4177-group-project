@@ -63,7 +63,7 @@ const OrderHistoryCard = ({ order, handleCreateReviewOpen }) => {
        
         <Grid item xs={3} md={4}>
           <StyledTypography>
-            Total: {price}
+            Price: {price}
           </StyledTypography>
         </Grid>
         <Grid item xs={4} md={6}>
