@@ -6,6 +6,8 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CreateReview from '../review/create-review';
 import { getOrderHistory } from '../../../../api';
 import "./order-history.css";
+
+//styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
@@ -48,15 +50,12 @@ const StyledButton = styled(Button)({
   },
 });
 
-const OrderHistoryCard = ({order, handleCreateReviewOpen}) => {
+//order history card returns a image of the product, the price, where it was shipped and a button to write a reivew. This is done for each order the user has
+const OrderHistoryCard = ({ order, handleCreateReviewOpen }) => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const { id, address,  ad_details } = order;
+  const { address,  ad_details } = order;
   const price = `$${ad_details.price}`;
   const photoUrl = ad_details.image;
-  console.log(photoUrl[0]);
-  const [selectedAdId, setAdId] = useState('');
-  
-  
 
   return (
     <div style={{ paddingBottom: '5px' }}>
@@ -66,7 +65,7 @@ const OrderHistoryCard = ({order, handleCreateReviewOpen}) => {
             <StyledCardMedia
               component="img"
               height="auto"
-              image={photoUrl[0]} 
+              image={photoUrl[0]}
               alt="Product Image"
             />
           ) : (
@@ -94,15 +93,16 @@ const OrderHistoryCard = ({order, handleCreateReviewOpen}) => {
   );
 };
 
-const OrderHistoryPage =  () => {
+const OrderHistoryPage = () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
+  //local variables to get user order history and toggle the review popup
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState('desc');
-  
-  
   const [selectedAdId, setAdId] = useState('');
+  const [orders, setOrders] = useState([]);
+  //event handlers to update locat states when review button is clicked
   const handleCreateReviewOpen = (adId) => {
     setAdId(adId);
     console.log(selectedAdId);
@@ -113,7 +113,7 @@ const OrderHistoryPage =  () => {
     setIsCreateModalOpen(false);
   };
 
-  const [orders, setOrders] = useState([]);
+  //use effect gets and sorts order history of user
   useEffect(() => {
     const fetchOrderHistory = async () => {
       try {
@@ -151,12 +151,11 @@ const OrderHistoryPage =  () => {
           </Typography>
           {orders.length === 0 ? (
             <div className="center-container">
-            <h2>No Products Purchased</h2>
+              <h2>No Products Purchased</h2>
             </div>
           ) : (
             orders.map((order) => (
               <div key={order._id}>
-                
                 <OrderHistoryCard
                    order={order}
                    handleCreateReviewOpen={handleCreateReviewOpen}

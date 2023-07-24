@@ -102,7 +102,7 @@ const getOrderHistory = async (userId) => {
     return error; 
   }
 }
-const getCart = async (userId, onCartChange) => {
+const getCart = async (userId) => {
   try {
     // Connect the client to the server (optional starting in v4.7)
     await client.connect();

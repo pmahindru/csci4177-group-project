@@ -5,8 +5,10 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/system';
-import { getCart, deleteCartItem } from '../../../../api';
+import Checkout from '../checkout/checkout';
+import { getCart, deleteCartItem, getAllPayments } from '../../../../api';
 import "./cart.css";
+//styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
@@ -29,6 +31,7 @@ const StyledCard = styled(Card)({
   backgroundColor: 'rgb(230,230,230)',
   margin: '0 auto'
 });
+
 const StyledCardMedia = styled(CardMedia)({
   objectFit: "contain",
   paddingTop: "5px",
@@ -48,51 +51,48 @@ const StyledButton = styled(Button)({
   },
 });
 
-const CartCard = ({item}) => {
-  
-  const {ad_details } = item;
+// The CartCard returns a card for each item with an image, the price of the product, and the title of the ad.
+const CartCard = ({ item }) => {
+  const { ad_details } = item;
   const price = `$${ad_details.price}`;
   const title = ad_details.title;
   const photoUrl = ad_details.image;
-  
-
-  
   const [anchorEl, setAnchorEl] = useState(null);
 
+  //event handlers to open/close the more options button in the cart
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-    
+    setAnchorEl(null);
   };
+
   const handleRemoveCartItem = async () => {
     const shouldRemove = window.confirm('Are you sure you want to remove this item from the cart?');
-    if(shouldRemove){
-      try{
+    if (shouldRemove) {
+      try {
         await deleteCartItem(item._id);
         setAnchorEl(null);
         alert("Item Removed from Cart!");
         window.location.reload();
-      }catch (error) {
+      } catch (error) {
         alert('Failed to remove favourite ad');
         console.error('Error removing ad from favourites:', error);
       }
     }
     setAnchorEl(null);
-  
-  }
-  
+  };
 
   return (
     <div style={{ paddingBottom: '5px' }}>
       <StyledCard>
         <Grid item xs={4} md={4}>
-        {photoUrl && photoUrl.length > 0 ? (
+          {photoUrl && photoUrl.length > 0 ? (
             <StyledCardMedia
               component="img"
               height="auto"
-              image={photoUrl[0]} 
+              image={photoUrl[0]}
               alt="Product Image"
             />
           ) : (
@@ -109,10 +109,9 @@ const CartCard = ({item}) => {
             Price: {price}
           </StyledTypography>
         </Grid>
-       
         <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
           <StyledTypography sx={{ flexGrow: 1 }}>
-          <MoreVertIcon onClick={handleClick} />
+            <MoreVertIcon onClick={handleClick} />
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
               <MenuItem onClick={handleRemoveCartItem}>Remove from Cart</MenuItem>
             </Menu>
@@ -123,38 +122,63 @@ const CartCard = ({item}) => {
   );
 };
 
-const Cart =  () => {
+const Cart = () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
-
-
+  //local state variables
   const [cart, setCart] = useState([]);
-  
+  const [payments, setPayments] = useState([]);
+  const [isCheckoutOpen, setCheckoutOpen] = useState(false);
+  //event handles to open/close the checkout component
+  const handleCheckoutPopup = () => {
+    setCheckoutOpen(true);
+  };
+
+  const handleCheckoutClose = () => {
+    setCheckoutOpen(false);
+  };
+
+  // The two useEffects below get the data for the user's cart and the payment methods that they have.
   useEffect(() => {
     const fetchCart = async () => {
       try {
         const result = await getCart(user_id);
-        console.log(result.data);
         setCart(result);
       } catch (error) {
         console.error(error);
       }
     };
-   
 
-
- 
-    
     fetchCart();
-   
-  }, [user_id]);
+  }, []);
 
-  const totalPrice = cart.reduce(
-    (total, item) => total + parseInt(item.ad_details.price),
-    0
-  );
-  
+  useEffect(() => {
+    const fetchPayments = async () => {
+      try {
+        const result = await getAllPayments(user_id);
+        setPayments(result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchPayments();
+  }, []);
+
+  // This function handles when the user clicks checkout. If the user has at least one payment method, they will be directed to the checkout screen. If not, they will be alerted to add a payment method before they can check out.
+  const handleCheckout = () => {
+    if (payments.length !== 0) {
+      handleCheckoutPopup();
+    } else {
+      alert("Please add a payment method to this account to checkout");
+    }
+  }
+
+  // Total price is calculated with the reduce method and the price from each item in the cart is summed up.
+  const totalPrice = cart.length > 0
+    ? cart.reduce((total, item) => total + parseInt(item.ad_details.price), 0)
+    : 0;
 
   return (
     <div style={{ padding: '20px' }}>
@@ -165,36 +189,40 @@ const Cart =  () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-         
           {cart.length === 0 ? (
             <div className="center-container">
-            <h2>Your Cart Is Empty</h2>
+              <h2>Your Cart Is Empty</h2>
             </div>
           ) : (
-            cart.map((item) => (
-              <><div key={item._id}>
-
-                <CartCard
-                  key={item._id}
-                  item={item}
-
-                ></CartCard>
+              Array.isArray(cart) && cart.map((item) => (
+                <React.Fragment key={item._id}>
+                  <CartCard
+                    item={item}
+                  ></CartCard>
+                </React.Fragment>
+              ))
+            )}
+          {cart.length > 0 && (
+            <React.Fragment>
+              <div className="card-total">
+                <StyledTypography>Total: ${totalPrice.toFixed(2)}</StyledTypography>
               </div>
-              
-              </>
-            ))
-            
+              <div className="card-total">
+                <StyledButton variant="contained" onClick={() => handleCheckout()}>Checkout</StyledButton>
+              </div>
+            </React.Fragment>
           )}
-              {cart.length > 0 && (
-        <><div className="card-total">
-              <StyledTypography>Total: ${totalPrice.toFixed(2)}</StyledTypography>
-            </div><div className="card-total">
-                <StyledButton variant="contained">Checkout</StyledButton>
-              </div></>
-      )}
-        
+          {isCheckoutOpen && (
+            <div className="modalOverlay">
+              <Checkout
+                totalPrice={totalPrice}
+                cart={cart}
+                payments={payments}
+                onClose={handleCheckoutClose}
+              />
+            </div>
+          )}
         </Grid>
-       
       </Grid>
     </div>
   );

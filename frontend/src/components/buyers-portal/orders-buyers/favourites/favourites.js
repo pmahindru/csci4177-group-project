@@ -6,6 +6,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/system';
 import { getFavourites, deleteFavourite } from '../../../../api';
+//styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
@@ -21,12 +22,13 @@ const StyledCard = styled(Card)({
   display: 'flex',
   flexDirection: 'row',
   padding: '15px',
-  width: '100%',
+  width: '75%',
   alignItems: 'center',
   marginRight: '10px',
   border: '1px solid',
   borderRadius: '16px',
   backgroundColor: 'rgb(230,230,230)',
+  margin: '0 auto'
 });
 
 const StyledCardMedia = styled(CardMedia)({
@@ -34,13 +36,12 @@ const StyledCardMedia = styled(CardMedia)({
   paddingTop: "5px",
 });
 
-const FavouritesCard = ({favourite}) => {
-  
-  const {ad_details } = favourite;
+//favourites card returns a image of the product, the ad title, price and a button to remove the ad from the favourites list. This is done for each item.
+const FavouritesCard = ({ favourite }) => {
+  const { ad_details } = favourite;
   const price = `$${ad_details.price}`;
   const title = ad_details.title;
   const photoUrl = ad_details.image;
-  console.log(photoUrl[0]);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -48,34 +49,32 @@ const FavouritesCard = ({favourite}) => {
   };
 
   const handleClose = () => {
-    
   };
+  //handleRemoveFavourites removes the favourited ad from the users favourite list in the database
   const handleRemoveFavourite = async () => {
     const shouldRemove = window.confirm('Are you sure you want to unfavourite this ad?');
-    if(shouldRemove){
-      try{
+    if (shouldRemove) {
+      try {
         await deleteFavourite(favourite._id);
         setAnchorEl(null);
         window.location.reload();
-      }catch (error) {
+      } catch (error) {
         alert('Failed to remove favourite ad');
         console.error('Error removing ad from favourites:', error);
       }
     }
     setAnchorEl(null);
-  
   }
-  
 
   return (
     <div style={{ paddingBottom: '5px' }}>
       <StyledCard>
         <Grid item xs={4} md={4}>
-        {photoUrl && photoUrl.length > 0 ? (
+          {photoUrl && photoUrl.length > 0 ? (
             <StyledCardMedia
               component="img"
               height="auto"
-              image={photoUrl[0]} 
+              image={photoUrl[0]}
               alt="Product Image"
             />
           ) : (
@@ -92,10 +91,10 @@ const FavouritesCard = ({favourite}) => {
             Price: {price}
           </StyledTypography>
         </Grid>
-       
+
         <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
           <StyledTypography sx={{ flexGrow: 1 }}>
-          <MoreVertIcon onClick={handleClick} />
+            <MoreVertIcon onClick={handleClick} />
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
               <MenuItem onClick={handleRemoveFavourite}>Remove from Favorites</MenuItem>
             </Menu>
@@ -106,14 +105,13 @@ const FavouritesCard = ({favourite}) => {
   );
 };
 
-const Favourites =  () => {
+const Favourites = () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
   const [selectedAdId, setAdId] = useState('');
-
   const [favourites, setFavourites] = useState([]);
-  
+
   useEffect(() => {
     const fetchFavourites = async () => {
       try {
@@ -126,10 +124,7 @@ const Favourites =  () => {
     };
 
     fetchFavourites();
-  }, [user_id]);
-
-   
-  
+  }, []);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -140,26 +135,21 @@ const Favourites =  () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-         
           {favourites.length === 0 ? (
             <div className="center-container">
-            <h2>No Ads Favourited</h2>
+              <h2>No Ads Favourited</h2>
             </div>
           ) : (
             favourites.map((favourite) => (
               <div key={favourite._id}>
-                
                 <FavouritesCard
-                   key={favourite._id}
-                   favourite={favourite}
-                   
+                  key={favourite._id}
+                  favourite={favourite}
                 ></FavouritesCard>
               </div>
             ))
           )}
-   
         </Grid>
-    
       </Grid>
     </div>
   );

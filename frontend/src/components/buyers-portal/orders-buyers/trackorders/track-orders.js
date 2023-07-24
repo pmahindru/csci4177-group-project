@@ -1,9 +1,9 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
-import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
+import { Grid, Card, CardMedia, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { getTrackedOrders } from '../../../../api';
-import "./track-orders.css";
+//styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
@@ -25,42 +25,35 @@ const StyledCard = styled(Card)({
   border: '1px solid',
   borderRadius: '16px',
   backgroundColor: 'rgb(230,230,230)',
-  margin: '0 auto'
+  margin: '0 auto',
 });
 
 const StyledCardMedia = styled(CardMedia)({
   objectFit: "contain",
   paddingTop: "5px",
 });
+//TrackOrders card returns a image of the product, the price, where it was shipped and a button to write a reivew. This is done for each order in transit the user has
+const TrackOrdersCard = ({ order }) => {
 
-
-
-const OrderHistoryCard = ({order}) => {
-
-  const { status, address,  ad_details } = order;
-  const price = `$${ad_details.price}`;
+  const { status, address, ad_details } = order;
   const photoUrl = ad_details.image;
   console.log(photoUrl[0]);
-  const [selectedAdId, setAdId] = useState('');
-  
-  
 
   return (
     <div style={{ paddingBottom: '5px' }}>
       <StyledCard>
         <Grid item xs={4} md={4}>
-        {photoUrl && photoUrl.length > 0 ? (
+          {photoUrl && photoUrl.length > 0 ? (
             <StyledCardMedia
               component="img"
               height="auto"
-              image={photoUrl[0]} 
+              image={photoUrl[0]}
               alt="Product Image"
             />
           ) : (
             <div>No Image Available</div>
           )}
         </Grid>
-       
         <Grid item xs={6} md={4}>
           <StyledTypography>
             Status: {status}
@@ -71,29 +64,23 @@ const OrderHistoryCard = ({order}) => {
             Shipping to: {address}
           </StyledTypography>
         </Grid>
-       
       </StyledCard>
     </div>
   );
 };
 
-const OrderHistoryPage =  () => {
+const TrackOrders = () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
- 
-  
-  
-  
-
- 
-
+  //local variable to hold the incomming data from database
   const [orders, setOrders] = useState([]);
+  //useeffect to get the orders in transit the user has from the database
   useEffect(() => {
     const fetchOrderHistory = async () => {
       try {
         const result = await getTrackedOrders(user_id);
-        console.log(result.data);   
+        console.log(result.data);
         setOrders(result);
       } catch (error) {
         console.error(error);
@@ -101,7 +88,7 @@ const OrderHistoryPage =  () => {
     };
 
     fetchOrderHistory();
-  }, []);
+  }, [user_id]);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -112,28 +99,23 @@ const OrderHistoryPage =  () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-        
           {orders.length === 0 ? (
             <div className="center-container">
-            <h2>No Orders In Transit</h2>
+              <h2>No Orders In Transit</h2>
             </div>
           ) : (
             orders.map((order) => (
               <div key={order._id}>
-                
-                <OrderHistoryCard
-                   order={order}
-                   
-                ></OrderHistoryCard>
+                <TrackOrdersCard
+                  order={order}
+                ></TrackOrdersCard>
               </div>
             ))
           )}
-          
         </Grid>
-    
       </Grid>
     </div>
   );
 };
 
-export default OrderHistoryPage;
+export default TrackOrders;

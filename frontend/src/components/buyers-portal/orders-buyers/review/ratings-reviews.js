@@ -1,12 +1,13 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
-import car from "../images/download.jpg";
 import CreateReview from './create-review';
 import { styled } from '@mui/system';
 import './ratings-reviews.css';
 import { getReviews } from '../../../../api';
 import Rating from '@mui/material/Rating';
+
+//styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
@@ -50,13 +51,11 @@ const StyledButton = styled(Button)({
   },
 });
 
-const ReviewCard = ({review, handleCreateReviewOpen}) => {
-  const { _id, star_rating, reviewText, ad_details} = review;
+//review card returns a image of the product they reviewed, the star rating they gave, the review title they left and a edit button
+const ReviewCard = ({ review, handleCreateReviewOpen }) => {
+  const { star_rating, ad_details } = review;
   const title = ad_details.title;
-  const photoUrl = ad_details.image
-  
- 
-  
+  const photoUrl = ad_details.image;
 
   return (
     <div style={{ paddingBottom: '5px' }}>
@@ -71,7 +70,7 @@ const ReviewCard = ({review, handleCreateReviewOpen}) => {
         </Grid>
         <Grid item xs={4} md={4} sx={{ margin: '10px' }}>
           <StyledTypography>
-          <Rating name="half-rating-read" defaultValue={star_rating} precision={0.5} readOnly />
+            <Rating name="half-rating-read" defaultValue={star_rating} precision={0.5} readOnly />
           </StyledTypography>
         </Grid>
         <Grid item xs={4} md={4}>
@@ -79,7 +78,6 @@ const ReviewCard = ({review, handleCreateReviewOpen}) => {
             Title: {title}
           </StyledTypography>
         </Grid>
-     
         <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
           <StyledTypography sx={{ flexGrow: 1 }}>
             <StyledButton variant="contained" onClick={() => handleCreateReviewOpen(ad_details._id)}>Edit</StyledButton>
@@ -90,39 +88,37 @@ const ReviewCard = ({review, handleCreateReviewOpen}) => {
   );
 };
 
-const Rating_Reviews =  () => {
+const Rating_Reviews = () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
+  //local state variables used for getting users reviews and toggling the create review popup
   const [reviews, setReviews] = useState([]);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [selectedAdId, setAdId] = useState('');
+
+  //event handlers to open and close the create review component when edit is clicked
   const handleCreateReviewOpen = (adId) => {
     setAdId(adId);
-    console.log(selectedAdId);
     setIsCreateModalOpen(true);
   };
 
   const handleCreateReviewOpenClose = () => {
     setIsCreateModalOpen(false);
     window.location.reload();
-    
   };
-
-  
+  // use effect getting all of the reviews the user has created
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const result = await getReviews(user_id);
-        console.log(result.data);
         setReviews(result);
       } catch (error) {
         console.error(error);
       }
     };
-
     fetchReviews();
-  }, [selectedAdId]);
+  }, []);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -133,33 +129,27 @@ const Rating_Reviews =  () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          
           {reviews.length === 0 ? (
-            //this checks to see if there are any reviews the user has made. If there is not then a message saying that there are no reviews is displayed
             <div className="center-container">
-                <h2>No Reviews Created</h2>
+              <h2>No Reviews Created</h2>
             </div>
-            
           ) : (
-            reviews.map((review) => (
-              //if there are reviews each one is mapped through and displayed in a Review Card
+            Array.isArray(reviews) && reviews.map((review) => (
               <div key={review._id}>
-                
                 <ReviewCard
                   key={review._id}
                   review={review}
                   handleCreateReviewOpen={handleCreateReviewOpen}
-                ></ReviewCard>
+                />
               </div>
             ))
           )}
           {isCreateModalOpen && (
-        <div className="modalOverlay">
-          <CreateReview onClose={handleCreateReviewOpenClose} selectedAdId={selectedAdId}/>
-        </div>
-      )}
+            <div className="modalOverlay">
+              <CreateReview onClose={handleCreateReviewOpenClose} selectedAdId={selectedAdId} />
+            </div>
+          )}
         </Grid>
-    
       </Grid>
     </div>
   );

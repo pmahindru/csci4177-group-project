@@ -259,13 +259,13 @@ const createOrder = async (req,res) => {
       "address": req.body.address,
       "status": req.body.status,
     };
+    console.log("Ran here");
     console.log(newOrder);
-    const response = await model.createReview(newOrder);
-    if (response && response.data) {
-      res.status(200).json(response);
-    } else {
-      res.status(500).json(error);
-    }
+    const response = await model.createOrder(newOrder);
+   
+    res.status(200).json(response);
+    
+    
   } catch (error) {
     res.status(500).json(error);
     console.error('Error creating order:', error);
@@ -282,11 +282,9 @@ const createFavourite = async (req,res) => {
     };
     console.log(newFavourite);
     const response = await model.createFavourite(newFavourite);
-    if (response && response.data) {
-      res.status(200).json(response);
-    } else {
-      res.status(500).json(error);
-    }
+    
+    res.status(200).json(response);
+  
   } catch (error) {
     res.status(500).json(error);
     console.error('Error adding ad to favourites list:', error);
