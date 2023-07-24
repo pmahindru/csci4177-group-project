@@ -1,11 +1,9 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
-import car from "../images/download.jpg";
 import { styled } from '@mui/system';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import CreateReview from '../review/create-review';
 import { getTrackedOrders } from '../../../../api';
+import "./track-orders.css";
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
@@ -21,7 +19,7 @@ const StyledCard = styled(Card)({
   display: 'flex',
   flexDirection: 'row',
   padding: '15px',
-  width: '75%',
+  width: '50%',
   alignItems: 'center',
   marginRight: '10px',
   border: '1px solid',
@@ -39,7 +37,7 @@ const StyledCardMedia = styled(CardMedia)({
 
 const OrderHistoryCard = ({order}) => {
 
-  const { address,  ad_details } = order;
+  const { status, address,  ad_details } = order;
   const price = `$${ad_details.price}`;
   const photoUrl = ad_details.image;
   console.log(photoUrl[0]);
@@ -50,7 +48,7 @@ const OrderHistoryCard = ({order}) => {
   return (
     <div style={{ paddingBottom: '5px' }}>
       <StyledCard>
-        <Grid item xs={3} md={3}>
+        <Grid item xs={4} md={4}>
         {photoUrl && photoUrl.length > 0 ? (
             <StyledCardMedia
               component="img"
@@ -63,21 +61,17 @@ const OrderHistoryCard = ({order}) => {
           )}
         </Grid>
        
-        <Grid item xs={3} md={3}>
+        <Grid item xs={6} md={4}>
           <StyledTypography>
-            Status: {price}
+            Status: {status}
           </StyledTypography>
         </Grid>
-        <Grid item xs={3} md={3}>
-          <StyledTypography>
-            Shipping to: {address}
-          </StyledTypography>
-        </Grid>
-        <Grid item xs={3} md={3}>
+        <Grid item xs={6} md={4}>
           <StyledTypography>
             Shipping to: {address}
           </StyledTypography>
         </Grid>
+       
       </StyledCard>
     </div>
   );
@@ -114,13 +108,15 @@ const OrderHistoryPage =  () => {
       <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={12} alignItems="center">
           <Grid container justifyContent="center">
-            <h1>Order History</h1>
+            <h1>Track Orders</h1>
           </Grid>
         </Grid>
         <Grid item xs={12}>
         
           {orders.length === 0 ? (
-            <p>No bought orders</p>
+            <div className="center-container">
+            <h2>No Orders In Transit</h2>
+            </div>
           ) : (
             orders.map((order) => (
               <div key={order._id}>

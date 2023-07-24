@@ -12,9 +12,11 @@ import Cart from './cart/cart';
 const OrdersBuyers = () => {
   const getLocation = useLocation();
   const [active, setActive] = useState('order-history');
-
+  
+  
   const handleNavLinkClick = (path) => {
     setActive(path);
+    localStorage.setItem('activePage', path);
     console.log(active);
   };
 
@@ -22,6 +24,7 @@ const OrdersBuyers = () => {
   useEffect(() => {
     console.log('Current Location:', getLocation.pathname);
   }, [getLocation]);
+  // Makes sure that the active page is loaded for the user
 
   return (
     <div>
@@ -34,16 +37,16 @@ const OrdersBuyers = () => {
             <NavLink href="/track-orders" className="simple-navbar-link" onClick={() => handleNavLinkClick('track-orders')}>Track Orders</NavLink>
           </li>
           <li className={`order-navbar-item ${active === 'favourites' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('favourites')}>Favourites</NavLink>
+            <NavLink href="/favourites" className="simple-navbar-link" onClick={() => handleNavLinkClick('favourites')}>Favourites</NavLink>
           </li>
           <li className={`order-navbar-item ${active === 'payments' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('payments')}>Payments</NavLink>
+            <NavLink href="/payments" className="simple-navbar-link" onClick={() => handleNavLinkClick('payments')}>Payments</NavLink>
           </li>
           <li className={`order-navbar-item ${active === 'rating-review' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('rating-review')}>Rating/Review</NavLink>
+            <NavLink href="/ratings-reviews" className="simple-navbar-link" onClick={() => handleNavLinkClick('rating-review')}>Rating/Review</NavLink>
           </li>
           <li className={`order-navbar-item ${active === 'cart' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('cart')}>Cart</NavLink>
+            <NavLink href="/cart" className="simple-navbar-link" onClick={() => handleNavLinkClick('cart')}>Cart</NavLink>
           </li>
         </ul>
       </nav>

@@ -1,54 +1,10 @@
-
-.container {
-  padding: 20px;
-}
-
-.cards {
+.card-total {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-bottom: 10px;
-  border: 1px solid;
-  border-radius: 16px;
-  background-color: rgb(230, 230, 230);
-  padding: 15px;
-  font-size: 10px; /* Default font size */
+  flex-direction: row;
+  justify-content: flex-end;
   width: 75%;
-}
-
-.cards img {
-  max-width: 100px;
-  height: auto;
-  padding: 5px;
-}
-
-.cards p {
-  margin: 10px;
-  font-size: 10px;
-}
-
-.button {
-  flex: 1;
-  text-align: center;
-}
-
-.cards > div {
-  flex: 1;
-  padding: 5px; 
-}
-
-
-@media (min-width: 600px) {
-  .cards {
-    
-    font-size: 14px; 
-  }
-}
-
-
-@media (min-width: 807px) {
-  .cards {
-    
-    font-size: 18px; 
-  }
+  align-items: center;
+  padding: 15px;
+  margin: 0 auto;
+  text-align: right;
 }

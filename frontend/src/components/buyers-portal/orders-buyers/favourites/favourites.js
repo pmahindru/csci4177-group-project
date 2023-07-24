@@ -5,8 +5,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/system';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import CreateReview from '../review/create-review';
 import { getFavourites, deleteFavourite } from '../../../../api';
 const StyledTypography = styled(Typography)({
   margin: '10px',
@@ -36,28 +34,13 @@ const StyledCardMedia = styled(CardMedia)({
   paddingTop: "5px",
 });
 
-const StyledButton = styled(Button)({
-  width: '25%',
-  butonSize: 'small',
-  fontSize: '10px',
-  '@media (min-width: 600px)': {
-    fontSize: '10px',
-    buttonSize: 'medium',
-  },
-  '@media (min-width: 807px)': {
-    fontSize: '12px',
-    buttonSize: 'large',
-  },
-});
-
 const FavouritesCard = ({favourite}) => {
   
-  const { id, address,  ad_details } = favourite;
+  const {ad_details } = favourite;
   const price = `$${ad_details.price}`;
   const title = ad_details.title;
   const photoUrl = ad_details.image;
   console.log(photoUrl[0]);
-  const [selectedAdId, setAdId] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -71,6 +54,7 @@ const FavouritesCard = ({favourite}) => {
     try{
       await deleteFavourite(favourite._id);
       setAnchorEl(null);
+      window.location.reload();
     }catch (error) {
       alert('Failed to remove favourite ad');
       console.error('Error removing ad from favourites:', error);

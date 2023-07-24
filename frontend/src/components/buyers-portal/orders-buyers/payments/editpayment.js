@@ -43,6 +43,7 @@ const EditPaymentModal = ({ paymentId, onClose }) => {
             alert("Payment added successfully")
 
             onClose();
+            window.location.reload();
         }catch (error) {
             alert('Failed to update payment method');
             console.error('Error updating payment method:', error);

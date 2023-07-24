@@ -71,6 +71,7 @@ const CartCard = ({item}) => {
       await deleteCartItem(item._id);
       setAnchorEl(null);
       alert("Item Removed from Cart!");
+      window.location.reload();
     }catch (error) {
       alert('Failed to remove favourite ad');
       console.error('Error removing ad from favourites:', error);
@@ -179,12 +180,14 @@ const Cart =  () => {
             ))
             
           )}
-        <div className="card-total">
+              {cart.length > 0 && (
+        <><div className="card-total">
               <StyledTypography>Total: ${totalPrice.toFixed(2)}</StyledTypography>
-        </div>
-        <div className="card-total">
-        <StyledButton variant="contained">Checkout</StyledButton>
-        </div>
+            </div><div className="card-total">
+                <StyledButton variant="contained">Checkout</StyledButton>
+              </div></>
+      )}
+        
         </Grid>
        
       </Grid>

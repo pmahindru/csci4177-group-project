@@ -59,8 +59,8 @@ const CreatePaymentModal = ({ onClose }) => {
             };
             await createPayment(paymentData);
             alert("Payment added successfully")
-
             onclose();
+            window.location.reload();
         }catch (error) {
             alert('Failed to add payment method');
             console.error('Error adding payment method:', error);

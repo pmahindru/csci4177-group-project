@@ -168,3 +168,11 @@ export const getTrackedOrders = async (userId) => {
         console.error(error);
     }
 }
+export const createOrder = async (data) => {
+    try {
+        const res = await axios.post(`${baseURL}/orders`,data);
+        return res.data; 
+    } catch (error) {
+        console.error(error);
+    }
+}

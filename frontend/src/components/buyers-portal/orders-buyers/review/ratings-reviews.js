@@ -105,6 +105,8 @@ const Rating_Reviews =  () => {
 
   const handleCreateReviewOpenClose = () => {
     setIsCreateModalOpen(false);
+    window.location.reload();
+    
   };
 
   

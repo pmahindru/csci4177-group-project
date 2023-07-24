@@ -1,11 +1,11 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
-import car from "../images/download.jpg";
 import { styled } from '@mui/system';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CreateReview from '../review/create-review';
 import { getOrderHistory } from '../../../../api';
+import "./order-history.css";
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
@@ -150,7 +150,9 @@ const OrderHistoryPage =  () => {
             <CalendarMonthIcon style={{ marginLeft: '5px' }} onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} />
           </Typography>
           {orders.length === 0 ? (
-            <p>No bought orders</p>
+            <div className="center-container">
+            <h2>No Products Purchased</h2>
+            </div>
           ) : (
             orders.map((order) => (
               <div key={order._id}>

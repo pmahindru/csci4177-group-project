@@ -102,7 +102,7 @@ const getOrderHistory = async (userId) => {
     return error; 
   }
 }
-const getCart = async (userId) => {
+const getCart = async (userId, onCartChange) => {
   try {
     // Connect the client to the server (optional starting in v4.7)
     await client.connect();
@@ -408,7 +408,7 @@ const getTrackedOrders = async (userId) => {
     const orderdb = client.db("Order_Management");
     const orderCollection = orderdb.collection("Orders");
 
-    console.log("Executing Query:", { status: status });
+    console.log("Executing Query:", { user_id: userId, status: "In Transit" });
 
     const orderList = await orderCollection.find({ status: status }).toArray();
 
@@ -438,6 +438,24 @@ const getTrackedOrders = async (userId) => {
     return error;
   }
 }
+const createOrder = async (data) => {
+  try {
+    // Connect the client to the server (optional starting in v4.7)
+    await client.connect();
+    //call db name and collection
+    const db = client.db("Order_Management");
+    const collection = db.collection("Orders");
+    const newOrder = await collection.insertOne(data);
+
+    // Ensures that the client will close when you finish/error
+    await client.close();
+    console.log("closed!");
+    return newOrder;
+  } catch (error) {
+    console.error(error);
+    return error; 
+  }
+};
 module.exports = {
     getAllUserSignup,
     registerUser,
@@ -456,4 +474,5 @@ module.exports = {
     getReview,
     editReview,
     getTrackedOrders,
+    createOrder,
 }
