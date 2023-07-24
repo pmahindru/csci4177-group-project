@@ -1,0 +1,19 @@
+.notificationSettings {
+    margin: 2% 10%;
+}
+
+.notificationSettings-form {
+    font-size: 3vh;
+    text-transform: capitalize;
+    padding: 1% 0%;
+}
+
+.notificationSettings-form > li {
+    list-style: none;
+    background-color: #998ea9;
+    margin: 3px;
+    padding: 3vh;
+}
+.notificationSettings-toggle {
+    float: right;
+}
