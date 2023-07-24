@@ -418,6 +418,17 @@ const getMessages = async (req, res, next) => {
     next(ex);
   }
 };
+
+const getAllUsers = async (req, res, next) => {
+  try {
+    const users = await model.findUsers({ _id: { $ne: req.params.id } });
+    console.log(users);
+    return res.json(users);
+  } catch (ex) {
+    next(ex);
+  }
+};
+
 module.exports = {
   getSignUpUser,
   registerUser,
@@ -444,4 +455,5 @@ module.exports = {
   resetNewPassword,
   addMessage,
   getMessages,
+  getAllUsers,
 };

@@ -541,6 +541,26 @@ const createCartItem = async (data) => {
   }
 };
 
+const findUsers = async (query) => {
+  try {
+    await client.connect();
+
+    const db = client.db("User_Management");
+    const collection = db.collection("Signup");
+
+    const users = await collection
+      .find(query)
+      .project({ email: 1, firstName: 1, lastName: 1, _id: 1 })
+      .toArray();
+
+    await client.close();
+
+    return users;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   getAllUserSignup,
   registerUser,
@@ -568,4 +588,5 @@ module.exports = {
   createCartItem,
   addMessageModel,
   findMessages,
+  findUsers,
 };
