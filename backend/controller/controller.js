@@ -719,6 +719,19 @@ const editReview = async (req, res) => {
   }
 };
 
+const getTrackedOrders = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const data = await model.getOrderHistory();
+  
+
+      res.status(200).json(data);
+  } catch (error) {
+    console.log("Error");
+    res.status(500).json(error);
+  }
+};
+
 module.exports = {
   getSignUpUser,
   registerUser,
