@@ -428,7 +428,6 @@ const getAllUsers = async (req, res, next) => {
     next(ex);
   }
 };
-
 module.exports = {
   getSignUpUser,
   registerUser,
