@@ -73,7 +73,6 @@ const TrackOrdersCard = ({ order }) => {
             Shipping to: {address}
           </StyledTypography>
         </Grid>
-       
       </StyledCard>
     </div>
   );

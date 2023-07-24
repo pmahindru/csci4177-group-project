@@ -34,6 +34,7 @@ const StyledCard = styled(Card)({
   backgroundColor: 'rgb(230,230,230)',
   margin: '0 auto'
 });
+
 const StyledCardMedia = styled(CardMedia)({
   objectFit: "contain",
   paddingTop: "5px",
@@ -67,7 +68,7 @@ const CartCard = ({ item }) => {
   };
 
   const handleClose = () => {
-    
+    setAnchorEl(null);
   };
 
   const handleRemoveCartItem = async () => {
@@ -128,7 +129,6 @@ const Cart = () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
-
   //local state variables
   const [cart, setCart] = useState([]);
   const [payments, setPayments] = useState([]);
@@ -166,14 +166,9 @@ const Cart = () => {
         }
       }
     };
-   
 
-
- 
-    
     fetchCart();
-   
-  }, [user_id]);
+  }, []);
 
 
   // This function handles when the user clicks checkout. If the user has at least one payment method, they will be directed to the checkout screen. If not, they will be alerted to add a payment method before they can check out.

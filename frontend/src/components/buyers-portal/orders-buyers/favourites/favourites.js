@@ -132,10 +132,7 @@ const Favourites = () => {
     };
 
     fetchFavourites();
-  }, [user_id]);
-
-   
-  
+  }, []);
 
   return (
     <div style={{ padding: '20px' }}>
