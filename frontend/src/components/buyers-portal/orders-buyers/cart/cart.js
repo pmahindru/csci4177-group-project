@@ -34,7 +34,6 @@ const StyledCard = styled(Card)({
   backgroundColor: 'rgb(230,230,230)',
   margin: '0 auto'
 });
-
 const StyledCardMedia = styled(CardMedia)({
   objectFit: "contain",
   paddingTop: "5px",
@@ -68,7 +67,7 @@ const CartCard = ({ item }) => {
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    
   };
 
   const handleRemoveCartItem = async () => {
@@ -167,9 +166,20 @@ const Cart = () => {
         }
       }
     };
+   
 
+
+ 
+    
     fetchCart();
-  }, []);
+   
+  }, [user_id]);
+
+  const totalPrice = cart.reduce(
+    (total, item) => total + parseInt(item.ad_details.price),
+    0
+  );
+  
 
  
 

@@ -1,11 +1,11 @@
 /* Created By: Patrick Wooden*/
 .card-total {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    width: 75%;
-    align-items: center;
-    padding: 15px;
-    margin: 0 auto;
-    text-align: right;
-  }
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 75%;
+  align-items: center;
+  padding: 15px;
+  margin: 0 auto;
+  text-align: right;
+}
