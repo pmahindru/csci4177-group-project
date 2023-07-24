@@ -22,12 +22,13 @@ const StyledCard = styled(Card)({
   display: 'flex',
   flexDirection: 'row',
   padding: '15px',
-  width: '100%',
+  width: '50%',
   alignItems: 'center',
   marginRight: '10px',
   border: '1px solid',
   borderRadius: '16px',
   backgroundColor: 'rgb(230,230,230)',
+  margin: '0 auto'
 });
 
 const StyledCardMedia = styled(CardMedia)({

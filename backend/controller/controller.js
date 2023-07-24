@@ -74,6 +74,19 @@ const getCart = async (req, res) => {
       res.status(500).json(error);
     }
   };
+  const deleteCartItem = async (req, res) => {
+    try {
+      const itemId = req.params.itemId;
+      
+      const data = await model.deleteCartItem(itemId);
+    
+  
+        res.status(200).json(data);
+    } catch (error) {
+      console.log("Error");
+      res.status(500).json(error);
+    }
+  };
 const getPayments = async (req, res) => {
     try {
       const userId = req.params.userId
@@ -223,6 +236,18 @@ const editReview = async (req, res) => {
     res.status(500).json(error);
   }
 };
+const getTrackedOrders = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const data = await model.getOrderHistory();
+  
+
+      res.status(200).json(data);
+  } catch (error) {
+    console.log("Error");
+    res.status(500).json(error);
+  }
+};
 module.exports = {
     getSignUpUser,
     registerUser,
@@ -233,10 +258,12 @@ module.exports = {
     deletePaymentMethod,
     createPayment,
     getCart,
+    deleteCartItem,
     getFavourites,
     deleteFavourite,
     getReviews,
     createReview,
     getReview,
     editReview,
+    getTrackedOrders,
 }

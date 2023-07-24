@@ -138,6 +138,28 @@ const getCart = async (userId) => {
     return error; 
   }
 };
+const deleteCartItem = async(itemId) => {
+  try {
+   
+
+    // Connect the client to the server    (optional starting in v4.7)
+    await client.connect();
+    
+    //call db name and collection
+    const db = client.db("Order_Management");
+    const Collection = db.collection("Cart");
+    const deleteResult = await Collection.deleteOne({ _id: itemId });
+    console.log(deleteResult);
+  
+    // Ensures that the client will close when you finish/error
+    await client.close();
+    
+    return deleteResult;
+  } catch (error) {
+    console.log("Error");
+    return error;
+  }
+}
 const getPayments = async (userId) => {
   try {
    
@@ -378,6 +400,44 @@ const deleteFavourite = async(favouriteId) => {
     return error;
   }
 }
+const getTrackedOrders = async (userId) => {
+  try {
+    await client.connect();
+    const status = "In Transit";
+
+    const orderdb = client.db("Order_Management");
+    const orderCollection = orderdb.collection("Orders");
+
+    console.log("Executing Query:", { status: status });
+
+    const orderList = await orderCollection.find({ status: status }).toArray();
+
+    console.log("Filtered Orders:");
+    console.log(orderList);
+
+    const addb = client.db("Seller_Management");
+    const adCollection = addb.collection("post_ad");
+    const ordersWithAdDetails = await Promise.all(
+      orderList.map(async (order) => {
+        const adId = order.ad_id;
+        const ad = await adCollection.findOne({ _id: adId });
+        return {
+          ...order,
+          ad_details: ad,
+        };
+      })
+    );
+
+    await client.close();
+    console.log("closed!");
+    console.log(ordersWithAdDetails);
+
+    return ordersWithAdDetails;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}
 module.exports = {
     getAllUserSignup,
     registerUser,
@@ -389,9 +449,11 @@ module.exports = {
     deletePaymentMethod,
     getReviews,
     getCart,
+    deleteCartItem,
     getFavourites,
     deleteFavourite,
     createReview,
     getReview,
     editReview,
+    getTrackedOrders,
 }

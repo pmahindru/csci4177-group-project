@@ -1,15 +1,12 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
-
 import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
-import car from "../images/download.jpg";
-import { styled } from '@mui/system';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useNavigate } from "react-router-dom";
-import { getCart } from '../../../../api';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { styled } from '@mui/system';
+import { getCart, deleteCartItem } from '../../../../api';
+import "./cart.css";
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
@@ -26,21 +23,19 @@ const StyledCard = styled(Card)({
   flexDirection: 'row',
   padding: '15px',
   width: '75%',
-  justifyContent: 'center',
   alignItems: 'center',
-  marginRight: '10px',
   border: '1px solid',
   borderRadius: '16px',
   backgroundColor: 'rgb(230,230,230)',
+  margin: '0 auto'
 });
-
 const StyledCardMedia = styled(CardMedia)({
   objectFit: "contain",
   paddingTop: "5px",
 });
 
 const StyledButton = styled(Button)({
-  width: '25%',
+  width: '10%',
   butonSize: 'small',
   fontSize: '10px',
   '@media (min-width: 600px)': {
@@ -53,7 +48,15 @@ const StyledButton = styled(Button)({
   },
 });
 
-const CartCard = (order) => {
+const CartCard = ({item}) => {
+  
+  const { id, address,  ad_details } = item;
+  const price = `$${ad_details.price}`;
+  const title = ad_details.title;
+  const photoUrl = ad_details.image;
+  
+  console.log(photoUrl[0]);
+  const [selectedAdId, setAdId] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -61,29 +64,41 @@ const CartCard = (order) => {
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    
   };
-  const { id, product,price} = order;
-  const navigate = useNavigate();
- 
+  const handleRemoveCartItem = async () => {
+    try{
+      await deleteCartItem(item._id);
+      setAnchorEl(null);
+      alert("Item Removed from Cart!");
+    }catch (error) {
+      alert('Failed to remove favourite ad');
+      console.error('Error removing ad from favourites:', error);
+    }
+  }
+  
 
   return (
     <div style={{ paddingBottom: '5px' }}>
       <StyledCard>
         <Grid item xs={4} md={4}>
-          <StyledCardMedia
-            component="img"
-            height="auto"
-            image={car}
-            alt="Product Image"
-          />
+        {photoUrl && photoUrl.length > 0 ? (
+            <StyledCardMedia
+              component="img"
+              height="auto"
+              image={photoUrl[0]} 
+              alt="Product Image"
+            />
+          ) : (
+            <div>No Image Available</div>
+          )}
         </Grid>
-        <Grid item xs={4} md={4} sx={{ margin: '10px' }}>
+        <Grid item xs={5} md={6}>
           <StyledTypography>
-            {product}
+            {title}
           </StyledTypography>
         </Grid>
-        <Grid item xs={4} md={4}>
+        <Grid item xs={3} md={3}>
           <StyledTypography>
             Price: {price}
           </StyledTypography>
@@ -93,7 +108,7 @@ const CartCard = (order) => {
           <StyledTypography sx={{ flexGrow: 1 }}>
           <MoreVertIcon onClick={handleClick} />
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-              <MenuItem onClick={handleClose}>Remove from Favorites</MenuItem>
+              <MenuItem onClick={handleRemoveCartItem}>Remove from Cart</MenuItem>
             </Menu>
           </StyledTypography>
         </Grid>
@@ -107,7 +122,9 @@ const Cart =  () => {
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
 
+
   const [cart, setCart] = useState([]);
+  
   useEffect(() => {
     const fetchCart = async () => {
       try {
@@ -118,34 +135,59 @@ const Cart =  () => {
         console.error(error);
       }
     };
+   
 
+
+ 
+    
     fetchCart();
-  }, []);
+   
+  }, [user_id]);
+
+  const totalPrice = cart.reduce(
+    (total, item) => total + parseInt(item.ad_details.price),
+    0
+  );
+  
 
   return (
-    <div className="container" style={{ padding: '20px' }}>
-      
-          
+    <div style={{ padding: '20px' }}>
+      <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
+        <Grid item xs={12} alignItems="center">
+          <Grid container justifyContent="center">
             <h1>Cart</h1>
-          
-       
-          
-          {cart.map((item) => (
-        <div key={item._id}>
-      
-          <CartCard
-          key={item._id}
-          id={item._id}
-          adId ={item.ad_id}
-          photoUrl={item.ad_details.image[0]}
-          price={item.ad_details.price}
-          product={item.ad_details.title}
-          ></CartCard>
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+         
+          {cart.length === 0 ? (
+            <div className="center-container">
+            <h2>Your Cart Is Empty</h2>
+            </div>
+          ) : (
+            cart.map((item) => (
+              <><div key={item._id}>
+
+                <CartCard
+                  key={item._id}
+                  item={item}
+
+                ></CartCard>
+              </div>
+              
+              </>
+            ))
+            
+          )}
+        <div className="card-total">
+              <StyledTypography>Total: ${totalPrice.toFixed(2)}</StyledTypography>
         </div>
-      ))}
-        
-    
-     
+        <div className="card-total">
+        <StyledButton variant="contained">Checkout</StyledButton>
+        </div>
+        </Grid>
+       
+      </Grid>
     </div>
   );
 };

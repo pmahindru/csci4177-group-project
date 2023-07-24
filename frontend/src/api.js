@@ -150,3 +150,21 @@ export const deleteFavourite = async(favouriteId) => {
         console.error(error);
     }
 }
+export const deleteCartItem = async(itemId) => {
+    try{
+        const res = await axios.delete(`${baseURL}/cart/${itemId}`);
+        return res.data;
+    }catch (error){
+        console.error(error);
+    }
+}
+export const getTrackedOrders = async (userId) => {
+    try {
+        const trackedOrdersResponse = await axios.get(`${baseURL}/track-orders/${userId}`);
+        console.log(trackedOrdersResponse.data);
+        return trackedOrdersResponse.data;
+    }
+    catch (error) {
+        console.error(error);
+    }
+}
