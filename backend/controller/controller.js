@@ -705,56 +705,6 @@ const userNotificationSettingsUpdate = async (req, res) => { //Notifications UPD
   }
 };
 
-const editReview = async (req, res) => {
-  try {
-    const reviewId = req.params.reviewId;
-    const reviewData = req.body;
-    const data = await model.editReview(reviewId, reviewData);
-  
-
-      res.status(200).json(data);
-  } catch (error) {
-    console.log("Error");
-    res.status(500).json(error);
-  }
-};
-
-const getTrackedOrders = async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const data = await model.getTrackedOrders(userId);
-  
-
-      res.status(200).json(data);
-  } catch (error) {
-    console.log("Error");
-    res.status(500).json(error);
-  }
-};
-
-const createOrder = async (req,res) => {
-  try {
-    console.log("request received:", req.body);
-    const newOrder = {
-      "_id": uuid.v4(),
-      "user_id": req.body.user_id,
-      "ad_id": req.body.ad_id,
-      "date_purchased": req.body.date_purchased,
-      "address": req.body.address,
-      "status": req.body.status,
-    };
-    console.log(newOrder);
-    const response = await model.createReview(newOrder);
-    if (response && response.data) {
-      res.status(200).json(response);
-    } else {
-      res.status(500).json(error);
-    }
-  } catch (error) {
-    res.status(500).json(error);
-    console.error('Error adding review:', error);
-  }
-}
 
 module.exports = {
   getSignUpUser,
