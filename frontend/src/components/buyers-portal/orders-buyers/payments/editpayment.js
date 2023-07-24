@@ -29,10 +29,14 @@ const EditPaymentModal = ({ paymentId, onClose }) => {
       setAddress(event.target.value);
     };
     const handleEditPayment = async () => {
-        
+      if ((!expiryMonth && expiryYear) || (expiryMonth && !expiryYear)) {
+        alert('Please set both Expiry Month and Expiry Year!');
+        return;
+        }
         const expiry = `${expiryMonth}/${expiryYear}`;
-        if ( !cvv || !expiry || !address) {
-            alert('Please fill in all fields');
+        const change = cvv || expiry || address;
+        if ( !change) {
+            alert('Please fill one field to submit a change');
             return;
           }
         try{
@@ -40,7 +44,7 @@ const EditPaymentModal = ({ paymentId, onClose }) => {
                 cvv, expiry,  address
             };
             await updatePaymentMethod(paymentId, updatedPaymentData);
-            alert("Payment added successfully")
+            alert("Payment method updated successfully");
 
             onClose();
             window.location.reload();
@@ -51,12 +55,18 @@ const EditPaymentModal = ({ paymentId, onClose }) => {
        
     };
     const handleRemovePayment = async () => {
+      const shouldRemove = window.confirm('Are you sure you want to remove this item from the cart?');
+      if(shouldRemove){
         try{
           await deletePaymentMethod(paymentId);
+          alert("Payment Removed!");
+          onClose();
         }catch (error) {
           alert('Failed to remove payment method');
           console.error('Error removing payment method:', error);
         }
+      }
+      
     }
     useEffect(() => {
         const fetchPaymentData = async () => {

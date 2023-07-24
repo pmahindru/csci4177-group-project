@@ -51,14 +51,19 @@ const FavouritesCard = ({favourite}) => {
     
   };
   const handleRemoveFavourite = async () => {
-    try{
-      await deleteFavourite(favourite._id);
-      setAnchorEl(null);
-      window.location.reload();
-    }catch (error) {
-      alert('Failed to remove favourite ad');
-      console.error('Error removing ad from favourites:', error);
+    const shouldRemove = window.confirm('Are you sure you want to unfavourite this ad?');
+    if(shouldRemove){
+      try{
+        await deleteFavourite(favourite._id);
+        setAnchorEl(null);
+        window.location.reload();
+      }catch (error) {
+        alert('Failed to remove favourite ad');
+        console.error('Error removing ad from favourites:', error);
+      }
     }
+    setAnchorEl(null);
+  
   }
   
 

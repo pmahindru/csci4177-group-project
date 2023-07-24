@@ -26,6 +26,8 @@ app.get(`${baseURL}/cart/:userId`, controller.getCart);
 app.delete(`${baseURL}/cart/:itemId`, controller.deleteCartItem);
 app.get(`${baseURL}/reviews/:userId`, controller.getReviews);
 app.get(`${baseURL}/favourites/:userId`, controller.getFavourites);
+app.post(`${baseURL}/favourites`, controller.createFavourite);
+app.post(`${baseURL}/cart`, controller.createCartItem);
 app.delete(`${baseURL}/favourites/:favouriteId`, controller.deleteFavourite);
 app.get(`${baseURL}/track-orders/:userId`, controller.getTrackedOrders);
 module.exports = app;

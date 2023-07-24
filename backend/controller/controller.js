@@ -240,7 +240,7 @@ const getTrackedOrders = async (req, res) => {
   try {
     const userId = req.params.userId;
     const data = await model.getTrackedOrders(userId);
-  
+    
 
       res.status(200).json(data);
   } catch (error) {
@@ -268,7 +268,49 @@ const createOrder = async (req,res) => {
     }
   } catch (error) {
     res.status(500).json(error);
-    console.error('Error adding review:', error);
+    console.error('Error creating order:', error);
+  }
+}
+const createFavourite = async (req,res) => {
+  try {
+    console.log("request received:", req.body);
+    const newFavourite = {
+      "_id": uuid.v4(),
+      "user_id": req.body.user_id,
+      "ad_id": req.body.ad_id,
+      
+    };
+    console.log(newFavourite);
+    const response = await model.createFavourite(newFavourite);
+    if (response && response.data) {
+      res.status(200).json(response);
+    } else {
+      res.status(500).json(error);
+    }
+  } catch (error) {
+    res.status(500).json(error);
+    console.error('Error adding ad to favourites list:', error);
+  }
+}
+const createCartItem = async (req,res) => {
+  try {
+    console.log("request received:", req.body);
+    const newItem = {
+      "_id": uuid.v4(),
+      "user_id": req.body.user_id,
+      "ad_id": req.body.ad_id,
+      
+    };
+    console.log(newItem);
+    const response = await model.createFavourite(newItem);
+    if (response && response.data) {
+      res.status(200).json(response);
+    } else {
+      res.status(500).json(error);
+    }
+  } catch (error) {
+    res.status(500).json(error);
+    console.error('Error adding item to cart:', error);
   }
 }
 module.exports = {
@@ -290,4 +332,6 @@ module.exports = {
     getReview,
     editReview,
     getTrackedOrders,
+    createFavourite,
+    createCartItem,
 }

@@ -50,13 +50,13 @@ const StyledButton = styled(Button)({
 
 const CartCard = ({item}) => {
   
-  const { id, address,  ad_details } = item;
+  const {ad_details } = item;
   const price = `$${ad_details.price}`;
   const title = ad_details.title;
   const photoUrl = ad_details.image;
   
-  console.log(photoUrl[0]);
-  const [selectedAdId, setAdId] = useState('');
+
+  
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -67,15 +67,20 @@ const CartCard = ({item}) => {
     
   };
   const handleRemoveCartItem = async () => {
-    try{
-      await deleteCartItem(item._id);
-      setAnchorEl(null);
-      alert("Item Removed from Cart!");
-      window.location.reload();
-    }catch (error) {
-      alert('Failed to remove favourite ad');
-      console.error('Error removing ad from favourites:', error);
+    const shouldRemove = window.confirm('Are you sure you want to remove this item from the cart?');
+    if(shouldRemove){
+      try{
+        await deleteCartItem(item._id);
+        setAnchorEl(null);
+        alert("Item Removed from Cart!");
+        window.location.reload();
+      }catch (error) {
+        alert('Failed to remove favourite ad');
+        console.error('Error removing ad from favourites:', error);
+      }
     }
+    setAnchorEl(null);
+  
   }
   
 

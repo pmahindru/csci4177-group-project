@@ -456,6 +456,42 @@ const createOrder = async (data) => {
     return error; 
   }
 };
+const createFavourite = async (data) => {
+  try {
+    // Connect the client to the server (optional starting in v4.7)
+    await client.connect();
+    //call db name and collection
+    const db = client.db("Order_Management");
+    const collection = db.collection("Favourites");
+    const newFavourite = await collection.insertOne(data);
+
+    // Ensures that the client will close when you finish/error
+    await client.close();
+    console.log("closed!");
+    return newFavourite;
+  } catch (error) {
+    console.error(error);
+    return error; 
+  }
+};
+const createCartItem = async (data) => {
+  try {
+    // Connect the client to the server (optional starting in v4.7)
+    await client.connect();
+    //call db name and collection
+    const db = client.db("Order_Management");
+    const collection = db.collection("Cart");
+    const newItem = await collection.insertOne(data);
+
+    // Ensures that the client will close when you finish/error
+    await client.close();
+    console.log("closed!");
+    return newItem;
+  } catch (error) {
+    console.error(error);
+    return error; 
+  }
+};
 module.exports = {
     getAllUserSignup,
     registerUser,
@@ -475,4 +511,6 @@ module.exports = {
     editReview,
     getTrackedOrders,
     createOrder,
+    createFavourite,
+    createCartItem,
 }
