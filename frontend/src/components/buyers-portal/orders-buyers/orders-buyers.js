@@ -11,8 +11,8 @@ import AccountPayments from './payments/payments';
 import Cart from './cart/cart';
 
 const OrdersBuyers = () => {
-  const [savePageName , setPageName] = useState('#Active');
-  const [currentLocation, setCurrentLocation] = useState('#Active');
+  const [savePageName , setPageName] = useState('#order-history');
+  const [currentLocation, setCurrentLocation] = useState('#order-history');
   const handleLocation = (e) => {
       setCurrentLocation(e);
       setPageName(e);
