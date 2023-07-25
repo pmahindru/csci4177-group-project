@@ -8,7 +8,7 @@ import MessageIcon from "../icons/messageIcon.js";
 import Notification from "../icons/notificationIcon";
 
 function NavBarSeller() {
-  const [clicked, setClicked] = useState(true);
+  const [clicked, setClicked] = useState(false);
   const [openDropDown, setShowDropDown] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("");
   const getLocation = useLocation();
@@ -16,15 +16,19 @@ function NavBarSeller() {
   // active navigation
   const handleOnClickNavBar = (e) => {
     if (openDropDown === true) {
-      setClicked((prevState) => !prevState);
-      setShowDropDown(false);
+      setShowDropDown((prevState) => !prevState);
     }
-
     setClicked((prevState) => !prevState);
   };
 
   const navigate = useNavigate();
   const handleOnClickNavBarReload = (e) => {
+    if(e === "/logout"){
+      localStorage.clear();
+      navigate("/");
+      window.location.reload();
+      return;
+    }
     navigate(e);
     window.location.reload();
   };
@@ -37,8 +41,10 @@ function NavBarSeller() {
   // make sure the active page should be current
   useEffect(() => {
     setCurrentLocation(window.location.pathname);
-    if (getLocation.pathname === currentLocation) {
-      setClicked((prevState) => !prevState);
+    if (getLocation.hash !== window.location.hash) {
+      if (getLocation.pathname === currentLocation) {
+        setClicked((prevState) => !prevState);
+      }
     }
   }, [openDropDown, getLocation, currentLocation]);
 
@@ -53,7 +59,7 @@ function NavBarSeller() {
 
       {/* navigation link */}
       <div>
-        <ul className={`navbar-links + ${clicked ? "active_navigation" : ""}`} onClick={handleOnClickNavBar}>
+        <ul className={`navbar-links + ${clicked ? "active_navigation" : ""}`}>
           <li className={currentLocation === "/dashboard" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
             <NavLink to="/dashboard"> Dashboard </NavLink>
           </li>
@@ -100,12 +106,10 @@ function NavBarSeller() {
               </ul>
             </div>
           </li>
-          <li className={currentLocation === "/login" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
-            <NavLink onClick={() => handleOnClickNavBarReload("/login")}>
-              Sign In
-              <br />
-              Sign Up
-            </NavLink>
+          <li to="/" onClick={() => handleOnClickNavBarReload("/logout")}>
+              <NavLink to="/">
+                Logout
+              </NavLink>
           </li>
         </ul>
       </div>
@@ -120,3 +124,4 @@ function NavBarSeller() {
 }
 
 export default NavBarSeller;
+

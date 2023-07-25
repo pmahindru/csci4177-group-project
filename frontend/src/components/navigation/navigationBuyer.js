@@ -9,7 +9,7 @@ import Notification from "../icons/notificationIcon";
 import SearchIcon from "../icons/searchIcon";
 
 function NavBarBuyer() {
-  const [clicked, setClicked] = useState(true);
+  const [clicked, setClicked] = useState(false);
   const [openDropDown, setShowDropDown] = useState(false);
   const [currentLocation, setCurrentLocation] = useState('');
   const getLocation = useLocation();
@@ -17,20 +17,35 @@ function NavBarBuyer() {
   // active navigation
   const handleOnClickNavBar = (e) => {
     if (openDropDown === true) {
-      setClicked((prevState) => !prevState);
-      setShowDropDown(false);
+      setShowDropDown((prevState) => !prevState);
     }
-
     setClicked((prevState) => !prevState);
   };
 
   const navigate = useNavigate();
+  // get the local storage item
+  const getLocalStorage = localStorage.getItem("isLoggedIn");
   const handleOnClickNavBarReload = (e) => {
+    if(e === "/dashboard"){
+      // check if the local storage is null or not
+      if (getLocalStorage === false || getLocalStorage === null) {
+        alert("Make sure you Login in");
+        navigate("/login");
+        window.location.reload();
+        return;
+      }
+    }
+    if(e === "/logout"){
+      localStorage.clear();
+      navigate("/");
+      window.location.reload();
+      return;
+    }
     navigate(e);
     window.location.reload();
   };
 
-  // dropdown toggle
+   // dropdown toggle
   const handleDropDownToggle = () => {
     setShowDropDown((prevState) => !prevState);
   };
@@ -38,8 +53,10 @@ function NavBarBuyer() {
   // make sure the active page should be current
   useEffect(() => {
     setCurrentLocation(window.location.pathname);
-    if (getLocation.pathname === currentLocation) {
-      setClicked((prevState) => !prevState);
+    if (getLocation.hash !== window.location.hash) {
+      if (getLocation.pathname === currentLocation) {
+        setClicked((prevState) => !prevState);
+      }
     }
   }, [openDropDown, getLocation, currentLocation]);
 
@@ -64,12 +81,12 @@ function NavBarBuyer() {
 
       {/* navigation link */}
       <div>
-        <ul className={`navbar-links + ${clicked ? "active_navigation" : ""}`} onClick={handleOnClickNavBar}>
+        <ul className={`navbar-links + ${clicked ? "active_navigation" : ""}`}>
           <li className={currentLocation === "/" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
-            <NavLink to="/"> Category </NavLink>
+            <NavLink to="/"> Categories </NavLink>
           </li>
           <li className={currentLocation === "/orders" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
-            <NavLink to="/orders" > Orders </NavLink>
+            <NavLink to="/orders"> Orders </NavLink>
           </li>
           <li>
             <NavLink to="#">
@@ -81,12 +98,14 @@ function NavBarBuyer() {
               <Notification />
             </NavLink>
           </li>
-          <li onClick={handleDropDownToggle} className={`dropdown ${openDropDown ? "open" : ""}`}>
+          <li className={`dropdown ${openDropDown ? "open" : ""}`} onClick={handleDropDownToggle}>
             <NavLink> Account </NavLink>
             <div className={`dropdown-menu ${openDropDown ? "show" : ""}`}>
              <ul>
                 <li>
-                  <NavLink onClick={() => handleOnClickNavBarReload("/dashboard")}> Switch to Seller </NavLink>
+                  <NavLink onClick={() => handleOnClickNavBarReload("/dashboard")}> 
+                    Switch to Seller 
+                  </NavLink>
                 </li>
                 <li className={currentLocation === "/profile_setting" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
                   <NavLink to="/profile_setting"> Profile Setting </NavLink>
@@ -103,13 +122,21 @@ function NavBarBuyer() {
              </ul>
             </div>
           </li>
-          <li to="/login" className={currentLocation === "/login" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
-            <NavLink to="/login">
-              Sign In
-              <br />
-              Sign Up
-            </NavLink>
-          </li>
+          {getLocalStorage ? (
+            <li to="/" onClick={() => handleOnClickNavBarReload("/logout")}>
+              <NavLink to="/">
+                Logout
+              </NavLink>
+            </li>
+          ) : (
+            <li to="/login" className={currentLocation === "/login" ? "active_page_navigation" : ""} onClick={handleOnClickNavBar}>
+              <NavLink to="/login">
+                Sign In
+                <br />
+                Sign Up
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
 
@@ -123,3 +150,4 @@ function NavBarBuyer() {
 }
 
 export default NavBarBuyer;
+
