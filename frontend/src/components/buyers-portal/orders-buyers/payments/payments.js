@@ -51,15 +51,15 @@ const AccountPayments = () => {
       <h1>Payment Page</h1>
       {payments.length === 0 ? (
         <div className="center-container">
-          <h2>No Payment Methods</h2>
+          <h2 className="paymentHeading">No Payment Methods</h2>
         </div>
       ) : (
         payments.map((payment) => (
           <div className="cards" key={payment._id}>
             <div>
-              <p>Card Number: {payment.card_number}</p>
-              <p>Expiry Date: {payment.expiry}</p>
-              <button className="button" onClick={() => handleEditPayment(payment._id)}>Edit</button>
+              <p className="paymentLabel">Card Number: {payment.card_number}</p>
+              <p className="paymentLabel">Expiry Date: {payment.expiry}</p>
+              <button className="paymentPageButton" onClick={() => handleEditPayment(payment._id)}>Edit</button>
               {isEditModalOpen && selectedPaymentId === payment._id && (
                 <EditPaymentModal
                   paymentId={selectedPaymentId}
@@ -71,7 +71,7 @@ const AccountPayments = () => {
         ))
       )}
 
-      <button className="button" onClick={handleCreatePayment}>Add a Payment</button>
+      <button className="addPaymentButton" onClick={handleCreatePayment}>Add a Payment</button>
 
       {isCreateModalOpen && (
         <div className="modalOverlay">
