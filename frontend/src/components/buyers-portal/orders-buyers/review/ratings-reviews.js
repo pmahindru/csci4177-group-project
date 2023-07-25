@@ -7,6 +7,7 @@ import './ratings-reviews.css';
 import { getReviews } from '../../../../api';
 import ResponsiveStarRatingDisplay from './star_rating';
 
+import ResponsiveStarRating from './rating';
 //styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
   margin: '10px',
@@ -27,7 +28,7 @@ const StyledCard = styled(Card)({
   display: 'flex',
   flexDirection: 'row',
   padding: '15px',
-  width: '50%',
+  width: '100%',
   alignItems: 'center',
   marginRight: '10px',
   border: '1px solid',
@@ -154,9 +155,10 @@ const Rating_Reviews = () => {
               <CreateReview onClose={handleCreateReviewClose} selectedAdId={selectedAdId} />
             </div>
           )}
-          {isCreateModalOpen && (
+          {isCreateReviewOpen && (
             <div className="modalOverlay">
-              <CreateReview onClose={handleCreateReviewOpenClose} selectedAdId={selectedAdId} />
+              <CreateReview onClose={handleCreateReviewClose
+} selectedAdId={selectedAdId} />
             </div>
           )}
         </Grid>
