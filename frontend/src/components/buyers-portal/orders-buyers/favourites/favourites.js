@@ -91,7 +91,7 @@ const FavouritesCard = ({ favourite }) => {
             {title}
           </StyledTypography>
         </Grid>
-        <Grid item xs={3} md={3}>
+        <Grid item xs={4} md={4}>
           <StyledTypography>
             Price: {price}
           </StyledTypography>

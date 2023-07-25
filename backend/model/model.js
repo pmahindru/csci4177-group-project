@@ -322,7 +322,6 @@ const createPayment = async (data) => {
     return error;
   }
 };
-
 //create a new review using data sent over from controller(Patrick Wooden)
 const createReview = async (data) => {
   try {
