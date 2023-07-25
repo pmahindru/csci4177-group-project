@@ -1,19 +1,30 @@
 .notificationSettings {
-    margin: 2% 10%;
+    margin: 2% 12%;
 }
 
 .notificationSettings-form {
-    font-size: 3vh;
+    font-size: 22px;
     text-transform: capitalize;
     padding: 1% 0%;
 }
 
 .notificationSettings-form > li {
     list-style: none;
-    background-color: #998ea9;
+    background-color: lightgray;
     margin: 3px;
     padding: 3vh;
 }
 .notificationSettings-toggle {
     float: right;
 }
+
+@media (max-width: 805px) {
+    .notificationSettings-form {
+        font-size: 20px;
+    }
+
+    .notificationSettings {
+        margin-top: 12vh;
+    }
+}
+
