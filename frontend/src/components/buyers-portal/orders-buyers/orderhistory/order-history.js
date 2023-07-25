@@ -96,7 +96,7 @@ const OrderHistoryPage = () => {
   //event handlers to update locat states when review button is clicked
   const handleCreateReviewOpen = (adId) => {
     setAdId(adId);
-    console.log(selectedAdId);
+    
     setIsCreateModalOpen(true);
   };
 

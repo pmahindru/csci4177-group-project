@@ -26,7 +26,7 @@ const AccountPayments = () => {
   const handleEditPayment = (paymentId) => {
     setSelectedPaymentId(paymentId);
     setIsEditModalOpen(true);
-    console.log(paymentId);
+    
   };
 
   const handleEditPaymentClose = () => {
