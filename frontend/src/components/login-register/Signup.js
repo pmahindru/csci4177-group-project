@@ -4,6 +4,11 @@
 // URL: https://www.geeksforgeeks.org/how-to-develop-user-registration-form-in-reactjs/
 // Date Accessed: 06/12/2023
 
+// Backend referred and understood from Techy Web Dev
+// URL: https://www.youtube.com/watch?v=S9eCBX-Re8A&ab_channel=TechyWebDev
+// Author: Techy Web Dev
+// Date Accessed: 07/23/2023
+
 import React, { useState } from 'react';
 
 import './Signup.css';

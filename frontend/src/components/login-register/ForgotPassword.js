@@ -8,6 +8,11 @@
 // URL: https://www.makeuseof.com/password-reset-forgot-react-node-how-handle/
 // Date Accessed: 06/13/2023
 
+// Backend referred and understood from Koding 101
+// URL: https://www.youtube.com/watch?v=A8k4A7TuhDY&ab_channel=Koding101
+// Author: Koding 101
+// Date Accessed: 07/23/2023
+
 import React, { useState } from 'react';
 import './ForgotPassword.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
