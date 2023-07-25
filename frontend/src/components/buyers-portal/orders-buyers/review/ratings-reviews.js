@@ -5,14 +5,15 @@ import CreateReview from './create-review';
 import { styled } from '@mui/system';
 import './ratings-reviews.css';
 import { getReviews } from '../../../../api';
-import Rating from '@mui/material/Rating';
 
+import ResponsiveStarRating from './rating';
 //styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
   '@media (min-width: 600px)': {
     fontSize: '14px',
+    
   },
   '@media (min-width: 807px)': {
     fontSize: '18px',
@@ -23,7 +24,7 @@ const StyledCard = styled(Card)({
   display: 'flex',
   flexDirection: 'row',
   padding: '15px',
-  width: '50%',
+  width: '100%',
   alignItems: 'center',
   marginRight: '10px',
   border: '1px solid',
@@ -41,9 +42,11 @@ const StyledButton = styled(Button)({
   width: '25%',
   butonSize: 'small',
   fontSize: '10px',
+  padding: '5px',
   '@media (min-width: 600px)': {
     fontSize: '10px',
     buttonSize: 'medium',
+    padding: '5px',
   },
   '@media (min-width: 807px)': {
     fontSize: '12px',
@@ -70,15 +73,13 @@ const ReviewCard = ({ review, handleCreateReviewOpen }) => {
         </Grid>
         <Grid item xs={4} md={4} sx={{ margin: '10px' }}>
           <StyledTypography>
-            <Rating name="half-rating-read" defaultValue={star_rating} precision={0.5} readOnly />
+            
+            <ResponsiveStarRating value={star_rating} defaultValue={star_rating} precision={0.5} readOnly />
+            
           </StyledTypography>
         </Grid>
-        <Grid item xs={4} md={4}>
-          <StyledTypography>
-            Title: {title}
-          </StyledTypography>
-        </Grid>
-        <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
+        
+        <Grid item xs={2} md={2} sx={{ marginLeft: '1px', justifyContent: 'flex-end',  display: 'flex' }}>
           <StyledTypography sx={{ flexGrow: 1 }}>
             <StyledButton variant="contained" onClick={() => handleCreateReviewOpen(ad_details._id)}>Edit</StyledButton>
           </StyledTypography>
@@ -94,17 +95,17 @@ const Rating_Reviews = () => {
   const user_id = parsedData._id;
   //local state variables used for getting users reviews and toggling the create review popup
   const [reviews, setReviews] = useState([]);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isCreateReviewOpen, setIsCreateReviewOpen] = useState(false);
   const [selectedAdId, setAdId] = useState('');
 
   //event handlers to open and close the create review component when edit is clicked
   const handleCreateReviewOpen = (adId) => {
     setAdId(adId);
-    setIsCreateModalOpen(true);
+    setIsCreateReviewOpen(true);
   };
 
-  const handleCreateReviewOpenClose = () => {
-    setIsCreateModalOpen(false);
+  const handleCreateReviewClose = () => {
+    setIsCreateReviewOpen(false);
     window.location.reload();
   };
   // use effect getting all of the reviews the user has created
@@ -144,9 +145,10 @@ const Rating_Reviews = () => {
               </div>
             ))
           )}
-          {isCreateModalOpen && (
+          {isCreateReviewOpen && (
             <div className="modalOverlay">
-              <CreateReview onClose={handleCreateReviewOpenClose} selectedAdId={selectedAdId} />
+              <CreateReview onClose={handleCreateReviewClose
+} selectedAdId={selectedAdId} />
             </div>
           )}
         </Grid>

@@ -77,14 +77,18 @@ state: {
 
 ### order-history.js
 
-*Lines 133-137*
+*Lines 157-165*
 
 ```
-{orders.map((order) => (
-<Grid item xs={12} md={12}>
-<OrderHistoryCard key={order.id} product={order.product} status={order.status} address={order.address} photo={order.photoUrl} />
-</Grid>
-))}
+ orders.map((order) => (
+              <div key={order._id}>
+                <OrderHistoryCard
+                   order={order}
+                   handleCreateReviewOpen={handleCreateReviewOpen}
+                ></OrderHistoryCard>
+              </div>
+            ))
+          )}
 ```
 
 The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
@@ -106,15 +110,17 @@ The code above was created by adapting the code in [geeksforgeeks](https://www.g
 
 ### track-order.js
 
-*Lines 113-118*
+*Lines 106-113*
 
 ```
-{orders.map((order) => (
-  <Grid item xs={12} md={12}>
-
-    <TrackOrdersCard key={order.id} product={order.product} status={order.status} address={order.expecteddate} photo={order.photoUrl} />
-  </Grid>
-))}
+ orders.map((order) => (
+              <div key={order._id}>
+                <TrackOrdersCard
+                  order={order}
+                ></TrackOrdersCard>
+              </div>
+            ))
+          )}
 ```
 
 The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
@@ -136,24 +142,71 @@ The code above was created by adapting the code in [geeksforgeeks](https://www.g
 
 ### favourites.js
 
-*Lines 39-47 and 75-77*
+*Lines 145-153*
 
 ```
-const [anchorEl, setAnchorEl] = useState(null);
+favourites.map((favourite) => (
+              <div key={favourite._id}>
+                <FavouritesCard
+                  key={favourite._id}
+                  favourite={favourite}
+                ></FavouritesCard>
+              </div>
+            ))
+          )}
+```
 
-const handleClick = (event) => {
-setAnchorEl(event.currentTarget);
-};
+The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
 
-const handleClose = () => {
-setAnchorEl(null);
-};
+```
+(posts.map((item) =>
+// Presently we only fetch
+// title from the API
+
+<h4>{item.title}</h4>)
+)
+```
+
+- <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
+- <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
+- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and used my own card component I created.
+
+*****
+### favourites.js
+
+*Lines 46-69 and 100-102*
+
+```
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+  };
+  //handleRemoveFavourites removes the favourited ad from the users favourite list in the database
+  const handleRemoveFavourite = async () => {
+    const shouldRemove = window.confirm('Are you sure you want to unfavourite this ad?');
+    if (shouldRemove) {
+      try {
+        await deleteFavourite(favourite._id);
+        alert("Ad removed from favourites list");
+        setAnchorEl(null);
+        window.location.reload();
+      } catch (error) {
+        alert('Failed to remove favourite ad');
+        console.error('Error removing ad from favourites:', error);
+      }
+    }
+    setAnchorEl(null);
+  }
 
 ---
 
  <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-  <MenuItem onClick={handleClose}>Remove from Favorites</MenuItem>
-</Menu>
+              <MenuItem onClick={handleRemoveFavourite}>Remove from Favorites</MenuItem>
+  </Menu>
 ```
 
 The code above was created by adapting the code in [mui](https://mui.com/material-ui/react-menu/) as shown below:
@@ -235,10 +288,83 @@ export default function LongMenu() {
 - <How> [mui](https://mui.com/material-ui/react-menu/)'s Code was modified by only have one menu item and creating that individual one instead of creating a map and looping though multiple options like the website shows. I also do not set a key to each menu item or use the selected={} like they do in the example
 
 *****
+### ratings-reviews.js
 
+*Lines 137-146*
+
+```
+ Array.isArray(reviews) && reviews.map((review) => (
+              <div key={review._id}>
+                <ReviewCard
+                  key={review._id}
+                  review={review}
+                  handleCreateReviewOpen={handleCreateReviewOpen}
+                />
+              </div>
+            ))
+          )}
+```
+
+The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
+
+```
+(posts.map((item) =>
+// Presently we only fetch
+// title from the API
+
+<h4>{item.title}</h4>)
+)
+```
+
+- <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
+- <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
+- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and used my own card component I created. I also added a check to make sure the reviews object is a array before mapping it out
+
+*****
+### ratings-reviews.js
+
+*Lines 147-152*
+
+```
+     {isCreateModalOpen && (
+            <div className="modalOverlay">
+              <CreateReview onClose={handleCreateReviewClose
+} selectedAdId={selectedAdId} />
+            </div>
+          )}
+```
+
+The code above was created by adapting the code in [geeksforgeeks](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) as shown below:
+
+```
+import React, { useState } from "react";
+import styles from "./App.module.css";
+
+import Modal from "./components/Modal";
+
+const App = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <main>
+      <button className={styles.primaryBtn} onClick={() => setIsOpen(true)}>
+        Open Modal
+      </button>
+      {isOpen && <Modal setIsOpen={setIsOpen} />}
+    </main>
+  );
+};
+
+export default App;
+```
+
+- <How> The code in [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) was implemented by Patrick Wooden
+- <Why> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was used because it allows for the required component to be displayed/hidden when the user clicks certian buttons
+- <How> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was modified by using different variable names for holding the value of the component being open or not. I also return my own component instead of the shown modal compoent and also pass in extra props to the component like selectedAdId for example. I also use two event handles to set my handler for opening the component, one for true and one for false which I can call instead of manually changing the value in the onclick like the code above shows.
+
+*****
 ### create-review.js
 
-*Lines 68*
+*Lines 90*
 
 ```
 <Rating defaultValue={2} precision={0.5} onChange={handleRatingChange}/>
@@ -252,10 +378,137 @@ The code above was created by adapting the code in [mui](https://mui.com/materia
 
 - <How> The code in [mui](https://mui.com/material-ui/react-rating/) was implemented by Patrick Wooden
 - <Why> [mui](https://mui.com/material-ui/react-rating/)'s Code was used because it allows us to allow users to enter a star rating with their product when creating a review
-- <How> [mui](https://mui.com/material-ui/react-rating/)'s Code was modified by changing the default value to 1 and making the percision change to 1. This will be further modified in the future by adding a onchange handler so we are able to save the rating the user gives a product and store that in their review data and can be displayed on the sellers profile later. As there is no backend implemented into this project yet this section does not look very modified so I wanted to make this note so markers know that this code will be further modified and not just used like this.
+- <How> [mui](https://mui.com/material-ui/react-rating/)'s Code was modified by changing the default value to the existing star rating if there was already a review created. If there is not a existing review the star rating is set to 1 by default. I also added a onclick method which updates the star_rating value when the user sets a star review. 
 
 *****
 
+### create-review.js
+
+*Lines 72 and 76*
+
+onClose();
+
+```
+onClose();
+```
+
+The code above was created by adapting the code in [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) as shown below:
+
+```
+const Modal = ({ setIsOpen }) => {
+  return (
+    <>
+      <div className={styles.darkBG} onClick={() => setIsOpen(false)} />
+      <div className={styles.centered}>
+        <div className={styles.modal}>
+          <div className={styles.modalHeader}>
+            <h5 className={styles.heading}>Dialog</h5>
+          </div>
+          <button className={styles.closeBtn} onClick={() => setIsOpen(false)}>
+            <RiCloseLine style={{ marginBottom: "-3px" }} />
+          </button>
+          <div className={styles.modalContent}>
+            Are you sure you want to delete the item?
+          </div>
+          <div className={styles.modalActions}>
+            <div className={styles.actionsContainer}>
+              <button className={styles.deleteBtn} onClick={() => setIsOpen(false)}>
+                Delete
+              </button>
+              <button
+                className={styles.cancelBtn}
+                onClick={() => setIsOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+- <How> The code in [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) was implemented by Patrick Wooden
+- <Why> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was used because it allows the components for create review, edit review, checkout and create/edit payment components to be displayed to the users without moving them to another page.
+- <How> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was modified by changing the methods name that handles closing the component. Instead of it manually being changed to false here a method that is created in the ratings-review file is called which does it for us. I also return a form instead of two buttons like the example shows, as well as pass through more props to use like the selectedAdId of the review the user has clicked to add.
+
+*****
+### cart.js
+
+*Lines 137-146*
+
+```
+ Array.isArray(reviews) && reviews.map((review) => (
+              <div key={review._id}>
+                <ReviewCard
+                  key={review._id}
+                  review={review}
+                  handleCreateReviewOpen={handleCreateReviewOpen}
+                />
+              </div>
+            ))
+          )}
+```
+
+The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
+
+```
+(posts.map((item) =>
+// Presently we only fetch
+// title from the API
+
+<h4>{item.title}</h4>)
+)
+```
+
+- <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
+- <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
+- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and used my own card component I created. I also added a check to make sure the reviews object is a array before mapping it out
+
+*****
+### cart.js
+
+*Lines 147-152*
+
+```
+     {isCreateModalOpen && (
+            <div className="modalOverlay">
+              <CreateReview onClose={handleCreateReviewClose
+} selectedAdId={selectedAdId} />
+            </div>
+          )}
+```
+
+The code above was created by adapting the code in [geeksforgeeks](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) as shown below:
+
+```
+import React, { useState } from "react";
+import styles from "./App.module.css";
+
+import Modal from "./components/Modal";
+
+const App = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <main>
+      <button className={styles.primaryBtn} onClick={() => setIsOpen(true)}>
+        Open Modal
+      </button>
+      {isOpen && <Modal setIsOpen={setIsOpen} />}
+    </main>
+  );
+};
+
+export default App;
+```
+
+- <How> The code in [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) was implemented by Patrick Wooden
+- <Why> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was used because it allows for the required component to be displayed/hidden when the user clicks certian buttons
+- <How> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was modified by using different variable names for holding the value of the component being open or not. I also return my own component instead of the shown modal compoent and also pass in extra props to the component like selectedAdId for example. I also use two event handles to set my handler for opening the component, one for true and one for false which I can call instead of manually changing the value in the onclick like the code above shows.
+
+*****
 ### orders-buyers.js
 
 *Lines 31-56*

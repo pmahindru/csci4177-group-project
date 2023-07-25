@@ -69,10 +69,10 @@ const CreatePayment= ({ onClose }) => {
   return (
     <div className="paymentOverlay">
       <div className="paymentContent">
-        <h2>Create Payment</h2>
+        <h2 className="paymentHeading" >Create Payment</h2>
         <form>
           <div className="formRow">
-            <label>Card Number:</label>
+            <label className="paymentLabel" >Card Number:</label>
             <input
               id="cardNumberInput"
               type="text"
@@ -84,8 +84,9 @@ const CreatePayment= ({ onClose }) => {
             />
           </div>
           <div className="formRow">
-            <label >CVV:</label>
+            <label className="paymentLabel" >CVV:</label>
             <input
+            
               id="cvvInput"
               type="text"
               value={cvv}
@@ -96,7 +97,7 @@ const CreatePayment= ({ onClose }) => {
             />
           </div>
           <div className="formRow">
-            <label>Expiry Date:</label>
+            <label className="paymentLabel"  >Expiry Date:</label>
             <select
               id="expiryMonthSelect"
               value={expiryMonth}
@@ -137,7 +138,7 @@ const CreatePayment= ({ onClose }) => {
             </select>
           </div>
           <div className="formRow">
-            <label>First Name:</label>
+            <label className="paymentLabel"  >First Name:</label>
             <input
               id="firstNameInput"
               type="text"
@@ -146,7 +147,7 @@ const CreatePayment= ({ onClose }) => {
             />
           </div>
           <div className="formRow">
-            <label >Last Name:</label>
+            <label className="paymentLabel" >Last Name:</label>
             <input
               id="lastNameInput"
               type="text"
@@ -155,7 +156,7 @@ const CreatePayment= ({ onClose }) => {
             />
           </div>
           <div className="formRow">
-            <label>Address:</label>
+            <label className="paymentLabel"  >Address:</label>
             <textarea
               id="addressInput"
               value={address}
@@ -163,12 +164,12 @@ const CreatePayment= ({ onClose }) => {
             />
           </div>
           <div className="formRow">
-            <button type="button" onClick={handleCreatePayment}>
+            <button className="paymentButton"  type="button" onClick={handleCreatePayment}>
               Create Payment
             </button>
           </div>
           <div className="formRow">
-            <button type="button" onClick={onClose}>
+            <button  className="paymentButton" type="button" onClick={onClose}>
               Cancel
             </button>
           </div>

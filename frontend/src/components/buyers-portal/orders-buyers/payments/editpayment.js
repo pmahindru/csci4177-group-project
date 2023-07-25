@@ -91,10 +91,10 @@ const EditPayment = ({ paymentId, onClose }) => {
   return (
     <div className="paymentOverlay">
       <div className="paymentContent">
-        <h2>Edit Payment Method </h2>
+        <h2 className="paymentHeading">Edit Payment Method </h2>
         <form>
           <div className="formRow">
-            <label>CVV:</label>
+            <label className="paymentLabel" >CVV:</label>
             <input
               id="cvvInput"
               type="text"
@@ -105,7 +105,7 @@ const EditPayment = ({ paymentId, onClose }) => {
             />
           </div>
           <div className="formRow">
-            <label>Expiry Date:</label>
+            <label className="paymentLabel" >Expiry Date:</label>
             <select
               id="expiryMonthSelect"
               value={expiryMonth}
@@ -146,25 +146,26 @@ const EditPayment = ({ paymentId, onClose }) => {
             </select>
           </div>
           <div className="formRow">
-            <label>Address:</label>
+            <label className="paymentLabel">Address:</label>
             <textarea
+            className="paymentTextArea"
               id="addressInput"
               value={address}
               onChange={handleAddressChange}
             />
           </div>
           <div className="formRow">
-            <button type="button" onClick={handleRemovePayment}>
+            <button className="paymentButton" type="button" onClick={handleRemovePayment}>
               Remove Payment Method
             </button>
           </div>
           <div className="formRow">
-            <button type="button" onClick={handleEditPayment}>
+            <button className="paymentButton" type="button" onClick={handleEditPayment}>
               Save Changes
             </button>
           </div>
           <div className="formRow">
-            <button type="button" onClick={onClose}>
+            <button className="paymentButton" type="button" onClick={onClose}>
               Cancel
             </button>
           </div>

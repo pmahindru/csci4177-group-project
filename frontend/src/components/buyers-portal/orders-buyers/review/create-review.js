@@ -4,8 +4,11 @@ import "./ratings-reviews.css";
 import { getReview, createReview, editReview } from '../../../../api';
 import Rating from '@mui/material/Rating';
 
+import ResponsiveStarRating from './rating';
+
 //create review returns a form with a field for the users cards cvv, two select menus for updating the expiry data and a address field for the suer to enter a new address.
 const CreateReview = ({ onClose, selectedAdId }) => {
+
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
@@ -84,14 +87,17 @@ const CreateReview = ({ onClose, selectedAdId }) => {
   return (
     <div className="reviewOverlay">
       <div className="reviewContent">
-        <h2>Create Review</h2>
-        <form>
+        <h2 className="reviewHeading">Create Review</h2>
+        <form className="reviewForm">
           <div className="formRow">
-            <Rating name="half-rating" precision={0.5} onClick={handleRatingChange} value={star_rating} />
+            <div className="ratingContainer">
+                <ResponsiveStarRating value={star_rating} />
+              </div>
           </div>
           <div className="formRow">
-            <label>Review Title:</label>
+            <label className="reviewLabel">Review Title:</label>
             <input
+              className="reviewTextArea"
               id="firstNameInput"
               type="text"
               value={title}
@@ -99,8 +105,9 @@ const CreateReview = ({ onClose, selectedAdId }) => {
             />
           </div>
           <div className="formRow">
-            <label>Review:</label>
+            <label className="reviewLabel">Review:</label>
             <textarea
+              className="reviewTextArea"
               id="lastNameInput"
               type="text"
               rows={4}
@@ -108,12 +115,14 @@ const CreateReview = ({ onClose, selectedAdId }) => {
               onChange={handleReviewChange}
             />
           </div>
-          <button type="button" onClick={handleCreateReview}>
-            Create Review
-          </button>
-          <button type="button" onClick={onClose}>
-            Cancel
-          </button>
+          <div className="formRow ">
+            <button type="button" className="reviewButton"onClick={handleCreateReview}>
+              Create Review
+            </button>
+            <button  className="reviewButton" type="button" onClick={onClose}>
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>

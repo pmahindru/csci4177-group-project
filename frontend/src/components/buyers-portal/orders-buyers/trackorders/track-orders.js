@@ -37,7 +37,6 @@ const TrackOrdersCard = ({ order }) => {
 
   const { status, address, ad_details } = order;
   const photoUrl = ad_details.image;
-  console.log(photoUrl[0]);
 
   return (
     <div style={{ paddingBottom: '5px' }}>

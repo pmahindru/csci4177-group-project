@@ -54,10 +54,10 @@ const Checkout = ({ onClose, totalPrice, payments, cart }) => {
   return (
     <div className="checkoutOverlay">
       <div className="checkoutContent">
-        <h2>Place Order</h2>
+        <h2 className="checkoutHeading">Place Order</h2>
         <form>
           <div className="formRow">
-            <label>Shipping Address</label>
+            <label className="checkoutLabel">Shipping Address</label>
             <input
               id="addressInput"
               type="text"
@@ -67,7 +67,7 @@ const Checkout = ({ onClose, totalPrice, payments, cart }) => {
           </div>
 
           <div className="formRow">
-            <label>Payment Method</label>
+            <label className="checkoutLabel">Payment Method</label>
             <select
               id="paymentMethod"
               onChange={handlePaymentChange}
@@ -83,16 +83,16 @@ const Checkout = ({ onClose, totalPrice, payments, cart }) => {
           </div>
 
           <div className="formRow">
-            <p>Total: ${totalPrice.toFixed(2)}</p>
+            <p className="checkoutLabel" >Total: ${totalPrice.toFixed(2)}</p>
           </div>
           <div className="formRow">
-            <button type="button" onClick={handleCreateOrder}>
+            <button className="checkoutButton" type="button" onClick={handleCreateOrder}>
               Place Order
             </button>
           </div>
 
           <div className="formRow">
-            <button type="button" onClick={onClose}>
+            <button button className="checkoutButton" type="button" onClick={onClose}>
               Cancel
             </button>
           </div>

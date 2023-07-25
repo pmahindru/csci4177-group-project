@@ -31,22 +31,22 @@ const OrdersBuyers = () => {
       <nav className="order-navbar">
         <ul className="order-navbar-links">
           <li className={`order-navbar-item ${active === 'order-history' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="/order-history" className="simple-navbar-link" onClick={() => handleNavLinkClick('order-history')}>Order History</NavLink>
+            <NavLink  className="simple-navbar-link" onClick={() => handleNavLinkClick('order-history')}>Order History</NavLink>
           </li>
           <li className={`order-navbar-item ${active === 'track-orders' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="/track-orders" className="simple-navbar-link" onClick={() => handleNavLinkClick('track-orders')}>Track Orders</NavLink>
+            <NavLink  className="simple-navbar-link" onClick={() => handleNavLinkClick('track-orders')}>Track Orders</NavLink>
           </li>
           <li className={`order-navbar-item ${active === 'favourites' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="/favourites" className="simple-navbar-link" onClick={() => handleNavLinkClick('favourites')}>Favourites</NavLink>
+            <NavLink  className="simple-navbar-link" onClick={() => handleNavLinkClick('favourites')}>Favourites</NavLink>
           </li>
           <li className={`order-navbar-item ${active === 'payments' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="/payments" className="simple-navbar-link" onClick={() => handleNavLinkClick('payments')}>Payments</NavLink>
+            <NavLink  className="simple-navbar-link" onClick={() => handleNavLinkClick('payments')}>Payments</NavLink>
           </li>
           <li className={`order-navbar-item ${active === 'rating-review' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="/ratings-reviews" className="simple-navbar-link" onClick={() => handleNavLinkClick('rating-review')}>Rating/Review</NavLink>
+            <NavLink  className="simple-navbar-link" onClick={() => handleNavLinkClick('rating-review')}>Rating/Review</NavLink>
           </li>
           <li className={`order-navbar-item ${active === 'cart' ? 'active_page_navigation' : ''}`}>
-            <NavLink href="/cart" className="simple-navbar-link" onClick={() => handleNavLinkClick('cart')}>Cart</NavLink>
+            <NavLink className="simple-navbar-link" onClick={() => handleNavLinkClick('cart')}>Cart</NavLink>
           </li>
         </ul>
       </nav>

@@ -42,6 +42,7 @@ const FavouritesCard = ({ favourite }) => {
   const price = `$${ad_details.price}`;
   const title = ad_details.title;
   const photoUrl = ad_details.image;
+  
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -56,6 +57,7 @@ const FavouritesCard = ({ favourite }) => {
     if (shouldRemove) {
       try {
         await deleteFavourite(favourite._id);
+        alert("Ad removed from favourites list");
         setAnchorEl(null);
         window.location.reload();
       } catch (error) {

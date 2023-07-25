@@ -195,11 +195,11 @@ const Cart = () => {
             </div>
           ) : (
               Array.isArray(cart) && cart.map((item) => (
-                <React.Fragment key={item._id}>
+                
                   <CartCard
                     item={item}
                   ></CartCard>
-                </React.Fragment>
+               
               ))
             )}
           {cart.length > 0 && (
