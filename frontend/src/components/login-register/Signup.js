@@ -1,3 +1,5 @@
+//Code extended from previous Assignment submissions by Saiz Charolia
+
 // Registeration form referred from geeksforgeeks
 // URL: https://www.geeksforgeeks.org/how-to-develop-user-registration-form-in-reactjs/
 // Date Accessed: 06/12/2023
@@ -8,7 +10,8 @@ import './Signup.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import simage from '../images/signup.png';
-import { createUser, getAllUser } from '../../api';
+import { createUser } from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
   const [firstName, setFirstName] = useState('');
@@ -18,6 +21,8 @@ function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -41,26 +46,25 @@ function RegisterPage() {
       return;
     }
 
-    try {
-      const addr = null;
-      const phone = null;
-      const loc = null;
-
-      const data = {firstName, lastName, email, password, addr, phone, loc}
-
-      await createUser(data);
-      
-      const t = await getAllUser(); 
-      console.log(t);
-
-      // alert('User registered successfully');
-      // window.location.href = '/'; // Redirect to the home page or any other route
-    } catch (error) {
-      alert('Failed to register user');
-      console.error('Error registering user:', error);
+    // API calling referred from Blogs
+    // URL: https://blog.hubspot.com/website/api-calls
+    // Date Accessed: 07/23/2023
+    
+    const addr = null;
+    const phone = null;
+    const loc = null;
+ 
+    const data = await createUser({firstName, lastName, email, password, addr, phone, loc});
+    
+    if (data.response === undefined){
+      alert('User registered successful');
+      navigate("/login");
+      return;
+    }
+    else {
+      alert(data.response.data.message);
     }
   };
-
 
   return (
     <div className="signup-container">
