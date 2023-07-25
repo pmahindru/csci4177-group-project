@@ -4,8 +4,7 @@
 // Used by Saiz Charolia
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
-
-const uri = "mongodb+srv://Team24:qwhoZh2NkExdtQu5@shopaestheticscluster.za4i1fn.mongodb.net/";
+const uri = "mongodb+srv://Team24:qwhoZh2NkExdtQu5@shopaestheticscluster.za4i1fn.mongodb.net/?retryWrites=true&w=majority";
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -626,6 +625,26 @@ const addNewPostAd = async (data) => {
     }
 }
 
+// get all post Ad (pranav mahindru)
+const getAllPostedAd = async (data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("post_ad");
+
+      const postedAd = await collection.find(data).toArray();
+
+      await client.close();
+
+      return postedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
 // save post Ad (pranav mahindru)
 const savePostAd = async (data) => {
     try {
@@ -646,8 +665,28 @@ const savePostAd = async (data) => {
     }
 }
 
-// get all post Ad (pranav mahindru)
-const getAllPostedAd = async () => {
+// get all save posted Ad (pranav mahindru)
+const getAllSavePostedAd = async (data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("save_ad");
+
+      const postedAd = await collection.find(data).toArray();
+
+      await client.close();
+
+      return postedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all posted Ad (pranav mahindru)
+const getPostAdWithId = async (data) => {
     try {
       // connection with db
       await client.connect();
@@ -656,11 +695,31 @@ const getAllPostedAd = async () => {
       const db = client.db("Seller_Management");
       const collection = db.collection("post_ad");
 
-      const postedAd = await collection.find().toArray();
+      const postedAd = await collection.find(data).toArray();
 
       await client.close();
 
       return postedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all update posted Ad (pranav mahindru)
+const updatePostWithId = async (idObject, data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("post_ad");
+
+      const updatepostedAd = await collection.updateOne(idObject, data);
+
+      await client.close();
+
+      return updatepostedAd;
     } catch (error) {
       return error;
     }
@@ -697,4 +756,7 @@ module.exports = {
     addMessageModel,
     findMessages,
     findUsers,
+    getAllSavePostedAd,
+    getPostAdWithId,
+    updatePostWithId,
 }

@@ -922,16 +922,44 @@ I took reference from the above link and learnt about how to useLocation and nav
 
 ### createnewad.js
 
-*Lines 41* 
+*Lines 36-Line 47* 
 
 ```
-saveInFiles[i] = URL.createObjectURL(e.target.files[i]);
-```
+const fileReader = new FileReader();
+fileReader.onload = () => {
+    saveInFiles.push(fileReader.result);
 
-[14] “How to upload image and preview it using reactjs ?,” GeeksforGeeks, https://www.geeksforgeeks.org/how-to-upload-image-and-preview-it-using-reactjs/ (accessed June 20, 2023).    
+    if (saveInFiles.length === length) {
+        setSelectImageFiles(saveInFiles);
+    }
+    else{
+        fileReader.readAsDataURL(e.target.files[saveInFiles.length])
+    }
+}
+fileReader.readAsDataURL(e.target.files[0]);
+```
+[14] user2784722, user2784722user2784722 14711 gold badge11 silver badge88 bronze badges, PSLPSL 123k2121 gold badges253253 silver badges243243 bronze badges, mVChrmVChr 49.5k1111 gold badges107107 silver badges104104 bronze badges, and JivingsJivings 22.8k66 gold badges5959 silver badges100100 bronze badges, “Select and display image(s) using filereader,” Stack Overflow, https://stackoverflow.com/questions/18934738/
+
+select-and-display-images-using-filereader (accessed Jul. 24, 2023). 
+[15] MozDevNet, “Filereader: Readasdataurl() method - web apis: MDN,” Web APIs | MDN, https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL (accessed Jul. 24, 2023). 
 
 ```
-URL.createObjectURL
+<script type="text/javascript">
+function readURL(input.joint) {
+
+    if (input.joint.filers && input.joint.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.joint.files[0]);
+    }
+}
+$("#imgInp").change(function(){
+    readURL(this);
+});
 ```
 
 I took reference from the above link and learnt about URL.createObjectURL to show image in the preview.js.

@@ -84,8 +84,12 @@
     justify-content: center;
 }
 
+.style-image-preview {
+    mix-blend-mode: multiply;
+}
+
 @media (max-width: 750px) {
-    .previewAd-main-container {
+    .previewAd-main-container, .preview-loading {
         padding-top: 70px;
     }
 

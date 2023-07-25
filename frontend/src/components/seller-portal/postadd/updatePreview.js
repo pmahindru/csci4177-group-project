@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import './preview.css'
 import { useLocation, NavLink, useNavigate } from 'react-router-dom';
-import { addNewPostAd, savePostAd } from '../../../api';
+import { updatePostAd } from '../../../api';
 import ReactLoading from "react-loading";
 
-function Preview() {
+function UpdatePreview() {
     const getLocationState = useLocation().state;
     const navigate = useNavigate();
     const [checkPublish, setPublish] = useState(false);
@@ -68,9 +68,9 @@ function Preview() {
         }
     }
 
-    const addToDb = async (table_name) => {
+    const addToDb = async () => {
         const data = {
-            "user_id": userInfo["_id"],
+            "_id": getPostDetails[10]['res'],
             "image" : getPostDetails[0]['sendImageFiles'],
             "title" : getPostDetails[1]['sendTitle'],
             "price" : getPostDetails[2]['sendPrice'],
@@ -79,35 +79,34 @@ function Preview() {
             "location" : getPostDetails[5]['sendLocation'],
             "condition" : getPostDetails[6]['sendCondition'],
             "payments_type" : getPostDetails[7]['sendPayments'],
-            "type" : getPostDetails[8]['category'],
-            "category" : getPostDetails[9]['type'],
-            "status" : table_name === "save_ad" ? "draft" : "approved",
-            "isActive" : table_name === "save_ad" ? false : true,
-            "product_status" : null
+            "type" : getPostDetails[9]['type'],
+            "category" : getPostDetails[8]['category'],
+            "status" : "approved",
+            "isActive" : true,
         };
 
         setPublish((prevState) => !prevState);
 
-        var res = table_name === "save_ad" ? await savePostAd(data) : await addNewPostAd(data);
+        var res = await updatePostAd(data);
 
         if (res.response === undefined) {
             alert(res.message);
-            navigate('/dashboard');
+            navigate('/business_orders');
         } 
         else {
             alert(res.message);
-            navigate('/dashboard');
+            navigate('/business_orders');
         }
     }
 
-    const handleSaveAd = (e) =>{
+    const handleUpdateAd = (e) =>{
         e.preventDefault();
-        addToDb("save_ad");
+        window.history.back();
     };
 
     const handlePreview = (e) =>{
         e.preventDefault();
-        addToDb("post_ad");
+        addToDb();
     };
 
     return (
@@ -183,11 +182,11 @@ function Preview() {
 
             {/* button to save or publish  */}
             <div className='preview-button'>
-                <button type='button' onClick={handleSaveAd}><NavLink> Save Ad </NavLink></button>
-                <button type='button' onClick={handlePreview}><NavLink> Publish Ad </NavLink></button>
+                <button type='button' onClick={handleUpdateAd}><NavLink> Back Ad </NavLink></button>
+                <button type='button' onClick={handlePreview}><NavLink> Update Ad </NavLink></button>
             </div>
         </div>
     );
 };
 
-export default Preview;
+export default UpdatePreview;

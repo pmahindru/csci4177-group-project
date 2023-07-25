@@ -5,9 +5,11 @@ const port = process.env.port || 3001;
 
 const server = http.createServer(app);
 
-server.listen(port, () => {
-  console.log(port);
+server.listen(port, ()=> {
+  console.log(`http://localhost:${port}`);
 });
+
+// for the chats
 const io = socket(server, {
   cors: {
     origin: "http://localhost:3000",

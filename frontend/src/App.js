@@ -30,6 +30,8 @@ import OrderSeller from "./components/seller-portal/orders-seller/orders_seller"
 import NotificationSetting from "./components/account/notificationsetting";
 import OrdersBuyers from "./components/buyers-portal/orders-buyers/orders-buyers";
 import CreateReview from "./components/buyers-portal/orders-buyers/review/create-review";
+import EditAd from "./components/seller-portal/postadd/editAd";
+import UpdatePreview from "./components/seller-portal/postadd/updatePreview";
 
 function App() {
   // this array contains only seller portal
@@ -48,7 +50,7 @@ function App() {
         ) : (
           <NavBarBuyer />
         )}
-
+        <h1>{userLoggedIn}</h1>
         <Routes>
           {/* For Login and Register Pages */}
           <Route path='/login' element={userLoggedIn ? <Navigate to="/"/> : <Login/>}/> 
@@ -65,6 +67,8 @@ function App() {
           <Route path="/postAd" element={userLoggedIn ? <CreateNewAd/> : <Navigate to="/login"/>}/>
           <Route path="/preview" element={userLoggedIn ? <Preview/> : <Navigate to="/login"/>}/>
           <Route path='/business_orders' element={userLoggedIn ? <OrderSeller/> : <Navigate to="/login"/>}/>
+          <Route path='/edit/:id' element={userLoggedIn ? <EditAd/> : <Navigate to="/login"/>}/>
+          <Route path='/update_edit/:id' element={userLoggedIn ? <UpdatePreview/> : <Navigate to="/login"/>}/>
           <Route path="/analytics" element={userLoggedIn ? <AnalyticalDashboard/> : <Navigate to="/login"/>}/>
           <Route path="/analytics/active-ads" element={userLoggedIn ? <ActiveAdsPage/> : <Navigate to="/login"/>}/>
           <Route path="/analytics/delete-ads" element={userLoggedIn ? <DeletePage/> : <Navigate to="/login"/>}/>

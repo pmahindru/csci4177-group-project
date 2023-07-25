@@ -282,7 +282,7 @@ export const profileUserDetails = async (data) => {
   }
 };
 
-// ADD NEW POST ADD APIs CALL
+// ADD NEW POST ADD APIs CALL (Pranav Mahindru)
 export const addNewPostAd = async (data) => {
     try {
       const res = await axios.post(`${baseURL}/seller/addPost`, data);
@@ -292,7 +292,7 @@ export const addNewPostAd = async (data) => {
     }
 }
 
-// SAVE POST ADD APIs CALL
+// SAVE POST ADD APIs CALL (Pranav Mahindru)
 export const savePostAd = async (data) => {
     try {
       const res = await axios.post(`${baseURL}/seller/savePost`, data);
@@ -302,10 +302,41 @@ export const savePostAd = async (data) => {
     }
 }
 
-// GET ALL POSTED ADD APIs CALL
-export const getAllPostedAd = async () => {
+// GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
+export const getAllPostedAd = async (data) => {
     try {
-      const res = await axios.get(`${baseURL}/seller/getPost`);
+      const res = await axios.post(`${baseURL}/seller/getPost`, data);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
+export const getAllSavePostedAd = async (data) => {
+    try {
+      const res = await axios.post(`${baseURL}/seller/getSavePost`, data);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
+export const getPostAdWithId = async (data) => {
+    try {
+      const res = await axios.post(`${baseURL}/seller/getPostAdWithId/${data._id}`);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// update the POST ADD APIs CALL (Pranav Mahindru)
+export const updatePostAd = async (data) => {
+    try {
+      const { _id, ...object } = data;
+      const res = await axios.put(`${baseURL}/seller/updatePostWithId/${_id}`, object);
       return res.data;
     } catch (error) {
       return error

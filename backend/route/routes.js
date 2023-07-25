@@ -5,7 +5,7 @@ const controller = require("../controller/controller");
 // const { addMessage, getMessages } = require("../controllers/messageController");
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({limit: "20mb"}));
 
 // base url
 const baseURL = "/api";
@@ -41,6 +41,10 @@ app.get(`${baseURL}/allusers/:id`, controller.getAllUsers);
 // SELLER PORTAL ROUTES
 app.post(`${baseURL}/seller/addPost`, controller.addNewPostAd);
 app.post(`${baseURL}/seller/savePost`, controller.savePostAd);
-app.get(`${baseURL}/seller/getPost`, controller.getAllPostedAd);
+app.post(`${baseURL}/seller/getPost`, controller.getAllPostedAd);
+app.post(`${baseURL}/seller/getSavePost`, controller.getAllSavePostedAd);
+app.post(`${baseURL}/seller/getPostAdWithId/:postId`, controller.getPostAdWithId);
+app.put(`${baseURL}/seller/updatePostWithId/:postId`, controller.updatePostWithId);
+
 
 module.exports = app;
