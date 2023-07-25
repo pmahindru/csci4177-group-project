@@ -8,7 +8,7 @@ function ProfileSettings() {
     const [phone2FAEnabled, setPhone2FAEnabled] = useState();
     const [authenticationApp2FAEnabled, setAuthenticationApp2FAEnabled] = useState();
     const [currentLocationEnabled, setCurrentLocationEnabled] = useState();
-    const [disableAccount, setDisableAccountEnabled] = useState();
+    const [disableAccountEnabled, setDisableAccountEnabled] = useState();
 
     function handleEmailToggleSwitch(status) { 
         setEmail2FAEnabled(status); 
@@ -61,13 +61,13 @@ function ProfileSettings() {
             <div className='profileSettings-setLocation'>
                 <h3> Set Current Loation </h3>
                 <form className='profileSettings-setLocation-form'>
-                    <li> Location: <Switch className="profileSettings-toggle" onChange={handleCurrentLocationToggleSwitch} checked={authenticationApp2FAEnabled} /> </li>
+                    <li> Location: <Switch className="profileSettings-toggle" onChange={handleCurrentLocationToggleSwitch} checked={currentLocationEnabled} /> </li>
                 </form>
             </div>
             <div className='profileSettings-danger'>
                 <h3> Danger </h3>
                 <form className='profileSettings-danger-form'>
-                    <li> Disable Account <Switch className="profileSettings-toggle" onChange={handleDisableAccountToggleSwitch} checked={authenticationApp2FAEnabled} /> </li>
+                    <li> Disable Account <Switch className="profileSettings-toggle" onChange={handleDisableAccountToggleSwitch} checked={disableAccountEnabled} /> </li>
                 </form>
             </div>
             <div className='profileSettings-delete'>
