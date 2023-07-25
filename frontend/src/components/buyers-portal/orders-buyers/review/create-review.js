@@ -27,11 +27,14 @@ const CreateReview = ({ onClose, selectedAdId }) => {
 
         if (reviewExists) {
           const response = await getReview(user_id, selectedAdId);
-          setRating(response.star_rating);
-          setTitle(response.title);
-          setReview(response.review);
-          setExistingReview(true);
-          setId(response._id);
+          if (!res.address) {
+            setRating(response.star_rating);
+            setTitle(response.title);
+            setReview(response.review);
+            setExistingReview(true);
+            setId(response._id);
+          }
+          
         } else {
           setRating(0);
           setTitle('');

@@ -126,7 +126,10 @@ const Rating_Reviews = () => {
     const fetchReviews = async () => {
       try {
         const result = await getReviews(user_id);
-        setReviews(result);
+        if (!res.address) {
+          setReviews(result);
+        }
+        
       } catch (error) {
         return error;
       }

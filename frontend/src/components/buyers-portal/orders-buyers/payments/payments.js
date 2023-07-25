@@ -38,7 +38,11 @@ const AccountPayments = () => {
     const fetchPayments = async () => {
       try {
         const result = await getAllPayments(userId);
-        setPayments(result);
+        if (!res.address) {
+          console.log(result.data);
+          setPayments(result);
+        }
+        
       } catch (error) {
         return error;
       }

@@ -87,6 +87,7 @@ const OrderHistoryPage = () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
+  
   //local variables to get user order history and toggle the review popup
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [sortOrder, setSortOrder] = useState('desc');
@@ -109,15 +110,18 @@ const OrderHistoryPage = () => {
       try {
         const result = await getOrderHistory(user_id);
         console.log(result.data);
+        if (!res.address) {
+          const sortedData = result.sort((a,b) => {
+            if (sortOrder === 'desc') {
+              return new Date(a.date_purchased) - new Date(b.date_purchased);
+            } else {
+              return new Date(b.date_purchased) - new Date(a.date_purchased);
+            }
+          });
+          setOrders(sortedData);
+        }
 
-        const sortedData = result.sort((a,b) => {
-          if (sortOrder === 'desc') {
-            return new Date(a.date_purchased) - new Date(b.date_purchased);
-          } else {
-            return new Date(b.date_purchased) - new Date(a.date_purchased);
-          }
-        });
-        setOrders(sortedData);
+        
       } catch (error) {
         return error;
       }

@@ -74,13 +74,16 @@ const EditPayment = ({ paymentId, onClose }) => {
     const fetchPaymentData = async () => {
       try {
         const result = await getPaymentMethod(paymentId);
-        console.log(result);
-        setPaymentMethod(result);
-        setCVV(result.cvv);
-        const [expiryMonth, expiryYear] = result.expiryDate.split('/');
-        setExpiryMonth(expiryMonth);
-        setExpiryYear("20" + expiryYear);
-        setAddress(result.address);
+        if (!res.address) {
+          console.log(result);
+          setPaymentMethod(result);
+          setCVV(result.cvv);
+          const [expiryMonth, expiryYear] = result.expiryDate.split('/');
+          setExpiryMonth(expiryMonth);
+          setExpiryYear("20" + expiryYear);
+          setAddress(result.address);
+        }
+        
       } catch (error) {
         return error;
       }
