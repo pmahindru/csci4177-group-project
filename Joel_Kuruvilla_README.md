@@ -1,12 +1,20 @@
 <!--- The following README.md sample file was adapted from https://gist.github.com/PurpleBooth/109311bb0361f32d87a2#file-readme-template-md by Gabriella Mosquera for academic use ---> 
 <!--- You may delete any comments in this sample README.md file. If needing to use as a .txt file then simply delete all comments, edit as needed, and save as a README.txt file --->
 
-# Assignment 3 |xProj-Group-24 - ShopAesthetics
+# Assignment 3 | xProj-Group-24 - ShopAesthetics
 
-TBD.
+For Assignment 3 I worked on the 'Account Management' feature as outlined in my team's previous deliverables primarily as outlined in our Project Proposal and implemented as I have planned out and discussed in my Assignment 2 submission.
+The structure of our project models that of a MVC; Model View Controller architecture, due to which much of the backend code is written integrated with respective files created by team members for this purpose.
+- Files Woked on for A3:
+    - frontend\src\components\account\ **notificationSettings** - both JS and CSS files.
+    - frontend\src\components\account\ **profileSettings** - both JS and CSS files.
+    - frontend\src\components\account\ **aboutUs.js** - both JS and CSS files. Page completed by time of Project Proposal.
+    - backend\controller\controller.js - code related to passing data to DB.
+    - backend\model\model.js - code related to passing data to DB.
+
 
 * *Date Created*: 18 JUL 2023
-* *Last Modification Date*: 24 JUL 2023
+* *Last Modification Date*: 25 JUL 2023
 * *Deployment URL*: https://csci-4177-grp-project-xproj-group-24.netlify.app/
 * *Git URL*: https://git.cs.dal.ca/mahindru/csci-4177-5709-xproj-group-24
 
@@ -139,7 +147,7 @@ class SwitchExample extends Component {
 
 ```
 
-- <!---How---> The code in [npmjs - react-switch](https://www.npmjs.com/package/react-switch) was implemented by copying specifically the code <Switch> tag code to add the toggle swith for this particular page. I also followed concepting in adding the onchange and checking status; as they were required anyways, to implement its frontend implementation.
+- <!---How---> The code in [npmjs - react-switch](https://www.npmjs.com/package/react-switch) was implemented by copying specifically the code <Switch> tag code to add the toggle swith for this particular page. I also followed conceptually in adding the onchange and checking status; as they were required anyways, to implement its frontend implementation.
 - <!---Why---> [npmjs - react-switch](https://www.npmjs.com/package/react-switch)'s Code was used because it provided a quick, effective and efficient manner in which our team can implement toggle switches into our project.
 - <!---How---> [npmjs - react-switch](https://www.npmjs.com/package/react-switch)'s Code was modified by converting the code to use useStates in being able to pass and save the changes on a React project properly. 
 
@@ -191,20 +199,40 @@ function ProfileSettings() {
 
 ```
 
-The code above was created by adapting the code in [NAME](link) as shown below: 
+The code above was created by adapting the code in [npmjs - react-switch](https://www.npmjs.com/package/react-switch) as shown below: 
 
 ```
-Copy and paste the snippet of code you are referencing
+import React, { Component } from "react";
+import Switch from "react-switch";
+
+class SwitchExample extends Component {
+  constructor() {
+    super();
+    this.state = { checked: false };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(checked) {
+    this.setState({ checked });
+  }
+
+  render() {
+    return (
+      <label>
+        <span>Switch with default style</span>
+        <Switch onChange={this.handleChange} checked={this.state.checked} />
+      </label>
+    );
+  }
+}
 
 ```
 
-- <!---How---> The code in [NAME](link) was implemented by...
-- <!---Why---> [NAME](link)'s Code was used because...
-- <!---How---> [NAME](link)'s Code was modified by...
+- <!---How---> The code in [npmjs - react-switch](https://www.npmjs.com/package/react-switch) was implemented by copying specifically the code <Switch> tag along with 'onchange' and 'checking' status. As was done for the notification settings page initially.
+- <!---Why---> [npmjs - react-switch](https://www.npmjs.com/package/react-switch)'s Code was used because it provided a quick, effective and efficient manner in which our team can implement toggle switches into our project.
+- <!---How---> [npmjs - react-switch](https://www.npmjs.com/package/react-switch)'s Code was modified by converting the code to use useStates in being able to pass and save the changes on a React project properly.
 
-*Repeat as needed*
 
 ## Acknowledgments
 
 * This Assignment was completed individually but contributes to a collective team project by Team 24!
-
