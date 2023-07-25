@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 
+//This returns a modified rating from material ui, making it responsive
 const ResponsiveStarRatingDisplay = ({ value}) => {
 
   return (
