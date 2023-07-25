@@ -10,6 +10,7 @@ import { getFavourites, deleteFavourite } from '../../../../api';
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
+  textAlign: 'center',
   '@media (min-width: 600px)': {
     fontSize: '14px',
   },
@@ -50,6 +51,7 @@ const FavouritesCard = ({ favourite }) => {
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
   };
   //handleRemoveFavourites removes the favourited ad from the users favourite list in the database
   const handleRemoveFavourite = async () => {
@@ -80,15 +82,15 @@ const FavouritesCard = ({ favourite }) => {
               alt="Product Image"
             />
           ) : (
-            <div>No Image Available</div>
+            <div className="favouriteLabel">No Image Available</div>
           )}
         </Grid>
-        <Grid item xs={5} md={6}>
+        <Grid item xs={3} md={3}>
           <StyledTypography>
             {title}
           </StyledTypography>
         </Grid>
-        <Grid item xs={3} md={3}>
+        <Grid item xs={4} md={4}>
           <StyledTypography>
             Price: {price}
           </StyledTypography>
@@ -133,13 +135,13 @@ const Favourites = () => {
       <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={12} alignItems="center">
           <Grid container justifyContent="center">
-            <h1>Favourites</h1>
+            <h1 className="favouriteHeading">Favourites</h1>
           </Grid>
         </Grid>
         <Grid item xs={12}>
           {favourites.length === 0 ? (
             <div className="center-container">
-              <h2>No Ads Favourited</h2>
+              <h2 className="favouriteLabel">No Ads Favourited</h2>
             </div>
           ) : (
             favourites.map((favourite) => (

@@ -8,10 +8,12 @@ import { styled } from '@mui/system';
 import Checkout from '../checkout/checkout';
 import { getCart, deleteCartItem, getAllPayments } from '../../../../api';
 import "./cart.css";
+import "../checkout/checkout.css";
 //styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
+  textAlign: 'center',
   '@media (min-width: 600px)': {
     fontSize: '14px',
   },
@@ -96,12 +98,12 @@ const CartCard = ({ item }) => {
               alt="Product Image"
             />
           ) : (
-            <div>No Image Available</div>
+            <div className="checkoutLabel">No Image Available</div>
           )}
         </Grid>
         <Grid item xs={5} md={6}>
           <StyledTypography>
-            {title}
+            Title: {title}
           </StyledTypography>
         </Grid>
         <Grid item xs={3} md={3}>
@@ -185,13 +187,13 @@ const Cart = () => {
       <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={12} alignItems="center">
           <Grid container justifyContent="center">
-            <h1>Cart</h1>
+            <h1  className="checkoutHeading">Cart</h1>
           </Grid>
         </Grid>
         <Grid item xs={12}>
           {cart.length === 0 ? (
             <div className="center-container">
-              <h2>Your Cart Is Empty</h2>
+              <h2 className="checkoutLabel">Your Cart Is Empty</h2>
             </div>
           ) : (
               Array.isArray(cart) && cart.map((item) => (

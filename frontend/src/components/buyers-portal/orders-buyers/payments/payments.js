@@ -48,10 +48,10 @@ const AccountPayments = () => {
 
   return (
     <div className="container">
-      <h1>Payment Page</h1>
+      <h1 className="paymentHeading">Payment Page</h1>
       {payments.length === 0 ? (
         <div className="center-container">
-          <h2 className="paymentHeading">No Payment Methods</h2>
+          <h2 className="paymentLabel">No Payment Methods</h2>
         </div>
       ) : (
         payments.map((payment) => (

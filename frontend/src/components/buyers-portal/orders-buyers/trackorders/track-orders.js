@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardMedia, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { getTrackedOrders } from '../../../../api';
+import "./track-orders.css";
 //styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
+  textAlign: 'center',
   '@media (min-width: 600px)': {
-    fontSize: '14px',
+    fontSize: '12px',
+    wdith: '100%',
   },
   '@media (min-width: 807px)': {
     fontSize: '18px',
@@ -16,16 +19,23 @@ const StyledTypography = styled(Typography)({
 });
 
 const StyledCard = styled(Card)({
+  
   display: 'flex',
   flexDirection: 'row',
   padding: '15px',
-  width: '50%',
+  width: '100%',
   alignItems: 'center',
-  marginRight: '10px',
+  
   border: '1px solid',
   borderRadius: '16px',
   backgroundColor: 'rgb(230,230,230)',
   margin: '0 auto',
+  '@media (min-width: 600px)': {
+     width: '75%',
+  },
+  '@media (min-width: 807px)': {
+    width: '75%',
+  },
 });
 
 const StyledCardMedia = styled(CardMedia)({
@@ -53,7 +63,7 @@ const TrackOrdersCard = ({ order }) => {
             <div>No Image Available</div>
           )}
         </Grid>
-        <Grid item xs={6} md={4}>
+        <Grid item xs={4} md={4}>
           <StyledTypography>
             Status: {status}
           </StyledTypography>
@@ -94,13 +104,13 @@ const TrackOrders = () => {
       <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={12} alignItems="center">
           <Grid container justifyContent="center">
-            <h1>Track Orders</h1>
+            <h1 className="trackOrdersHeading">Track Orders</h1>
           </Grid>
         </Grid>
         <Grid item xs={12}>
           {orders.length === 0 ? (
             <div className="center-container">
-              <h2>No Orders In Transit</h2>
+              <h2 className="trackOrdersLabel">No Orders In Transit</h2>
             </div>
           ) : (
             orders.map((order) => (

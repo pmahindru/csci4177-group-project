@@ -9,8 +9,9 @@ import "./order-history.css";
 
 //styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
-  margin: '10px',
+  marginRight: '10px',
   fontSize: '10px',
+  textAlign: "center",
   '@media (min-width: 600px)': {
     fontSize: '14px',
   },
@@ -26,6 +27,7 @@ const StyledCard = styled(Card)({
   width: '100%',
   alignItems: 'center',
   marginRight: '10px',
+  marginBottom: '10px',
   border: '1px solid',
   borderRadius: '16px',
   backgroundColor: 'rgb(230,230,230)',
@@ -36,19 +38,6 @@ const StyledCardMedia = styled(CardMedia)({
   paddingTop: "5px",
 });
 
-const StyledButton = styled(Button)({
-  width: '25%',
-  butonSize: 'small',
-  fontSize: '10px',
-  '@media (min-width: 600px)': {
-    fontSize: '10px',
-    buttonSize: 'medium',
-  },
-  '@media (min-width: 807px)': {
-    fontSize: '12px',
-    buttonSize: 'large',
-  },
-});
 
 //order history card returns a image of the product, the price, where it was shipped and a button to write a reivew. This is done for each order the user has
 const OrderHistoryCard = ({ order, handleCreateReviewOpen }) => {
@@ -60,7 +49,7 @@ const OrderHistoryCard = ({ order, handleCreateReviewOpen }) => {
   return (
     <div style={{ paddingBottom: '5px' }}>
       <StyledCard>
-        <Grid item xs={4} md={4}>
+        <Grid item xs={3} md={4}>
         {photoUrl && photoUrl.length > 0 ? (
             <StyledCardMedia
               component="img"
@@ -73,19 +62,20 @@ const OrderHistoryCard = ({ order, handleCreateReviewOpen }) => {
           )}
         </Grid>
        
-        <Grid item xs={4} md={4}>
+        <Grid item xs={3} md={4}>
           <StyledTypography>
             Price: {price}
           </StyledTypography>
         </Grid>
-        <Grid item xs={5} md={6}>
+        <Grid item xs={4} md={6}>
           <StyledTypography>
             Shipped to: {address}
           </StyledTypography>
         </Grid>
-        <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
+        <Grid item xs={2} md={2} sx={{ marginRight: '1px' }}>
           <StyledTypography sx={{ flexGrow: 1 }}>
-            <StyledButton variant="contained" onClick={() => handleCreateReviewOpen(ad_details._id)}>Review</StyledButton>
+            <button className="responsive-button" type="button" onClick={() => handleCreateReviewOpen(ad_details._id)}> Review</button>
+            
           </StyledTypography>
         </Grid>
       </StyledCard>
@@ -141,17 +131,17 @@ const OrderHistoryPage = () => {
       <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={12} alignItems="center">
           <Grid container justifyContent="center">
-            <h1>Order History</h1>
+            <h1 className="orderHistoryHeading">Order History</h1>
           </Grid>
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" style={{ display: 'flex', alignItems: 'center' }}>
-            <span>Order by Date</span>
-            <CalendarMonthIcon style={{ marginLeft: '5px' }} onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} />
+            <p className="orderHistoryLabel">Order by Date</p>
+            <CalendarMonthIcon style={{ marginLeft: '5px'}} onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} />
           </Typography>
           {orders.length === 0 ? (
             <div className="center-container">
-              <h2>No Products Purchased</h2>
+              <h2 className="orderHistoryLabel">No Products Purchased</h2>
             </div>
           ) : (
             orders.map((order) => (

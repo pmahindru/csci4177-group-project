@@ -6,8 +6,10 @@ const ResponsiveStarRating = ({ value }) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Rating name="responsive-rating" value={value} precision={0.5} sx={{
-        fontSize: '20px',
-        
+        fontSize: '10px',
+        '@media (min-width: 600px)': {
+          fontSize: '20px', 
+        },
         '@media (min-width: 600px)': {
           fontSize: '20px', 
         },

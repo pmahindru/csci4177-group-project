@@ -66,6 +66,7 @@ const loginUserModel = async (data) => {
     return error;
   }
 }
+//get order history for logged user using users id (Patrick Wooden)
 const getOrderHistory = async (userId) => {
   try {
     // Connect the client to the server (optional starting in v4.7)
@@ -102,6 +103,7 @@ const getOrderHistory = async (userId) => {
     return error; 
   }
 }
+//get every item in a cart for a user using user_id (Patrick Wooden)
 const getCart = async (userId) => {
   try {
     // Connect the client to the server (optional starting in v4.7)
@@ -138,6 +140,7 @@ const getCart = async (userId) => {
     return error; 
   }
 };
+//delete a item in a users cart based on the items id (Patrick Wooden)
 const deleteCartItem = async(itemId) => {
   try {
    
@@ -160,6 +163,7 @@ const deleteCartItem = async(itemId) => {
     return error;
   }
 }
+//get all the payment methods a user has using user id (Patrick Wooden)
 const getPayments = async (userId) => {
   try {
    
@@ -182,6 +186,7 @@ const getPayments = async (userId) => {
     return error;
   }
 }
+//create a new payment method using data sent from controller (Patrick Wooden)
 const createPayment = async (data) => {
   try {
     // Connect the client to the server (optional starting in v4.7)
@@ -200,6 +205,7 @@ const createPayment = async (data) => {
     return error; 
   }
 };
+//create a new review using data sent over from controller(Patrick Wooden)
 const createReview = async (data) => {
   try {
     // Connect the client to the server (optional starting in v4.7)
@@ -218,6 +224,7 @@ const createReview = async (data) => {
     return error; 
   }
 };
+//edit a payment method using the paymentId and paymentData sent over from controller (Patrick Wooden)
 const editPayment = async(paymentId, paymentData) => {
   try {
    
@@ -240,6 +247,7 @@ const editPayment = async(paymentId, paymentData) => {
     return error;
   }
 }
+//get all reviews for a user using userId (Patrick Wooden)
 const getReviews = async (userId) => {
   try {
     // Connect the client to the server (optional starting in v4.7)
@@ -276,6 +284,7 @@ const getReviews = async (userId) => {
     return error;
   }
 }
+//get a specific review using userId and adId (Patrick Wooden)
 const getReview = async (userId,adId) => {
   try {
    
@@ -298,6 +307,7 @@ const getReview = async (userId,adId) => {
     return error;
   }
 }
+//edit a review by finding it using reviewId and then setting the reviewData (Patrick Wooden)
 const editReview = async(reviewId, reviewData) => {
   try {
    
@@ -320,6 +330,7 @@ const editReview = async(reviewId, reviewData) => {
     return error;
   }
 }
+//delete a payment method using its id (Patrick Wooden)
 const deletePaymentMethod = async(paymentId) => {
   try {
    
@@ -342,6 +353,7 @@ const deletePaymentMethod = async(paymentId) => {
     return error;
   }
 }
+//get all favourited ads a user has using the userId (Patrick Wooden)
 const getFavourites = async (userId) => {
   try {
     // Connect the client to the server (optional starting in v4.7)
@@ -378,6 +390,7 @@ const getFavourites = async (userId) => {
     return error;
   }
 }
+//delete a favourited ad using its id (Patrick Wooden)
 const deleteFavourite = async(favouriteId) => {
   try {
    
@@ -400,6 +413,7 @@ const deleteFavourite = async(favouriteId) => {
     return error;
   }
 }
+// get all orders from order history using userId status if its in transit (Patrick Wooden)
 const getTrackedOrders = async (userId) => {
   try {
     await client.connect();
@@ -407,12 +421,7 @@ const getTrackedOrders = async (userId) => {
 
     const orderdb = client.db("Order_Management");
     const orderCollection = orderdb.collection("Orders");
-
-    console.log("Executing Query:", { user_id: userId, status: "In Transit" });
-
-    const orderList = await orderCollection.find({ status: status }).toArray();
-
-    console.log("Filtered Orders:");
+    const orderList = await orderCollection.find({ user_id: userId, status: status }).toArray();
     console.log(orderList);
 
     const addb = client.db("Seller_Management");
@@ -438,6 +447,8 @@ const getTrackedOrders = async (userId) => {
     return error;
   }
 }
+
+//create a new order using the data sent over from the controller (Patrick Wooden)
 const createOrder = async (data) => {
   try {
     // Connect the client to the server (optional starting in v4.7)
@@ -456,6 +467,7 @@ const createOrder = async (data) => {
     return error; 
   }
 };
+//create a new favourited order using the data sent over from the controller (Patrick Wooden)
 const createFavourite = async (data) => {
   try {
     // Connect the client to the server (optional starting in v4.7)

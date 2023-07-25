@@ -1,15 +1,9 @@
-.center-container {
-    display: grid;
-    place-items: center;
-    padding-top: 15px;
-    
-  }
 
-  .favouriteHeading {
+.trackOrdersHeading {
     font-size: 16px; 
     margin-top: 10px;
   }
-  .favouriteLabel{
+  .trackOrdersLabel{
     font-size: 12px;
   }
   .responsive-button {
@@ -33,12 +27,12 @@
   @media screen and (min-width: 600px) {
   
     
-    .favouriteLabel{
+    .trackOrdersLabel{
       font-size: 14px;
     }
   
   
-    .favouriteHeading {
+    .trackOrdersHeading {
       font-size: 20px; 
       margin-top: 0px;
     }
@@ -52,11 +46,11 @@
   @media screen and (min-width: 807px) {
   
    
-    .favouriteLabel{
+    .trackOrdersLabel{
       font-size: 18px;
     }
   
-    .favouriteHeading {
+    .trackOrdersHeading {
       font-size: 24px; 
       margin-top: 0px;
     }

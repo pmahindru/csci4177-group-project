@@ -5,12 +5,14 @@ import CreateReview from './create-review';
 import { styled } from '@mui/system';
 import './ratings-reviews.css';
 import { getReviews } from '../../../../api';
-
 import ResponsiveStarRating from './rating';
 //styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
   margin: '10px',
   fontSize: '10px',
+  textAlign: 'center',
+  justifyContent: 'center',
+  display: 'flex', 
   '@media (min-width: 600px)': {
     fontSize: '14px',
     
@@ -64,12 +66,21 @@ const ReviewCard = ({ review, handleCreateReviewOpen }) => {
     <div style={{ paddingBottom: '5px' }}>
       <StyledCard>
         <Grid item xs={4} md={4}>
-          <StyledCardMedia
-            component="img"
-            height="auto"
-            image={photoUrl[0]}
-            alt="Product Image"
-          />
+          {photoUrl && photoUrl.length > 0 ? (
+              <StyledCardMedia
+                component="img"
+                height="auto"
+                image={photoUrl[0]}
+                alt="Product Image"
+              />
+            ) : (
+              <div className="reviewLabel">No Image Available</div>
+            )}
+        </Grid>
+        <Grid item xs={2} md={2}>
+          <StyledTypography>
+            {title}
+          </StyledTypography>
         </Grid>
         <Grid item xs={4} md={4} sx={{ margin: '10px' }}>
           <StyledTypography>
@@ -81,7 +92,8 @@ const ReviewCard = ({ review, handleCreateReviewOpen }) => {
         
         <Grid item xs={2} md={2} sx={{ marginLeft: '1px', justifyContent: 'flex-end',  display: 'flex' }}>
           <StyledTypography sx={{ flexGrow: 1 }}>
-            <StyledButton variant="contained" onClick={() => handleCreateReviewOpen(ad_details._id)}>Edit</StyledButton>
+          <button className="responsive-button" type="button" onClick={() => handleCreateReviewOpen(ad_details._id)}> Edit</button>
+            
           </StyledTypography>
         </Grid>
       </StyledCard>
@@ -126,13 +138,13 @@ const Rating_Reviews = () => {
       <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={12} alignItems="center">
           <Grid container justifyContent="center">
-            <h1>Reviews</h1>
+            <h1 className="reviewHeading">Reviews</h1>
           </Grid>
         </Grid>
         <Grid item xs={12}>
           {reviews.length === 0 ? (
             <div className="center-container">
-              <h2>No Reviews Created</h2>
+              <h2 className="reviewLabel">No Reviews Created</h2>
             </div>
           ) : (
             Array.isArray(reviews) && reviews.map((review) => (

@@ -50,6 +50,8 @@ const loginUser = async (req,res) => {
         res.status(500).json(error);
     }
 }
+
+//get order history with users id (Patrick Wooden)
 const getOrderHistory = async (req, res) => {
     try {
       const userId = req.params.userId;
@@ -62,6 +64,8 @@ const getOrderHistory = async (req, res) => {
       res.status(500).json(error);
     }
   };
+
+//get cart with users id (Patrick Wooden)
 const getCart = async (req, res) => {
     try {
       const userId = req.params.userId;
@@ -74,6 +78,7 @@ const getCart = async (req, res) => {
       res.status(500).json(error);
     }
   };
+  //delete a cart item with item id (Patrick Wooden)
   const deleteCartItem = async (req, res) => {
     try {
       const itemId = req.params.itemId;
@@ -87,6 +92,7 @@ const getCart = async (req, res) => {
       res.status(500).json(error);
     }
   };
+// get all payment methods for logged in user id(Patrick Wooden)
 const getPayments = async (req, res) => {
     try {
       const userId = req.params.userId
@@ -99,7 +105,8 @@ const getPayments = async (req, res) => {
       res.status(500).json(error);
     }
   };
-  const editPayment = async (req, res) => {
+  //put method a cart item with payment id and data(Patrick Wooden)
+const editPayment = async (req, res) => {
     try {
       const paymentId = req.params.paymentId;
       const paymentData = req.body;
@@ -112,6 +119,7 @@ const getPayments = async (req, res) => {
       res.status(500).json(error);
     }
   };
+//delete a payment method with a payment id (Patrick Wooden)
 const deletePaymentMethod = async (req, res) => {
     try {
       const paymentId = req.params.paymentId;
@@ -125,6 +133,7 @@ const deletePaymentMethod = async (req, res) => {
       res.status(500).json(error);
     }
   };
+//create a payment method with payment data (Patrick Wooden)
 const createPayment = async (req,res) => {
     try {
         console.log("request received:", req.body);
@@ -150,6 +159,7 @@ const createPayment = async (req,res) => {
         console.error('Error adding payment method:', error);
       }
 }
+//create a review with the request data(Patrick Wooden)
 const createReview = async (req,res) => {
   try {
     console.log("request received:", req.body);
@@ -173,6 +183,7 @@ const createReview = async (req,res) => {
     console.error('Error adding review:', error);
   }
 }
+//get all favourited ads using logged in users id (Patrick Wooden)
 const getFavourites = async (req, res) => {
   try {
     const userId = req.params.userId
@@ -185,6 +196,7 @@ const getFavourites = async (req, res) => {
     res.status(500).json(error);
   }
 };
+//delete a favourited ad based on its id (Patrick Wooden)
 const deleteFavourite = async (req, res) => {
   try {
     const favouriteId = req.params.favouriteId;
@@ -198,6 +210,7 @@ const deleteFavourite = async (req, res) => {
     res.status(500).json(error);
   }
 };
+//get all reviews a based on the loggegd in users id (Patrick Wooden)
 const getReviews = async (req, res) => {
   try {
     const userId = req.params.userId
@@ -210,6 +223,7 @@ const getReviews = async (req, res) => {
     res.status(500).json(error);
   }
 };
+//get a specific review using the adId and the logged in users id (Patrick Wooden)
 const getReview = async (req, res) => {
   try {
     const adId = req.params.adId
@@ -223,6 +237,7 @@ const getReview = async (req, res) => {
     res.status(500).json(error);
   }
 };
+//put method to edit a existing review using review id and the review data (Patrick Wooden)
 const editReview = async (req, res) => {
   try {
     const reviewId = req.params.reviewId;
@@ -236,6 +251,7 @@ const editReview = async (req, res) => {
     res.status(500).json(error);
   }
 };
+//get all orders with the status in transit (Patrick Wooden)
 const getTrackedOrders = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -248,6 +264,7 @@ const getTrackedOrders = async (req, res) => {
     res.status(500).json(error);
   }
 };
+//create a new order using request data(Patrick Wooden)
 const createOrder = async (req,res) => {
   try {
     console.log("request received:", req.body);
@@ -271,6 +288,7 @@ const createOrder = async (req,res) => {
     console.error('Error creating order:', error);
   }
 }
+//create a new favourite ad based off request body (Patrick Wooden)
 const createFavourite = async (req,res) => {
   try {
     console.log("request received:", req.body);
@@ -290,6 +308,7 @@ const createFavourite = async (req,res) => {
     console.error('Error adding ad to favourites list:', error);
   }
 }
+//add a new item to the users cart using req body (Patrick Wooden)
 const createCartItem = async (req,res) => {
   try {
     console.log("request received:", req.body);
