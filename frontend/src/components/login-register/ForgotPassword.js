@@ -149,7 +149,7 @@ function ForgotPassword() {
                   type="text"
                   value={resetCode}
                   onChange={handleCodeChange}
-                  placeholder="Enter 1234"
+                  placeholder="Enter code"
                   required
                 />
               </label>
