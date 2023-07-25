@@ -1,85 +1,72 @@
+//Created by Parth Patel
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
-import styled from "styled-components";
 import ChatContainer from "./ChatContainer";
 import Contacts from "./Contacts";
 
-export default function Chat() {
-  const host = "http://localhost:3001";
-  const allUsersRoute = "http://localhost:3001/api/allusers";
+const SERVER_URL = "http://localhost:3001";
+const ALL_USERS_ROUTE = "http://localhost:3001/api/allusers";
 
-  const navigate = useNavigate();
-  const socket = useRef();
-  const [contacts, setContacts] = useState([]);
-  const [currentChat, setCurrentChat] = useState(undefined);
-  const [currentUser, setCurrentUser] = useState(undefined);
+const Chat = () => {
+  const navigateTo = useNavigate();
+  const socketRef = useRef(null);
+  const [contactList, setContactList] = useState([]);
+  const [currentChat, setCurrentChat] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
+    // Check if user info exists in local storage, if not, redirect to the login page
     const checkLocalStorage = async () => {
-      if (!localStorage.getItem("user_info")) {
-        navigate("/login");
+      const userInfo = localStorage.getItem("user_info");
+      if (!userInfo) {
+        navigateTo("/login");
       } else {
-        setCurrentUser(await JSON.parse(localStorage.getItem("user_info")));
+        setCurrentUser(JSON.parse(userInfo));
       }
     };
 
     checkLocalStorage();
-  }, [navigate]);
+  }, [navigateTo]);
 
   useEffect(() => {
+    // Create and initialize the socket when the currentUser is available
     if (currentUser) {
-      socket.current = io(host);
-      socket.current.emit("add-user", currentUser._id);
+      socketRef.current = io(SERVER_URL);
+      socketRef.current.emit("add-user", currentUser._id);
     }
   }, [currentUser]);
 
   useEffect(() => {
+    // Fetch the list of contacts when the currentUser is available
     const fetchContacts = async () => {
       if (currentUser) {
-        currentUser.isAvatarImageSet = true;
-        const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-        setContacts(data.data);
+        const data = await axios.get(`${ALL_USERS_ROUTE}/${currentUser._id}`);
+        setContactList(data.data);
       }
     };
 
     fetchContacts();
-  }, [currentUser, navigate]);
+  }, [currentUser]);
 
-  const handleChatChange = (chat) => {
-    setCurrentChat(chat);
+  // Function to handle the change of the current chat
+  const handleChatChange = (selectedChat) => {
+    setCurrentChat(selectedChat);
   };
 
   return (
-    <>
-      <Container>
-        <div className="container">
-          <Contacts contacts={contacts} changeChat={handleChatChange} />
-          <ChatContainer currentChat={currentChat} socket={socket} />
-        </div>
-      </Container>
-    </>
+    <div className="chat-container">
+      {/* Display the contacts list */}
+      <Contacts contacts={contactList} changeChat={handleChatChange} />
+      {/* Display the chat container if a chat is selected, otherwise show a message */}
+      {currentChat === null ? (
+        <h2 style={{ padding: "300px 500px" }}>Select a chat to begin</h2>
+      ) : (
+        <ChatContainer currentChat={currentChat} socket={socketRef} />
+      )}
+    </div>
   );
-}
+};
 
-const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-  align-items: center;
-  background-color: #131324;
-  .container {
-    height: 85vh;
-    width: 85vw;
-    background-color: #00000076;
-    display: grid;
-    grid-template-columns: 25% 75%;
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
-      grid-template-columns: 35% 65%;
-    }
-  }
-`;
+export default Chat;
