@@ -1,3 +1,5 @@
+//Code extended from previous Assignment submissions by Saiz Charolia
+
 // Code referred from Assignment 1 (Individual Submission)
 // URL: https://git.cs.dal.ca/charolia/csci-4177-5709-assignments/-/tree/main/Assignment1
 // Author: Saiz Charolia
@@ -6,6 +8,12 @@
 // Login page and validation referred from Contact Mentor
 // URL: https://contactmentor.com/login-form-react-js-code/
 // Date Accessed: 06/11/2023
+
+// Backend referred and understood from Techy Web Dev
+// URL: https://www.youtube.com/watch?v=S9eCBX-Re8A&ab_channel=TechyWebDev
+// Author: Techy Web Dev
+// Date Accessed: 07/23/2023
+
 
 import React, { useState } from 'react';
 import './Login.css';
@@ -53,8 +61,17 @@ const Login = () => {
 
     const data  = await loginUser({ email, password });
 
+    // API calling referred from Blogs
+    // URL: https://blog.hubspot.com/website/api-calls
+    // Date Accessed: 07/23/2023
+
     if (data.response === undefined){
       alert('Login successful');
+      
+      // localstorage referred from w3schools
+      // URL: https://www.w3schools.com/jsref/prop_win_localstorage.asp
+      // Date Accessed: 07/25/20230
+
       localStorage.setItem('user_info', JSON.stringify(data));
       localStorage.setItem('isLoggedIn', true);
       navigate('/');
@@ -67,7 +84,6 @@ const Login = () => {
       navigate('/Signup'); 
     }
   };
-
 
   return (
     <div className="login-container">
