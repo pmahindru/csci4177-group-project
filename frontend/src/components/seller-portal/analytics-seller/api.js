@@ -29,3 +29,12 @@ export const loginUser = async (data) => {
     return error;
   }
 };
+
+export const allUsersRoute = async (data) => {
+  try {
+    const res = await axios.post(`${baseURL}/login`, data);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};

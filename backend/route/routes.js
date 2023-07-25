@@ -37,7 +37,7 @@ module.exports = app;
 
 //api for add
 app.post(`${baseURL}/addmsg`, controller.addMessage);
-app.get(`${baseURL}/getmsg`, controller.getMessages);
+app.post(`${baseURL}/getmsg`, controller.getMessages);
 
 app.get(`${baseURL}/allusers/:id`, controller.getAllUsers);
 

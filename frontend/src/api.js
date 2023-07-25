@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // try catch referred from mdn web docs
 // URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
 // Date Accessed: 07/23/2023
@@ -9,8 +10,11 @@
 // Used by Saiz Charolia
 
 import axios from 'axios';
+=======
+import axios from "axios";
+>>>>>>> c032234 (both frontend and backend now working)
 
-const baseURL = "http://localhost:3001/api"
+const baseURL = "http://localhost:3001/api";
 
 // generateRandomCode created by Saiz Charolia
 // random number generating referred from iqcode
@@ -26,12 +30,21 @@ const generateRandomCode = () => {
 // Date Accessed: 07/23/2023
 export const createUser = async (data) => {
   try {
+<<<<<<< HEAD
     const res = await axios.post(`${baseURL}/register`,data);
     return res.data; 
   } catch (error) {
     return error;
   }
 }
+=======
+    const res = await axios.post(`${baseURL}/register`, data);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+>>>>>>> c032234 (both frontend and backend now working)
 
 // getAllUser created by Saiz Charolia
 // axios get request referred from atatus
@@ -40,11 +53,20 @@ export const createUser = async (data) => {
 export const getAllUser = async () => {
   try {
     const res = await axios.get(`${baseURL}/`);
+<<<<<<< HEAD
     return res.data; 
   } catch (error) {
     return error;
   }
 }
+=======
+    console.log(res);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+>>>>>>> c032234 (both frontend and backend now working)
 
 // loginUser created by Saiz Charolia
 // axios post request referred from LogRocket
@@ -55,6 +77,7 @@ export const loginUser = async (data) => {
     const res = await axios.post(`${baseURL}/login`, data);
     return res.data;
   } catch (error) {
+<<<<<<< HEAD
     return error
   }
 }
@@ -278,3 +301,8 @@ export const profileUserDetails  = async (data) => {
     return error
   }
 }
+=======
+    return error;
+  }
+};
+>>>>>>> c032234 (both frontend and backend now working)
