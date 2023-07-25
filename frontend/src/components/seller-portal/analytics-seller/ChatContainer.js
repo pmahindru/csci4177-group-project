@@ -16,15 +16,20 @@ export default function ChatContainer({ currentChat, socket }) {
   const history = useNavigate();
 
   useEffect(() => {
-    if (currentChat) {
-      const fetchMessages = async () => {
-        const data = JSON.parse(localStorage.getItem("user_info"));
+    const fetchMessages = async () => {
+      try {
+        const currentUser = JSON.parse(localStorage.getItem("user_info"));
         const response = await axios.post(receiveMessageRoute, {
-          from: data._id,
+          from: currentUser._id,
           to: currentChat._id,
         });
         setMessages(response.data);
-      };
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      }
+    };
+
+    if (currentChat) {
       fetchMessages();
     }
   }, [currentChat]);
@@ -137,6 +142,9 @@ const Container = styled.div`
     color: black;
     font-size: 20px;
     font-weight: bold;
+    @media screen and (max-width: 720px) {
+      font-size: 16px;
+    }
   }
 
   .chat-messages {
@@ -168,6 +176,11 @@ const Container = styled.div`
         color: black;
         @media screen and (min-width: 720px) and (max-width: 1080px) {
           max-width: 70%;
+        }
+        @media screen and (max-width: 720px) {
+          .content {
+            max-width: 100%; /* Adjust max-width for smaller screens */
+          }
         }
       }
     }
