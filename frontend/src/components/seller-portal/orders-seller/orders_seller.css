@@ -1,0 +1,158 @@
+/* Created By: Pranav Mahindru*/
+/* This is my own css */
+.order-seller-page-main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-seller-page-section1 {
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+.order-seller-page-section2 {
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+.order-seller-page-section3 {
+    margin: 5px;
+    padding: 5px;
+    text-align: left;
+}
+
+.order-seller-page-section5 {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    align-content: center;
+    justify-content: space-between;
+    margin: 5px;
+    padding: 5px;
+}
+
+.order-seller-page-navbar {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(77, 77, 77);
+    position: relative;
+    z-index: 1;
+}
+
+.order-seller-page-nav-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0px;
+    flex-grow: 1;
+    flex-wrap: wrap;
+}
+
+.order-seller-page-nav-list li {
+    margin-right: 15px;
+    padding: 5px;
+    margin: 5px;
+}
+
+.order-seller-page-nav-list li a {
+    color: white;
+    text-decoration: none;
+}
+
+.order-seller-page-nav-list li a:hover {
+    color: #d9bcff;
+}
+
+.order-page-section4 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    background-color: rgb(230, 230, 230);
+    margin: 10px;
+    padding: 10px;
+}
+
+.order_seller_page_active_page_navigation a {
+    color: #d9bcff !important;
+}
+
+.seller-image-slider {
+    display: flex;
+    overflow: hidden;
+    width: 200px;
+    height: 100%;
+    position: relative;
+}
+
+.seller-image-button {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.seller-image-button button {
+    background-color: rgba(0, 0, 0, 0.713);
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.slides {
+    display: flex;
+    position: relative;
+}
+
+.slides img {
+    width: 200px;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+}
+
+@media (max-width: 805px) {
+    .order-seller-page-section1 {
+        margin-top: 52px;
+    }
+
+    .order-seller-page-nav-list {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 300px) {
+    .seller-image-slider {
+        width: 150px;
+        height: 100%;
+    }
+
+    .slides img {
+        width: 150px;
+    }
+
+    .seller-image-button button {
+        padding: 5px;
+    }
+}
+
+@media (max-width: 260px) {
+    .order-seller-page-navbar {
+        width: 80%;
+        padding: 2px;
+        margin: 3px;
+    }
+
+    .order-seller-page-nav-list li {
+        padding: 2px;
+        margin: 3px;
+    }
+}

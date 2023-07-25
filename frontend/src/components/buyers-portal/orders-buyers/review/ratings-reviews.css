@@ -1,0 +1,179 @@
+.center-container {
+    display: grid;
+    place-items: center;
+    padding-top: 15px;
+    
+  }
+  .reviewOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .reviewContent {
+    width: 200px;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .formRow {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .formRow label {
+    margin-bottom: 5px;
+  }
+
+  .ratingContainer {
+    display: flex;
+    justify-content: center;
+  }
+  .reviewButton{
+    width: 100%;
+    font-size: 10px;
+  }
+  .reviewTextArea{
+    width: 100%;
+    justify-content: center;
+    font-size: 10px;
+  }
+  .reviewHeading {
+    margin-bottom: 5px;
+    font-size: 16px; 
+    margin-bottom: 5px;
+  }
+  .reviewForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    width: 50%; 
+    
+  }
+  .reviewLabel{
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    font-size: 12px;
+  }
+  .responsive-button {
+    
+    padding: 8px 16px;
+    font-size: 8px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    
+    color: white;
+    
+  }
+  @media screen and (min-width: 600px) {
+    .reviewContent {
+      width: 200px;
+      max-width: 90%;
+      margin: 0 auto;
+    }
+  
+    .formRow {
+      
+      margin-bottom: 10px;
+      font-size: 12px;
+      
+    }
+   
+    label {
+      margin-bottom: 5px;
+    }
+    
+    .reviewLabel{
+      font-size: 14px;
+    }
+  
+  
+    .reviewHeading {
+      font-size: 20px; 
+    }
+    .reviewForm {
+      
+      width: 75%; 
+      
+    }
+    .reviewTextArea{
+    
+      font-size: 12px;
+    }
+    .reviewButton{
+     
+      font-size: 14px;
+    }
+    .responsive-button {
+        
+      padding: 10px 20px;
+      font-size: 12px;
+    }
+  }
+  @media screen and (min-width: 807px) {
+    .reviewContent {
+      padding: 10px;
+    }
+    .reviewContent {
+      width: 300px;
+      background-color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .formRow {
+      margin-bottom: 7px;
+      font-size: 16px;
+    }
+   
+    .reviewLabel{
+      font-size: 18px;
+    }
+    .buttonRow {
+      margin-top: 10px;
+    }
+    .reviewHeading {
+      font-size: 24px; 
+    }
+    .reviewForm {
+      
+      width: 100%; 
+      
+    }
+    .reviewTextArea{
+    
+      font-size: 14px;
+    }
+    .reviewButton{
+     
+      font-size: 16px;
+    }
+    .responsive-button {
+    
+      padding: 12px 24px;
+      font-size: 16px;
+    }
+  }

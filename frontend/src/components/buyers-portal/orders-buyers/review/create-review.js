@@ -1,107 +1,130 @@
-/* Created By: Patrick Wooden | 2023-June-19 */
-import React from 'react';
-import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
-import { styled } from '@mui/system';
-import car from '../images/download.jpg';
-import Rating from "@mui/material/Rating";
-const SingleLineTextField = () => {
-  return <input type="text" style={{ width: '100%' }} />;
-};
+/* Created By: Patrick Wooden | 2023-July-16 */
+import React, { useEffect, useState } from 'react';
+import "./ratings-reviews.css";
+import { getReview, createReview, editReview } from '../../../../api';
+import Rating from '@mui/material/Rating';
 
-const StyledTypography = styled(Typography)({
-  margin: '10px',
-  fontSize: '10px',
-  '@media (min-width: 600px)': {
-    fontSize: '14px',
-  },
-  '@media (min-width: 807px)': {
-    fontSize: '18px',
-  },
-});
+import ResponsiveStarRating from './rating';
 
-const StyledCard = styled(Card)({
-  display: 'flex',
-  flexDirection: 'column',
-  padding: '15px',
-  width: '100%',
-  alignItems: 'center',
-  marginRight: '10px',
-  border: '1px solid',
-  borderRadius: '16px',
-  backgroundColor: 'rgb(230,230,230)',
-});
+//create review returns a form with a field for the users cards cvv, two select menus for updating the expiry data and a address field for the suer to enter a new address.
+const CreateReview = ({ onClose, selectedAdId }) => {
 
-const StyledCardMedia = styled(CardMedia)({
-  objectFit: 'contain',
-  paddingTop: '5px',
-});
+  const storedData = localStorage.getItem('user_info');
+  const parsedData = JSON.parse(storedData);
+  const user_id = parsedData._id;
+  //local state variables 
+  const [star_rating, setRating] = useState(0);
+  const ad_id = selectedAdId;
+  const [reviewId, setId] = useState('');
+  const [title, setTitle] = useState('');
+  const [review, setReview] = useState('');
+  const [existingReview, setExistingReview] = useState(false);
+  //use effect gets the current reviews data if a review for the product already exists
+  useEffect(() => {
+    const fetchReview = async () => {
+      try {
+        const reviewExists = await getReview(user_id, selectedAdId);
 
-const StyledButton = styled(Button)({
-  width: '100%',
-  butonSize: 'small',
-  fontSize: '10px',
-  '@media (min-width: 600px)': {
-    fontSize: '12px',
-    buttonSize: 'medium',
-  },
-  '@media (min-width: 807px)': {
-    fontSize: '14px',
-    buttonSize: 'large',
-  },
-});
+        if (reviewExists) {
+          const response = await getReview(user_id, selectedAdId);
+          setRating(response.star_rating);
+          setTitle(response.title);
+          setReview(response.review);
+          setExistingReview(true);
+          setId(response._id);
+        } else {
+          setRating(0);
+          setTitle('');
+          setReview('');
+          setExistingReview(false);
+        }
+      } catch (error) {
+        return error;
+      }
+    };
 
-const CreateReviewCard = (ad) => {
+    fetchReview();
+  }, [selectedAdId, user_id]);
+
+  //event handlers to update locat states/ submit updated review request when input is updated/ save review is clicked
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const handleReviewChange = (event) => {
+    setReview(event.target.value);
+  };
+
+  const handleRatingChange = (event) => {
+    setRating(event.target.value);
+  }
+
+  const handleCreateReview = async () => {
+    if (!star_rating || !title || !review) {
+      alert('Please fill in all fields');
+      return;
+    }
+    try {
+      const reviewData = {
+        user_id, ad_id, star_rating, title, review
+      };
+
+      if (existingReview) {
+        await editReview(reviewId, reviewData);
+        alert('Review edited successfully');
+        onClose();
+      } else {
+        await createReview(reviewData);
+        alert('Review created successfully');
+        onClose();
+      }
+    } catch (error) {
+      alert('Failed to add payment method');
+      return error;
+    }
+  };
+
   return (
-    <div style={{ paddingBottom: '5px' }}>
-      <StyledCard>
-        <Grid item xs={4} md={8}>
-          <StyledCardMedia component="img" height="auto" image={car} alt="Product Image" />
-        </Grid>
-        <Grid item xs={4} md={4} sx={{ margin: '10px' }}>
-          <StyledTypography>
-            <h3>Product Name</h3>
-          </StyledTypography>
-        </Grid>
-        <Grid item xs={4} md={4}>
-          <StyledTypography>
-            <h2>Overall Rating</h2>
-            <Rating defaultValue={1} precision={1}/>
-          </StyledTypography>
-        </Grid>
-        <Grid item xs={5} md={6}>
-          <StyledTypography>
-            <h2>Add a Headline</h2>
-            <SingleLineTextField />
-          </StyledTypography>
-        </Grid>
-        <Grid item xs={5} md={6}>
-          <StyledTypography>
-            <h2>Add a Written Review</h2>
-          </StyledTypography>
-        </Grid>
-        <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
-          <StyledTypography sx={{ flexGrow: 1 }}>
-            <StyledButton variant="contained">Submit Review</StyledButton>
-          </StyledTypography>
-        </Grid>
-      </StyledCard>
-    </div>
-  );
-};
-
-const CreateReview = () => {
-  return (
-    <div style={{ padding: '20px' }}>
-      <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
-        <Grid item xs={12} alignItems="center">
-          <Grid container justifyContent="center">
-            <h1> Create Review </h1>
-          </Grid>
-          <Grid item xs={12}>
-            <CreateReviewCard />
-          </Grid>
-        </Grid>
-      </Grid>
+    <div className="reviewOverlay">
+      <div className="reviewContent">
+        <h2 className="reviewHeading">Create Review</h2>
+        <form className="reviewForm">
+          <div className="formRow">
+            <div className="ratingContainer">
+                <ResponsiveStarRating value={star_rating} handleRatingChange={handleRatingChange} onClick={handleRatingChange}/>
+              </div>
+          </div>
+          <div className="formRow">
+            <label className="reviewLabel">Review Title:</label>
+            <input
+              className="reviewTextArea"
+              id="firstNameInput"
+              type="text"
+              value={title}
+              onChange={handleTitleChange}
+            />
+          </div>
+          <div className="formRow">
+            <label className="reviewLabel">Review:</label>
+            <textarea
+              className="reviewTextArea"
+              id="lastNameInput"
+              type="text"
+              rows={4}
+              value={review}
+              onChange={handleReviewChange}
+            />
+          </div>
+          <div className="formRow ">
+            <button type="button" className="reviewButton"onClick={handleCreateReview}>
+              Create Review
+            </button>
+            <button  className="reviewButton" type="button" onClick={onClose}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

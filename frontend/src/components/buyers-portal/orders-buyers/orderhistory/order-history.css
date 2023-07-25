@@ -1,52 +1,63 @@
-.order-card {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  padding: 15px;
-  border: 1px solid;
-  border-radius: 16px;
-  background-color: rgb(230, 230, 230);
+
+.orderHistoryHeading {
+  font-size: 16px; 
+  margin-top: 10px;
+}
+.orderHistoryLabel{
+  font-size: 12px;
+}
+.responsive-button {
+    
+  padding: 8px 16px;
+  font-size: 8px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  
+  color: white;
+  
 }
 
-.order-card-image img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-}
+@media screen and (min-width: 600px) {
 
-.order-card-details {
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  gap: 10px;
-}
-
-.order-card-details p {
-  margin: 0;
-  font-size: 14px;
-}
-
-.order-card-button {
-  padding: 5px;
-  font-size: 10px;
-}
-
-@media (min-width: 600px) {
-  .order-card {
-    grid-template-columns: auto 1fr auto auto;
-    gap: 10px;
-    align-items: flex-start;
+  
+  .orderHistoryLabel{
+    font-size: 14px;
   }
 
-  .order-card-image img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
+
+  .orderHistoryHeading {
+    font-size: 20px; 
+    margin-top: 0px;
+  }
+  .responsive-button {
+        
+    padding: 10px 20px;
+    font-size: 12px;
   }
 
-  .order-card-details {
-    margin-left: 0;
-    grid-column: span 2;
-    align-items: flex-start;
+}
+@media screen and (min-width: 807px) {
+
+ 
+  .orderHistoryLabel{
+    font-size: 18px;
   }
+
+  .orderHistoryHeading {
+    font-size: 24px; 
+    margin-top: 0px;
+  }
+  .responsive-button {
+    
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+
 }

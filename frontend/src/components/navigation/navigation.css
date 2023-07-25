@@ -40,6 +40,7 @@ nav {
 .navbar-links li a {
     color: white;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .navbar-links li a:hover {
@@ -112,9 +113,9 @@ nav {
 .dropdown .dropdown-menu {
     display: none;
     position: absolute;
-    top: 50px;
+    top: 43px;
     padding: 10px;
-    background-color: #3f1a6b;
+    background-color: #241833;
 }
 
 .dropdown.open .dropdown-menu {
@@ -136,7 +137,7 @@ nav {
         display: block;
         padding: 5px;
         /*[TLBR - Top, Left, Bottom, Right]*/
-        margin: 1.2vh 0% 0px 1%;
+        margin: 1.3vh 0% 0px 1%;
     }
 
     nav {
@@ -169,6 +170,7 @@ nav {
         position: static;
         padding: 5px;
         margin-top: 10px;
+        background-color: #3f1a6b;
     }
 
     .dropdown-menu li a {
