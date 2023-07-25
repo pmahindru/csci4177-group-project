@@ -91,7 +91,7 @@ const CreateReview = ({ onClose, selectedAdId }) => {
         <form className="reviewForm">
           <div className="formRow">
             <div className="ratingContainer">
-                <ResponsiveStarRating value={star_rating} />
+                <ResponsiveStarRating value={star_rating} handleRatingChange={handleRatingChange} onClick={handleRatingChange}/>
               </div>
           </div>
           <div className="formRow">
