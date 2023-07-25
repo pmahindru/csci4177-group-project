@@ -121,7 +121,7 @@ const Favourites = () => {
       try {
         const result = await getFavourites(user_id);
         if (!res.address) {
-          console.log(result.data);
+         
           setFavourites(result);
         }
         

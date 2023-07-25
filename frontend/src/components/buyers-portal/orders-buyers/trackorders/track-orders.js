@@ -90,7 +90,7 @@ const TrackOrders = () => {
       try {
         const result = await getTrackedOrders(user_id);
         if (!res.address) {
-          console.log(result.data);
+          
           setOrders(result);
         }
         

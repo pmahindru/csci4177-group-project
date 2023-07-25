@@ -75,7 +75,7 @@ const EditPayment = ({ paymentId, onClose }) => {
       try {
         const result = await getPaymentMethod(paymentId);
         if (!res.address) {
-          console.log(result);
+          
           setPaymentMethod(result);
           setCVV(result.cvv);
           const [expiryMonth, expiryYear] = result.expiryDate.split('/');

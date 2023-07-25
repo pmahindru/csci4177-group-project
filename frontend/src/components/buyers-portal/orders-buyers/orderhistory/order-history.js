@@ -109,7 +109,7 @@ const OrderHistoryPage = () => {
     const fetchOrderHistory = async () => {
       try {
         const result = await getOrderHistory(user_id);
-        console.log(result.data);
+        
         if (!res.address) {
           const sortedData = result.sort((a,b) => {
             if (sortOrder === 'desc') {

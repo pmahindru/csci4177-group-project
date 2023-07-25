@@ -39,7 +39,7 @@ const AccountPayments = () => {
       try {
         const result = await getAllPayments(userId);
         if (!res.address) {
-          console.log(result.data);
+         
           setPayments(result);
         }
         
