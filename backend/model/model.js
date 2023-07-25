@@ -146,7 +146,6 @@ const checkEmailExists = async (data) => {
     await client.close();
     return !!user;
   } catch (error) {
-    console.error("Error checking email existence:", error);
     return false;
   }
 };
