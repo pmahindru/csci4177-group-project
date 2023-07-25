@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function ChatContainer({ currentChat, socket }) {
   const sendMessageRoute = "http://localhost:3001/api/addmsg";
@@ -11,6 +12,8 @@ export default function ChatContainer({ currentChat, socket }) {
   const [messages, setMessages] = useState([]);
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
+
+  const history = useNavigate();
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -69,12 +72,21 @@ export default function ChatContainer({ currentChat, socket }) {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const handleChatClose = () => {
+    history("/analytics");
+  };
+
   return (
     <Container>
       <div className="chat-header">
         <div className="user-details">
-          <div className="username">{/* <h3>{currentChat._id}</h3> */}</div>
+          <div className="username">
+            <h3>{currentChat.firstName + " " + currentChat.lastName}</h3>
+          </div>
         </div>
+        <button className="close-button1" onClick={handleChatClose}>
+          <span className="close-icon">&#10005;</span>
+        </button>
       </div>
       <div className="chat-messages">
         {messages.map((message, index) => (
@@ -96,41 +108,45 @@ export default function ChatContainer({ currentChat, socket }) {
     </Container>
   );
 }
+
 const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 80% 10%;
   gap: 0.1rem;
   overflow: hidden;
+  border: 1px solid #ccc;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 15% 70% 15%;
   }
+
+  .close-button1 {
+    position: absolute;
+    top: 70px;
+    right: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
   .chat-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
-    .user-details {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      .avatar {
-        img {
-          height: 3rem;
-        }
-      }
-      .username {
-        h3 {
-          color: white;
-        }
-      }
-    }
+    background-color: #f2f2f2;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
   }
+
   .chat-messages {
     padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
+    border-top: 1px solid #ccc; /* Add border between header and messages */
+    border-bottom: 1px solid #ccc; /* Add border between messages and input */
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
@@ -139,6 +155,7 @@ const Container = styled.div`
         border-radius: 1rem;
       }
     }
+
     .message {
       display: flex;
       align-items: center;
@@ -148,22 +165,25 @@ const Container = styled.div`
         padding: 1rem;
         font-size: 1.1rem;
         border-radius: 1rem;
-        color: #d1d1d1;
+        color: black;
         @media screen and (min-width: 720px) and (max-width: 1080px) {
           max-width: 70%;
         }
       }
     }
+
     .sended {
       justify-content: flex-end;
       .content {
-        background-color: #4f04ff21;
+        background-color: #007bff;
+        color: white;
       }
     }
-    .recieved {
+
+    .received {
       justify-content: flex-start;
       .content {
-        background-color: #9900ff20;
+        background-color: #f2f2f2;
       }
     }
   }
