@@ -1,6 +1,7 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useState, useEffect } from 'react';
-import './orders-navbar.css';
+import "../../seller-portal/orders-seller/orders_seller.css";
+
 import { useLocation, NavLink } from "react-router-dom";
 import OrderHistoryPage from './orderhistory/order-history';
 import TrackOrders from './trackorders/track-orders';
@@ -10,56 +11,73 @@ import AccountPayments from './payments/payments';
 import Cart from './cart/cart';
 
 const OrdersBuyers = () => {
-  const getLocation = useLocation();
-  const [active, setActive] = useState('order-history');
-  
-  
-  const handleNavLinkClick = (path) => {
-    setActive(path);
-    localStorage.setItem('activePage', path);
-    console.log(active);
-  };
-
-  // make sure the active page should be current
-  useEffect(() => {
-    console.log('Current Location:', getLocation.pathname);
-  }, [getLocation]);
-  // Makes sure that the active page is loaded for the user
-
+  const [savePageName , setPageName] = useState('#Active');
+  const [currentLocation, setCurrentLocation] = useState('#Active');
+  const handleLocation = (e) => {
+      setCurrentLocation(e);
+      setPageName(e);
+  }
   return (
-    <div>
-      <nav className="order-navbar">
-        <ul className="order-navbar-links">
-          <li className={`order-navbar-item ${active === 'order-history' ? 'active_page_navigation' : ''}`}>
-            <NavLink  className="simple-navbar-link" onClick={() => handleNavLinkClick('order-history')}>Order History</NavLink>
-          </li>
-          <li className={`order-navbar-item ${active === 'track-orders' ? 'active_page_navigation' : ''}`}>
-            <NavLink  className="simple-navbar-link" onClick={() => handleNavLinkClick('track-orders')}>Track Orders</NavLink>
-          </li>
-          <li className={`order-navbar-item ${active === 'favourites' ? 'active_page_navigation' : ''}`}>
-            <NavLink  className="simple-navbar-link" onClick={() => handleNavLinkClick('favourites')}>Favourites</NavLink>
-          </li>
-          <li className={`order-navbar-item ${active === 'payments' ? 'active_page_navigation' : ''}`}>
-            <NavLink  className="simple-navbar-link" onClick={() => handleNavLinkClick('payments')}>Payments</NavLink>
-          </li>
-          <li className={`order-navbar-item ${active === 'rating-review' ? 'active_page_navigation' : ''}`}>
-            <NavLink  className="simple-navbar-link" onClick={() => handleNavLinkClick('rating-review')}>Rating/Review</NavLink>
-          </li>
-          <li className={`order-navbar-item ${active === 'cart' ? 'active_page_navigation' : ''}`}>
-            <NavLink className="simple-navbar-link" onClick={() => handleNavLinkClick('cart')}>Cart</NavLink>
-          </li>
-        </ul>
-      </nav>
-      <div className='PageContainer'>
-        {active === 'order-history' && <OrderHistoryPage />}
-        {active === 'track-orders' && <TrackOrders />}
-        {active === 'favourites' && <Favourites />}
-        {active === 'payments' && <AccountPayments />}
-        {active === 'rating-review' && <RatingAndReviews />}
-        {active === 'cart' && <Cart />}
+      <div className='order-seller-page-main-container'>
+          <div className='order-seller-page-section1'>
+              
+              <br/>
+               <nav className="order-seller-page-navbar">
+                  <ul className='order-seller-page-nav-list'>
+                      <li className={currentLocation === "#order-history" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#Order-History" onClick={() => handleLocation("#order-history")}> Order History </NavLink>
+                      </li>
+                      <li className={currentLocation === "#track-orders" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#InActive" onClick={() => handleLocation("#track-orders")}> Track Orders </NavLink>
+                      </li>
+                      <li className={currentLocation === "#favourites" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#Delivered" onClick={() => handleLocation("#favourites")}> Favourites </NavLink>
+                      </li>
+                      <li className={currentLocation === "#payments" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#Canceled" onClick={() => handleLocation("#payments")}> Payments </NavLink>
+                      </li>
+                      <li className={currentLocation === "#reviews" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#Completed" onClick={() => handleLocation("#reviews")}> Reviews </NavLink>
+                      </li>
+                      <li className={currentLocation === "#cart" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#Status" onClick={() => handleLocation("#cart")}> Cart </NavLink>
+                      </li>
+                     
+                  </ul>
+              </nav>
+          </div>
+          {savePageName === "#order-history" ? (
+              <div className='order-seller-page-section2'>
+                  <OrderHistoryPage/>
+              </div>
+          ) : savePageName === "#track-orders" ?  (
+              <div className='order-seller-page-section2'>
+                  <TrackOrders/>
+              </div>
+          ) : savePageName === "#favourites" ?  (
+              <div className='order-seller-page-section2'>
+                  <Favourites/>
+              </div>
+          ) : savePageName === "#payments" ?  (
+              <div className='order-seller-page-section2'>
+                  <AccountPayments/>
+              </div>
+          ) : savePageName === "#reviews" ?  (
+              <div className='order-seller-page-section2'>
+                  <RatingAndReviews/>
+              </div>
+          ) : savePageName === "#cart" ?  (
+              <div className='order-seller-page-section2'>
+                  <Cart/>
+              </div>
+          )  : (
+              <div className='order-seller-page-section2'>
+                  <h1>ERROR</h1>
+              </div>
+          )}
       </div>
-    </div>
   );
+
 };
 
 export default OrdersBuyers;

@@ -197,22 +197,22 @@ const Cart = () => {
             </div>
           ) : (
               Array.isArray(cart) && cart.map((item) => (
-                
-                  <CartCard
+                <div key={item._id}>
+                    <CartCard
                     item={item}
                   ></CartCard>
-               
+               </div>
+                  
               ))
             )}
           {cart.length > 0 && (
-            <React.Fragment>
-              <div className="card-total">
-                <StyledTypography>Total: ${totalPrice.toFixed(2)}</StyledTypography>
-              </div>
-              <div className="card-total">
+            
+              <><div className="card-total">
+              <StyledTypography>Total: ${totalPrice.toFixed(2)}</StyledTypography>
+            </div><div className="card-total">
                 <StyledButton variant="contained" onClick={() => handleCheckout()}>Checkout</StyledButton>
-              </div>
-            </React.Fragment>
+              </div></>
+            
           )}
           {isCheckoutOpen && (
             <div className="modalOverlay">
