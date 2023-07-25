@@ -3,17 +3,49 @@
 import React, {useState} from 'react';
 import './notificationSettings.css';
 import Switch from 'react-switch';
-import { notificationProfileUserDetails } from '../../api.js';
+import { userNotificationSettingsRead, userNotificationSettingsUpdate } from '../../api.js';
 
 function NotificationSettings() {
-    const [allNotifcationsEnabled, setAllNotifcationsEnabled] = useState();
-    const [inboxNotifcationsEnabled, setInboxNotifcationsEnabled] = useState();
-    const [orderMessagsNotifcationsEnabled, setOrderMessagsNotifcationsEnabled] = useState();
-    const [orderUpdatesNotifcationsEnabled, setOrderUpdatesNotifcationsEnabled] = useState();
-    const [ratingReviewsNotifcationsEnabled, setRatingReviewsNotifcationsEnabled] = useState();
-    const [notificationSoundsEnabled, setNotificationSoundsEnabled] = useState();
-    const [emailNotifcationsEnabled, setEmailNotifcationsEnabled] = useState();
-    const [phoneNotifcationsEnabled, setPhoneNotifcationsEnabled] = useState();
+    const userData = JSON.parse(localStorage.getItem("user_info"));
+    const currentUserID = userData._id;
+    console.log("[Notifications-Page] Current Logged-in User: ", currentUserID, userData);
+
+
+    async function readNotificationsConfigurations() {
+        const notificationSettingsReading  = await userNotificationSettingsRead({currentUserID});
+
+        for (var i = 0; i < JSON.stringify(notificationSettingsReading).length; i++) {
+            let settingsData = JSON.stringify(notificationSettingsReading[i]);
+            if (settingsData.includes(currentUserID)) {
+                console.log("Settings retreived?\n" + settingsData);
+                localStorage.setItem("user_info_notificationSettings", settingsData);
+                break;
+            }
+        }
+    }
+
+    readNotificationsConfigurations();
+    const currentUserConfigStatus = JSON.parse(localStorage.getItem("user_info_notificationSettings"));
+
+
+    const [allNotifcationsEnabled, setAllNotifcationsEnabled] = useState(currentUserConfigStatus.notify_all);
+        /* Special Case: When All Notification Settings option is activate, all settings activated */
+        if (currentUserConfigStatus.notify_all) {
+            currentUserConfigStatus.notify_inbox_messages = true;
+            currentUserConfigStatus.notify_order_messages = true;
+            currentUserConfigStatus.notify_order_updates = true;
+            currentUserConfigStatus.notify_ratings_reviews = true;
+            currentUserConfigStatus.notify_sounds = true;
+            currentUserConfigStatus.notify_email = true;
+            currentUserConfigStatus.notify_phone = true; 
+        }
+    const [inboxNotifcationsEnabled, setInboxNotifcationsEnabled] = useState(currentUserConfigStatus.notify_inbox_messages);
+    const [orderMessagsNotifcationsEnabled, setOrderMessagsNotifcationsEnabled] = useState(currentUserConfigStatus.notify_order_messages);
+    const [orderUpdatesNotifcationsEnabled, setOrderUpdatesNotifcationsEnabled] = useState(currentUserConfigStatus.notify_order_updates);
+    const [ratingReviewsNotifcationsEnabled, setRatingReviewsNotifcationsEnabled] = useState(currentUserConfigStatus.notify_ratings_reviews);
+    const [notificationSoundsEnabled, setNotificationSoundsEnabled] = useState(currentUserConfigStatus.notify_sounds);
+    const [emailNotifcationsEnabled, setEmailNotifcationsEnabled] = useState(currentUserConfigStatus.notify_email);
+    const [phoneNotifcationsEnabled, setPhoneNotifcationsEnabled] = useState(currentUserConfigStatus.notify_phone);
 
     function handleToggleAllSwitch(status) {
         setAllNotifcationsEnabled(status);
@@ -68,15 +100,10 @@ function NotificationSettings() {
     }
 
     async function saveNotificationChanges() {
-        if (allNotifcationsEnabled) {
-            const status = await notificationProfileUserDetails(localStorage.getItem('userID'), true, true, true, true, true, true, true, true);
+        // const status = await userNotificationSettingsRead({currentUserID, allNotifcationsEnabled, inboxNotifcationsEnabled, 
+        //     orderMessagsNotifcationsEnabled, orderUpdatesNotifcationsEnabled, ratingReviewsNotifcationsEnabled,
+        //     notificationSoundsEnabled, emailNotifcationsEnabled, phoneNotifcationsEnabled});
         }
-        else {
-            const status = await notificationProfileUserDetails(localStorage.getItem('userID'), allNotifcationsEnabled, inboxNotifcationsEnabled,
-                 orderMessagsNotifcationsEnabled, orderUpdatesNotifcationsEnabled, ratingReviewsNotifcationsEnabled,
-                  notificationSoundsEnabled, emailNotifcationsEnabled, phoneNotifcationsEnabled);
-        }
-    }
 
     return (
         <div className='notificationSettings'>

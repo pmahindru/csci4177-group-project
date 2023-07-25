@@ -2,21 +2,36 @@
 /* Updated by Joel Kuruvilla for Assignment 3 | 2023-07-25 */
 import React, {useState} from 'react';
 import './profileSettings.css';
-import { profileUserDetails } from '../../api.js';
+import { userProfileSettingsRead, /*userProfileSettingsUpdate*/ } from '../../api.js';
 import Switch from 'react-switch';
-import { redirect } from 'react-router-dom';
 
 function ProfileSettings() {
-    const currentUserID = localStorage.getItem('userID');
-
-    console.log(currentUserID, localStorage.getItem("user_info"));
     const userData = JSON.parse(localStorage.getItem("user_info"));
-    
-    const [email2FAEnabled, setEmail2FAEnabled] = useState();
-    const [phone2FAEnabled, setPhone2FAEnabled] = useState();
-    const [authenticationApp2FAEnabled, setAuthenticationApp2FAEnabled] = useState();
-    const [currentLocationEnabled, setCurrentLocationEnabled] = useState();
-    const [disableAccountEnabled, setDisableAccountEnabled] = useState();
+    const currentUserID = userData._id;
+    console.log("[Profile-Page] Current Logged-in User: ", currentUserID, userData);
+
+
+    async function readProfileConfigurations() {
+        const profileSettingsReading  = await userProfileSettingsRead({currentUserID});
+
+        for (var i = 0; i < JSON.stringify(profileSettingsReading).length; i++) {
+            let settingsData = JSON.stringify(profileSettingsReading[i]);
+            if (settingsData.includes(currentUserID)) {
+                console.log("Settings retreived?\n" + settingsData);
+                localStorage.setItem("user_info_profileSettings", settingsData);
+                break;
+            }
+        }
+    }
+
+    readProfileConfigurations();
+    const currentUserConfigStatus = JSON.parse(localStorage.getItem("user_info_profileSettings"));
+
+    const [email2FAEnabled, setEmail2FAEnabled] = useState(currentUserConfigStatus.email_auth);
+    const [phone2FAEnabled, setPhone2FAEnabled] = useState(currentUserConfigStatus.phone_auth);
+    const [authenticationApp2FAEnabled, setAuthenticationApp2FAEnabled] = useState(currentUserConfigStatus.auth_app);
+    const [currentLocationEnabled, setCurrentLocationEnabled] = useState(currentUserConfigStatus.set_location);
+    const [disableAccountEnabled, setDisableAccountEnabled] = useState(currentUserConfigStatus.disable_account);
 
     async function handleEmailToggleSwitch(status) { 
         setEmail2FAEnabled(status);
@@ -40,10 +55,8 @@ function ProfileSettings() {
     }
 
     async function updateProfileConfigurations() {
-        
-        let udateStatus = true;
-        const settings  = await profileUserDetails({ udateStatus, currentUserID, email2FAEnabled, phone2FAEnabled, authenticationApp2FAEnabled, currentLocationEnabled, disableAccountEnabled });
-        console.log(settings);
+    //     const settingsStatus = await userProfileSettingsUpdate ({currentUserID, email2FAEnabled, phone2FAEnabled, authenticationApp2FAEnabled, currentLocationEnabled, disableAccountEnabled });
+    //     console.log(settingsStatus);
     }
 
 
