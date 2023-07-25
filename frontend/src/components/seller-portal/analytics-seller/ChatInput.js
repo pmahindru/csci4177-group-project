@@ -79,7 +79,7 @@ const Container = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #007bff;
+      background-color: #6c4998;
       border: none;
 
       @media screen and (max-width: 720px) {

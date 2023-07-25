@@ -413,16 +413,15 @@ const getMessages = async (req, res, next) => {
         message: msg.message.text,
       };
     });
-    res.json(projectedMessages);
-  } catch (ex) {
-    next(ex);
+    res.status(200).json(projectedMessages);
+  } catch (error) {
+    res.status(500).json(error);
   }
 };
 
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await model.findUsers({ _id: { $ne: req.params.id } });
-    console.log(users);
     return res.json(users);
   } catch (ex) {
     next(ex);

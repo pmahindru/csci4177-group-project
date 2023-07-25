@@ -16,16 +16,15 @@ export default function ChatContainer({ currentChat, socket }) {
   const history = useNavigate();
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      const data = JSON.parse(localStorage.getItem("user_info"));
-      const response = await axios.post(receiveMessageRoute, {
-        from: data._id,
-        to: currentChat._id,
-      });
-      setMessages(response.data);
-    };
-
     if (currentChat) {
+      const fetchMessages = async () => {
+        const data = JSON.parse(localStorage.getItem("user_info"));
+        const response = await axios.post(receiveMessageRoute, {
+          from: data._id,
+          to: currentChat._id,
+        });
+        setMessages(response.data);
+      };
       fetchMessages();
     }
   }, [currentChat]);
@@ -38,6 +37,7 @@ export default function ChatContainer({ currentChat, socket }) {
     };
     getCurrentChat();
   }, [currentChat]);
+
   const handleSendMsg = async (msg) => {
     const data = JSON.parse(localStorage.getItem("user_info"));
     socket.current.emit("send-msg", {
@@ -52,8 +52,9 @@ export default function ChatContainer({ currentChat, socket }) {
       message: msg,
     });
 
-    const newMessage = { fromSelf: true, message: msg };
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
+    const msgs = [...messages];
+    msgs.push({ fromSelf: true, message: msg });
+    setMessages(msgs);
   };
 
   useEffect(() => {
@@ -62,7 +63,7 @@ export default function ChatContainer({ currentChat, socket }) {
         setArrivalMessage({ fromSelf: false, message: msg });
       });
     }
-  }, []);
+  });
 
   useEffect(() => {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
@@ -92,7 +93,6 @@ export default function ChatContainer({ currentChat, socket }) {
         {messages.map((message, index) => (
           <div key={uuidv4()}>
             {" "}
-            {/* Apply "key" to the top-level element */}
             <div
               className={`message ${message.fromSelf ? "sended" : "received"}`}
             >
@@ -102,7 +102,7 @@ export default function ChatContainer({ currentChat, socket }) {
             </div>
           </div>
         ))}
-        <div ref={scrollRef}></div> {/* Empty div for scrolling to bottom */}
+        <div ref={scrollRef}></div>
       </div>
       <ChatInput handleSendMsg={handleSendMsg} />
     </Container>
@@ -175,7 +175,7 @@ const Container = styled.div`
     .sended {
       justify-content: flex-end;
       .content {
-        background-color: #007bff;
+        background-color: #6c4998;
         color: white;
       }
     }
