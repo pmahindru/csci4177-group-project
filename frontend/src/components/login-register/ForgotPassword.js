@@ -1,3 +1,5 @@
+//Code extended from previous Assignment submissions by Saiz Charolia
+
 // Forgot password referred from codevoweb
 // URL: https://codevoweb.com/forgot-reset-password-in-reactjs-and-axios/
 // Date Accessed: 06/13/2023
@@ -6,11 +8,18 @@
 // URL: https://www.makeuseof.com/password-reset-forgot-react-node-how-handle/
 // Date Accessed: 06/13/2023
 
+// Backend referred and understood from Koding 101
+// URL: https://www.youtube.com/watch?v=A8k4A7TuhDY&ab_channel=Koding101
+// Author: Koding 101
+// Date Accessed: 07/23/2023
+
 import React, { useState } from 'react';
 import './ForgotPassword.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import fimage from '../images/forgot.png';
+import { sendResetCode, verifyResetCodeFromDatabase, resetPassword } from '../../api';
+
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -30,26 +39,41 @@ function ForgotPassword() {
     setResetCode(event.target.value);
   };
 
-  const handleSendCode = (event) => {
+  const handleSendCode = async (event) => {
     event.preventDefault();
-    
-    setTimeout(() => {
+
+    // API calling referred from Blogs
+    // URL: https://blog.hubspot.com/website/api-calls
+    // Date Accessed: 07/23/2023
+    const isSent = await sendResetCode(email);
+
+    if (isSent) {
       setIsCodeSent(true);
-    }, 2);
+      alert('Reset code has been sent to your email address.');
+    } else {
+      alert('Failed to generate reset code. Use registered email and try again.');
+    }
   };
 
-  const handleVerifyCode = (event) => {
+  const handleVerifyCode = async (event) => {
     event.preventDefault();
+
+    // API calling referred from Blogs
+    // URL: https://blog.hubspot.com/website/api-calls
+    // Date Accessed: 07/23/2023
     
-    if (resetCode === '1234') {
+    const isCodeValid = await verifyResetCodeFromDatabase(email, resetCode);
+    
+    if (isCodeValid) {
+      alert("Code is valid");
       setIsCodeValid(true);
     } else {
-      alert("Code is not Match please try again");
+      alert("Code is not valid. Please try again.");
       setIsCodeValid(false);
     }
   };
 
-  const handleResetPassword = (event) => {
+  const handleResetPassword = async (event) => {
     event.preventDefault();
     
     // Regex for password referred from stackoverflow
@@ -66,8 +90,18 @@ function ForgotPassword() {
       return;
     }
 
-    alert('Successfully Password Updated\nPlease Login with new Password');
-    window.location.href = '/login';
+    // API calling referred from Blogs
+    // URL: https://blog.hubspot.com/website/api-calls
+    // Date Accessed: 07/23/2023
+
+    const isReset = await resetPassword(email, newPassword);
+
+    if (isReset) {
+      alert('Successfully Password Updated\nPlease Login with the new Password');
+      window.location.href = '/login';
+    } else {
+      alert('Failed to reset password. Please try again.');
+    }
   };
 
   return (
@@ -115,7 +149,7 @@ function ForgotPassword() {
                   type="text"
                   value={resetCode}
                   onChange={handleCodeChange}
-                  placeholder="Enter 1234"
+                  placeholder="Enter code"
                   required
                 />
               </label>
