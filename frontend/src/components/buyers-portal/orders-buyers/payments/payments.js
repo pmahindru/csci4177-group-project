@@ -40,7 +40,7 @@ const AccountPayments = () => {
         const result = await getAllPayments(userId);
         setPayments(result);
       } catch (error) {
-        console.error(error);
+        return error;
       }
     };
     fetchPayments();

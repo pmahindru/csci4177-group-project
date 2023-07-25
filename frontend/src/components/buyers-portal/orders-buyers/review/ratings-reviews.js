@@ -127,7 +127,7 @@ const Rating_Reviews = () => {
         const result = await getReviews(user_id);
         setReviews(result);
       } catch (error) {
-        console.error(error);
+        return error;
       }
     };
     fetchReviews();

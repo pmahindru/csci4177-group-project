@@ -80,7 +80,7 @@ const CartCard = ({ item }) => {
         window.location.reload();
       } catch (error) {
         alert('Failed to remove favourite ad');
-        console.error('Error removing ad from favourites:', error);
+        return error;
       }
     }
     setAnchorEl(null);
@@ -148,7 +148,7 @@ const Cart = () => {
         const result = await getCart(user_id);
         setCart(result);
       } catch (error) {
-        console.error(error);
+        return error;
       }
     };
 
@@ -161,7 +161,7 @@ const Cart = () => {
         const result = await getAllPayments(user_id);
         setPayments(result);
       } catch (error) {
-        console.error(error);
+        return error;
       }
     };
 

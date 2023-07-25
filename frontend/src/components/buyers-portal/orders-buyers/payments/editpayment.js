@@ -52,7 +52,7 @@ const EditPayment = ({ paymentId, onClose }) => {
       window.location.reload();
     } catch (error) {
       alert('Failed to update payment method');
-      console.error('Error updating payment method:', error);
+      return error;
     }
   };
   //method to remove a existing payment from users database
@@ -65,7 +65,7 @@ const EditPayment = ({ paymentId, onClose }) => {
         onClose();
       } catch (error) {
         alert('Failed to remove payment method');
-        console.error('Error removing payment method:', error);
+        return error;
       }
     }
   };
@@ -82,7 +82,7 @@ const EditPayment = ({ paymentId, onClose }) => {
         setExpiryYear("20" + expiryYear);
         setAddress(result.address);
       } catch (error) {
-        console.error(error);
+        return error;
       }
     };
     fetchPaymentData();

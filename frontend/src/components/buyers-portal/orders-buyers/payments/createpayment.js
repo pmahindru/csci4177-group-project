@@ -62,7 +62,7 @@ const CreatePayment= ({ onClose }) => {
       window.location.reload();
     } catch (error) {
       alert('Failed to add payment method');
-      console.error('Error adding payment method:', error);
+      return error;
     }
   };
 
@@ -164,7 +164,7 @@ const CreatePayment= ({ onClose }) => {
             />
           </div>
           <div className="formRow">
-            <button className="paymentButton"  type="button" onClick={handleCreatePayment}>
+            <button className="paymentButton" type="button" onClick={handleCreatePayment}>
               Create Payment
             </button>
           </div>

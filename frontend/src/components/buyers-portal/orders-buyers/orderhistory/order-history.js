@@ -119,7 +119,7 @@ const OrderHistoryPage = () => {
         });
         setOrders(sortedData);
       } catch (error) {
-        console.error(error);
+        return error;
       }
     };
 

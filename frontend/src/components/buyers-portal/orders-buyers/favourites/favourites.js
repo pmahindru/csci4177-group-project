@@ -123,7 +123,7 @@ const Favourites = () => {
         console.log(result.data);
         setFavourites(result);
       } catch (error) {
-        console.error(error);
+        return error;
       }
     };
 

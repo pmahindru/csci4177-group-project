@@ -39,7 +39,7 @@ const CreateReview = ({ onClose, selectedAdId }) => {
           setExistingReview(false);
         }
       } catch (error) {
-        console.error('Error fetching review:', error);
+        return error;
       }
     };
 
@@ -80,7 +80,7 @@ const CreateReview = ({ onClose, selectedAdId }) => {
       }
     } catch (error) {
       alert('Failed to add payment method');
-      console.error('Error adding payment method:', error);
+      return error;
     }
   };
 

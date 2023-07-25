@@ -92,7 +92,7 @@ const TrackOrders = () => {
         console.log(result.data);
         setOrders(result);
       } catch (error) {
-        console.error(error);
+        return error;
       }
     };
 
