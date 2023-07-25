@@ -5,7 +5,8 @@ import CreateReview from './create-review';
 import { styled } from '@mui/system';
 import './ratings-reviews.css';
 import { getReviews } from '../../../../api';
-import ResponsiveStarRating from './rating';
+import ResponsiveStarRatingDisplay from './star_rating';
+
 //styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
   margin: '10px',
@@ -85,7 +86,7 @@ const ReviewCard = ({ review, handleCreateReviewOpen }) => {
         <Grid item xs={4} md={4} sx={{ margin: '10px' }}>
           <StyledTypography>
             
-            <ResponsiveStarRating value={star_rating} defaultValue={star_rating} precision={0.5} readOnly />
+            <ResponsiveStarRatingDisplay value={star_rating}  />
             
           </StyledTypography>
         </Grid>
