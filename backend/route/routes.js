@@ -5,7 +5,7 @@ const cors = require("cors");
 const controller = require("../controller/controller");
 
 app.use(cors());
-app.use(express.json({limit: "20mb"}));
+app.use(express.json({ limit: "20mb" }));
 
 // base url
 const baseURL = "/api";
@@ -36,13 +36,25 @@ app.post(`${baseURL}/cart`, controller.createCartItem);
 app.delete(`${baseURL}/favourites/:favouriteId`, controller.deleteFavourite);
 app.get(`${baseURL}/track-orders/:userId`, controller.getTrackedOrders);
 
-app.get(`${baseURL}/profile_setting/:userID`, controller.userProfileSettingsRead); //By Joel Kuruvilla
-app.put(`${baseURL}/profile_settings/:userID`, controller.userProfileSettingsUpdate); //By Joel Kuruvilla
+app.get(
+  `${baseURL}/profile_setting/:userID`,
+  controller.userProfileSettingsRead
+); //By Joel Kuruvilla
+app.put(
+  `${baseURL}/profile_settings/:userID`,
+  controller.userProfileSettingsUpdate
+); //By Joel Kuruvilla
 
 app.put(`${baseURL}/signup/:userID`, controller.signupUpdate); //By Joel Kuruvilla
 
-app.get(`${baseURL}/notification_setting/:userID`, controller.userNotificationSettingsRead); //By Joel Kuruvilla
-app.put(`${baseURL}/notification_settings/:userID`, controller.userNotificationSettingsUpdate); //By Joel Kuruvilla
+app.get(
+  `${baseURL}/notification_setting/:userID`,
+  controller.userNotificationSettingsRead
+); //By Joel Kuruvilla
+app.put(
+  `${baseURL}/notification_settings/:userID`,
+  controller.userNotificationSettingsUpdate
+); //By Joel Kuruvilla
 
 //api for add
 app.post(`${baseURL}/addmsg`, controller.addMessage);
@@ -54,13 +66,34 @@ app.post(`${baseURL}/seller/addPost`, controller.addNewPostAd);
 app.post(`${baseURL}/seller/savePost`, controller.savePostAd);
 app.post(`${baseURL}/seller/getPost`, controller.getAllPostedAd);
 app.post(`${baseURL}/seller/getSavePost`, controller.getAllSavePostedAd);
-app.post(`${baseURL}/seller/getPostAdWithId/:postId`, controller.getPostAdWithId);
-app.put(`${baseURL}/seller/pausePostAdWithId/:postId`, controller.pausePostAdWithId);
-app.put(`${baseURL}/seller/updatePostWithId/:postId`, controller.updatePostWithId);
-app.put(`${baseURL}/seller/previewSavePostAd/:postId`, controller.previewSavePostAd);
-app.delete(`${baseURL}/seller/deletePostWithId/:postId`, controller.deletePostWithId);
-app.delete(`${baseURL}/seller/deleteSaveWithId/:postId`, controller.deleteSaveWithId);
+app.post(
+  `${baseURL}/seller/getPostAdWithId/:postId`,
+  controller.getPostAdWithId
+);
+app.put(
+  `${baseURL}/seller/pausePostAdWithId/:postId`,
+  controller.pausePostAdWithId
+);
+app.put(
+  `${baseURL}/seller/updatePostWithId/:postId`,
+  controller.updatePostWithId
+);
+app.put(
+  `${baseURL}/seller/previewSavePostAd/:postId`,
+  controller.previewSavePostAd
+);
+app.delete(
+  `${baseURL}/seller/deletePostWithId/:postId`,
+  controller.deletePostWithId
+);
+app.delete(
+  `${baseURL}/seller/deleteSaveWithId/:postId`,
+  controller.deleteSaveWithId
+);
 app.get(`${baseURL}/getSpecificUser/:userId`, controller.loginUserModel);
-app.post(`${baseURL}/twoFactorAuthentication`, controller.twoFactorAuthentication);
+app.post(
+  `${baseURL}/twoFactorAuthentication`,
+  controller.twoFactorAuthentication
+);
 
 module.exports = app;
