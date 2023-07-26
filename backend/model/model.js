@@ -644,11 +644,6 @@ const addMessageModel = async (data) => {
 };
 
 //Gets messages from the database for that particular user (Parth Patel)
-// Referred to the youtube video on how to get messages from the database
-// URL1: https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth
-// URL2: https://github.com/koolkishan/chat-app-react-nodejs
-// Date Accessed: 07/26/2023
-// Used by Parth Patel
 const findMessages = async (query) => {
   try {
     await client.connect();
