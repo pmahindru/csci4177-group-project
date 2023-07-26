@@ -628,7 +628,6 @@ const addMessageModel = async (data) => {
   }
 };
 
-//Gets messages from the database for that particular user (Parth Patel)
 const findMessages = async (query) => {
   try {
     await client.connect();
@@ -990,8 +989,10 @@ const deleteSaveWithId = async (idObject) => {
 module.exports = {
   getAllUserSignup,
   registerUser,
-  registerUser_userDefaultSettingConfigs,
   loginUserModel,
+  getAllPostedAd,
+  addNewPostAd,
+  savePostAd,
   saveResetCode,
   verifyCode,
   saveNewPassword,
@@ -1016,18 +1017,10 @@ module.exports = {
   addMessageModel,
   findMessages,
   findUsers,
-  userProfileSettingsReadModel,
-  userProfileSettingsUpdateModel,
-  signupUpdateModel,
-  userNotificationSettingsReadModel,
-  userNotificationSettingsUpdateModel,
-  savePostAd,
   getAllSavePostedAd,
-  getAllPostedAd,
-  pausePostAdWithId,
-  addNewPostAd,
   updatePostWithId,
-  previewSavePostAd,
   deletePostWithId,
+  pausePostAdWithId,
+  previewSavePostAd,
   deleteSaveWithId,
 };
