@@ -4,8 +4,9 @@
 // Date Accessed: 07/23/2023
 // Used by Saiz Charolia
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://Team24:qwhoZh2NkExdtQu5@shopaestheticscluster.za4i1fn.mongodb.net/?retryWrites=true&w=majority";
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const uri =
+  "mongodb+srv://Team24:qwhoZh2NkExdtQu5@shopaestheticscluster.za4i1fn.mongodb.net/?retryWrites=true&w=majority";
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -43,7 +44,7 @@ const registerUser = async (data) => {
     const collection = db.collection("Signup");
 
     const addUser = await collection.insertOne(data);
-    await registerUser_userDefaultSettingConfigs(data._id)
+    await registerUser_userDefaultSettingConfigs(data._id);
 
     await client.close();
     return addUser;
@@ -60,33 +61,29 @@ const registerUser_userDefaultSettingConfigs = async (userID) => {
     const db = client.db("User_Management");
     const collectionProfile = db.collection("Profile");
     const collectionNotification = db.collection("ProfileNotifications");
-     
-    const addUserProfileConfig = await collectionProfile.insertOne(
-      {
-        "_id": userID,
-        "user_id": userID,
-        "auth_app": false,
-        "disable_account": false,
-        "email_auth": false,
-        "phone_auth": false,
-        "set_location": false,
-        "user_online_status": false,
-      }
-    );
-    const addUserNotificationConfig = await collectionNotification.insertOne(
-      {
-        "_id": userID,
-        "user_id": userID,
-        "notify_all": false,
-        "notify_inbox_messages": false,
-        "notify_order_messages": false,
-        "notify_order_updates": false,
-        "notify_ratings_reviews": false,
-        "notify_sounds": false,
-        "notify_email": false,
-        "notify_phone": false
-      }
-    );
+
+    const addUserProfileConfig = await collectionProfile.insertOne({
+      _id: userID,
+      user_id: userID,
+      auth_app: false,
+      disable_account: false,
+      email_auth: false,
+      phone_auth: false,
+      set_location: false,
+      user_online_status: false,
+    });
+    const addUserNotificationConfig = await collectionNotification.insertOne({
+      _id: userID,
+      user_id: userID,
+      notify_all: false,
+      notify_inbox_messages: false,
+      notify_order_messages: false,
+      notify_order_updates: false,
+      notify_ratings_reviews: false,
+      notify_sounds: false,
+      notify_email: false,
+      notify_phone: false,
+    });
 
     await client.close();
     return addUserProfileConfig, addUserNotificationConfig;
@@ -605,6 +602,7 @@ const createCartItem = async (data) => {
   }
 };
 
+//Gets the users from the database (Parth Patel)
 const findUsers = async (query) => {
   try {
     await client.connect();
@@ -626,12 +624,11 @@ const findUsers = async (query) => {
   }
 };
 
+//add messages to the database (Parth Patel)
 const addMessageModel = async (data) => {
   try {
-    // connection with db
     await client.connect();
 
-    // call the db name and collection
     const db = client.db("Seller_Management");
     const collection = db.collection("Chats-test");
 
@@ -646,12 +643,16 @@ const addMessageModel = async (data) => {
   }
 };
 
+//Gets messages from the database for that particular user (Parth Patel)
+// Referred to the youtube video on how to get messages from the database
+// URL1: https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth
+// URL2: https://github.com/koolkishan/chat-app-react-nodejs
+// Date Accessed: 07/26/2023
+// Used by Parth Patel
 const findMessages = async (query) => {
   try {
-    // connection with db
     await client.connect();
 
-    // call the db name and collection
     const db = client.db("Seller_Management");
     const collection = db.collection("Chats-test");
 
@@ -668,7 +669,8 @@ const findMessages = async (query) => {
   }
 };
 /* User Profile Settings READ and UPDATE Models | By: Joel Kuruvilla */
-const userProfileSettingsReadModel = async (userID) => { //Profile READ Model | Joel Kuruvilla
+const userProfileSettingsReadModel = async (userID) => {
+  //Profile READ Model | Joel Kuruvilla
   try {
     // connection with db
     await client.connect();
@@ -686,7 +688,8 @@ const userProfileSettingsReadModel = async (userID) => { //Profile READ Model | 
     return error;
   }
 };
-const userProfileSettingsUpdateModel = async (userID, dataToUpdate) => { //Profile UPDATE Model | Joel Kuruvilla
+const userProfileSettingsUpdateModel = async (userID, dataToUpdate) => {
+  //Profile UPDATE Model | Joel Kuruvilla
   try {
     // connection with db
     await client.connect();
@@ -698,14 +701,20 @@ const userProfileSettingsUpdateModel = async (userID, dataToUpdate) => { //Profi
     const isCheckObject = await userProfileSettingsReadModel(userID);
 
     if (Object.keys(isCheckObject).length !== 0) {
-      const porfileSettingsData = await collection.updateOne({"user_id": userID}, {$set: dataToUpdate});
+      const porfileSettingsData = await collection.updateOne(
+        { user_id: userID },
+        { $set: dataToUpdate }
+      );
       await client.close();
       return porfileSettingsData;
     }
 
     await registerUser_userDefaultSettingConfigs(userID);
 
-    const porfileSettingsData = await collection.updateOne({"user_id": userID}, {$set: dataToUpdate});
+    const porfileSettingsData = await collection.updateOne(
+      { user_id: userID },
+      { $set: dataToUpdate }
+    );
     await client.close();
     return porfileSettingsData;
   } catch (error) {
@@ -714,7 +723,8 @@ const userProfileSettingsUpdateModel = async (userID, dataToUpdate) => { //Profi
 };
 
 /* User Signup UPDATE Models | By: Joel Kuruvilla */
-const signupUpdateModel = async (userID, dataToUpdate) => { //Signup UPDATE Model | Joel Kuruvilla
+const signupUpdateModel = async (userID, dataToUpdate) => {
+  //Signup UPDATE Model | Joel Kuruvilla
   try {
     // connection with db
     await client.connect();
@@ -723,7 +733,10 @@ const signupUpdateModel = async (userID, dataToUpdate) => { //Signup UPDATE Mode
     const db = client.db("User_Management");
     const collection = db.collection("Signup");
 
-    const porfileSettingsData = await collection.updateOne({"_id": userID}, {$set: dataToUpdate});
+    const porfileSettingsData = await collection.updateOne(
+      { _id: userID },
+      { $set: dataToUpdate }
+    );
 
     await client.close();
 
@@ -731,10 +744,11 @@ const signupUpdateModel = async (userID, dataToUpdate) => { //Signup UPDATE Mode
   } catch (error) {
     return error;
   }
-}
+};
 
 /* User Notification Settings READ and UPDATE Models | By: Joel Kuruvilla */
-const userNotificationSettingsReadModel = async (userID) => { //Notifications READ Model | Joel Kuruvilla
+const userNotificationSettingsReadModel = async (userID) => {
+  //Notifications READ Model | Joel Kuruvilla
   try {
     // connection with db
     await client.connect();
@@ -752,7 +766,8 @@ const userNotificationSettingsReadModel = async (userID) => { //Notifications RE
     return error;
   }
 };
-const userNotificationSettingsUpdateModel = async (userID, dataToUpdate) => { //Notifications UPDATE Model | Joel Kuruvilla
+const userNotificationSettingsUpdateModel = async (userID, dataToUpdate) => {
+  //Notifications UPDATE Model | Joel Kuruvilla
   try {
     // connection with db
     await client.connect();
@@ -761,15 +776,21 @@ const userNotificationSettingsUpdateModel = async (userID, dataToUpdate) => { //
     const db = client.db("User_Management");
     const collection = db.collection("ProfileNotifications");
 
-    const isCheckObject = await userNotificationSettingsReadModel(userID)
+    const isCheckObject = await userNotificationSettingsReadModel(userID);
     if (Object.keys(isCheckObject).length !== 0) {
-      const notificationSettingsData = await collection.updateOne({"user_id": userID}, {$set: dataToUpdate});
+      const notificationSettingsData = await collection.updateOne(
+        { user_id: userID },
+        { $set: dataToUpdate }
+      );
       await client.close();
       return notificationSettingsData;
     }
 
     await registerUser_userDefaultSettingConfigs(userID);
-    const notificationSettingsData = await collection.updateOne({"user_id": userID}, {$set: dataToUpdate});
+    const notificationSettingsData = await collection.updateOne(
+      { user_id: userID },
+      { $set: dataToUpdate }
+    );
     await client.close();
     return notificationSettingsData;
   } catch (error) {
@@ -779,208 +800,212 @@ const userNotificationSettingsUpdateModel = async (userID, dataToUpdate) => { //
 
 // save post Ad (pranav mahindru)
 const savePostAd = async (data) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("save_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("save_ad");
 
-      const postedAd = await collection.insertOne(data);
+    const postedAd = await collection.insertOne(data);
 
-      await client.close();
+    await client.close();
 
-      return postedAd;
-    } catch (error) {
-      return error;
-    }
-}
+    return postedAd;
+  } catch (error) {
+    return error;
+  }
+};
 
 // get all save posted Ad (pranav mahindru)
 const getAllSavePostedAd = async (data) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("save_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("save_ad");
 
-      const postedAd = await collection.find(data).toArray();
+    const postedAd = await collection.find(data).toArray();
 
-      await client.close();
+    await client.close();
 
-      return postedAd;
-    } catch (error) {
-      return error;
-    }
-}
+    return postedAd;
+  } catch (error) {
+    return error;
+  }
+};
 
 // get all post Ad (pranav mahindru)
 const getAllPostedAd = async (data) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("post_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("post_ad");
 
-      const postedAd = await collection.find(data).toArray();
+    const postedAd = await collection.find(data).toArray();
 
-      await client.close();
+    await client.close();
 
-      return postedAd;
-    } catch (error) {
-      return error;
-    }
-}
+    return postedAd;
+  } catch (error) {
+    return error;
+  }
+};
 
 // get all post Ad (pranav mahindru)
 const pausePostAdWithId = async (data) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("post_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("post_ad");
 
-      const postedAd = await collection.find({"_id": data._id}).toArray();
+    const postedAd = await collection.find({ _id: data._id }).toArray();
 
-      if (data.page === "seller_status" || data.page === "seller_draft") {
-        var updatePost;
-        if (postedAd[0]["isActive"] === true) {
-          updatePost = await collection.updateOne({"_id": data._id}, {$set: {"isActive": !postedAd[0]["isActive"]}});
-        }
-        else{
-          updatePost = {messages: "It is already Paused"};
-        }
-        await client.close();
-        return updatePost;
+    if (data.page === "seller_status" || data.page === "seller_draft") {
+      var updatePost;
+      if (postedAd[0]["isActive"] === true) {
+        updatePost = await collection.updateOne(
+          { _id: data._id },
+          { $set: { isActive: !postedAd[0]["isActive"] } }
+        );
+      } else {
+        updatePost = { messages: "It is already Paused" };
       }
-      else{
-        const updatePost = await collection.updateOne({"_id": data._id}, {$set: {"isActive": !postedAd[0]["isActive"]}});
-        await client.close();
-        return updatePost;
-      }
-    } catch (error) {
-      return error;
+      await client.close();
+      return updatePost;
+    } else {
+      const updatePost = await collection.updateOne(
+        { _id: data._id },
+        { $set: { isActive: !postedAd[0]["isActive"] } }
+      );
+      await client.close();
+      return updatePost;
     }
-}
+  } catch (error) {
+    return error;
+  }
+};
 
 // add new post Ad (pranav mahindru)
 const addNewPostAd = async (data) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("post_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("post_ad");
 
-      const postedAd = await collection.insertOne(data);
+    const postedAd = await collection.insertOne(data);
 
-      await client.close();
+    await client.close();
 
-      return postedAd;
-    } catch (error) {
-      return error;
-    }
-}
+    return postedAd;
+  } catch (error) {
+    return error;
+  }
+};
 
 // get all update posted Ad (pranav mahindru)
 const updatePostWithId = async (idObject, data) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("post_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("post_ad");
 
-      const updatepostedAd = await collection.updateOne(idObject, data);
+    const updatepostedAd = await collection.updateOne(idObject, data);
 
-      await client.close();
+    await client.close();
 
-      return updatepostedAd;
-    } catch (error) {
-      return error;
-    }
-}
+    return updatepostedAd;
+  } catch (error) {
+    return error;
+  }
+};
 
 // get all update posted Ad (pranav mahindru)
 const previewSavePostAd = async (idObject, data) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection1 = db.collection("save_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection1 = db.collection("save_ad");
 
-      // update the save ad
-      await collection1.updateOne(idObject, data);
-      
-      // find the item in collection 1
-      const collection1Find = await collection1.findOne(idObject);
+    // update the save ad
+    await collection1.updateOne(idObject, data);
 
-      const collection2 = db.collection("post_ad");
-     
-      // insert the save ad to the post ad because it is updated
-      await collection2.insertOne(collection1Find);
+    // find the item in collection 1
+    const collection1Find = await collection1.findOne(idObject);
 
-      // // delete from the collection 
-      const deletePostWithId = await collection1.deleteOne(idObject);
+    const collection2 = db.collection("post_ad");
 
-      await client.close();
+    // insert the save ad to the post ad because it is updated
+    await collection2.insertOne(collection1Find);
 
-      return deletePostWithId;
-    } catch (error) {
-      return error;
-    }
-}
+    // // delete from the collection
+    const deletePostWithId = await collection1.deleteOne(idObject);
+
+    await client.close();
+
+    return deletePostWithId;
+  } catch (error) {
+    return error;
+  }
+};
 
 // get all update posted Ad (pranav mahindru)
 const deletePostWithId = async (idObject) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("post_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("post_ad");
 
-      const deletePostWithId = await collection.deleteOne(idObject);
+    const deletePostWithId = await collection.deleteOne(idObject);
 
-      await client.close();
+    await client.close();
 
-      return deletePostWithId;
-    } catch (error) {
-      return error;
-    }
-}
+    return deletePostWithId;
+  } catch (error) {
+    return error;
+  }
+};
 
 // get all update posted Ad (pranav mahindru)
 const deleteSaveWithId = async (idObject) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("save_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("save_ad");
 
-      const deletePostWithId = await collection.deleteOne(idObject);
+    const deletePostWithId = await collection.deleteOne(idObject);
 
-      await client.close();
+    await client.close();
 
-      return deletePostWithId;
-    } catch (error) {
-      return error;
-    }
-}
+    return deletePostWithId;
+  } catch (error) {
+    return error;
+  }
+};
 
 // add new post Ad
 const addToUserInteraction = async (data, uuid_user_interaction) => {
