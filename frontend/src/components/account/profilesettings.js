@@ -1,71 +1,72 @@
 /* Created By: Pranav Mahindru*/
 /* Updated by Joel Kuruvilla for Assignment 3 | 2023-07-25 */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react'
 import './profileSettings.css';
-import { userProfileSettingsRead, /*userProfileSettingsUpdate*/ } from '../../api.js';
+import { userProfileSettingsRead, userProfileSettingsUpdate } from '../../api.js';
 import Switch from 'react-switch';
 
 function ProfileSettings() {
     const userData = JSON.parse(localStorage.getItem("user_info"));
-    const user_id = userData._id;
-    console.log("[Profiles-Page] Current Logged-in User: ", user_id, userData);
+    const userID = userData._id;
 
+    const [email2FAEnabled, setEmail2FAEnabled] = useState(false);
+    const [phone2FAEnabled, setPhone2FAEnabled] = useState(false);
+    const [authenticationApp2FAEnabled, setAuthenticationApp2FAEnabled] = useState(false);
+    const [currentLocationEnabled, setCurrentLocationEnabled] = useState(false);
+    const [disableAccountEnabled, setDisableAccountEnabled] = useState(false);
 
-    async function readProfileConfigurations() {
-        const profileSettingsReading  = await userProfileSettingsRead({user_id});
-
-        for (var i = 0; i < JSON.stringify(profileSettingsReading).length; i++) {
-            let settingsData = JSON.stringify(profileSettingsReading[i]);
-            if (settingsData.includes(user_id)) {
-                console.log("Settings retreived?\n" + settingsData);
-                localStorage.setItem("user_info_profileSettings", settingsData);
-                break;
+    useEffect(() => {
+        const readProfileConfigurations = async () => {
+            try {
+                const profileSettingsReading  = await userProfileSettingsRead(userID);
+                
+                setEmail2FAEnabled(profileSettingsReading.email_auth);
+                setPhone2FAEnabled(profileSettingsReading.phone_auth);
+                setAuthenticationApp2FAEnabled(profileSettingsReading.auth_app);
+                setCurrentLocationEnabled(profileSettingsReading.set_location);
+                setDisableAccountEnabled(profileSettingsReading.disable_account);
+            } 
+            catch (error) {
+                return error;
             }
-        }
+        };
+        readProfileConfigurations();
+    }, [userID]);
+
+    const handleEmailToggleSwitch = (e) => { 
+        setEmail2FAEnabled(e);
+    }
+    const handlePhoneToggleSwitch = (e) => {  
+        setPhone2FAEnabled(e); 
+    }
+    const handleAuthenticationAppToggleSwitch = (e) => {  
+        setAuthenticationApp2FAEnabled(e);
+    }
+    const handleCurrentLocationToggleSwitch = (e) => { 
+        setCurrentLocationEnabled(e);
+    }
+    const handleDisableAccountToggleSwitch = (e) => { 
+        setDisableAccountEnabled(e);
     }
 
-    readProfileConfigurations();
-    const currentUserConfigStatus = JSON.parse(localStorage.getItem("user_info_profileSettings"));
-
-    const [email2FAEnabled, setEmail2FAEnabled] = useState(currentUserConfigStatus.email_auth);
-    const [phone2FAEnabled, setPhone2FAEnabled] = useState(currentUserConfigStatus.phone_auth);
-    const [authenticationApp2FAEnabled, setAuthenticationApp2FAEnabled] = useState(currentUserConfigStatus.auth_app);
-    const [currentLocationEnabled, setCurrentLocationEnabled] = useState(currentUserConfigStatus.set_location);
-    const [disableAccountEnabled, setDisableAccountEnabled] = useState(currentUserConfigStatus.disable_account);
-
-    async function handleEmailToggleSwitch(status) { 
-        setEmail2FAEnabled(status);
-        updateProfileConfigurations();
+    const updateProfileConfigurations = async () => {
+        const settingsStatus = ({"email_auth": email2FAEnabled, "phone_auth":phone2FAEnabled,
+         "auth_app": authenticationApp2FAEnabled, "set_location": currentLocationEnabled, 
+         "disable_account": disableAccountEnabled });
+        await userProfileSettingsUpdate(userID, settingsStatus);
+        alert("Settings applied successfully");
+        window.location.reload();
     }
-    async function handlePhoneToggleSwitch(status) { 
-        setPhone2FAEnabled(status); 
-        updateProfileConfigurations();
-    }
-    async function handleAuthenticationAppToggleSwitch(status) { 
-        setAuthenticationApp2FAEnabled(status);
-        updateProfileConfigurations();
-    }
-    async function handleCurrentLocationToggleSwitch(status) {
-        setCurrentLocationEnabled(status);
-        updateProfileConfigurations();
-    }
-    async function handleDisableAccountToggleSwitch(status) {
-        setDisableAccountEnabled(status);
-        updateProfileConfigurations();
-    }
-
-    async function updateProfileConfigurations() {
-    //     const settingsStatus = await userProfileSettingsUpdate ({user_id, email2FAEnabled, phone2FAEnabled, authenticationApp2FAEnabled, currentLocationEnabled, disableAccountEnabled });
-    //     console.log(settingsStatus);
-    }
-
 
     return (
         <div className='profileSettings'>
-            <h2> Profile Settings </h2>
+            <div className='save-profile-settings-button'>
+                <h2> Profile Settings </h2>
+                <button type='button' onClick={updateProfileConfigurations}> Save Notifications </button>
+            </div>
             <div className='profileSettings-general'>
                 <h3> General </h3>
-                <form className='profileSettings-general-form' onSubmit={updateProfileConfigurations}>
+                <form className='profileSettings-general-form'>
                     <li> Full Name: <input placeholder={userData.firstName + " " + userData.lastName} disabled/> </li>
                     <li> Email: <input placeholder={userData.email} disabled/> </li>
                     <li> Address: <input placeholder={userData.location || "No address inputted"} disabled/> </li>
@@ -80,7 +81,7 @@ function ProfileSettings() {
             </div>
             <div className='profileSettings-setPassword'>
                 <h3> Set Password </h3>
-                <form className='profileSettings-setPassword-form' onSubmit={updateProfileConfigurations}>
+                <form className='profileSettings-setPassword-form'>
                     <li> New Password <input/> </li>
                     <li> Confirm Password: <input/> </li>
                     <button id="updateButtons" onClick={() => alert("Your Password has been updated.")}> UPDATE </button>

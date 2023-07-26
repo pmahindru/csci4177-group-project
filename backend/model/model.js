@@ -104,6 +104,7 @@ const verifyCode = async (email, resetCode) => {
 
     const user = await collection.findOne({ email });
 
+    // DB connection closed.
     await client.close();
     return user && user.resetCode == resetCode;
   } catch (error) {
@@ -144,6 +145,7 @@ const checkEmailExists = async (data) => {
 
     const user = await collection.findOne(data);
 
+    // DB connection closed.
     await client.close();
     return !!user;
   } catch (error) {
@@ -556,6 +558,7 @@ const findUsers = async (query) => {
       .project({ email: 1, firstName: 1, lastName: 1, _id: 1 })
       .toArray();
 
+    // DB connection closed.
     await client.close();
 
     return users;
@@ -575,6 +578,7 @@ const addMessageModel = async (data) => {
 
     const addMessage = await collection.insertOne(data);
 
+    // DB connection closed.
     await client.close();
 
     return addMessage;

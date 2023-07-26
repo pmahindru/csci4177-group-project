@@ -37,9 +37,10 @@ app.delete(`${baseURL}/favourites/:favouriteId`, controller.deleteFavourite);
 app.get(`${baseURL}/track-orders/:userId`, controller.getTrackedOrders);
 
 app.get(`${baseURL}/profile_setting/:user_id`, controller.userProfileSettingsRead); //By Joel Kuruvilla
-app.put(`${baseURL}/profile_setting/`, controller.userProfileSettingsUpdate); //By Joel Kuruvilla
+app.put(`${baseURL}/profile_settings/:user_id`, controller.userProfileSettingsUpdate); //By Joel Kuruvilla
+
 app.get(`${baseURL}/notification_setting/:user_id`, controller.userNotificationSettingsRead); //By Joel Kuruvilla
-app.put(`${baseURL}/notification_setting/:user_id`, controller.userNotificationSettingsUpdate); //By Joel Kuruvilla
+app.put(`${baseURL}/notification_settings/:user_id`, controller.userNotificationSettingsUpdate); //By Joel Kuruvilla
 
 //api for add
 app.post(`${baseURL}/addmsg`, controller.addMessage);

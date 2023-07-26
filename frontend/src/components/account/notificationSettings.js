@@ -2,8 +2,8 @@
 /* Updated by Joel Kuruvilla for Assignment 3 | 2023-07-25 */
 import React, {useState, useEffect} from 'react';
 import './notificationSettings.css';
-import Switch from 'react-switch';
 import { userNotificationSettingsRead, userNotificationSettingsUpdate } from '../../api.js';
+import Switch from 'react-switch';
 
 function NotificationSettings() {
     const userData = JSON.parse(localStorage.getItem("user_info"));
@@ -130,7 +130,7 @@ function NotificationSettings() {
              </form>
              <div className='postAd-button'>
                     <button type='button' onClick={saveNotificationChanges}> Save Notifications </button>
-                </div>
+            </div>
         </div>
     );
 };
