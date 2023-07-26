@@ -561,6 +561,47 @@ const findUsers = async (query) => {
   }
 };
 
+const addMessageModel = async (data) => {
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("Chats-test");
+
+    const addMessage = await collection.insertOne(data);
+
+    await client.close();
+
+    return addMessage;
+  } catch (error) {
+    return error;
+  }
+};
+
+const findMessages = async (query) => {
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("Chats-test");
+
+    const messages = await collection
+      .find(query)
+      .sort({ updatedAt: 1 })
+      .toArray();
+
+    await client.close();
+
+    return messages;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   getAllUserSignup,
   registerUser,
