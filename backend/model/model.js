@@ -1,3 +1,4 @@
+// Created by Pranav Mahindru
 // CRUD operations referred from MongoDB
 // URL: https://mongodb.github.io/node-mongodb-native/3.0/reference/ecmascriptnext/crud/
 // Date Accessed: 07/23/2023
@@ -604,46 +605,6 @@ const findMessages = async (query) => {
   }
 };
 
-// add new post Ad (pranav mahindru)
-const addNewPostAd = async (data) => {
-    try {
-      // connection with db
-      await client.connect();
-
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("post_ad");
-
-      const postedAd = await collection.insertOne(data);
-
-      await client.close();
-
-      return postedAd;
-    } catch (error) {
-      return error;
-    }
-}
-
-// get all post Ad (pranav mahindru)
-const getAllPostedAd = async (data) => {
-    try {
-      // connection with db
-      await client.connect();
-
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("post_ad");
-
-      const postedAd = await collection.find(data).toArray();
-
-      await client.close();
-
-      return postedAd;
-    } catch (error) {
-      return error;
-    }
-}
-
 // save post Ad (pranav mahindru)
 const savePostAd = async (data) => {
     try {
@@ -684,8 +645,8 @@ const getAllSavePostedAd = async (data) => {
     }
 }
 
-// get all posted Ad (pranav mahindru)
-const getPostAdWithId = async (data) => {
+// get all post Ad (pranav mahindru)
+const getAllPostedAd = async (data) => {
     try {
       // connection with db
       await client.connect();
@@ -695,6 +656,26 @@ const getPostAdWithId = async (data) => {
       const collection = db.collection("post_ad");
 
       const postedAd = await collection.find(data).toArray();
+
+      await client.close();
+
+      return postedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
+// add new post Ad (pranav mahindru)
+const addNewPostAd = async (data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("post_ad");
+
+      const postedAd = await collection.insertOne(data);
 
       await client.close();
 
@@ -719,6 +700,26 @@ const updatePostWithId = async (idObject, data) => {
       await client.close();
 
       return updatepostedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all update posted Ad (pranav mahindru)
+const deletePostWithId = async (idObject) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("post_ad");
+
+      const deletePostWithId = await collection.deleteOne(idObject);
+
+      await client.close();
+
+      return deletePostWithId;
     } catch (error) {
       return error;
     }
@@ -756,6 +757,6 @@ module.exports = {
     findMessages,
     findUsers,
     getAllSavePostedAd,
-    getPostAdWithId,
     updatePostWithId,
+    deletePostWithId,
 }

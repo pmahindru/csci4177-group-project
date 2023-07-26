@@ -1,3 +1,4 @@
+// Created by Pranav Mahindru
 // try catch referred from mdn web docs
 // URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
 // Date Accessed: 07/23/2023
@@ -337,6 +338,16 @@ export const updatePostAd = async (data) => {
     try {
       const { _id, ...object } = data;
       const res = await axios.put(`${baseURL}/seller/updatePostWithId/${_id}`, object);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// delete the POST ADD APIs CALL (Pranav Mahindru)
+export const deletePostAd = async (postId) => {
+    try {
+      const res = await axios.delete(`${baseURL}/seller/deletePostWithId/${postId}`);
       return res.data;
     } catch (error) {
       return error

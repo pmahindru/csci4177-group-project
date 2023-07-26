@@ -1,3 +1,4 @@
+// Created by Pranav Mahindru
 // status codes referred from educative
 // URL: https://www.educative.io/answers/how-to-use-the-nodejs-httpserverresponsestatuscode-property
 // Date Accessed: 07/23/2023
@@ -437,107 +438,117 @@ const getAllUsers = async (req, res, next) => {
 // add new post Ad (Pranav Mahindru)
 const addNewPostAd = async (req,res) => {
     try {
-        if (Object.keys(req.body).length === 0) {
-            res.status(401).json({message: "Invalid Input"});
-            return;
-        }
+      if (Object.keys(req.body).length === 0) {
+          res.status(401).json({message: "Invalid Input"});
+          return;
+      }
 
-        const add_new_post = {
-            "_id" : uuid.v4(),
-            "user_id": req.body.user_id,
-            "category" : req.body.category,
-            "condition" : req.body.condition,
-            "description" : req.body.description,
-            "image" : req.body.image,
-            "location" : req.body.location,
-            "payments_type" : req.body.payments_type,
-            "price" : req.body.price,
-            "prod_tags" : req.body.prod_tags,
-            "title" : req.body.title,
-            "type" : req.body.type,
-            "status" : req.body.status,
-            'isActive' : req.body.isActive,
-            'product_status' : req.body.product_status
-        };
-        // send to the model
-        await model.addNewPostAd(add_new_post);
-        res.status(200).json({message: "Successfully Add New Ad"});
+      const add_new_post = {
+          "_id" : uuid.v4(),
+          "user_id": req.body.user_id,
+          "category" : req.body.category,
+          "condition" : req.body.condition,
+          "description" : req.body.description,
+          "image" : req.body.image,
+          "location" : req.body.location,
+          "payments_type" : req.body.payments_type,
+          "price" : req.body.price,
+          "prod_tags" : req.body.prod_tags,
+          "title" : req.body.title,
+          "type" : req.body.type,
+          "status" : req.body.status,
+          'isActive' : req.body.isActive,
+          'product_status' : req.body.product_status
+      };
+      // send to the model
+      await model.addNewPostAd(add_new_post);
+      res.status(200).json({message: "Successfully Add New Ad"});
     } catch (error) {
-        res.status(500).json(error);
+      res.status(500).json(error);
     }
 }
 
 // save post Ad (Pranav Mahindru)
 const savePostAd = async (req,res) => {
     try {
-        if (Object.keys(req.body).length === 0) {
-            res.status(401).json({message: "Invalid Input"});
-            return;
-        }
+      if (Object.keys(req.body).length === 0) {
+          res.status(401).json({message: "Invalid Input"});
+          return;
+      }
 
-        const save_post = {
-            "_id" : uuid.v4(),
-            "user_id": req.body.user_id,
-            "category" : req.body.category,
-            "condition" : req.body.condition,
-            "description" : req.body.description,
-            "image" : req.body.image,
-            "location" : req.body.location,
-            "payments_type" : req.body.payments_type,
-            "price" : req.body.price,
-            "prod_tags" : req.body.prod_tags,
-            "title" : req.body.title,
-            "type" : req.body.type,
-            "status" : req.body.status,
-            'isActive' : req.body.isActive,
-            'product_status' : req.body.product_status
-        };
+      const save_post = {
+          "_id" : uuid.v4(),
+          "user_id": req.body.user_id,
+          "category" : req.body.category,
+          "condition" : req.body.condition,
+          "description" : req.body.description,
+          "image" : req.body.image,
+          "location" : req.body.location,
+          "payments_type" : req.body.payments_type,
+          "price" : req.body.price,
+          "prod_tags" : req.body.prod_tags,
+          "title" : req.body.title,
+          "type" : req.body.type,
+          "status" : req.body.status,
+          'isActive' : req.body.isActive,
+          'product_status' : req.body.product_status
+      };
         
-        // send to the model
-        await model.savePostAd(save_post);
-        res.status(200).json({message: "Successfully Save Ad"});
+      // send to the model
+      await model.savePostAd(save_post);
+      res.status(200).json({message: "Successfully Save Ad"});
     } catch (error) {
-        res.status(500).json(error);
-    }
-}
-
-// get all posted Ad (Pranav Mahindru)
-const getAllPostedAd = async (req,res) => {
-    try {
-        const data = await model.getAllPostedAd({"user_id": req.body.user_id});
-        res.status(200).json(data);
-    } catch (error) {
-        res.status(500).json(error);
+      res.status(500).json(error);
     }
 }
 
 // get all posted Ad (Pranav Mahindru)
 const getAllSavePostedAd = async (req,res) => {
     try {
-        const data = await model.getAllSavePostedAd({"user_id": req.body.user_id});
-        res.status(200).json(data);
+      const data = await model.getAllSavePostedAd({"user_id": req.body.user_id});
+      res.status(200).json(data);
     } catch (error) {
-        res.status(500).json(error);
+      res.status(500).json(error);
+    }
+}
+
+// get all posted Ad (Pranav Mahindru)
+const getAllPostedAd = async (req,res) => {
+    try {
+      const data = await model.getAllPostedAd({"user_id": req.body.user_id, "isActive": req.body.isActive});
+      res.status(200).json(data);
+    } catch (error) {
+      res.status(500).json(object);
     }
 }
 
 // get posted Ad with specific Id (Pranav Mahindru)
 const getPostAdWithId = async (req,res) => {
     try {
-        const data = await model.getPostAdWithId({"_id": req.params.postId});
-        res.status(200).json(data);
+      const data = await model.getAllPostedAd({"_id": req.params.postId});
+      res.status(200).json(data);
     } catch (error) {
-        res.status(500).json(error);
+      res.status(500).json(error);
     }
 }
 
 // get posted Ad with specific Id (Pranav Mahindru)
 const updatePostWithId = async (req,res) => {
     try {
-        await model.updatePostWithId({"_id": req.params.postId}, {$set: req.body});
-        res.status(200).json({message: "Successfully Update Ad"});
+      await model.updatePostWithId({"_id": req.params.postId}, {$set: req.body});
+      res.status(200).json({message: "Successfully Update Ad"});
     } catch (error) {
-        res.status(500).json(error);
+      res.status(500).json(error);
+    }
+}
+
+// delete posted Ad with specific Id (Pranav Mahindru)
+const deletePostWithId = async (req,res) => {
+    try {
+      await model.deletePostWithId({"_id": req.params.postId});
+      res.status(200).json({message: "Successfully Delete Ad"});
+    } catch (error) {
+      res.status(500).json(error);
     }
 }
 
@@ -574,4 +585,6 @@ module.exports = {
     addMessage,
     getMessages,
     getAllUsers,
+    deletePostWithId,
+
 }

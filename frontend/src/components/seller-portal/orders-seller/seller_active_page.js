@@ -1,7 +1,7 @@
 /* Created By: Pranav Mahindru*/
 import "./orders_seller.css";
 import React, { useState, useEffect } from "react";
-import { getAllPostedAd } from "../../../api";
+import { deletePostAd, getAllPostedAd } from "../../../api";
 import ReactLoading from "react-loading";
 import { useNavigate } from "react-router-dom";
 
@@ -73,7 +73,7 @@ function SellerActivePage() {
     };
 
     const navigate = useNavigate();
-    const handleSelected = (e, itemId, itemTitle) => {
+    const handleSelected = async (e, itemId, itemTitle) => {
         alert(`${e.target.value} this ${itemTitle} Ad`);
         if (e.target.value === "edit") {
             navigate(`/edit/${itemId}`)
@@ -86,13 +86,21 @@ function SellerActivePage() {
             window.location.reload();
         }
         else{
-            window.location.reload();
+            const res = await deletePostAd(itemId);
+            if (res.response === undefined) {
+                alert(res.message);
+                window.location.reload();
+            } 
+            else {
+                alert(res.message);
+                window.location.reload();
+            }
         }
     };
 
     useEffect(() => {
         const getData = async () => {
-            const res = await getAllPostedAd({"user_id": user_data["_id"]});
+            const res = await getAllPostedAd({"user_id": user_data["_id"], "isActive": true});
             if (!res.address) {
                 setArrayObjects(res);
                 setLoading(false);
@@ -112,58 +120,64 @@ function SellerActivePage() {
                 </div>
             ) : (
                 <div className='order-seller-page-section3'>
-                    {getArrayObjects.map((item, index) => {
-                        return(
-                            <div className='order-page-section4' key={item._id}>
-                                {/* image slider */}
-                                <div className="seller-image-slider">
-                                    {item.image.map((getImage, index) => (
-                                        <div className="slides" key={index}>
-                                            {imageSliderObject.some(objectItem => objectItem.prodID === item._id) ? (
-                                                imageSliderObject.map(objectItem => {
-                                                    if (objectItem.prodID === item._id) {
-                                                        return (
-                                                            <img src={item.image[objectItem.pos]} alt={`images${index+1}`} key={index+1}/>
-                                                        );
-                                                    }
-                                                    return null;
-                                                })
-                                            ) : (
-                                                <img src={item.image[0]} alt={`images${index+1}`} key={index}/>
-                                            )}
-                                            <div className="seller-image-button">
-                                                <button onClick={() => handlePreviousImage(item.image.length, item._id)}>{"<"}</button>
-                                                <button onClick={() => handleNextImage(item.image.length, item._id)}>{">"}</button>
+                    {getArrayObjects.length > 0 ? (
+                        getArrayObjects.map((item, index) => {
+                            return(
+                                <div className='order-page-section4' key={item._id}>
+                                    {/* image slider */}
+                                    <div className="seller-image-slider">
+                                        {item.image.map((getImage, index) => (
+                                            <div className="slides" key={index}>
+                                                {imageSliderObject.some(objectItem => objectItem.prodID === item._id) ? (
+                                                    imageSliderObject.map(objectItem => {
+                                                        if (objectItem.prodID === item._id) {
+                                                            return (
+                                                                <img src={item.image[objectItem.pos]} alt={`images${index+1}`} key={index+1}/>
+                                                            );
+                                                        }
+                                                        return null;
+                                                    })
+                                                ) : (
+                                                    <img src={item.image[0]} alt={`images${index+1}`} key={index}/>
+                                                )}
+                                                <div className="seller-image-button">
+                                                    <button onClick={() => handlePreviousImage(item.image.length, item._id)}>{"<"}</button>
+                                                    <button onClick={() => handleNextImage(item.image.length, item._id)}>{">"}</button>
+                                                </div>
                                             </div>
+                                        ))}
+                                    </div>
+                                    <div className='order-seller-page-section5'>
+                                        <b>Name: {item.title}</b>
+                                    </div>
+                                    <div className='order-seller-page-section5'>
+                                        <b>Description: {item.description}</b>
+                                    </div>
+                                    <div className='order-seller-page-section5'>
+                                        <b>Active: {item.isActive ? ("Yes") : ("No")}</b>
+                                    </div>
+                                    <div className='order-seller-page-section5'>
+                                        <b>Status: {item.status}</b>
+                                    </div>
+                                    <div className='order-seller-page-section5'>
+                                        <div className="seller-order-dropdown">
+                                            <select value={selectDropdownOption} onChange={(e) => handleSelected(e, item._id, item.title)}>
+                                                <option value="" disabled> Please select the option </option>
+                                                <option value="edit"> Edit </option>
+                                                <option value="delete"> Delete </option>
+                                                <option value="pause"> Pause </option>
+                                                <option value="share"> Share </option>
+                                            </select>
                                         </div>
-                                    ))}
-                                </div>
-                                <div className='order-seller-page-section5'>
-                                    <b>Name: {item.title}</b>
-                                </div>
-                                <div className='order-seller-page-section5'>
-                                    <b>Description: {item.description}</b>
-                                </div>
-                                <div className='order-seller-page-section5'>
-                                    <b>Active: {item.isActive ? ("Yes") : ("No")}</b>
-                                </div>
-                                <div className='order-seller-page-section5'>
-                                    <b>Status: {item.status}</b>
-                                </div>
-                                <div className='order-seller-page-section5'>
-                                    <div className="seller-order-dropdown">
-                                        <select value={selectDropdownOption} onChange={(e) => handleSelected(e, item._id, item.title)}>
-                                            <option value="" disabled> Please select the option </option>
-                                            <option value="edit"> Edit </option>
-                                            <option value="delete"> Delete </option>
-                                            <option value="pause"> Pause </option>
-                                            <option value="share"> Share </option>
-                                        </select>
                                     </div>
                                 </div>
-                            </div>
-                        );
-                    })}
+                            );
+                        })
+                    ) : (
+                        <div className='order-page-section4'>
+                            No Ads is Active
+                        </div>
+                    )}
                 </div>
             )}
         </div>

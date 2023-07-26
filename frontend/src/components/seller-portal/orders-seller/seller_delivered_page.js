@@ -23,8 +23,8 @@ function SellerDeliveredPage() {
             <div className='order-seller-page-section2'>
                 <h2>Delivered Ads</h2>
             </div>
-             <div className='order-seller-page-section3'>
-                <h2>Active Ads</h2>
+            <div className='order-page-section4'>
+                No delivery's
             </div>
         </div>
     );

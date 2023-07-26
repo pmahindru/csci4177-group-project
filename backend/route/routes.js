@@ -1,3 +1,4 @@
+// Created by Pranav Mahindru
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -45,6 +46,6 @@ app.post(`${baseURL}/seller/getPost`, controller.getAllPostedAd);
 app.post(`${baseURL}/seller/getSavePost`, controller.getAllSavePostedAd);
 app.post(`${baseURL}/seller/getPostAdWithId/:postId`, controller.getPostAdWithId);
 app.put(`${baseURL}/seller/updatePostWithId/:postId`, controller.updatePostWithId);
-
+app.delete(`${baseURL}/seller/deletePostWithId/:postId`, controller.deletePostWithId);
 
 module.exports = app;
