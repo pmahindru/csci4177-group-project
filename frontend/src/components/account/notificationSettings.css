@@ -1,0 +1,62 @@
+/* Created By: Joel Kuruvilla | 2023-07-25 */
+.notificationSettings {
+    margin: 2% 12%;
+}
+
+.notificationSettings-form {
+    font-size: 22px;
+    text-transform: capitalize;
+    padding: 1% 0%;
+}
+
+.notificationSettings-form > li {
+    list-style: none;
+    background-color: lightgray;
+    margin: 3px;
+    padding: 3vh;
+}
+.notificationSettings-toggle {
+    float: right;
+}
+
+/* All forms - Save Button */
+.save-profile-settings-button {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.save-profile-settings-button > button {
+    padding: 8px;
+    margin: 0 10px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.save-profile-settings-button > button a {
+    color: black;
+    text-decoration: none;
+}
+
+
+@media (max-width: 805px) {
+    .notificationSettings-form {
+        font-size: 20px;
+    }
+
+    .notificationSettings {
+        margin-top: 12vh;
+    }
+}
+
+@media (max-width: 450px) {
+    .notificationSettings-form {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 265px) {
+    .notificationSettings-form {
+        font-size: 7px;
+    }
+}

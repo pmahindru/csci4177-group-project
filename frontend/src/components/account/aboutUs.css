@@ -1,46 +1,46 @@
 /* Created By: Joel Kuruvilla | 2023-June-18 */
-.AboutUs {
+.aboutUs {
     text-align: center;
     height: fit-content;
     padding: 1vh 7%;
     margin: 5px 10%;
 }
 
-.AboutUs>.AboutUs_Titles {
+.aboutUs>.aboutUs-titles {
     /*[TLBR]*/
     margin: 5vh 0 1% 0;
 }
 
-.AboutUs>.AboutUs_ContentMain {
+.aboutUs>.aboutUs-content-main {
     margin: 0vh 7%;
     line-height: 1.5;
 }
 
-.AboutUs>.AboutUs_ContentTeam {
+.aboutUs>.aboutUs-content-team {
     list-style: none;
     margin: 1vh;
     padding: 0%;
 }
 
-.AboutUs>.AboutUs_ContentDisclaimers {
+.aboutUs>.aboutUs-content-disclaimers {
     margin: 5%;
     font-size: 90%;
 }
 
 @media (max-width: 805px) {
-    .AboutUs {
+    .aboutUs {
         margin: 7vh 10%;
     }
 }
 
 @media (max-width: 370px) {
-    .AboutUs>.AboutUs_Titles {
+    .aboutUs>.aboutUs-titles {
         font-size: 24px;
     }
 }
 
 @media (max-width: 280px) {
-    .AboutUs>.AboutUs_Titles {
+    .aboutUs>.aboutUs-titles {
         font-size: 22px;
     }
 }

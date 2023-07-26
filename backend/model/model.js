@@ -43,9 +43,53 @@ const registerUser = async (data) => {
     const collection = db.collection("Signup");
 
     const addUser = await collection.insertOne(data);
+    await registerUser_userDefaultSettingConfigs(data._id)
 
     await client.close();
     return addUser;
+  } catch (error) {
+    return error;
+  }
+};
+// Registration API extension for ProfileConfigs | By Joel Kuruvilla
+const registerUser_userDefaultSettingConfigs = async (userID) => {
+  try {
+    await client.connect();
+
+    // calling the db and the collections
+    const db = client.db("User_Management");
+    const collectionProfile = db.collection("Profile");
+    const collectionNotification = db.collection("ProfileNotifications");
+     
+    const addUserProfileConfig = await collectionProfile.insertOne(
+      {
+        "_id": userID,
+        "user_id": userID,
+        "auth_app": false,
+        "disable_account": false,
+        "email_auth": false,
+        "phone_auth": false,
+        "set_location": false,
+        "user_online_status": false,
+      }
+    );
+    const addUserNotificationConfig = await collectionNotification.insertOne(
+      {
+        "_id": userID,
+        "user_id": userID,
+        "notify_all": false,
+        "notify_inbox_messages": false,
+        "notify_order_messages": false,
+        "notify_order_updates": false,
+        "notify_ratings_reviews": false,
+        "notify_sounds": false,
+        "notify_email": false,
+        "notify_phone": false
+      }
+    );
+
+    await client.close();
+    return addUserProfileConfig, addUserNotificationConfig;
   } catch (error) {
     return error;
   }
@@ -104,6 +148,7 @@ const verifyCode = async (email, resetCode) => {
 
     const user = await collection.findOne({ email });
 
+    // DB connection closed.
     await client.close();
     return user && user.resetCode == resetCode;
   } catch (error) {
@@ -144,6 +189,7 @@ const checkEmailExists = async (data) => {
 
     const user = await collection.findOne(data);
 
+    // DB connection closed.
     await client.close();
     return !!user;
   } catch (error) {
@@ -556,6 +602,7 @@ const findUsers = async (query) => {
       .project({ email: 1, firstName: 1, lastName: 1, _id: 1 })
       .toArray();
 
+    // DB connection closed.
     await client.close();
 
     return users;
@@ -575,6 +622,7 @@ const addMessageModel = async (data) => {
 
     const addMessage = await collection.insertOne(data);
 
+    // DB connection closed.
     await client.close();
 
     return addMessage;
@@ -600,6 +648,101 @@ const findMessages = async (query) => {
     await client.close();
 
     return messages;
+  } catch (error) {
+    return error;
+  }
+};
+/* User Profile Settings READ and UPDATE Models | By: Joel Kuruvilla */
+const userProfileSettingsReadModel = async (userID) => { //Profile READ Model | Joel Kuruvilla
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("User_Management");
+    const collection = db.collection("Profile");
+
+    const userProfileSettingData = await collection.findOne(userID);
+
+    await client.close();
+
+    return userProfileSettingData;
+  } catch (error) {
+    return error;
+  }
+};
+const userProfileSettingsUpdateModel = async (userID, dataToUpdate) => { //Profile UPDATE Model | Joel Kuruvilla
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("User_Management");
+    const collection = db.collection("Profile");
+
+    const porfileSettingsData = await collection.updateOne({"user_id": userID}, {$set: dataToUpdate});
+
+    await client.close();
+
+    return porfileSettingsData;
+  } catch (error) {
+    return error;
+  }
+};
+
+/* User Signup UPDATE Models | By: Joel Kuruvilla */
+const signupUpdateModel = async (userID, dataToUpdate) => { //Signup UPDATE Model | Joel Kuruvilla
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("User_Management");
+    const collection = db.collection("Signup");
+
+    const porfileSettingsData = await collection.updateOne({"_id": userID}, {$set: dataToUpdate});
+
+    await client.close();
+
+    return porfileSettingsData;
+  } catch (error) {
+    return error;
+  }
+}
+
+/* User Notification Settings READ and UPDATE Models | By: Joel Kuruvilla */
+const userNotificationSettingsReadModel = async (userID) => { //Notifications READ Model | Joel Kuruvilla
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("User_Management");
+    const collection = db.collection("ProfileNotifications");
+
+    const userNotificationSettingData = await collection.findOne(userID);
+
+    await client.close();
+
+    return userNotificationSettingData;
+  } catch (error) {
+    return error;
+  }
+};
+const userNotificationSettingsUpdateModel = async (userID, dataToUpdate) => { //Notifications UPDATE Model | Joel Kuruvilla
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("User_Management");
+    const collection = db.collection("ProfileNotifications");
+
+    const notificationSettingsData = await collection.updateOne({"user_id": userID}, {$set: dataToUpdate});
+
+    await client.close();
+
+    return notificationSettingsData;
   } catch (error) {
     return error;
   }
@@ -811,40 +954,46 @@ const deleteSaveWithId = async (idObject) => {
 }
 
 module.exports = {
-    getAllUserSignup,
-    registerUser,
-    loginUserModel,
-    getAllPostedAd,
-    addNewPostAd,
-    savePostAd,
-    saveResetCode,
-    verifyCode,
-    saveNewPassword,
-    checkEmailExists,
-    getOrderHistory,
-    getPayments,
-    createPayment,
-    editPayment,
-    deletePaymentMethod,
-    getReviews,
-    getCart,
-    deleteCartItem,
-    getFavourites,
-    deleteFavourite,
-    createReview,
-    getReview,
-    editReview,
-    getTrackedOrders,
-    createOrder,
-    createFavourite,
-    createCartItem,
-    addMessageModel,
-    findMessages,
-    findUsers,
-    getAllSavePostedAd,
-    updatePostWithId,
-    deletePostWithId,
-    pausePostAdWithId,
-    previewSavePostAd,
-    deleteSaveWithId,
-}
+  getAllUserSignup,
+  registerUser,
+  registerUser_userDefaultSettingConfigs,
+  loginUserModel,
+  saveResetCode,
+  verifyCode,
+  saveNewPassword,
+  checkEmailExists,
+  getOrderHistory,
+  getPayments,
+  createPayment,
+  editPayment,
+  deletePaymentMethod,
+  getReviews,
+  getCart,
+  deleteCartItem,
+  getFavourites,
+  deleteFavourite,
+  createReview,
+  getReview,
+  editReview,
+  getTrackedOrders,
+  createOrder,
+  createFavourite,
+  createCartItem,
+  addMessageModel,
+  findMessages,
+  findUsers,
+  userProfileSettingsReadModel,
+  userProfileSettingsUpdateModel,
+  signupUpdateModel,
+  userNotificationSettingsReadModel,
+  userNotificationSettingsUpdateModel,
+  savePostAd,
+  getAllSavePostedAd,
+  getAllPostedAd,
+  pausePostAdWithId,
+  addNewPostAd,
+  updatePostWithId,
+  previewSavePostAd,
+  deletePostWithId,
+  deleteSaveWithId,
+};

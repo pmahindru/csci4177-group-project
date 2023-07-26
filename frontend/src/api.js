@@ -383,4 +383,54 @@ export const deleteSavePostAd = async (postId) => {
     } catch (error) {
       return error
     }
-}
+};
+
+/* User Profile Settings APIs | By: Joel Kuruvilla | 2023-07-26 */
+//User Profile READ API:
+export const userProfileSettingsRead = async (userID) => { //By Joel Kuruvilla
+    try {
+      const res = await axios.get(`${baseURL}/profile_setting/${userID}`);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+};
+//User Profile UPDATE API:
+export const userProfileSettingsUpdate = async (userID, data) => { //By Joel Kuruvilla
+  try {
+    const res = await axios.put(`${baseURL}/profile_settings/${userID}`, data);
+    return res.data;
+  } catch (error) {
+    return error
+  }
+};
+
+/* User SignUp API | B: Joel Kuruvilla | 2023-07-26 */
+export const userSignUpUpdate = async (userID, data) => { //By Joel Kuruvilla
+  try {
+    const res = await axios.put(`${baseURL}/signup/${userID}`, data);
+    return res.data;
+  } catch (error) {
+    return error
+  }
+};
+
+/* User Notification Settings APIs | By: Joel Kuruvilla | 2023-07-26 */
+//User Notification READ API:
+export const userNotificationSettingsRead = async (userID) => { //By Joel Kuruvilla
+  try {
+    const res = await axios.get(`${baseURL}/notification_setting/${userID}`);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
+//User Notification UPDATE API:
+export const userNotificationSettingsUpdate = async (userID, data) => { //By Joel Kuruvilla
+  try {
+    const res = await axios.put(`${baseURL}/notification_settings/${userID}`, data);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
