@@ -89,7 +89,7 @@ const registerUser_userDefaultSettingConfigs = async (userID) => {
     );
 
     await client.close();
-    return addUser;
+    return addUserProfileConfig, addUserNotificationConfig;
   } catch (error) {
     return error;
   }
@@ -690,6 +690,26 @@ const userProfileSettingsUpdateModel = async (userID, dataToUpdate) => { //Profi
   }
 };
 
+/* User Signup UPDATE Models | By: Joel Kuruvilla */
+const signupUpdateModel = async (userID, dataToUpdate) => { //Signup UPDATE Model | Joel Kuruvilla
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("User_Management");
+    const collection = db.collection("Signup");
+
+    const porfileSettingsData = await collection.updateOne({"_id": userID}, {$set: dataToUpdate});
+
+    await client.close();
+
+    return porfileSettingsData;
+  } catch (error) {
+    return error;
+  }
+}
+
 /* User Notification Settings READ and UPDATE Models | By: Joel Kuruvilla */
 const userNotificationSettingsReadModel = async (userID) => { //Notifications READ Model | Joel Kuruvilla
   try {
@@ -934,44 +954,37 @@ const deleteSaveWithId = async (idObject) => {
 }
 
 module.exports = {
-    getAllUserSignup,
-    registerUser,
-    loginUserModel,
-    getAllPostedAd,
-    addNewPostAd,
-    savePostAd,
-    saveResetCode,
-    verifyCode,
-    saveNewPassword,
-    checkEmailExists,
-    getOrderHistory,
-    getPayments,
-    createPayment,
-    editPayment,
-    deletePaymentMethod,
-    getReviews,
-    getCart,
-    deleteCartItem,
-    getFavourites,
-    deleteFavourite,
-    createReview,
-    getReview,
-    editReview,
-    getTrackedOrders,
-    createOrder,
-    createFavourite,
-    createCartItem,
-    addMessageModel,
-    findMessages,
-    findUsers,
-    getAllSavePostedAd,
-    updatePostWithId,
-    deletePostWithId,
-    pausePostAdWithId,
-    previewSavePostAd,
-    deleteSaveWithId,
-    userProfileSettingsReadModel,
-    userProfileSettingsUpdateModel,
-    userNotificationSettingsReadModel,
-    userNotificationSettingsUpdateModel,
+  getAllUserSignup,
+  registerUser,
+  registerUser_userDefaultSettingConfigs,
+  loginUserModel,
+  saveResetCode,
+  verifyCode,
+  saveNewPassword,
+  checkEmailExists,
+  getOrderHistory,
+  getPayments,
+  createPayment,
+  editPayment,
+  deletePaymentMethod,
+  getReviews,
+  getCart,
+  deleteCartItem,
+  getFavourites,
+  deleteFavourite,
+  createReview,
+  getReview,
+  editReview,
+  getTrackedOrders,
+  createOrder,
+  createFavourite,
+  createCartItem,
+  addMessageModel,
+  findMessages,
+  findUsers,
+  userProfileSettingsReadModel,
+  userProfileSettingsUpdateModel,
+  signupUpdateModel,
+  userNotificationSettingsReadModel,
+  userNotificationSettingsUpdateModel,
 };

@@ -39,6 +39,8 @@ app.get(`${baseURL}/track-orders/:userId`, controller.getTrackedOrders);
 app.get(`${baseURL}/profile_setting/:userID`, controller.userProfileSettingsRead); //By Joel Kuruvilla
 app.put(`${baseURL}/profile_settings/:userID`, controller.userProfileSettingsUpdate); //By Joel Kuruvilla
 
+app.put(`${baseURL}/signup/:userID`, controller.signupUpdate); //By Joel Kuruvilla
+
 app.get(`${baseURL}/notification_setting/:userID`, controller.userNotificationSettingsRead); //By Joel Kuruvilla
 app.put(`${baseURL}/notification_settings/:userID`, controller.userNotificationSettingsUpdate); //By Joel Kuruvilla
 

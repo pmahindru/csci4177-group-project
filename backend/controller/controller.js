@@ -610,6 +610,19 @@ const userProfileSettingsUpdate = async (req, res) => { //Profile UPDATE Control
   }
 };
 
+/* User SignUp UPDATE Controller | By: Joel Kuruvilla */
+const signupUpdate = async (req, res) => { //SignUp Controller | Joel Kuruvilla
+  try {
+    const userID = req.params.userID;
+    const dataToUpdate = req.body;
+    const settingChanges = await model.signupUpdateModel(userID, dataToUpdate);
+    return res.json(settingChanges);
+  } 
+  catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 /* User Notification Settings READ and UPDATE ControllerS | By: Joel Kuruvilla */
 const userNotificationSettingsRead = async (req, res) => { //Notifications READ Controller | Joel Kuruvilla
   try {
@@ -633,44 +646,35 @@ const userNotificationSettingsUpdate = async (req, res) => { //Notifications UPD
 };
 
 module.exports = {
-    getSignUpUser,
-    registerUser,
-    loginUser,
-    getAllPostedAd,
-    addNewPostAd,
-    savePostAd,
-    updatePostWithId,
-    generateResetCode,
-    getAllSavePostedAd,
-    getPostAdWithId,
-    verifyResetCode,
-    resetNewPassword,
-    getOrderHistory,
-    createOrder,
-    getPayments,
-    editPayment,
-    deletePaymentMethod,
-    createPayment,
-    getCart,
-    deleteCartItem,
-    getFavourites,
-    deleteFavourite,
-    getReviews,
-    createReview,
-    getReview,
-    editReview,
-    getTrackedOrders,
-    createFavourite,
-    createCartItem,
-    addMessage,
-    getMessages,
-    getAllUsers,
-    deletePostWithId,
-    pausePostAdWithId,
-    previewSavePostAd,
-    deleteSaveWithId,
-    userProfileSettingsRead,
-    userProfileSettingsUpdate,
-    userNotificationSettingsRead,
-    userNotificationSettingsUpdate,
+  getSignUpUser,
+  registerUser,
+  loginUser,
+  getOrderHistory,
+  createOrder,
+  getPayments,
+  editPayment,
+  deletePaymentMethod,
+  createPayment,
+  getCart,
+  deleteCartItem,
+  getFavourites,
+  deleteFavourite,
+  getReviews,
+  createReview,
+  getReview,
+  editReview,
+  getTrackedOrders,
+  createFavourite,
+  createCartItem,
+  generateResetCode,
+  verifyResetCode,
+  resetNewPassword,
+  addMessage,
+  getMessages,
+  getAllUsers,
+  userProfileSettingsRead,
+  userProfileSettingsUpdate,
+  signupUpdate,
+  userNotificationSettingsRead,
+  userNotificationSettingsUpdate,
 };

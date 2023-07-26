@@ -394,7 +394,7 @@ export const userProfileSettingsRead = async (userID) => { //By Joel Kuruvilla
     } catch (error) {
       return error
     }
-}
+};
 //User Profile UPDATE API:
 export const userProfileSettingsUpdate = async (userID, data) => { //By Joel Kuruvilla
   try {
@@ -403,7 +403,17 @@ export const userProfileSettingsUpdate = async (userID, data) => { //By Joel Kur
   } catch (error) {
     return error
   }
-}
+};
+
+/* User SignUp API | B: Joel Kuruvilla | 2023-07-26 */
+export const userSignUpUpdate = async (userID, data) => { //By Joel Kuruvilla
+  try {
+    const res = await axios.put(`${baseURL}/signup/${userID}`, data);
+    return res.data;
+  } catch (error) {
+    return error
+  }
+};
 
 /* User Notification Settings APIs | By: Joel Kuruvilla | 2023-07-26 */
 //User Notification READ API:
@@ -414,13 +424,13 @@ export const userNotificationSettingsRead = async (userID) => { //By Joel Kuruvi
   } catch (error) {
     return error;
   }
-}
+};
 //User Notification UPDATE API:
-export const userNotificationSettingsUpdate  = async (userID, data) => { //By Joel Kuruvilla
+export const userNotificationSettingsUpdate = async (userID, data) => { //By Joel Kuruvilla
   try {
     const res = await axios.put(`${baseURL}/notification_settings/${userID}`, data);
     return res.data;
   } catch (error) {
     return error;
   }
-}
+};

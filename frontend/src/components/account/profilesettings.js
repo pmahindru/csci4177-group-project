@@ -2,7 +2,7 @@
 /* Updated by Joel Kuruvilla for Assignment 3 | 2023-07-25 */
 import React, {useState, useEffect} from 'react'
 import './profileSettings.css';
-import { userProfileSettingsRead, userProfileSettingsUpdate } from '../../api.js';
+import { userProfileSettingsRead, userProfileSettingsUpdate, userSignUpUpdate } from '../../api.js';
 import Switch from 'react-switch';
 
 function ProfileSettings() {
@@ -73,11 +73,10 @@ function ProfileSettings() {
     }
 
     const updateSignUpData_General = async () => {
-    //     const settingsStatus_general = ({"address": locationAddress, "phone": phoneNumber });
-        alert("General Settings have been updated!");// Logout and Relog back in to see changes!");
-    //     await userProfileSettingsUpdate(userID, settingsStatus_general);
-
-    //     // window.location.reload();
+        const settingsStatus_general = ({"address": locationAddress, "phone": phoneNumber });
+        alert("General Settings have been updated! Logout and Relog back in to see changes!");
+        await userSignUpUpdate(userID, settingsStatus_general);
+        window.location.reload();
     }
 
     const updateSignUpData_Password = async () => {}
