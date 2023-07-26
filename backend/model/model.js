@@ -987,4 +987,13 @@ module.exports = {
   signupUpdateModel,
   userNotificationSettingsReadModel,
   userNotificationSettingsUpdateModel,
+  savePostAd,
+  getAllSavePostedAd,
+  getAllPostedAd,
+  pausePostAdWithId,
+  addNewPostAd,
+  updatePostWithId,
+  previewSavePostAd,
+  deletePostWithId,
+  deleteSaveWithId,
 };
