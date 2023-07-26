@@ -56,11 +56,10 @@ app.put(
   controller.userNotificationSettingsUpdate
 ); //By Joel Kuruvilla
 
-//api for add
-app.post(`${baseURL}/addmsg`, controller.addMessage);
-app.post(`${baseURL}/getmsg`, controller.getMessages);
-app.get(`${baseURL}/allusers/:id`, controller.getAllUsers);
-
+//Chat Feature Routes
+app.post(`${baseURL}/addmsg`, controller.addMessage); //by Parth Patel
+app.post(`${baseURL}/getmsg`, controller.getMessages); //by Parth Patel
+app.get(`${baseURL}/allusers/:id`, controller.getAllUsers); //By Parth Patel
 // SELLER PORTAL ROUTES
 app.post(`${baseURL}/seller/addPost`, controller.addNewPostAd);
 app.post(`${baseURL}/seller/savePost`, controller.savePostAd);
