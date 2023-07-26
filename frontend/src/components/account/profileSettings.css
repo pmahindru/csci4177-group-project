@@ -52,7 +52,7 @@
 
 /* Set Password Settings Styling */
 .profileSettings-setPassword-form {
-    height: 10vh;
+    height: 15vh;
 }
 
 /* Two Factor Authentication Settings Styling */
@@ -169,7 +169,7 @@
 
     /* Set Password Settings Styling - @media */
     .profileSettings-setPassword-form {
-        height: 19vh;
+        height: 25vh;
     }
 
     /* Two Factor Authentication Settings Styling - @media */

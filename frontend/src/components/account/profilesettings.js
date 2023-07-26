@@ -79,7 +79,12 @@ function ProfileSettings() {
         window.location.reload();
     }
 
-    const updateSignUpData_Password = async () => {}
+    const updateSignUpData_Password = async () => {
+        // const settingsStatus_password = ({"password": });
+        alert("Your password has been updated! Logout and Relog back in to see changes!");
+        // await userSignUpUpdate(userID, settingsStatus_password);
+        window.location.reload();
+    }
 
     return (
         <div className='profileSettings'>
@@ -105,6 +110,7 @@ function ProfileSettings() {
             <div className='profileSettings-setPassword'>
                 <h3> Set Password </h3>
                 <form className='profileSettings-setPassword-form'>
+                    <li> Old Password <input/> </li>
                     <li> New Password <input/> </li>
                     <li> Confirm Password: <input/> </li>
                     <button id="updateButtons" onClick={updateSignUpData_Password}> UPDATE PASSWORD </button>
