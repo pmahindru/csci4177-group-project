@@ -7,7 +7,8 @@ import Box from '@mui/material/Box';
 const ResponsiveStarRatingDisplay = ({ value}) => {
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+   
+    <span sx={{ display: 'flex', alignItems: 'center' }}>
       <Rating name="responsive-rating" value={value} precision={0.5} readOnly sx={{
         fontSize: '10px',
         '@media (min-width: 600px)': {
@@ -20,7 +21,8 @@ const ResponsiveStarRatingDisplay = ({ value}) => {
           fontSize: '26px', 
         },
       }}/>
-    </Box>
+    </span>
+    
   );
 };
 

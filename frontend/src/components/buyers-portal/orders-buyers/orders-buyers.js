@@ -20,7 +20,8 @@ const OrdersBuyers = () => {
   return (
       <div className='order-seller-page-main-container'>
           <div className='order-seller-page-section1'>
-              
+              <br/>
+              <h1> Orders Listing</h1>
               <br/>
                <nav className="order-seller-page-navbar">
                   <ul className='order-seller-page-nav-list'>

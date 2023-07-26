@@ -146,7 +146,7 @@ const Cart = () => {
     const fetchCart = async () => {
       try {
         const result = await getCart(user_id);
-        if (!res.address) {
+        if (!result.address) {
           setCart(result);
         }
       } catch (error) {
@@ -161,7 +161,7 @@ const Cart = () => {
     const fetchPayments = async () => {
       try {
         const result = await getAllPayments(user_id);
-        if (!res.address) {
+        if (!result.address) {
           setPayments(result);
         }
 
@@ -176,7 +176,9 @@ const Cart = () => {
 
   // This function handles when the user clicks checkout. If the user has at least one payment method, they will be directed to the checkout screen. If not, they will be alerted to add a payment method before they can check out.
   const handleCheckout = () => {
-    if (payments.length !== 0) {
+    console.log(payments.length);
+    if (payments.length > 0) {
+      
       handleCheckoutPopup();
     } else {
       alert("Please add a payment method to this account to checkout");

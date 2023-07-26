@@ -38,7 +38,7 @@ const AccountPayments = () => {
     const fetchPayments = async () => {
       try {
         const result = await getAllPayments(userId);
-        if (!res.address) {
+        if (!result.address) {
          
           setPayments(result);
         }

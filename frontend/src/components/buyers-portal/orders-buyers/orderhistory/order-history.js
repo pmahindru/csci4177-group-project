@@ -110,7 +110,7 @@ const OrderHistoryPage = () => {
       try {
         const result = await getOrderHistory(user_id);
         
-        if (!res.address) {
+        if (!result.address) {
           const sortedData = result.sort((a,b) => {
             if (sortOrder === 'desc') {
               return new Date(a.date_purchased) - new Date(b.date_purchased);
