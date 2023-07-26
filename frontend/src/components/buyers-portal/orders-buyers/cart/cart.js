@@ -146,7 +146,9 @@ const Cart = () => {
     const fetchCart = async () => {
       try {
         const result = await getCart(user_id);
-        setCart(result);
+        if (!res.address) {
+          setCart(result);
+        }
       } catch (error) {
         return error;
       }
@@ -159,7 +161,11 @@ const Cart = () => {
     const fetchPayments = async () => {
       try {
         const result = await getAllPayments(user_id);
-        setPayments(result);
+        if (!res.address) {
+          setPayments(result);
+        }
+
+        
       } catch (error) {
         return error;
       }

@@ -89,8 +89,11 @@ const TrackOrders = () => {
     const fetchOrderHistory = async () => {
       try {
         const result = await getTrackedOrders(user_id);
-        console.log(result.data);
-        setOrders(result);
+        if (!res.address) {
+          
+          setOrders(result);
+        }
+        
       } catch (error) {
         return error;
       }

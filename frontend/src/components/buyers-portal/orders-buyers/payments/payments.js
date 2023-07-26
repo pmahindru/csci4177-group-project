@@ -26,7 +26,7 @@ const AccountPayments = () => {
   const handleEditPayment = (paymentId) => {
     setSelectedPaymentId(paymentId);
     setIsEditModalOpen(true);
-    console.log(paymentId);
+    
   };
 
   const handleEditPaymentClose = () => {
@@ -38,7 +38,11 @@ const AccountPayments = () => {
     const fetchPayments = async () => {
       try {
         const result = await getAllPayments(userId);
-        setPayments(result);
+        if (!res.address) {
+         
+          setPayments(result);
+        }
+        
       } catch (error) {
         return error;
       }

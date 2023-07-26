@@ -120,8 +120,11 @@ const Favourites = () => {
     const fetchFavourites = async () => {
       try {
         const result = await getFavourites(user_id);
-        console.log(result.data);
-        setFavourites(result);
+        if (!res.address) {
+         
+          setFavourites(result);
+        }
+        
       } catch (error) {
         return error;
       }
