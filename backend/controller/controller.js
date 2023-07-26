@@ -390,8 +390,12 @@ const addMessage = async (req, res, next) => {
       sender: from,
     });
 
-    if (data) return res.json({ msg: "Message added successfully." });
-    else return res.json({ msg: "Failed to add message to the database" });
+    if (data)
+      return res.status(200).json({ msg: "Message added successfully." });
+    else
+      return res
+        .status(200)
+        .json({ msg: "Failed to add message to the database" });
   } catch (ex) {
     next(ex);
   }
@@ -424,7 +428,7 @@ const getAllUsers = async (req, res, next) => {
     const users = await model.findUsers({ _id: { $ne: req.params.id } });
     return res.json(users);
   } catch (ex) {
-    next(ex);
+    res.status(500).json(ex);
   }
 };
 module.exports = {
