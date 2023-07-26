@@ -665,6 +665,39 @@ const getAllPostedAd = async (data) => {
     }
 }
 
+// get all post Ad (pranav mahindru)
+const pausePostAdWithId = async (data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("post_ad");
+
+      const postedAd = await collection.find({"_id": data._id}).toArray();
+
+      if (data.page === "seller_status" || data.page === "seller_draft") {
+        var updatePost;
+        if (postedAd[0]["isActive"] === true) {
+          updatePost = await collection.updateOne({"_id": data._id}, {$set: {"isActive": !postedAd[0]["isActive"]}});
+        }
+        else{
+          updatePost = {messages: "It is already Paused"};
+        }
+        await client.close();
+        return updatePost;
+      }
+      else{
+        const updatePost = await collection.updateOne({"_id": data._id}, {$set: {"isActive": !postedAd[0]["isActive"]}});
+        await client.close();
+        return updatePost;
+      }
+    } catch (error) {
+      return error;
+    }
+}
+
 // add new post Ad (pranav mahindru)
 const addNewPostAd = async (data) => {
     try {
@@ -706,6 +739,38 @@ const updatePostWithId = async (idObject, data) => {
 }
 
 // get all update posted Ad (pranav mahindru)
+const previewSavePostAd = async (idObject, data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection1 = db.collection("save_ad");
+
+      // update the save ad
+      await collection1.updateOne(idObject, data);
+      
+      // find the item in collection 1
+      const collection1Find = await collection1.findOne(idObject);
+
+      const collection2 = db.collection("post_ad");
+     
+      // insert the save ad to the post ad because it is updated
+      await collection2.insertOne(collection1Find);
+
+      // // delete from the collection 
+      const deletePostWithId = await collection1.deleteOne(idObject);
+
+      await client.close();
+
+      return deletePostWithId;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all update posted Ad (pranav mahindru)
 const deletePostWithId = async (idObject) => {
     try {
       // connection with db
@@ -714,6 +779,26 @@ const deletePostWithId = async (idObject) => {
       // call the db name and collection
       const db = client.db("Seller_Management");
       const collection = db.collection("post_ad");
+
+      const deletePostWithId = await collection.deleteOne(idObject);
+
+      await client.close();
+
+      return deletePostWithId;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all update posted Ad (pranav mahindru)
+const deleteSaveWithId = async (idObject) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("save_ad");
 
       const deletePostWithId = await collection.deleteOne(idObject);
 
@@ -759,4 +844,7 @@ module.exports = {
     getAllSavePostedAd,
     updatePostWithId,
     deletePostWithId,
+    pausePostAdWithId,
+    previewSavePostAd,
+    deleteSaveWithId,
 }

@@ -1,7 +1,7 @@
 /* Created By: Pranav Mahindru*/
 import "./orders_seller.css";
 import React, { useState, useEffect } from "react";
-import { deletePostAd, getAllPostedAd } from "../../../api";
+import { deletePostAd, getAllPostedAd, pausePostAd } from "../../../api";
 import ReactLoading from "react-loading";
 import { useNavigate } from "react-router-dom";
 
@@ -79,10 +79,12 @@ function SellerInActivePage() {
             navigate(`/edit/${itemId}`)
         }
         else if (e.target.value === "pause") {
+            await pausePostAd({"_id": itemId, "page": ""});
+            alert("Update Successfully")
             window.location.reload();
         }
         else if (e.target.value === "share") {
-            alert("this is not working right now");
+            alert("This is not working right now,\nNeed to integrate with Social Media!!!");
             window.location.reload();
         }
         else{
@@ -165,7 +167,7 @@ function SellerInActivePage() {
                                                 <option value="" disabled> Please select the option </option>
                                                 <option value="edit"> Edit </option>
                                                 <option value="delete"> Delete </option>
-                                                <option value="pause"> Pause </option>
+                                                <option value="pause"> Resume </option>
                                                 <option value="share"> Share </option>
                                             </select>
                                         </div>

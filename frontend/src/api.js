@@ -344,10 +344,41 @@ export const updatePostAd = async (data) => {
     }
 }
 
+// update the POST ADD APIs CALL (Pranav Mahindru)
+export const previewSavePostAd = async (data) => {
+    try {
+      const { _id, ...object } = data;
+      const res = await axios.put(`${baseURL}/seller/previewSavePostAd/${_id}`, object);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// pause the POST ADD APIs CALL (Pranav Mahindru)
+export const pausePostAd = async (data) => {
+    try {
+      const res = await axios.put(`${baseURL}/seller/pausePostAdWithId/${data._id}`);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
 // delete the POST ADD APIs CALL (Pranav Mahindru)
 export const deletePostAd = async (postId) => {
     try {
       const res = await axios.delete(`${baseURL}/seller/deletePostWithId/${postId}`);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// delete the POST ADD APIs CALL (Pranav Mahindru)
+export const deleteSavePostAd = async (postId) => {
+    try {
+      const res = await axios.delete(`${baseURL}/seller/deleteSaveWithId/${postId}`);
       return res.data;
     } catch (error) {
       return error

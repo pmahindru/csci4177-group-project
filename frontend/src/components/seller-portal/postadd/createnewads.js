@@ -44,7 +44,6 @@ function CreateNewAd() {
             }
         }
         fileReader.readAsDataURL(e.target.files[0]);
-        console.log(saveInFiles);
     };
 
     const handleChangeTitle = (e) =>{

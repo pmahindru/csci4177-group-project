@@ -32,6 +32,8 @@ import OrdersBuyers from "./components/buyers-portal/orders-buyers/orders-buyers
 import CreateReview from "./components/buyers-portal/orders-buyers/review/create-review";
 import EditAd from "./components/seller-portal/postadd/editAd";
 import UpdatePreview from "./components/seller-portal/postadd/updatePreview";
+import DraftEdit from "./components/seller-portal/postadd/draftEdit";
+import UpdateDraftPreview from "./components/seller-portal/postadd/draftUpdate";
 
 function App() {
   // this array contains only seller portal
@@ -68,6 +70,8 @@ function App() {
           <Route path="/preview" element={userLoggedIn ? <Preview/> : <Navigate to="/login"/>}/>
           <Route path='/business_orders' element={userLoggedIn ? <OrderSeller/> : <Navigate to="/login"/>}/>
           <Route path='/edit/:id' element={userLoggedIn ? <EditAd/> : <Navigate to="/login"/>}/>
+          <Route path='/draftEdit/:id' element={userLoggedIn ? <DraftEdit/> : <Navigate to="/login"/>}/>
+          <Route path='/draftUpdate/:id' element={userLoggedIn ? <UpdateDraftPreview/> : <Navigate to="/login"/>}/>
           <Route path='/update_edit/:id' element={userLoggedIn ? <UpdatePreview/> : <Navigate to="/login"/>}/>
           <Route path="/analytics" element={userLoggedIn ? <AnalyticalDashboard/> : <Navigate to="/login"/>}/>
           <Route path="/analytics/active-ads" element={userLoggedIn ? <ActiveAdsPage/> : <Navigate to="/login"/>}/>

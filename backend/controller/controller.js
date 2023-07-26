@@ -505,8 +505,15 @@ const savePostAd = async (req,res) => {
 // get all posted Ad (Pranav Mahindru)
 const getAllSavePostedAd = async (req,res) => {
     try {
-      const data = await model.getAllSavePostedAd({"user_id": req.body.user_id});
-      res.status(200).json(data);
+      const { _id, user_id} = req.body
+      if (req.body.user_id !== undefined) {
+        const data = await model.getAllSavePostedAd({"user_id": req.body.user_id});
+        res.status(200).json(data);
+      }
+      else {
+        const data = await model.getAllSavePostedAd({"_id": req.body._id});
+        res.status(200).json(data);
+      }
     } catch (error) {
       res.status(500).json(error);
     }
@@ -532,6 +539,16 @@ const getPostAdWithId = async (req,res) => {
     }
 }
 
+// pause posted Ad with specific Id (Pranav Mahindru)
+const pausePostAdWithId = async (req,res) => {
+    try {
+      const data = await model.pausePostAdWithId(req.body);
+      res.status(200).json(data);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+}
+
 // get posted Ad with specific Id (Pranav Mahindru)
 const updatePostWithId = async (req,res) => {
     try {
@@ -542,10 +559,30 @@ const updatePostWithId = async (req,res) => {
     }
 }
 
+// preview save posted Ad with specific Id (Pranav Mahindru)
+const previewSavePostAd = async (req,res) => {
+    try {
+      await model.previewSavePostAd({"_id": req.params.postId}, {$set: req.body});
+      res.status(200).json({message: "Successfully Update Ad"});
+    } catch (error) {
+      res.status(500).json(error);
+    }
+}
+
 // delete posted Ad with specific Id (Pranav Mahindru)
 const deletePostWithId = async (req,res) => {
     try {
       await model.deletePostWithId({"_id": req.params.postId});
+      res.status(200).json({message: "Successfully Delete Ad"});
+    } catch (error) {
+      res.status(500).json(error);
+    }
+}
+
+// delete save Ad with specific Id (Pranav Mahindru)
+const deleteSaveWithId = async (req,res) => {
+    try {
+      await model.deleteSaveWithId({"_id": req.params.postId});
       res.status(200).json({message: "Successfully Delete Ad"});
     } catch (error) {
       res.status(500).json(error);
@@ -586,5 +623,7 @@ module.exports = {
     getMessages,
     getAllUsers,
     deletePostWithId,
-
+    pausePostAdWithId,
+    previewSavePostAd,
+    deleteSaveWithId,
 }

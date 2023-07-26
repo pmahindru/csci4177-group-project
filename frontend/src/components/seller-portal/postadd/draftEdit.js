@@ -1,11 +1,11 @@
 /* Created By: Pranav Mahindru*/
 import React, { useEffect, useState } from 'react';
 import './createnewads.css';
-import {  NavLink, useNavigate } from 'react-router-dom';
-import {  getPostAdWithId } from '../../../api';
+import { useLocation, NavLink, useNavigate } from 'react-router-dom';
+import { getAllSavePostedAd, getPostAdWithId } from '../../../api';
 import ReactLoading from "react-loading";
 
-function EditAd() {
+function DraftEdit() {
     const [selectImageFiles, setSelectImageFiles] = useState([]);
     const [saveFileLength, setSaveFileLength] = useState(0);
     const [dropdowntype, setdropdowntype] = useState('');
@@ -29,8 +29,8 @@ function EditAd() {
         const getPostId = splitPathname[splitPathname.length-1]
         setSaveID(getPostId)
 
-        const getData = async () => {
-            const res = await getPostAdWithId({"_id": getPostId});
+        const getSaveData = async () => {
+           const res = await getAllSavePostedAd({"_id": getPostId});
             setRes(res);
             setLoading(false);
             if (Object.keys(res).length === 0) {
@@ -55,7 +55,7 @@ function EditAd() {
                 setSaveFileLength(getAllImage.length);
             }
         }
-        getData();
+        getSaveData();
     }, [])
 
     if (loading || res === null || res === undefined) {
@@ -143,7 +143,7 @@ function EditAd() {
             return;
         }
 
-        navigate(`/update_edit/${saveID}`, {state: {
+        navigate(`/draftUpdate/${saveID}`, {state: {
             data: [{sendImageFiles: selectImageFiles},
             {sendTitle: title},{sendPrice: price},{sendDescription: description},{sendProduct_tag: product_tag},
             {sendLocation: location},{sendCondition: selectCondition},{sendPayments: selectPayments},
@@ -269,4 +269,4 @@ function EditAd() {
     );
 };
 
-export default EditAd;
+export default DraftEdit;
