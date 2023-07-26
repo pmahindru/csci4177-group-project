@@ -102,7 +102,7 @@ function NotificationSettings() {
 
     return (
         <div className='notificationSettings'>
-            <div className='postAd-button'>
+            <div className='save-profile-settings-button'>
                 <h2> Notification Settings </h2>
                 <button type='button' onClick={saveNotificationChanges}> Save Notifications </button>
             </div>

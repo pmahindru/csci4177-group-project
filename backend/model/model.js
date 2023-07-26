@@ -43,6 +43,50 @@ const registerUser = async (data) => {
     const collection = db.collection("Signup");
 
     const addUser = await collection.insertOne(data);
+    await registerUser_userDefaultSettingConfigs(data._id)
+
+    await client.close();
+    return addUser;
+  } catch (error) {
+    return error;
+  }
+};
+// Registration API extension for ProfileConfigs | By Joel Kuruvilla
+const registerUser_userDefaultSettingConfigs = async (userID) => {
+  try {
+    await client.connect();
+
+    // calling the db and the collections
+    const db = client.db("User_Management");
+    const collectionProfile = db.collection("Profile");
+    const collectionNotification = db.collection("ProfileNotifications");
+     
+    const addUserProfileConfig = await collectionProfile.insertOne(
+      {
+        "_id": userID,
+        "user_id": userID,
+        "auth_app": false,
+        "disable_account": false,
+        "email_auth": false,
+        "phone_auth": false,
+        "set_location": false,
+        "user_online_status": false,
+      }
+    );
+    const addUserNotificationConfig = await collectionNotification.insertOne(
+      {
+        "_id": userID,
+        "user_id": userID,
+        "notify_all": false,
+        "notify_inbox_messages": false,
+        "notify_order_messages": false,
+        "notify_order_updates": false,
+        "notify_ratings_reviews": false,
+        "notify_sounds": false,
+        "notify_email": false,
+        "notify_phone": false
+      }
+    );
 
     await client.close();
     return addUser;

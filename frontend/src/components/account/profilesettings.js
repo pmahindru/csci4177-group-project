@@ -9,6 +9,11 @@ function ProfileSettings() {
     const userData = JSON.parse(localStorage.getItem("user_info"));
     const userID = userData._id;
 
+    //Signup Configurations
+    const [locationAddress, setlocationAddress] = useState(userData.address);
+    const [phoneNumber, setPhoneNumber] = useState(userData.phone);
+
+    //Profile Setting Configurations
     const [email2FAEnabled, setEmail2FAEnabled] = useState(false);
     const [phone2FAEnabled, setPhone2FAEnabled] = useState(false);
     const [authenticationApp2FAEnabled, setAuthenticationApp2FAEnabled] = useState(false);
@@ -32,6 +37,14 @@ function ProfileSettings() {
         };
         readProfileConfigurations();
     }, [userID]);
+
+
+    const handleAddressInput = (e) => {
+        setlocationAddress(e.target.value);
+    }
+    const handlePhoneNumber = (e) => {
+        setPhoneNumber(e.target.value);
+    }
 
     const handleEmailToggleSwitch = (e) => { 
         setEmail2FAEnabled(e);
@@ -59,6 +72,16 @@ function ProfileSettings() {
         window.location.reload();
     }
 
+    const updateSignUpData_General = async () => {
+    //     const settingsStatus_general = ({"address": locationAddress, "phone": phoneNumber });
+        alert("General Settings have been updated!");// Logout and Relog back in to see changes!");
+    //     await userProfileSettingsUpdate(userID, settingsStatus_general);
+
+    //     // window.location.reload();
+    }
+
+    const updateSignUpData_Password = async () => {}
+
     return (
         <div className='profileSettings'>
             <div className='save-profile-settings-button'>
@@ -70,14 +93,14 @@ function ProfileSettings() {
                 <form className='profileSettings-general-form'>
                     <li> Full Name: <input placeholder={userData.firstName + " " + userData.lastName} disabled/> </li>
                     <li> Email: <input placeholder={userData.email} disabled/> </li>
-                    <li> Address: <input placeholder={userData.location || "No address inputted"} disabled/> </li>
-                    <li> Phone Number: <input placeholder={userData.phone || "No Phone Number inputted"} disabled/> </li>
+                    <li> Address: <input placeholder={locationAddress || "No address inputted"} onChange={(handleAddressInput)}/> </li>
+                    <li> Phone Number: <input placeholder={phoneNumber || "No Phone Number inputted"} onChange={(handlePhoneNumber)}/> </li>
                     <li> Online Status:  
                         <select> 
                             <option disabled> active </option>
                        </select>
                     </li>
-                        <button id="updateButtons" onClick={() => alert("General Settings have been updated.")}> UPDATE </button>
+                        <button id="updateButtons" onClick={updateSignUpData_General}> UPDATE GENERAL </button>
                 </form>
             </div>
             <div className='profileSettings-setPassword'>
@@ -85,7 +108,7 @@ function ProfileSettings() {
                 <form className='profileSettings-setPassword-form'>
                     <li> New Password <input/> </li>
                     <li> Confirm Password: <input/> </li>
-                    <button id="updateButtons" onClick={() => alert("Your Password has been updated.")}> UPDATE </button>
+                    <button id="updateButtons" onClick={updateSignUpData_Password}> UPDATE PASSWORD </button>
                 </form>
             </div>
             <div className='profileSettings-twoFactorAuthentication'>

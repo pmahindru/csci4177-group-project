@@ -105,7 +105,6 @@
     width: 100%;
 }
 
-
 /* Delete Settings Styling */
 .profileSettings-delete {
     float: right;
@@ -117,6 +116,25 @@
     background-color: red;
     padding: 2vh;
     width: 90%;
+}
+
+/* All forms - Save Button */
+.save-profile-settings-button {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.save-profile-settings-button > button {
+    padding: 8px;
+    margin: 10px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.save-profile-settings-button > button a {
+    color: black;
+    text-decoration: none;
 }
 
 
@@ -145,13 +163,13 @@
 
     /* General Settings Styling - @media */
     .profileSettings-general-form {
-        height: 30vh;
+        height: 37vh;
         margin: 0;
     }
 
     /* Set Password Settings Styling - @media */
     .profileSettings-setPassword-form {
-        height: 20vh;
+        height: 19vh;
     }
 
     /* Two Factor Authentication Settings Styling - @media */
@@ -188,30 +206,19 @@
     }
 }
 
-
-/* All forms - Save Button */
-.save-profile-settings-button {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-}
-
-.save-profile-settings-button > button {
-    padding: 8px;
-    margin: 10px;
-    cursor: pointer;
-    background-color: white;
-}
-
-.save-profile-settings-button > button a {
-    color: black;
-    text-decoration: none;
-}
-
 @media (max-width: 405px) {
     /* General Settings Styling - @media #2 */
     .profileSettings-general-form {
         height: 35vh;
         margin: 0;
+    }
+
+    .profileSettings-twoFactorAuthentication {
+        background-color: lightgray;
+        height: 40vh;
+    }
+    .profileSettings-twoFactorAuthentication-form {
+        display: inline;
+        
     }
 }
