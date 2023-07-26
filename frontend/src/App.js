@@ -17,7 +17,7 @@ import AnalyticalDashboard from "./components/seller-portal/analytics-seller/Ana
 import ActiveAdsPage from "./components/seller-portal/analytics-seller/ActiveAdsPage";
 import DeletePage from "./components/seller-portal/analytics-seller/DeletePage";
 import DraftsPage from "./components/seller-portal/analytics-seller/DraftsPage";
-import ChatPage from "./components/seller-portal/analytics-seller/ChatPage";
+import Chat from "./components/seller-portal/analytics-seller/Chat";
 import SellerRatingPage from "./components/seller-portal/analytics-seller/SellerRatingPage";
 import RenewPage from "./components/seller-portal/analytics-seller/RenewPage";
 import SoldPage from "./components/seller-portal/analytics-seller/SoldPage";
@@ -33,9 +33,20 @@ import CreateReview from "./components/buyers-portal/orders-buyers/review/create
 
 function App() {
   // this array contains only seller portal
-  const array = ["/dashboard", "/analytics", "/business_orders", "/postAd", "/preview",
-                "/analytics/active-ads", "/analytics/delete-ads", "/analytics/draft-ads", "/analytics/chat", 
-                "/analytics/seller-rating", "/analytics/renew", "/analytics/sold"];
+  const array = [
+    "/dashboard",
+    "/analytics",
+    "/business_orders",
+    "/postAd",
+    "/preview",
+    "/analytics/active-ads",
+    "/analytics/delete-ads",
+    "/analytics/draft-ads",
+    "/analytics/chat",
+    "/analytics/seller-rating",
+    "/analytics/renew",
+    "/analytics/sold",
+  ];
 
   return (
     <div className="App">
@@ -49,39 +60,45 @@ function App() {
 
         <Routes>
           {/* For Login and Register Pages */}
-          <Route path='/login' element={<Login/>}/> 
-          <Route path='/signup' element={<Signup/>}/>
-          <Route path='/forgotpassword' element={<ForgotPassword/>}/>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
 
           {/* For Buyer's Portal */}
-          <Route path='/' element={<DashBoardBuyer/>}/>
-          <Route path='/orders' element={<OrdersBuyers/>}/>
-          <Route path='/createreview' element={<CreateReview/>}/>
-          
+          <Route path="/" element={<DashBoardBuyer />} />
+          <Route path="/orders" element={<OrdersBuyers />} />
+          <Route path="/createreview" element={<CreateReview />} />
+
           {/* For Seller's Portal */}
-          <Route path="/dashboard" element={<DashBoardSeller/>}/>
-          <Route path="/postAd" element={<CreateNewAd/>}/>
-          <Route path="/preview" element={<Preview/>}/>
-          <Route path='/business_orders' element={<OrderSeller/>}/>
-          <Route path="/analytics" element={<AnalyticalDashboard/>}/>
-          <Route path="/analytics/active-ads" element={<ActiveAdsPage/>}/>
-          <Route path="/analytics/delete-ads" element={<DeletePage/>}/>
-          <Route path="/analytics/draft-ads" element={<DraftsPage/>}/>
-          <Route path="/analytics/chat" element={<ChatPage/>}/>
-          <Route path="/analytics/seller-rating" element={<SellerRatingPage/>}/>
-          <Route path="/analytics/renew" element={<RenewPage/>}/>
-          <Route path="/analytics/sold" element={<SoldPage/>}/>
+          <Route path="/dashboard" element={<DashBoardSeller />} />
+          <Route path="/postAd" element={<CreateNewAd />} />
+          <Route path="/preview" element={<Preview />} />
+          <Route path="/business_orders" element={<OrderSeller />} />
+          <Route path="/analytics" element={<AnalyticalDashboard />} />
+          <Route path="/analytics/active-ads" element={<ActiveAdsPage />} />
+          <Route path="/analytics/delete-ads" element={<DeletePage />} />
+          <Route path="/analytics/draft-ads" element={<DraftsPage />} />
+          <Route path="/analytics/chat" element={<Chat />} />
+          <Route
+            path="/analytics/seller-rating"
+            element={<SellerRatingPage />}
+          />
+          <Route path="/analytics/renew" element={<RenewPage />} />
+          <Route path="/analytics/sold" element={<SoldPage />} />
 
           {/* commons page for the both portal */}
-          <Route path='/about_us' element={<AboutUs/>}/>
-          <Route path='/customer_support' element={<CustomerSupport/>}/>
-          <Route path='/profile_setting' element={<ProfileSetting/>}/>
-          <Route path='/notification_setting' element={<NotificationSetting/>}/>
+          <Route path="/about_us" element={<AboutUs />} />
+          <Route path="/customer_support" element={<CustomerSupport />} />
+          <Route path="/profile_setting" element={<ProfileSetting />} />
+          <Route
+            path="/notification_setting"
+            element={<NotificationSetting />}
+          />
 
           {/* error handle */}
           {/* [1] M. Gathoni, “How to create a 404 page in react using react router,” MUO, 
           https://www.makeuseof.com/react-router-404-page-create/ (accessed Jun. 20, 2023). */}
-          <Route path='*' element={<NotFound/>}/>
+          <Route path="*" element={<NotFound />} />
         </Routes>
 
         {/* Footer */}

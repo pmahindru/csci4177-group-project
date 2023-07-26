@@ -8,9 +8,9 @@
 // Date Accessed: 07/23/2023
 // Used by Saiz Charolia
 
-import axios from 'axios';
+import axios from "axios";
 
-const baseURL = "http://localhost:3001/api"
+const baseURL = "http://localhost:3001/api";
 
 // generateRandomCode created by Saiz Charolia
 // random number generating referred from iqcode
@@ -26,12 +26,12 @@ const generateRandomCode = () => {
 // Date Accessed: 07/23/2023
 export const createUser = async (data) => {
   try {
-    const res = await axios.post(`${baseURL}/register`,data);
-    return res.data; 
+    const res = await axios.post(`${baseURL}/register`, data);
+    return res.data;
   } catch (error) {
     return error;
   }
-}
+};
 
 // getAllUser created by Saiz Charolia
 // axios get request referred from atatus
@@ -40,11 +40,11 @@ export const createUser = async (data) => {
 export const getAllUser = async () => {
   try {
     const res = await axios.get(`${baseURL}/`);
-    return res.data; 
+    return res.data;
   } catch (error) {
     return error;
   }
-}
+};
 
 // loginUser created by Saiz Charolia
 // axios post request referred from LogRocket
@@ -55,149 +55,153 @@ export const loginUser = async (data) => {
     const res = await axios.post(`${baseURL}/login`, data);
     return res.data;
   } catch (error) {
-    return error
+    return error;
   }
-}
+};
 export const getAllPayments = async (userId) => {
-    try {
-        const res = await axios.get(`${baseURL}/payments/${userId}`);
-        
-        return res.data; 
-    } catch (error) {
-      return error;
-    }
-}
+  try {
+    const res = await axios.get(`${baseURL}/payments/${userId}`);
+
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
 export const getOrderHistory = async (userId) => {
-    try {
-        const orderHistoryResponse = await axios.get(`${baseURL}/order-history/${userId}`);
-        return orderHistoryResponse.data;
-    }
-    catch (error) {
-        return error;
-    }
-}
+  try {
+    const orderHistoryResponse = await axios.get(
+      `${baseURL}/order-history/${userId}`
+    );
+    return orderHistoryResponse.data;
+  } catch (error) {
+    return error;
+  }
+};
 export const getCart = async (userId) => {
-    try {
-        const cartResponse = await axios.get(`${baseURL}/cart/${userId}`);
-        return cartResponse.data;
-    }
-    catch (error) {
-       return error;
-    }
-}
+  try {
+    const cartResponse = await axios.get(`${baseURL}/cart/${userId}`);
+    return cartResponse.data;
+  } catch (error) {
+    return error;
+  }
+};
 export const getFavourites = async (userId) => {
-    try {
-        const favouriteResponse = await axios.get(`${baseURL}/favourites/${userId}`);
-        return favouriteResponse.data;
-    }
-    catch (error) {
-        return error;
-    }
-}
+  try {
+    const favouriteResponse = await axios.get(
+      `${baseURL}/favourites/${userId}`
+    );
+    return favouriteResponse.data;
+  } catch (error) {
+    return error;
+  }
+};
 export const getReviews = async (userId) => {
-    try {
-        const reviewResponse = await axios.get(`${baseURL}/reviews/${userId}`);
-        return reviewResponse.data;
-    }
-    catch (error) {
-      return error;
-    }
-}
-export const getReview = async (userId,adId) => {
-    try {
-        const reviewResponse = await axios.get(`${baseURL}/review/${userId}/${adId}`);
-        return reviewResponse.data;
-    }
-    catch (error) {
-      return error;
-    }
-}
+  try {
+    const reviewResponse = await axios.get(`${baseURL}/reviews/${userId}`);
+    return reviewResponse.data;
+  } catch (error) {
+    return error;
+  }
+};
+export const getReview = async (userId, adId) => {
+  try {
+    const reviewResponse = await axios.get(
+      `${baseURL}/review/${userId}/${adId}`
+    );
+    return reviewResponse.data;
+  } catch (error) {
+    return error;
+  }
+};
 export const createPayment = async (data) => {
-    try {
-        const res = await axios.post(`${baseURL}/create-payment`,data);
-        return res.data; 
-    } catch (error) {
-      return error;
-    }
-}
+  try {
+    const res = await axios.post(`${baseURL}/create-payment`, data);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const createReview = async (data) => {
-    try {
-        const res = await axios.post(`${baseURL}/reviews`,data);
-        return res.data; 
-    } catch (error) {
-        return error;
-    }
-}
+  try {
+    const res = await axios.post(`${baseURL}/reviews`, data);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const getPaymentMethod = async (paymentId) => {
-    try{
-        const res = await axios.get(`${baseURL}/payments/${paymentId}`)
-        return res.data;
-    }catch (error) {
-        return error;
-    }
-}
+  try {
+    const res = await axios.get(`${baseURL}/payments/${paymentId}`);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
 
-export const updatePaymentMethod = async(paymentId,  updatedPaymentData) => {
-    try{
-        const res = await axios.put(`${baseURL}/payments/${paymentId}`, updatedPaymentData);
-        return res.data
-    }catch (error){
-        return error;
-    }
-}
-export const editReview = async(reviewId, reviewData) => {
-    try{
-        const res = await axios.put(`${baseURL}/reviews/${reviewId}`, reviewData);
-        return res.data
-    }catch (error){
-        return error;
-    }
-}
+export const updatePaymentMethod = async (paymentId, updatedPaymentData) => {
+  try {
+    const res = await axios.put(
+      `${baseURL}/payments/${paymentId}`,
+      updatedPaymentData
+    );
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
+export const editReview = async (reviewId, reviewData) => {
+  try {
+    const res = await axios.put(`${baseURL}/reviews/${reviewId}`, reviewData);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
 
-export const deletePaymentMethod = async(paymentId) => {
-    try{
-        const res = await axios.delete(`${baseURL}/payments/${paymentId}`);
-        return res.data;
-    }catch (error){
-        return error;
-    }
-}
-export const deleteFavourite = async(favouriteId) => {
-    try{
-        const res = await axios.delete(`${baseURL}/favourites/${favouriteId}`);
-        return res.data;
-    }catch (error){
-        return error;
-    }
-}
-export const deleteCartItem = async(itemId) => {
-    try{
-        const res = await axios.delete(`${baseURL}/cart/${itemId}`);
-        return res.data;
-    }catch (error){
-        return error;
-    }
-}
+export const deletePaymentMethod = async (paymentId) => {
+  try {
+    const res = await axios.delete(`${baseURL}/payments/${paymentId}`);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
+export const deleteFavourite = async (favouriteId) => {
+  try {
+    const res = await axios.delete(`${baseURL}/favourites/${favouriteId}`);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
+export const deleteCartItem = async (itemId) => {
+  try {
+    const res = await axios.delete(`${baseURL}/cart/${itemId}`);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
 export const getTrackedOrders = async (userId) => {
-    try {
-        const trackedOrdersResponse = await axios.get(`${baseURL}/track-orders/${userId}`);
-        return trackedOrdersResponse.data;
-    }
-    catch (error) {
-        return error;
-    }
-}
+  try {
+    const trackedOrdersResponse = await axios.get(
+      `${baseURL}/track-orders/${userId}`
+    );
+    return trackedOrdersResponse.data;
+  } catch (error) {
+    return error;
+  }
+};
 export const createOrder = async (data) => {
-    try {
-        const res = await axios.post(`${baseURL}/orders`,data);
-        return res.data; 
-    } catch (error) {
-       return error;
-    }
-}
-
+  try {
+    const res = await axios.post(`${baseURL}/orders`, data);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 // sendResetCode created by Saiz Charolia
 // axios post request referred from LogRocket
@@ -210,7 +214,7 @@ export const sendResetCode = async (email) => {
       email,
       resetCode: generatedCode,
     });
-    
+
     if (response.status === 200) {
       return true;
     } else {
@@ -219,8 +223,8 @@ export const sendResetCode = async (email) => {
   } catch (error) {
     return false;
   }
-}
-  
+};
+
 // verifyResetCodeFromDatabase created by Saiz Charolia
 // axios get request referred from atatus
 // URL: https://www.atatus.com/blog/how-to-perform-http-requests-with-axios-a-complete-guide/#:~:text=Axios%20Get%20Request,-Axios%20can%20make&text=get()%20method%20is%20used,should%20be%20supplied%20to%20it.
@@ -233,18 +237,17 @@ export const verifyResetCodeFromDatabase = async (email, resetCode) => {
         resetCode: resetCode,
       },
     });
-  
+
     if (response.status === 200) {
       return true;
     } else {
       return false;
     }
-  
   } catch (error) {
     return false;
   }
 };
-  
+
 // resetPassword created by Saiz Charolia
 // axios post request referred from LogRocket
 // URL: https://blog.logrocket.com/how-to-use-axios-post-requests/
@@ -264,17 +267,17 @@ export const resetPassword = async (email, password) => {
   } catch (error) {
     return false;
   }
-}
+};
 
 // profileUserDetails created by Saiz Charolia
 // axios post request referred from LogRocket
 // URL: https://blog.logrocket.com/how-to-use-axios-post-requests/
 // Date Accessed: 07/23/2023
-export const profileUserDetails  = async (data) => {
+export const profileUserDetails = async (data) => {
   try {
     const res = await axios.post(`${baseURL}/profile_setting`, data);
     return res.data;
   } catch (error) {
-    return error
+    return error;
   }
-}
+};

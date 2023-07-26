@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const controller = require("../controller/controller");
+// const { addMessage, getMessages } = require("../controllers/messageController");
 
 app.use(cors());
 app.use(express.json());
@@ -32,4 +33,12 @@ app.post(`${baseURL}/favourites`, controller.createFavourite);
 app.post(`${baseURL}/cart`, controller.createCartItem);
 app.delete(`${baseURL}/favourites/:favouriteId`, controller.deleteFavourite);
 app.get(`${baseURL}/track-orders/:userId`, controller.getTrackedOrders);
+module.exports = app;
+
+//api for add
+app.post(`${baseURL}/addmsg`, controller.addMessage);
+app.post(`${baseURL}/getmsg`, controller.getMessages);
+
+app.get(`${baseURL}/allusers/:id`, controller.getAllUsers);
+
 module.exports = app;
