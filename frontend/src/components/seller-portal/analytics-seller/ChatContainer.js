@@ -1,4 +1,4 @@
-//Created by Parth Patel
+// Created by Parth Patel
 import React, { useState, useEffect, useRef } from "react";
 import ChatInput from "./ChatInput";
 import { v4 as uuidv4 } from "uuid";
@@ -6,15 +6,20 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function ChatContainer({ currentChat, socket }) {
+  // API routes for sending and receiving messages
   const sendMessageRoute = "http://localhost:3001/api/addmsg";
   const receiveMessageRoute = "http://localhost:3001/api/getmsg";
 
+  // State to store the chat messages and handle scroll
   const [messages, setMessages] = useState([]);
   const scrollRef = useRef();
+
+  // State to handle incoming messages
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
   const history = useNavigate();
 
+  // Fetch messages from the server for the current chat
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -34,6 +39,7 @@ export default function ChatContainer({ currentChat, socket }) {
     }
   }, [currentChat]);
 
+  // Get the current chat user id
   useEffect(() => {
     const getCurrentChat = async () => {
       if (currentChat) {
@@ -57,27 +63,32 @@ export default function ChatContainer({ currentChat, socket }) {
       message: msg,
     });
 
-    const msgs = [...messages];
-    msgs.push({ fromSelf: true, message: msg });
-    setMessages(msgs);
+    const updatedMessages = [...messages];
+    updatedMessages.push({ fromSelf: true, message: msg });
+    setMessages(updatedMessages);
   };
 
+  // Listen for incoming messages through the socket
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-receive", (msg) => {
         setArrivalMessage({ fromSelf: false, message: msg });
       });
     }
-  });
+  }, [socket]);
 
+  // Update messages state when a new message arrives
   useEffect(() => {
-    arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+    arrivalMessage &&
+      setMessages((prevMessages) => [...prevMessages, arrivalMessage]);
   }, [arrivalMessage]);
 
+  // Scroll to the latest message when the messages change
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Function to handle closing the chat
   const handleChatClose = () => {
     history("/analytics");
   };
@@ -95,7 +106,7 @@ export default function ChatContainer({ currentChat, socket }) {
         </button>
       </div>
       <div className="chat-messages">
-        {messages.map((message, index) => (
+        {messages.map((message) => (
           <div key={uuidv4()}>
             {" "}
             <div

@@ -1,3 +1,4 @@
+// Created by Parth Patel
 import React, { useState } from "react";
 import { IoMdSend } from "react-icons/io";
 import styled from "styled-components";
@@ -16,16 +17,16 @@ export default function ChatInput({ handleSendMsg }) {
   return (
     <Container>
       <div className="button-container"></div>
-      <form className="input-container" onSubmit={(event) => sendChat(event)}>
+      <form className="input-container" onSubmit={sendChat}>
         <input
           type="text"
           placeholder="type your message here"
           onChange={(e) => setMsg(e.target.value)}
           value={msg}
         />
-        <button type="submit">
+        <SendButton type="submit">
           <IoMdSend />
-        </button>
+        </SendButton>
       </form>
     </Container>
   );
@@ -37,16 +38,19 @@ const Container = styled.div`
   grid-template-columns: 1% 99%;
   background-color: white;
   padding: 0 2rem;
+
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     padding: 0 1rem;
     gap: 1rem;
   }
+
   .button-container {
     display: flex;
     align-items: center;
     color: white;
     gap: 1rem;
   }
+
   .input-container {
     width: 100%;
     border-radius: 2rem;
@@ -54,6 +58,7 @@ const Container = styled.div`
     align-items: center;
     gap: 2rem;
     background-color: #f2f2f2;
+
     input {
       width: 90%;
       height: 60%;
@@ -62,6 +67,7 @@ const Container = styled.div`
       border: none;
       padding-left: 1rem;
       font-size: 1.2rem;
+
       @media screen and (max-width: 720px) {
         font-size: 14px;
       }
@@ -69,36 +75,39 @@ const Container = styled.div`
       &::selection {
         background-color: #9a86f3;
       }
+
       &:focus {
         outline: none;
       }
     }
-    button {
-      padding: 0.3rem 2rem;
-      border-radius: 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #6c4998;
-      border: none;
+  }
+`;
 
-      @media screen and (max-width: 720px) {
-        padding: 0.3rem 1rem;
-        svg {
-          font-size: 1.5rem;
-        }
-      }
+const SendButton = styled.button`
+  padding: 0.3rem 2rem;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #6c4998;
+  border: none;
 
-      @media screen and (min-width: 720px) and (max-width: 1080px) {
-        padding: 0.3rem 1rem;
-        svg {
-          font-size: 1rem;
-        }
-      }
-      svg {
-        font-size: 2rem;
-        color: white;
-      }
+  @media screen and (max-width: 720px) {
+    padding: 0.3rem 1rem;
+    svg {
+      font-size: 1.5rem;
     }
+  }
+
+  @media screen and (min-width: 720px) and (max-width: 1080px) {
+    padding: 0.3rem 1rem;
+    svg {
+      font-size: 1rem;
+    }
+  }
+
+  svg {
+    font-size: 2rem;
+    color: white;
   }
 `;
