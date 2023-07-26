@@ -608,6 +608,81 @@ const findMessages = async (query) => {
     return error;
   }
 };
+/* User Profile Settings READ and UPDATE Models | By: Joel Kuruvilla */
+const userProfileSettingsReadModel = async (userID) => { //Profile READ Model | Joel Kuruvilla
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("User_Management");
+    const collection = db.collection("Profile");
+
+    const userProfileSettingData = await collection.findOne(userID);
+
+    await client.close();
+
+    return userProfileSettingData;
+  } catch (error) {
+    return error;
+  }
+};
+const userProfileSettingsUpdateModel = async (userID, dataToUpdate) => { //Profile UPDATE Model | Joel Kuruvilla
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("User_Management");
+    const collection = db.collection("Profile");
+
+    const porfileSettingsData = await collection.updateOne({"user_id": userID}, {$set: dataToUpdate});
+
+    await client.close();
+
+    return porfileSettingsData;
+  } catch (error) {
+    return error;
+  }
+};
+
+/* User Notification Settings READ and UPDATE Models | By: Joel Kuruvilla */
+const userNotificationSettingsReadModel = async (userID) => { //Notifications READ Model | Joel Kuruvilla
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("User_Management");
+    const collection = db.collection("ProfileNotifications");
+
+    const userNotificationSettingData = await collection.findOne(userID);
+
+    await client.close();
+
+    return userNotificationSettingData;
+  } catch (error) {
+    return error;
+  }
+};
+const userNotificationSettingsUpdateModel = async (userID, dataToUpdate) => { //Notifications UPDATE Model | Joel Kuruvilla
+  try {
+    // connection with db
+    await client.connect();
+
+    // call the db name and collection
+    const db = client.db("User_Management");
+    const collection = db.collection("ProfileNotifications");
+
+    const notificationSettingsData = await collection.updateOne({"user_id": userID}, {$set: dataToUpdate});
+
+    await client.close();
+
+    return notificationSettingsData;
+  } catch (error) {
+    return error;
+  }
+};
 
 // save post Ad (pranav mahindru)
 const savePostAd = async (data) => {

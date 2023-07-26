@@ -588,6 +588,49 @@ const deleteSaveWithId = async (req,res) => {
       res.status(500).json(error);
     }
 }
+/* User Profile Settings READ and UPDATE ControllerS | By: Joel Kuruvilla */
+const userProfileSettingsRead = async (req, res) => { //Profile READ Controller | Joel Kuruvilla
+  try {
+    const userSettingConfigs = await model.userProfileSettingsReadModel({ "user_id": req.params.userID });
+    return res.json(userSettingConfigs);
+  } 
+  catch (error) {
+    res.status(500).json(error);
+  }
+};
+const userProfileSettingsUpdate = async (req, res) => { //Profile UPDATE Controller | Joel Kuruvilla
+  try {
+    const userID = req.params.userID;
+    const dataToUpdate = req.body;
+    const settingChanges = await model.userProfileSettingsUpdateModel(userID, dataToUpdate);
+    return res.json(settingChanges);
+  } 
+  catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+/* User Notification Settings READ and UPDATE ControllerS | By: Joel Kuruvilla */
+const userNotificationSettingsRead = async (req, res) => { //Notifications READ Controller | Joel Kuruvilla
+  try {
+    const userSettingConfigs = await model.userNotificationSettingsReadModel({"user_id": req.params.userID});
+    return res.json(userSettingConfigs);
+  } 
+  catch (error) {
+    res.status(500).json(error);
+  }
+};
+const userNotificationSettingsUpdate = async (req, res) => { //Notifications UPDATE Controller | Joel Kuruvilla
+  try {
+    const userID = req.params.userID;
+    const dataToUpdate = req.body;
+    const settingChanges = await model.userNotificationSettingsUpdateModel(userID, dataToUpdate);
+    return res.json(settingChanges);
+  } 
+  catch (error) {
+    res.status(500).json(error);
+  }
+};
 
 module.exports = {
     getSignUpUser,

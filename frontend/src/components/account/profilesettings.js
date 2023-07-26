@@ -53,7 +53,8 @@ function ProfileSettings() {
         const settingsStatus = ({"email_auth": email2FAEnabled, "phone_auth":phone2FAEnabled,
          "auth_app": authenticationApp2FAEnabled, "set_location": currentLocationEnabled, 
          "disable_account": disableAccountEnabled });
-        await userProfileSettingsUpdate(userID, settingsStatus);
+        /*const updateStatus = */await userProfileSettingsUpdate(userID, settingsStatus);
+        // console.log(JSON.stringify(updateStatus));
         alert("Settings applied successfully");
         window.location.reload();
     }
@@ -62,7 +63,7 @@ function ProfileSettings() {
         <div className='profileSettings'>
             <div className='save-profile-settings-button'>
                 <h2> Profile Settings </h2>
-                <button type='button' onClick={updateProfileConfigurations}> Save Notifications </button>
+                <button type='button' onClick={updateProfileConfigurations}> Save Profile Settings </button>
             </div>
             <div className='profileSettings-general'>
                 <h3> General </h3>

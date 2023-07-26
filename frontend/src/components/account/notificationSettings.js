@@ -19,7 +19,7 @@ function NotificationSettings() {
     const [phoneNotifcationsEnabled, setPhoneNotifcationsEnabled] = useState(false);
 
     useEffect(() => {
-        const readNotificationsConfigurations = async () => {
+        const readNotificationConfigurations = async () => {
             try {
                 const notificationSettingsReading  = await userNotificationSettingsRead(userID);
                 
@@ -49,7 +49,7 @@ function NotificationSettings() {
                 return error;
             }
         };
-        readNotificationsConfigurations();
+        readNotificationConfigurations();
     }, [userID]);
 
     const handleToggleAllSwitch = (e) => {
@@ -94,15 +94,18 @@ function NotificationSettings() {
         "notify_ratings_reviews": ratingReviewsNotifcationsEnabled, "notify_sounds": notificationSoundsEnabled, 
         "notify_email": emailNotifcationsEnabled, "notify_phone": phoneNotifcationsEnabled};
 
-        await userNotificationSettingsUpdate(userID, settingStatus);
-
+        /*const updateStatus = */await userNotificationSettingsUpdate(userID, settingStatus);
+        // console.log(JSON.stringify(updateStatus));
         alert("Settings applied successfully");
         window.location.reload();
     }
 
     return (
         <div className='notificationSettings'>
-            <h2> Notification Settings </h2>
+            <div className='postAd-button'>
+                <h2> Notification Settings </h2>
+                <button type='button' onClick={saveNotificationChanges}> Save Notifications </button>
+            </div>
             <form className='notificationSettings-form'>
                 <li> All Notifications: <Switch className="notificationSettings-toggle" id="notification-toggle-all"
                  onChange={handleToggleAllSwitch} checked={allNotifcationsEnabled} borderRadius={12} /> </li>
@@ -128,9 +131,6 @@ function NotificationSettings() {
                 <li> Phone Notification: <Switch className="notificationSettings-toggle" onChange={handlPhoneNotificationToggleSwitch}
                  checked={phoneNotifcationsEnabled} borderRadius={12} /> </li>
              </form>
-             <div className='postAd-button'>
-                    <button type='button' onClick={saveNotificationChanges}> Save Notifications </button>
-            </div>
         </div>
     );
 };
