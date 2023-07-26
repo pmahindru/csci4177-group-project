@@ -628,6 +628,7 @@ const addMessageModel = async (data) => {
   }
 };
 
+//Gets messages from the database for that particular user (Parth Patel)
 const findMessages = async (query) => {
   try {
     await client.connect();
