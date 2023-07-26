@@ -358,7 +358,7 @@ export const previewSavePostAd = async (data) => {
 // pause the POST ADD APIs CALL (Pranav Mahindru)
 export const pausePostAd = async (data) => {
     try {
-      const res = await axios.put(`${baseURL}/seller/pausePostAdWithId/${data._id}`);
+      const res = await axios.put(`${baseURL}/seller/pausePostAdWithId/${data._id}`, data);
       return res.data;
     } catch (error) {
       return error
