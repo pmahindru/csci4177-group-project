@@ -74,7 +74,7 @@ const EditPayment = ({ paymentId, onClose }) => {
     const fetchPaymentData = async () => {
       try {
         const result = await getPaymentMethod(paymentId);
-        if (!res.address) {
+        if (!result.address) {
           
           setPaymentMethod(result);
           setCVV(result.cvv);

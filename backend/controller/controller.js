@@ -104,9 +104,8 @@ const generateResetCode = async (req, res) => {
         text: `Your reset code is: ${resetCode}`,
       };
       await transporter.sendMail(mailOptions);
-      console.log('Reset code email sent successfully.');
     } catch (error) {
-      console.error('Failed to send reset code email:', error);
+      return error;
     }
     
     res.status(200).json(updatedUser);
@@ -128,7 +127,6 @@ const verifyResetCode  = async (req, res) => {
         res.status(400).json({ message: 'Reset code is not valid.' });
     }
   } catch (error) {
-      console.error('Failed to verify reset code:', error);
       res.status(500).json({ message: 'Internal server error.' });
     }
 }
@@ -156,7 +154,6 @@ const getOrderHistory = async (req, res) => {
   
         res.status(200).json(data);
     } catch (error) {
-      console.log("Error");
       res.status(500).json(error);
     }
   };
@@ -170,7 +167,6 @@ const getCart = async (req, res) => {
   
         res.status(200).json(data);
     } catch (error) {
-      console.log("Error");
       res.status(500).json(error);
     }
   };
@@ -184,7 +180,6 @@ const getCart = async (req, res) => {
   
         res.status(200).json(data);
     } catch (error) {
-      console.log("Error");
       res.status(500).json(error);
     }
   };
@@ -197,7 +192,6 @@ const getPayments = async (req, res) => {
   
         res.status(200).json(data);
     } catch (error) {
-      console.log("Error");
       res.status(500).json(error);
     }
   };
@@ -211,7 +205,6 @@ const editPayment = async (req, res) => {
   
         res.status(200).json(data);
     } catch (error) {
-      console.log("Error");
       res.status(500).json(error);
     }
   };
@@ -225,14 +218,12 @@ const deletePaymentMethod = async (req, res) => {
   
         res.status(200).json(data);
     } catch (error) {
-      console.log("Error");
       res.status(500).json(error);
     }
   };
 //create a payment method with payment data (Patrick Wooden)
 const createPayment = async (req,res) => {
     try {
-        console.log("request received:", req.body);
         const newPayment = {
             "_id" : uuid.v4(),
             "user_id" : req.body.user_id,
@@ -243,7 +234,6 @@ const createPayment = async (req,res) => {
             "lname" : req.body.lastName,
             "address" : req.body.address
         };
-        console.log(newPayment);
         const response = await model.createPayment(newPayment);
         if (response && response.data) {
             res.status(200).json(data);
@@ -252,13 +242,11 @@ const createPayment = async (req,res) => {
           }
     } catch (error) {
         res.status(500).json(error);
-        console.error('Error adding payment method:', error);
       }
 }
 //create a review with the request data(Patrick Wooden)
 const createReview = async (req,res) => {
   try {
-    console.log("request received:", req.body);
     const newReview = {
       "_id": uuid.v4(),
       "user_id": req.body.user_id,
@@ -267,7 +255,6 @@ const createReview = async (req,res) => {
       "ad_id": req.body.ad_id,
       "title": req.body.title,
     };
-    console.log(newReview);
     const response = await model.createReview(newReview);
     if (response && response.data) {
       res.status(200).json(response);
@@ -276,7 +263,6 @@ const createReview = async (req,res) => {
     }
   } catch (error) {
     res.status(500).json(error);
-    console.error('Error adding review:', error);
   }
 }
 //get all favourited ads using logged in users id (Patrick Wooden)
@@ -288,7 +274,6 @@ const getFavourites = async (req, res) => {
 
       res.status(200).json(data);
   } catch (error) {
-    console.log("Error");
     res.status(500).json(error);
   }
 };
@@ -302,7 +287,6 @@ const deleteFavourite = async (req, res) => {
 
       res.status(200).json(data);
   } catch (error) {
-    console.log("Error");
     res.status(500).json(error);
   }
 };
@@ -315,7 +299,6 @@ const getReviews = async (req, res) => {
 
       res.status(200).json(data);
   } catch (error) {
-    console.log("Error");
     res.status(500).json(error);
   }
 };
@@ -329,7 +312,6 @@ const getReview = async (req, res) => {
 
       res.status(200).json(data);
   } catch (error) {
-    console.log("Error");
     res.status(500).json(error);
   }
 };
@@ -343,7 +325,6 @@ const editReview = async (req, res) => {
 
       res.status(200).json(data);
   } catch (error) {
-    console.log("Error");
     res.status(500).json(error);
   }
 };
@@ -356,14 +337,12 @@ const getTrackedOrders = async (req, res) => {
 
       res.status(200).json(data);
   } catch (error) {
-    console.log("Error");
     res.status(500).json(error);
   }
 };
 //create a new order using request data(Patrick Wooden)
 const createOrder = async (req,res) => {
   try {
-    console.log("request received:", req.body);
     const newOrder = {
       "_id": uuid.v4(),
       "user_id": req.body.user_id,
@@ -372,8 +351,6 @@ const createOrder = async (req,res) => {
       "address": req.body.address,
       "status": req.body.status,
     };
-    console.log("Ran here");
-    console.log(newOrder);
     const response = await model.createOrder(newOrder);
    
     res.status(200).json(response);
@@ -381,40 +358,34 @@ const createOrder = async (req,res) => {
     
   } catch (error) {
     res.status(500).json(error);
-    console.error('Error creating order:', error);
   }
 }
 //create a new favourite ad based off request body (Patrick Wooden)
 const createFavourite = async (req,res) => {
   try {
-    console.log("request received:", req.body);
     const newFavourite = {
       "_id": uuid.v4(),
       "user_id": req.body.user_id,
       "ad_id": req.body.ad_id,
       
     };
-    console.log(newFavourite);
     const response = await model.createFavourite(newFavourite);
     
     res.status(200).json(response);
   
   } catch (error) {
     res.status(500).json(error);
-    console.error('Error adding ad to favourites list:', error);
   }
 }
 //add a new item to the users cart using req body (Patrick Wooden)
 const createCartItem = async (req,res) => {
   try {
-    console.log("request received:", req.body);
     const newItem = {
       "_id": uuid.v4(),
       "user_id": req.body.user_id,
       "ad_id": req.body.ad_id,
       
     };
-    console.log(newItem);
     const response = await model.createFavourite(newItem);
     if (response && response.data) {
       res.status(200).json(response);
@@ -423,7 +394,6 @@ const createCartItem = async (req,res) => {
     }
   } catch (error) {
     res.status(500).json(error);
-    console.error('Error adding item to cart:', error);
   }
 }
 module.exports = {

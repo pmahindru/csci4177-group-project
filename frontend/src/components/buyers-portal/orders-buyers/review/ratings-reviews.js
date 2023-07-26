@@ -86,7 +86,7 @@ const ReviewCard = ({ review, handleCreateReviewOpen }) => {
         <Grid item xs={4} md={4} sx={{ margin: '10px' }}>
           <StyledTypography>
             
-            <ResponsiveStarRatingDisplay value={star_rating}  />
+             <ResponsiveStarRatingDisplay value={parseInt(star_rating)}  /> 
             
           </StyledTypography>
         </Grid>
@@ -126,7 +126,7 @@ const Rating_Reviews = () => {
     const fetchReviews = async () => {
       try {
         const result = await getReviews(user_id);
-        if (!res.address) {
+        if (!result.address) {
           setReviews(result);
         }
         

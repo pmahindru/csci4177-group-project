@@ -192,14 +192,11 @@ const getOrderHistory = async (userId) => {
     }));
      // Ensures that the client will close when you finish/error
     await client.close();
-    console.log("closed!");
-    console.log(ordersWithAdDetails);
     return ordersWithAdDetails;
 
    
     
   }catch (error) {
-    console.error(error); 
     return error; 
   }
 }
@@ -229,14 +226,9 @@ const getCart = async (userId) => {
     }));
     // Ensures that the client will close when you finish/error
     await client.close();
-    console.log("closed!");
-    console.log(cartWithAdDetails);
     return cartWithAdDetails;
 
-    
-    
   }catch (error) {
-    console.error(error);
     return error; 
   }
 };
@@ -244,7 +236,6 @@ const getCart = async (userId) => {
 const deleteCartItem = async(itemId) => {
   try {
    
-
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
     
@@ -252,21 +243,18 @@ const deleteCartItem = async(itemId) => {
     const db = client.db("Order_Management");
     const Collection = db.collection("Cart");
     const deleteResult = await Collection.deleteOne({ _id: itemId });
-    console.log(deleteResult);
   
     // Ensures that the client will close when you finish/error
     await client.close();
     
     return deleteResult;
   } catch (error) {
-    console.log("Error");
     return error;
   }
 }
 //get all the payment methods a user has using user id (Patrick Wooden)
 const getPayments = async (userId) => {
   try {
-   
 
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
@@ -275,14 +263,11 @@ const getPayments = async (userId) => {
     const db = client.db("Order_Management");
     const Collection = db.collection("Payments");
     const payment = await Collection.find({ user_id: userId }).toArray();
-    console.log(payment);
   
     // Ensures that the client will close when you finish/error
     await client.close();
-    console.log("closed!");
     return payment;
   } catch (error) {
-    console.log("Error");
     return error;
   }
 }
@@ -298,10 +283,8 @@ const createPayment = async (data) => {
 
     // Ensures that the client will close when you finish/error
     await client.close();
-    console.log("closed!");
     return newPayment;
   } catch (error) {
-    console.error(error);
     return error; 
   }
 };
@@ -317,10 +300,8 @@ const createReview = async (data) => {
 
     // Ensures that the client will close when you finish/error
     await client.close();
-    console.log("closed!");
     return newReview;
   } catch (error) {
-    console.error(error);
     return error; 
   }
 };
@@ -336,14 +317,12 @@ const editPayment = async(paymentId, paymentData) => {
     const db = client.db("Order_Management");
     const Collection = db.collection("Payments");
     const payment = await Collection.updateOne({ _id: paymentId }, {$set: paymentData});
-    console.log(payment);
   
     // Ensures that the client will close when you finish/error
     await client.close();
     
     return payment;
   } catch (error) {
-    console.log("Error");
     return error;
   }
 }
@@ -352,7 +331,6 @@ const getReviews = async (userId) => {
   try {
     // Connect the client to the server (optional starting in v4.7)
     await client.connect();
-
     
     //call db name and collection
     const reviewdb = client.db("Order_Management");
@@ -373,14 +351,9 @@ const getReviews = async (userId) => {
     }));
     // Ensures that the client will close when you finish/error
     await client.close();
-    console.log("closed!");
-    console.log(reviewsWithAdDetails);
     return reviewsWithAdDetails;
-
-    
     
   }catch (error) {
-    console.error(error); 
     return error;
   }
 }
@@ -388,7 +361,6 @@ const getReviews = async (userId) => {
 const getReview = async (userId,adId) => {
   try {
    
-
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
     
@@ -396,21 +368,17 @@ const getReview = async (userId,adId) => {
     const db = client.db("Order_Management");
     const Collection = db.collection("Reviews");
     const review = await Collection.findOne({ user_id: userId, ad_id: adId });
-    console.log(review);
   
     // Ensures that the client will close when you finish/error
     await client.close();
-    console.log("closed!");
     return review;
   } catch (error) {
-    console.log("Error");
     return error;
   }
 }
 //edit a review by finding it using reviewId and then setting the reviewData (Patrick Wooden)
 const editReview = async(reviewId, reviewData) => {
   try {
-   
 
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
@@ -419,14 +387,12 @@ const editReview = async(reviewId, reviewData) => {
     const db = client.db("Order_Management");
     const Collection = db.collection("Reviews");
     const review = await Collection.updateOne({ _id: reviewId }, {$set: reviewData});
-    console.log(review);
   
     // Ensures that the client will close when you finish/error
     await client.close();
     
     return review;
   } catch (error) {
-    console.log("Error");
     return error;
   }
 }
@@ -442,14 +408,12 @@ const deletePaymentMethod = async(paymentId) => {
     const db = client.db("Order_Management");
     const Collection = db.collection("Payments");
     const deleteResult = await Collection.deleteOne({ _id: paymentId });
-    console.log(deleteResult);
   
     // Ensures that the client will close when you finish/error
     await client.close();
     
     return deleteResult;
   } catch (error) {
-    console.log("Error");
     return error;
   }
 }
@@ -479,14 +443,9 @@ const getFavourites = async (userId) => {
     }));
     // Ensures that the client will close when you finish/error
     await client.close();
-    console.log("closed!");
-    console.log(favouritesWithAdDetails);
     return favouritesWithAdDetails;
 
-    
-    
   }catch (error) {
-    console.error(error); 
     return error;
   }
 }
@@ -502,14 +461,12 @@ const deleteFavourite = async(favouriteId) => {
     const db = client.db("Order_Management");
     const Collection = db.collection("Favourites");
     const deleteResult = await Collection.deleteOne({ _id: favouriteId });
-    console.log(deleteResult);
   
     // Ensures that the client will close when you finish/error
     await client.close();
     
     return deleteResult;
   } catch (error) {
-    console.log("Error");
     return error;
   }
 }
@@ -522,7 +479,6 @@ const getTrackedOrders = async (userId) => {
     const orderdb = client.db("Order_Management");
     const orderCollection = orderdb.collection("Orders");
     const orderList = await orderCollection.find({ user_id: userId, status: status }).toArray();
-    console.log(orderList);
 
     const addb = client.db("Seller_Management");
     const adCollection = addb.collection("post_ad");
@@ -538,12 +494,9 @@ const getTrackedOrders = async (userId) => {
     );
 
     await client.close();
-    console.log("closed!");
-    console.log(ordersWithAdDetails);
 
     return ordersWithAdDetails;
   } catch (error) {
-    console.error(error);
     return error;
   }
 }
@@ -560,10 +513,8 @@ const createOrder = async (data) => {
 
     // Ensures that the client will close when you finish/error
     await client.close();
-    console.log("closed!");
     return newOrder;
   } catch (error) {
-    console.error(error);
     return error; 
   }
 };
@@ -579,10 +530,8 @@ const createFavourite = async (data) => {
 
     // Ensures that the client will close when you finish/error
     await client.close();
-    console.log("closed!");
     return newFavourite;
   } catch (error) {
-    console.error(error);
     return error; 
   }
 };
@@ -597,10 +546,8 @@ const createCartItem = async (data) => {
 
     // Ensures that the client will close when you finish/error
     await client.close();
-    console.log("closed!");
     return newItem;
   } catch (error) {
-    console.error(error);
     return error; 
   }
 };

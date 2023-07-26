@@ -27,7 +27,7 @@ const CreateReview = ({ onClose, selectedAdId }) => {
 
         if (reviewExists) {
           const response = await getReview(user_id, selectedAdId);
-          if (!res.address) {
+          if (!response.address) {
             setRating(response.star_rating);
             setTitle(response.title);
             setReview(response.review);
@@ -94,7 +94,7 @@ const CreateReview = ({ onClose, selectedAdId }) => {
         <form className="reviewForm">
           <div className="formRow">
             <div className="ratingContainer">
-                <ResponsiveStarRating value={star_rating} handleRatingChange={handleRatingChange} onClick={handleRatingChange}/>
+                <ResponsiveStarRating value={parseInt(star_rating)} handleRatingChange={handleRatingChange} onClick={handleRatingChange}/>
               </div>
           </div>
           <div className="formRow">
