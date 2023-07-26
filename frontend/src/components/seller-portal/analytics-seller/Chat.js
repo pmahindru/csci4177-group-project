@@ -1,4 +1,9 @@
 //Created by Parth Patel
+// Referred to the youtube video on how to use socket.io for real time commjunication and partially used the code after understanding to implement the chat feature.
+// URL1: https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth
+// URL2: https://github.com/koolkishan/chat-app-react-nodejs
+// Date Accessed: 07/26/2023
+// Used by Parth Patel
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
