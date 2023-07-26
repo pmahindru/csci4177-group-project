@@ -114,6 +114,37 @@ const loginUserModel = async (data) => {
   }
 };
 
+    //call db name and collection
+    const orderdb = client.db("Order_Management");
+    const orderCollection = orderdb.collection("Orders");
+
+    //put into an array as we need to get each ad details to return to the user
+    const orderList = await orderCollection.find({ user_id : userId }).toArray();
+    const addb = client.db("Seller_Management");
+    const adCollection = addb.collection("post_ad");
+    const ordersWithAdDetails = await Promise.all(orderList.map(async (order) => {
+      const adId = order.ad_id;
+      
+      const ad = await adCollection.findOne({ _id: adId });
+      return {
+        ...order,
+        ad_details: ad,
+      };
+    }));
+     // Ensures that the client will close when you finish/error
+    await client.close();
+    console.log("closed!");
+    console.log(ordersWithAdDetails);
+    return ordersWithAdDetails;
+
+   
+    
+  }catch (error) {
+    console.error(error); 
+    return error; 
+  }
+}
+
 // saveResetCode created by Saiz Charolia
 const saveResetCode = async (email, resetCode) => {
   try {
