@@ -847,4 +847,8 @@ module.exports = {
     pausePostAdWithId,
     previewSavePostAd,
     deleteSaveWithId,
-}
+    userProfileSettingsReadModel,
+    userProfileSettingsUpdateModel,
+    userNotificationSettingsReadModel,
+    userNotificationSettingsUpdateModel,
+};

@@ -283,6 +283,15 @@ export const profileUserDetails = async (data) => {
   }
 };
 
+export const userProfileSettingsRead  = async (user_id) => { //By Joel Kuruvilla
+  try {
+    const res = await axios.post(`${baseURL}/profile_setting/${user_id}`);
+    return res.data;
+  } catch (error) {
+    return error
+  }
+};
+
 // ADD NEW POST ADD APIs CALL (Pranav Mahindru)
 export const addNewPostAd = async (data) => {
     try {
@@ -358,7 +367,7 @@ export const previewSavePostAd = async (data) => {
 // pause the POST ADD APIs CALL (Pranav Mahindru)
 export const pausePostAd = async (data) => {
     try {
-      const res = await axios.put(`${baseURL}/seller/pausePostAdWithId/${data._id}`);
+      const res = await axios.put(`${baseURL}/seller/pausePostAdWithId/${data._id}`, data);
       return res.data;
     } catch (error) {
       return error
@@ -383,4 +392,32 @@ export const deleteSavePostAd = async (postId) => {
     } catch (error) {
       return error
     }
+}
+export const userProfileSettingsUpdate  = async (data) => { //By Joel Kuruvilla
+  try {
+    const res = await axios.get(`${baseURL}/profile_setting/:user_id/:settingConfigs`, data);
+    return res.data;
+  } catch (error) {
+    return error
+  }
+}
+
+export const userNotificationSettingsRead  = async (userID) => { //By Joel Kuruvilla
+  try {
+    const res = await axios.get(`${baseURL}/notification_setting/${userID}`);
+    return res.data;
+  } 
+  catch (error) {
+    return error;
+  }
+}
+
+export const userNotificationSettingsUpdate  = async (userID, data) => { //By Joel Kuruvilla
+  try {
+    const res = await axios.put(`${baseURL}/notification_setting/${userID}`, data);
+    return res.data;
+  } 
+  catch (error) {
+    return error;
+  }
 }

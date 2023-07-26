@@ -626,6 +626,8 @@ module.exports = {
     pausePostAdWithId,
     previewSavePostAd,
     deleteSaveWithId,
-    profileUserDetailsRetreive,
-    profileUserDetailsUpdate,  
-}
+    userProfileSettingsRead,
+    userProfileSettingsUpdate,
+    userNotificationSettingsRead,
+    userNotificationSettingsUpdate,
+};

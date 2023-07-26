@@ -29,3 +29,14 @@
     }
 }
 
+@media (max-width: 450px) {
+    .notificationSettings-form {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 265px) {
+    .notificationSettings-form {
+        font-size: 7px;
+    }
+}

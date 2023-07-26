@@ -17,6 +17,7 @@ app.post(`${baseURL}/login`, controller.loginUser); // by Saiz Charolia
 app.post(`${baseURL}/generate-reset-code`, controller.generateResetCode); // by Saiz Charolia
 app.get(`${baseURL}/get-reset-code`, controller.verifyResetCode); // by Saiz Charolia
 app.post(`${baseURL}/reset-password`, controller.resetNewPassword); // by Saiz Charolia
+
 app.get(`${baseURL}/order-history/:userId`, controller.getOrderHistory);
 app.post(`${baseURL}/orders`, controller.createOrder);
 app.get(`${baseURL}/payments/:userId`, controller.getPayments);
@@ -34,7 +35,13 @@ app.post(`${baseURL}/favourites`, controller.createFavourite);
 app.post(`${baseURL}/cart`, controller.createCartItem);
 app.delete(`${baseURL}/favourites/:favouriteId`, controller.deleteFavourite);
 app.get(`${baseURL}/track-orders/:userId`, controller.getTrackedOrders);
-//api for message
+
+app.get(`${baseURL}/profile_setting/:user_id`, controller.userProfileSettingsRead); //By Joel Kuruvilla
+app.put(`${baseURL}/profile_setting/`, controller.userProfileSettingsUpdate); //By Joel Kuruvilla
+app.get(`${baseURL}/notification_setting/:user_id`, controller.userNotificationSettingsRead); //By Joel Kuruvilla
+app.put(`${baseURL}/notification_setting/:user_id`, controller.userNotificationSettingsUpdate); //By Joel Kuruvilla
+
+//api for add
 app.post(`${baseURL}/addmsg`, controller.addMessage);
 app.post(`${baseURL}/getmsg`, controller.getMessages);
 app.get(`${baseURL}/allusers/:id`, controller.getAllUsers);

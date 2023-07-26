@@ -7,16 +7,16 @@ import Switch from 'react-switch';
 
 function ProfileSettings() {
     const userData = JSON.parse(localStorage.getItem("user_info"));
-    const currentUserID = userData._id;
-    console.log("[Profile-Page] Current Logged-in User: ", currentUserID, userData);
+    const user_id = userData._id;
+    console.log("[Profiles-Page] Current Logged-in User: ", user_id, userData);
 
 
     async function readProfileConfigurations() {
-        const profileSettingsReading  = await userProfileSettingsRead({currentUserID});
+        const profileSettingsReading  = await userProfileSettingsRead({user_id});
 
         for (var i = 0; i < JSON.stringify(profileSettingsReading).length; i++) {
             let settingsData = JSON.stringify(profileSettingsReading[i]);
-            if (settingsData.includes(currentUserID)) {
+            if (settingsData.includes(user_id)) {
                 console.log("Settings retreived?\n" + settingsData);
                 localStorage.setItem("user_info_profileSettings", settingsData);
                 break;
@@ -55,7 +55,7 @@ function ProfileSettings() {
     }
 
     async function updateProfileConfigurations() {
-    //     const settingsStatus = await userProfileSettingsUpdate ({currentUserID, email2FAEnabled, phone2FAEnabled, authenticationApp2FAEnabled, currentLocationEnabled, disableAccountEnabled });
+    //     const settingsStatus = await userProfileSettingsUpdate ({user_id, email2FAEnabled, phone2FAEnabled, authenticationApp2FAEnabled, currentLocationEnabled, disableAccountEnabled });
     //     console.log(settingsStatus);
     }
 
