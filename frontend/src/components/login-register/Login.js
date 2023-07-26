@@ -75,6 +75,7 @@ const Login = () => {
       localStorage.setItem('user_info', JSON.stringify(data));
       localStorage.setItem('isLoggedIn', true);
       navigate('/');
+      window.location.reload();
       return;
     }
     if (data.response.status === 401){
@@ -82,6 +83,7 @@ const Login = () => {
     }else{
       alert(data.response.data.message);
       navigate('/Signup'); 
+      window.location.reload();
     }
   };
 

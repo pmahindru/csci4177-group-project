@@ -1,13 +1,11 @@
+// Created by Pranav Mahindru
 // CRUD operations referred from MongoDB
 // URL: https://mongodb.github.io/node-mongodb-native/3.0/reference/ecmascriptnext/crud/
 // Date Accessed: 07/23/2023
 // Used by Saiz Charolia
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
-const crypto = require("crypto");
-
-const uri =
-  "mongodb+srv://Team24:qwhoZh2NkExdtQu5@shopaestheticscluster.za4i1fn.mongodb.net/";
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://Team24:qwhoZh2NkExdtQu5@shopaestheticscluster.za4i1fn.mongodb.net/?retryWrites=true&w=majority";
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -149,7 +147,6 @@ const checkEmailExists = async (data) => {
     await client.close();
     return !!user;
   } catch (error) {
-    console.error("Error checking email existence:", error);
     return false;
   }
 };
@@ -186,6 +183,7 @@ const getOrderHistory = async (userId) => {
     return error;
   }
 };
+
 //get every item in a cart for a user using user_id (Patrick Wooden)
 const getCart = async (userId) => {
   try {
@@ -218,6 +216,7 @@ const getCart = async (userId) => {
     return error;
   }
 };
+
 //delete a item in a users cart based on the items id (Patrick Wooden)
 const deleteCartItem = async (itemId) => {
   try {
@@ -237,6 +236,7 @@ const deleteCartItem = async (itemId) => {
     return error;
   }
 };
+
 //get all the payment methods a user has using user id (Patrick Wooden)
 const getPayments = async (userId) => {
   try {
@@ -255,6 +255,7 @@ const getPayments = async (userId) => {
     return error;
   }
 };
+
 //create a new payment method using data sent from controller (Patrick Wooden)
 const createPayment = async (data) => {
   try {
@@ -272,6 +273,7 @@ const createPayment = async (data) => {
     return error;
   }
 };
+
 //create a new review using data sent over from controller(Patrick Wooden)
 const createReview = async (data) => {
   try {
@@ -289,6 +291,7 @@ const createReview = async (data) => {
     return error;
   }
 };
+
 //edit a payment method using the paymentId and paymentData sent over from controller (Patrick Wooden)
 const editPayment = async (paymentId, paymentData) => {
   try {
@@ -602,32 +605,246 @@ const findMessages = async (query) => {
   }
 };
 
+// save post Ad (pranav mahindru)
+const savePostAd = async (data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("save_ad");
+
+      const postedAd = await collection.insertOne(data);
+
+      await client.close();
+
+      return postedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all save posted Ad (pranav mahindru)
+const getAllSavePostedAd = async (data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("save_ad");
+
+      const postedAd = await collection.find(data).toArray();
+
+      await client.close();
+
+      return postedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all post Ad (pranav mahindru)
+const getAllPostedAd = async (data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("post_ad");
+
+      const postedAd = await collection.find(data).toArray();
+
+      await client.close();
+
+      return postedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all post Ad (pranav mahindru)
+const pausePostAdWithId = async (data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("post_ad");
+
+      const postedAd = await collection.find({"_id": data._id}).toArray();
+
+      if (data.page === "seller_status" || data.page === "seller_draft") {
+        var updatePost;
+        if (postedAd[0]["isActive"] === true) {
+          updatePost = await collection.updateOne({"_id": data._id}, {$set: {"isActive": !postedAd[0]["isActive"]}});
+        }
+        else{
+          updatePost = {messages: "It is already Paused"};
+        }
+        await client.close();
+        return updatePost;
+      }
+      else{
+        const updatePost = await collection.updateOne({"_id": data._id}, {$set: {"isActive": !postedAd[0]["isActive"]}});
+        await client.close();
+        return updatePost;
+      }
+    } catch (error) {
+      return error;
+    }
+}
+
+// add new post Ad (pranav mahindru)
+const addNewPostAd = async (data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("post_ad");
+
+      const postedAd = await collection.insertOne(data);
+
+      await client.close();
+
+      return postedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all update posted Ad (pranav mahindru)
+const updatePostWithId = async (idObject, data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("post_ad");
+
+      const updatepostedAd = await collection.updateOne(idObject, data);
+
+      await client.close();
+
+      return updatepostedAd;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all update posted Ad (pranav mahindru)
+const previewSavePostAd = async (idObject, data) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection1 = db.collection("save_ad");
+
+      // update the save ad
+      await collection1.updateOne(idObject, data);
+      
+      // find the item in collection 1
+      const collection1Find = await collection1.findOne(idObject);
+
+      const collection2 = db.collection("post_ad");
+     
+      // insert the save ad to the post ad because it is updated
+      await collection2.insertOne(collection1Find);
+
+      // // delete from the collection 
+      const deletePostWithId = await collection1.deleteOne(idObject);
+
+      await client.close();
+
+      return deletePostWithId;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all update posted Ad (pranav mahindru)
+const deletePostWithId = async (idObject) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("post_ad");
+
+      const deletePostWithId = await collection.deleteOne(idObject);
+
+      await client.close();
+
+      return deletePostWithId;
+    } catch (error) {
+      return error;
+    }
+}
+
+// get all update posted Ad (pranav mahindru)
+const deleteSaveWithId = async (idObject) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("save_ad");
+
+      const deletePostWithId = await collection.deleteOne(idObject);
+
+      await client.close();
+
+      return deletePostWithId;
+    } catch (error) {
+      return error;
+    }
+}
+
 module.exports = {
-  getAllUserSignup,
-  registerUser,
-  loginUserModel,
-  saveResetCode,
-  verifyCode,
-  saveNewPassword,
-  checkEmailExists,
-  getOrderHistory,
-  getPayments,
-  createPayment,
-  editPayment,
-  deletePaymentMethod,
-  getReviews,
-  getCart,
-  deleteCartItem,
-  getFavourites,
-  deleteFavourite,
-  createReview,
-  getReview,
-  editReview,
-  getTrackedOrders,
-  createOrder,
-  createFavourite,
-  createCartItem,
-  addMessageModel,
-  findMessages,
-  findUsers,
-};
+    getAllUserSignup,
+    registerUser,
+    loginUserModel,
+    getAllPostedAd,
+    addNewPostAd,
+    savePostAd,
+    saveResetCode,
+    verifyCode,
+    saveNewPassword,
+    checkEmailExists,
+    getOrderHistory,
+    getPayments,
+    createPayment,
+    editPayment,
+    deletePaymentMethod,
+    getReviews,
+    getCart,
+    deleteCartItem,
+    getFavourites,
+    deleteFavourite,
+    createReview,
+    getReview,
+    editReview,
+    getTrackedOrders,
+    createOrder,
+    createFavourite,
+    createCartItem,
+    addMessageModel,
+    findMessages,
+    findUsers,
+    getAllSavePostedAd,
+    updatePostWithId,
+    deletePostWithId,
+    pausePostAdWithId,
+    previewSavePostAd,
+    deleteSaveWithId,
+}

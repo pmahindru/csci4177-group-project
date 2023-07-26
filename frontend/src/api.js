@@ -1,3 +1,4 @@
+// Created by Pranav Mahindru
 // try catch referred from mdn web docs
 // URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
 // Date Accessed: 07/23/2023
@@ -281,3 +282,105 @@ export const profileUserDetails = async (data) => {
     return error;
   }
 };
+
+// ADD NEW POST ADD APIs CALL (Pranav Mahindru)
+export const addNewPostAd = async (data) => {
+    try {
+      const res = await axios.post(`${baseURL}/seller/addPost`, data);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// SAVE POST ADD APIs CALL (Pranav Mahindru)
+export const savePostAd = async (data) => {
+    try {
+      const res = await axios.post(`${baseURL}/seller/savePost`, data);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
+export const getAllPostedAd = async (data) => {
+    try {
+      const res = await axios.post(`${baseURL}/seller/getPost`, data);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
+export const getAllSavePostedAd = async (data) => {
+    try {
+      const res = await axios.post(`${baseURL}/seller/getSavePost`, data);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
+export const getPostAdWithId = async (data) => {
+    try {
+      const res = await axios.post(`${baseURL}/seller/getPostAdWithId/${data._id}`);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// update the POST ADD APIs CALL (Pranav Mahindru)
+export const updatePostAd = async (data) => {
+    try {
+      const { _id, ...object } = data;
+      const res = await axios.put(`${baseURL}/seller/updatePostWithId/${_id}`, object);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// update the POST ADD APIs CALL (Pranav Mahindru)
+export const previewSavePostAd = async (data) => {
+    try {
+      const { _id, ...object } = data;
+      const res = await axios.put(`${baseURL}/seller/previewSavePostAd/${_id}`, object);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// pause the POST ADD APIs CALL (Pranav Mahindru)
+export const pausePostAd = async (data) => {
+    try {
+      const res = await axios.put(`${baseURL}/seller/pausePostAdWithId/${data._id}`);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// delete the POST ADD APIs CALL (Pranav Mahindru)
+export const deletePostAd = async (postId) => {
+    try {
+      const res = await axios.delete(`${baseURL}/seller/deletePostWithId/${postId}`);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// delete the POST ADD APIs CALL (Pranav Mahindru)
+export const deleteSavePostAd = async (postId) => {
+    try {
+      const res = await axios.delete(`${baseURL}/seller/deleteSaveWithId/${postId}`);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}

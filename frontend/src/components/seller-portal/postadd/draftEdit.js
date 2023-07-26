@@ -1,10 +1,11 @@
 /* Created By: Pranav Mahindru*/
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './createnewads.css';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { savePostAd } from '../../../api';
+import { useLocation, NavLink, useNavigate } from 'react-router-dom';
+import { getAllSavePostedAd, getPostAdWithId } from '../../../api';
+import ReactLoading from "react-loading";
 
-function CreateNewAd() {
+function DraftEdit() {
     const [selectImageFiles, setSelectImageFiles] = useState([]);
     const [saveFileLength, setSaveFileLength] = useState(0);
     const [dropdowntype, setdropdowntype] = useState('');
@@ -16,6 +17,59 @@ function CreateNewAd() {
     const [selectCategory, setCategory] = useState('');
     const [selectCondition, setCondition] = useState('');
     const [selectPayments, setPayments] = useState('');
+    const navigate = useNavigate();
+    // save res
+    const [res, setRes] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [saveID, setSaveID] = useState('');
+
+    useEffect(() => {
+        const getPathname = window.location.pathname;
+        const splitPathname = getPathname.split("/");
+        const getPostId = splitPathname[splitPathname.length-1]
+        setSaveID(getPostId)
+
+        const getSaveData = async () => {
+           const res = await getAllSavePostedAd({"_id": getPostId});
+            setRes(res);
+            setLoading(false);
+            if (Object.keys(res).length === 0) {
+                return;
+            }
+            if (!res.address) {
+                let getAllImage = []
+                res.map((item) => {
+                    getAllImage = [...getAllImage, ...item.image]
+                    setdropdowntype(item.type);
+                    settitle(item.title);
+                    setprice(item.price);
+                    setdescription(item.description);
+                    setproduct_tag(item.prod_tags);
+                    setlocation(item.location);
+                    setCategory(item.category);
+                    setCondition(item.condition);
+                    setPayments(item.payments_type);
+                    return null;
+                })
+                setSelectImageFiles(getAllImage);
+                setSaveFileLength(getAllImage.length);
+            }
+        }
+        getSaveData();
+    }, [])
+
+    if (loading || res === null || res === undefined) {
+        return(
+            <div className='preview-loading'>
+                <h2>
+                    Take couple of minutes
+                    <br/>
+                    <br/>
+                    <ReactLoading type="bars" color="#3f1a6b" height={200} width={100}/>
+                </h2>
+            </div>
+        );
+    }
 
     /**
      * onChange functions
@@ -78,41 +132,8 @@ function CreateNewAd() {
         setPayments(e.target.value);
     };
 
-    /*
-     *when user save show alert and redirect to dashboard page
-    */
-    const navigate = useNavigate();
-    const getLocalStorage = localStorage.getItem("user_info");
-    const userInfo = JSON.parse(getLocalStorage);
-    const handleSaveAd = async (e) =>{
-        e.preventDefault();
-        const data = {
-            "user_id": userInfo["_id"],
-            "image" : selectImageFiles,
-            "title" : title,
-            "price" : price,
-            "description" : description,
-            "prod_tags" : product_tag,
-            "location" : location,
-            "condition" : selectCondition,
-            "payments_type" : selectPayments,
-            "type" : dropdowntype,
-            "category" : selectCategory,
-            "status" :  "draft",
-            "isActive" : false,
-            "product_status" : null
-        };
-
-        var res = await savePostAd(data) ;
-
-        if (res.response === undefined) {
-            alert(res.message);
-            navigate('/dashboard');
-        } 
-        else {
-            alert(res.message);
-            navigate('/dashboard');
-        }
+    const handleBackAd = async (e) =>{
+        window.history.back();
     };
 
     const handlePreview = (e) =>{
@@ -122,18 +143,18 @@ function CreateNewAd() {
             return;
         }
 
-        navigate('/preview', {state: {
+        navigate(`/draftUpdate/${saveID}`, {state: {
             data: [{sendImageFiles: selectImageFiles},
             {sendTitle: title},{sendPrice: price},{sendDescription: description},{sendProduct_tag: product_tag},
             {sendLocation: location},{sendCondition: selectCondition},{sendPayments: selectPayments},
-            {category: selectCategory},{type: dropdowntype}]
+            {category: selectCategory},{type: dropdowntype},{res: saveID}]
         }});
     };
 
     return (
         <div className='postAd-main-container'>
             <div className='postAd-section1'>
-                <h2>Creating New Listing</h2>
+                <h2>Update Ad Listing</h2>
             </div>
             <div className='postAd-section-form'>
                 {/* first half form */}
@@ -143,7 +164,7 @@ function CreateNewAd() {
                             Type:
                             <span className='required-star-in-form'>*</span>
                         </h3>
-                        <select onChange={handleDropdownType} className='postAd-dropdown' required>
+                        <select value={dropdowntype} onChange={handleDropdownType} className='postAd-dropdown' required>
                             <option value=''>Select Your Type</option>
                             <option value='accommodation'>Accommodation</option>
                             <option value='vehicle'>vehicle</option>
@@ -203,7 +224,7 @@ function CreateNewAd() {
                             Category:
                             <span className='required-star-in-form'>*</span>
                         </h3>
-                        <select onChange={handleDropdownCategory} className='postAd-dropdown'>
+                        <select value={selectCategory} onChange={handleDropdownCategory} className='postAd-dropdown'>
                             <option value=''>Select Your Category</option>
                             <option value='carType'>Car Type</option>
                             <option value='rent_buy'>Rent/Buy house</option>
@@ -216,7 +237,7 @@ function CreateNewAd() {
                             Condition:
                             <span className='required-star-in-form'>*</span>
                         </h3>
-                        <select onChange={handleDropdownCondition} className='postAd-dropdown'>
+                        <select value={selectCondition} onChange={handleDropdownCondition} className='postAd-dropdown'>
                             <option value=''>Select Your Condition</option>
                             <option value='new'>New</option>
                             <option value='usedLike'>Used like</option>
@@ -229,7 +250,7 @@ function CreateNewAd() {
                             Payments Types:
                             <span className='required-star-in-form'>*</span>
                         </h3>
-                        <select onChange={handleDropdownPayments} className='postAd-dropdown'>
+                        <select value={selectPayments} onChange={handleDropdownPayments} className='postAd-dropdown'>
                             <option value=''>Select Your Payments Type</option>
                             <option value='card'>Credit/Debit</option>
                             <option value='cash'>Cash On Delivery</option>
@@ -240,7 +261,7 @@ function CreateNewAd() {
 
                 {/* for preview or save button */}
                 <div className='postAd-button'>
-                    <button type='button' onClick={handleSaveAd}><NavLink> Save Ad </NavLink></button>
+                    <button type='button' onClick={handleBackAd}><NavLink> Back </NavLink></button>
                     <button type='button' onClick={handlePreview}><NavLink> Preview Ad </NavLink></button>
                 </div>
             </div>
@@ -248,4 +269,4 @@ function CreateNewAd() {
     );
 };
 
-export default CreateNewAd;
+export default DraftEdit;

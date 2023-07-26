@@ -34,6 +34,33 @@ function CustomerSupport() {
     return (
         <div className='customerSupport-main-container'>
             <div className='customerSupport-section1'>
+                <h2>Contact Us</h2>
+            </div>
+            <div className='customerSupport-section2' id="ContactUs">
+              <div>
+                <span>
+                    <h4>If have any question please call us or Email us from 9:00am - 9:00pm</h4>
+                </span>
+                <br/>
+                <span>
+                    <h4><CustomerPhone/> +1902-952-3128</h4>
+                </span>
+                <br/>
+                <span>
+                    <h4><CustomerEmail/> shppaesthetics@outlook.ca</h4>
+                </span>
+                <br/>
+                <span>
+                    <h4>Address: Postal: 6056 University Ave, Halifax, NS B3H 1W5</h4>
+                </span>
+                <br/>
+              </div>
+            </div>
+
+            <br/>
+            <br/>
+            
+            <div className='customerSupport-section1'>
                 <h2>Ask Frequent Questions</h2>
             </div>
             <div className='customerSupport-section2'>
@@ -97,33 +124,6 @@ function CustomerSupport() {
                     </div>
                 </section>
                </div>
-            </div>
-
-            <br/>
-            <br/>
-
-            <div className='customerSupport-section1'>
-                <h2>Contact Us</h2>
-            </div>
-            <div className='customerSupport-section2' id="ContactUs">
-              <div>
-                <span>
-                    <h4>If have any question please call us or Email us from 9:00am - 9:00pm</h4>
-                </span>
-                <br/>
-                <span>
-                    <h4><CustomerPhone/> +1902-952-3128</h4>
-                </span>
-                <br/>
-                <span>
-                    <h4><CustomerEmail/> shppaesthetics@outlook.ca</h4>
-                </span>
-                <br/>
-                <span>
-                    <h4>Address: Postal: 6056 University Ave, Halifax, NS B3H 1W5</h4>
-                </span>
-                <br/>
-              </div>
             </div>
             <br/>
         </div>

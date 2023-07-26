@@ -1,12 +1,13 @@
+// Created by Pranav Mahindru
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const controller = require("../controller/controller");
-// const { addMessage, getMessages } = require("../controllers/messageController");
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({limit: "20mb"}));
 
+// base url
 const baseURL = "/api";
 
 // calling the controller method
@@ -33,12 +34,20 @@ app.post(`${baseURL}/favourites`, controller.createFavourite);
 app.post(`${baseURL}/cart`, controller.createCartItem);
 app.delete(`${baseURL}/favourites/:favouriteId`, controller.deleteFavourite);
 app.get(`${baseURL}/track-orders/:userId`, controller.getTrackedOrders);
-module.exports = app;
-
-//api for add
+//api for message
 app.post(`${baseURL}/addmsg`, controller.addMessage);
 app.post(`${baseURL}/getmsg`, controller.getMessages);
-
 app.get(`${baseURL}/allusers/:id`, controller.getAllUsers);
+// SELLER PORTAL ROUTES
+app.post(`${baseURL}/seller/addPost`, controller.addNewPostAd);
+app.post(`${baseURL}/seller/savePost`, controller.savePostAd);
+app.post(`${baseURL}/seller/getPost`, controller.getAllPostedAd);
+app.post(`${baseURL}/seller/getSavePost`, controller.getAllSavePostedAd);
+app.post(`${baseURL}/seller/getPostAdWithId/:postId`, controller.getPostAdWithId);
+app.put(`${baseURL}/seller/pausePostAdWithId/:postId`, controller.pausePostAdWithId);
+app.put(`${baseURL}/seller/updatePostWithId/:postId`, controller.updatePostWithId);
+app.put(`${baseURL}/seller/previewSavePostAd/:postId`, controller.previewSavePostAd);
+app.delete(`${baseURL}/seller/deletePostWithId/:postId`, controller.deletePostWithId);
+app.delete(`${baseURL}/seller/deleteSaveWithId/:postId`, controller.deleteSaveWithId);
 
 module.exports = app;

@@ -75,8 +75,21 @@
     margin: 10px;
 }
 
+.preview-loading {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.style-image-preview {
+    mix-blend-mode: multiply;
+}
+
 @media (max-width: 750px) {
-    .previewAd-main-container {
+    .previewAd-main-container, .preview-loading {
         padding-top: 70px;
     }
 
