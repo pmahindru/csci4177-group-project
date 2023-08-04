@@ -1,8 +1,8 @@
 /* Created By: Pranav Mahindru*/
 import React, { useEffect, useState } from 'react';
 import './createnewads.css';
-import { useLocation, NavLink, useNavigate } from 'react-router-dom';
-import { getAllSavePostedAd, getPostAdWithId } from '../../../api';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { getAllSavePostedAd } from '../../../api';
 import ReactLoading from "react-loading";
 
 function DraftEdit() {
