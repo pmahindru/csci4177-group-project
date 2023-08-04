@@ -131,7 +131,7 @@ const Favourites = () => {
     };
 
     fetchFavourites();
-  });
+  }, []);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -147,14 +147,17 @@ const Favourites = () => {
               <h2 className="favouriteLabel">No Ads Favourited</h2>
             </div>
           ) : (
-            favourites.map((favourite) => (
-              <div key={favourite._id}>
+            favourites.map((favourite) => {
+              return(
+                <div key={favourite._id}>
                 <FavouritesCard
                   key={favourite._id}
                   favourite={favourite}
                 ></FavouritesCard>
               </div>
-            ))
+              )
+            
+            })
           )}
         </Grid>
       </Grid>

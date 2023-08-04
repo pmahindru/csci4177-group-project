@@ -106,9 +106,9 @@ const OrderHistoryPage = () => {
   //use effect gets and sorts order history of user
   useEffect(() => {
     const fetchOrderHistory = async () => {
-      try {
+      
         const result = await getOrderHistory(user_id);
-        
+        console.log(result);
         if (!result.address) {
           const sortedData = result.sort((a,b) => {
             if (sortOrder === 'desc') {
@@ -119,15 +119,10 @@ const OrderHistoryPage = () => {
           });
           setOrders(sortedData);
         }
-
-        
-      } catch (error) {
-        return error;
-      }
     };
 
     fetchOrderHistory();
-  }, [sortOrder, user_id]);
+  }, [sortOrder]);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -147,14 +142,17 @@ const OrderHistoryPage = () => {
               <h2 className="orderHistoryLabel">No Products Purchased</h2>
             </div>
           ) : (
-            orders.map((order) => (
-              <div key={order._id}>
-                <OrderHistoryCard
-                   order={order}
-                   handleCreateReviewOpen={handleCreateReviewOpen}
-                ></OrderHistoryCard>
+            orders.map((order) => {
+              return(
+                <div key={order._id}>
+                  <OrderHistoryCard
+                    order={order}
+                    handleCreateReviewOpen={handleCreateReviewOpen}
+                  ></OrderHistoryCard>
               </div>
-            ))
+              )
+              
+              })
           )}
           {isCreateModalOpen && (
         <div className="modalOverlay">

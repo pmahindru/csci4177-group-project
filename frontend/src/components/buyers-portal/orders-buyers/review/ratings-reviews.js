@@ -120,7 +120,7 @@ const Rating_Reviews = () => {
       }
     };
     fetchReviews();
-  });
+  }, []);
 
   return (
     <div style={{ padding: '20px' }}>
@@ -136,15 +136,18 @@ const Rating_Reviews = () => {
               <h2 className="reviewLabel">No Reviews Created</h2>
             </div>
           ) : (
-            Array.isArray(reviews) && reviews.map((review) => (
-              <div key={review._id}>
-                <ReviewCard
-                  key={review._id}
-                  review={review}
-                  handleCreateReviewOpen={handleCreateReviewOpen}
-                />
-              </div>
-            ))
+            reviews.map((review) => {
+              return(
+                <div key={review._id}>
+                  <ReviewCard
+                    key={review._id}
+                    review={review}
+                    handleCreateReviewOpen={handleCreateReviewOpen}
+                  />
+                </div>
+              )
+             
+            })
           )}
           {isCreateReviewOpen && (
             <div className="modalOverlay">

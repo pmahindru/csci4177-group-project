@@ -116,13 +116,16 @@ const TrackOrders = () => {
               <h2 className="trackOrdersLabel">No Orders In Transit</h2>
             </div>
           ) : (
-            orders.map((order) => (
-              <div key={order._id}>
-                <TrackOrdersCard
-                  order={order}
-                ></TrackOrdersCard>
-              </div>
-            ))
+            orders.map((order) => {
+              return(
+                <div key={order._id}>
+                  <TrackOrdersCard
+                    order={order}
+                  ></TrackOrdersCard>
+                </div>
+              )
+              
+            })
           )}
         </Grid>
       </Grid>
