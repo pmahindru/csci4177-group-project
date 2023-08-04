@@ -1,6 +1,6 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
-import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
+import { Grid, Card, CardMedia, Typography } from '@mui/material';
 import CreateReview from './create-review';
 import { styled } from '@mui/system';
 import './ratings-reviews.css';
@@ -120,7 +120,7 @@ const Rating_Reviews = () => {
       }
     };
     fetchReviews();
-  }, []);
+  });
 
   return (
     <div style={{ padding: '20px' }}>
@@ -148,8 +148,7 @@ const Rating_Reviews = () => {
           )}
           {isCreateReviewOpen && (
             <div className="modalOverlay">
-              <CreateReview onClose={handleCreateReviewClose
-} selectedAdId={selectedAdId} />
+              <CreateReview onClose={handleCreateReviewClose} selectedAdId={selectedAdId} />
             </div>
           )}
         </Grid>

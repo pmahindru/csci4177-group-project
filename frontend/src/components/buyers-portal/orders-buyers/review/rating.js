@@ -9,11 +9,9 @@ const ResponsiveStarRating = ({ value, handleRatingChange}) => {
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Rating name="responsive-rating" value={value} precision={0.5}  onChange={(event, newValue) => {
           handleRatingChange(newValue);
-        }}sx={{
+        }}
+        sx={{
         fontSize: '10px',
-        '@media (min-width: 600px)': {
-          fontSize: '20px', 
-        },
         '@media (min-width: 600px)': {
           fontSize: '20px', 
         },
