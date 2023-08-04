@@ -1,6 +1,6 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
-import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
+import { Grid, Card, CardMedia, Typography } from '@mui/material';
 import CreateReview from './create-review';
 import { styled } from '@mui/system';
 import './ratings-reviews.css';
@@ -41,21 +41,6 @@ const StyledCardMedia = styled(CardMedia)({
   paddingTop: "5px",
 });
 
-const StyledButton = styled(Button)({
-  width: '25%',
-  butonSize: 'small',
-  fontSize: '10px',
-  padding: '5px',
-  '@media (min-width: 600px)': {
-    fontSize: '10px',
-    buttonSize: 'medium',
-    padding: '5px',
-  },
-  '@media (min-width: 807px)': {
-    fontSize: '12px',
-    buttonSize: 'large',
-  },
-});
 
 //review card returns a image of the product they reviewed, the star rating they gave, the review title they left and a edit button
 const ReviewCard = ({ review, handleCreateReviewOpen }) => {
@@ -135,7 +120,7 @@ const Rating_Reviews = () => {
       }
     };
     fetchReviews();
-  }, []);
+  });
 
   return (
     <div style={{ padding: '20px' }}>
@@ -163,8 +148,7 @@ const Rating_Reviews = () => {
           )}
           {isCreateReviewOpen && (
             <div className="modalOverlay">
-              <CreateReview onClose={handleCreateReviewClose
-} selectedAdId={selectedAdId} />
+              <CreateReview onClose={handleCreateReviewClose} selectedAdId={selectedAdId} />
             </div>
           )}
         </Grid>

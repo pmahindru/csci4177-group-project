@@ -1,8 +1,8 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import "../../seller-portal/orders-seller/orders_seller.css";
 
-import { useLocation, NavLink } from "react-router-dom";
+import {NavLink } from "react-router-dom";
 import OrderHistoryPage from './orderhistory/order-history';
 import TrackOrders from './trackorders/track-orders';
 import Favourites from './favourites/favourites';
@@ -29,19 +29,19 @@ const OrdersBuyers = () => {
                           <NavLink to="#Order-History" onClick={() => handleLocation("#order-history")}> Order History </NavLink>
                       </li>
                       <li className={currentLocation === "#track-orders" ? "order_seller_page_active_page_navigation" : ""}>
-                          <NavLink to="#InActive" onClick={() => handleLocation("#track-orders")}> Track Orders </NavLink>
+                          <NavLink to="#track-orders" onClick={() => handleLocation("#track-orders")}> Track Orders </NavLink>
                       </li>
                       <li className={currentLocation === "#favourites" ? "order_seller_page_active_page_navigation" : ""}>
-                          <NavLink to="#Delivered" onClick={() => handleLocation("#favourites")}> Favourites </NavLink>
+                          <NavLink to="#favourites" onClick={() => handleLocation("#favourites")}> Favourites </NavLink>
                       </li>
                       <li className={currentLocation === "#payments" ? "order_seller_page_active_page_navigation" : ""}>
-                          <NavLink to="#Canceled" onClick={() => handleLocation("#payments")}> Payments </NavLink>
+                          <NavLink to="#payments" onClick={() => handleLocation("#payments")}> Payments </NavLink>
                       </li>
                       <li className={currentLocation === "#reviews" ? "order_seller_page_active_page_navigation" : ""}>
-                          <NavLink to="#Completed" onClick={() => handleLocation("#reviews")}> Reviews </NavLink>
+                          <NavLink to="#reviews" onClick={() => handleLocation("#reviews")}> Reviews </NavLink>
                       </li>
                       <li className={currentLocation === "#cart" ? "order_seller_page_active_page_navigation" : ""}>
-                          <NavLink to="#Status" onClick={() => handleLocation("#cart")}> Cart </NavLink>
+                          <NavLink to="#cart" onClick={() => handleLocation("#cart")}> Cart </NavLink>
                       </li>
                      
                   </ul>

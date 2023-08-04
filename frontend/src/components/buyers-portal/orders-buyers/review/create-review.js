@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import "./ratings-reviews.css";
 import { getReview, createReview, editReview } from '../../../../api';
-import Rating from '@mui/material/Rating';
+
 
 import ResponsiveStarRating from './rating';
 
@@ -56,10 +56,11 @@ const CreateReview = ({ onClose, selectedAdId }) => {
 
   const handleReviewChange = (event) => {
     setReview(event.target.value);
+    console.log(event.target.value);
   };
 
-  const handleRatingChange = (event) => {
-    setRating(event.target.value);
+  const handleRatingChange = (newValue) => {
+    setRating(newValue);
   }
 
   const handleCreateReview = async () => {
@@ -82,7 +83,7 @@ const CreateReview = ({ onClose, selectedAdId }) => {
         onClose();
       }
     } catch (error) {
-      alert('Failed to add payment method');
+      alert('Failed to add review');
       return error;
     }
   };
@@ -90,11 +91,11 @@ const CreateReview = ({ onClose, selectedAdId }) => {
   return (
     <div className="reviewOverlay">
       <div className="reviewContent">
-        <h2 className="reviewHeading">Create Review</h2>
+        <h2 className="reviewHeading">Review</h2>
         <form className="reviewForm">
           <div className="formRow">
             <div className="ratingContainer">
-                <ResponsiveStarRating value={parseInt(star_rating)} handleRatingChange={handleRatingChange} onClick={handleRatingChange}/>
+                <ResponsiveStarRating value={star_rating} handleRatingChange={handleRatingChange} />
               </div>
           </div>
           <div className="formRow">
@@ -120,7 +121,7 @@ const CreateReview = ({ onClose, selectedAdId }) => {
           </div>
           <div className="formRow ">
             <button type="button" className="reviewButton"onClick={handleCreateReview}>
-              Create Review
+              Submit Review
             </button>
             <button  className="reviewButton" type="button" onClick={onClose}>
               Cancel

@@ -155,7 +155,7 @@ const Cart = () => {
     };
 
     fetchCart();
-  }, []);
+  });
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -172,7 +172,7 @@ const Cart = () => {
     };
 
     fetchPayments();
-  }, []);
+  });
 
   // This function handles when the user clicks checkout. If the user has at least one payment method, they will be directed to the checkout screen. If not, they will be alerted to add a payment method before they can check out.
   const handleCheckout = () => {

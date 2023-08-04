@@ -1,6 +1,6 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
-import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
+import { Grid, Card, CardMedia, Typography } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -131,7 +131,7 @@ const Favourites = () => {
     };
 
     fetchFavourites();
-  }, []);
+  });
 
   return (
     <div style={{ padding: '20px' }}>

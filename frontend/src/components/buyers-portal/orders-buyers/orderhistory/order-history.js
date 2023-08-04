@@ -1,6 +1,6 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
-import { Grid, Card, CardMedia, Button, Typography } from '@mui/material';
+import { Grid, Card, CardMedia, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CreateReview from '../review/create-review';
@@ -41,7 +41,6 @@ const StyledCardMedia = styled(CardMedia)({
 
 //order history card returns a image of the product, the price, where it was shipped and a button to write a reivew. This is done for each order the user has
 const OrderHistoryCard = ({ order, handleCreateReviewOpen }) => {
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const { address,  ad_details } = order;
   const price = `$${ad_details.price}`;
   const photoUrl = ad_details.image;
@@ -128,7 +127,7 @@ const OrderHistoryPage = () => {
     };
 
     fetchOrderHistory();
-  }, [sortOrder]);
+  }, [sortOrder, user_id]);
 
   return (
     <div style={{ padding: '20px' }}>
