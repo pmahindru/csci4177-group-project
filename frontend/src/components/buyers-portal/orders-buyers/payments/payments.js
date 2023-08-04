@@ -36,30 +36,28 @@ const AccountPayments = () => {
   //useeffect for getting all the users payment methods they already have
   useEffect(() => {
     const fetchPayments = async () => {
-      try {
+        console.log(userId);
         const result = await getAllPayments(userId);
+        console.log(result);
         if (!result.address) {
          
           setPayments(result);
         }
-        
-      } catch (error) {
-        return error;
-      }
     };
     fetchPayments();
-  }, [userId]);
+  }, []);
 
   return (
     <div className="container">
-      <h1 className="paymentHeading">Payment Page</h1>
+      <h1 className="paymentHeading">Payment Page {payments.length}</h1> 
       {payments.length === 0 ? (
         <div className="center-container">
           <h2 className="paymentLabel">No Payment Methods</h2>
         </div>
       ) : (
-        payments.map((payment) => (
-          <div className="cards" key={payment._id}>
+        payments.map((payment) => {
+          return (
+            <div className="cards" key={payment._id}>
             <div>
               <p className="paymentLabel">Card Number: {payment.card_number}</p>
               <p className="paymentLabel">Expiry Date: {payment.expiry}</p>
@@ -72,7 +70,9 @@ const AccountPayments = () => {
               )}
             </div>
           </div>
-        ))
+          )
+
+        })
       )}
 
       <button className="addPaymentButton" onClick={handleCreatePayment}>Add a Payment</button>

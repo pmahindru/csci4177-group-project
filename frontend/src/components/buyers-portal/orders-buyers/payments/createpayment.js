@@ -46,10 +46,15 @@ const CreatePayment= ({ onClose }) => {
     setAddress(event.target.value);
   };
   //method to handle submitting new payment method to database when user clicks add payment
-  const handleCreatePayment = async () => {
+  const handleCreatePayment = async (e) => {
+    e.preventDefault();
     const expiry = `${expiryMonth}/${expiryYear}`;
     if (!card_number || !cvv || !expiry || !firstName || !lastName || !address) {
       alert('Please fill in all fields');
+      return;
+    }
+    if(card_number.trim().length !== 16){
+      alert("Card number is not valid");
       return;
     }
     try {
