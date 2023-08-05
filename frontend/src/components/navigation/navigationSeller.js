@@ -10,6 +10,7 @@ import Notification from "../icons/notificationIcon";
 function NavBarSeller() {
   const [clicked, setClicked] = useState(false);
   const [openDropDown, setShowDropDown] = useState(false);
+  const [openDropDownNotifications, setShowDropDownNotifications] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("");
   const getLocation = useLocation();
 
@@ -17,6 +18,9 @@ function NavBarSeller() {
   const handleOnClickNavBar = (e) => {
     if (openDropDown === true) {
       setShowDropDown((prevState) => !prevState);
+    }
+    if (openDropDownNotifications === true) {
+      setShowDropDownNotifications((prevState) => !prevState);
     }
     setClicked((prevState) => !prevState);
   };
@@ -36,6 +40,15 @@ function NavBarSeller() {
   // dropdown toggle
   const handleDropDownToggle = () => {
     setShowDropDown((prevState) => !prevState);
+    if (openDropDownNotifications === true) {
+      setShowDropDownNotifications((prevState) => !prevState);
+    } 
+  };
+  const handleDropDownToggleNotifications = () => {
+    setShowDropDownNotifications((prevState) => !prevState);
+    if (openDropDown === true) {
+      setShowDropDown((prevState) => !prevState);
+    } 
   };
 
   // make sure the active page should be current
@@ -73,14 +86,21 @@ function NavBarSeller() {
             <NavLink to="/postAd"> Post Ad </NavLink>
           </li>
           <li>
-            <NavLink to="#">
+            <NavLink to="/analytics/chat">
               <MessageIcon />
             </NavLink>
           </li>
-          <li>
+          <li className={`dropdown ${openDropDownNotifications ? "open" : ""}`} onClick={handleDropDownToggleNotifications}>
             <NavLink to="#">
               <Notification />
-            </NavLink>
+            </NavLink> 
+            <div className={`dropdown-menu ${openDropDownNotifications ? "show" : ""}`}>
+             <ul>
+                <li>
+                  <p className="notifcation-disclaimer"> There are no notifications to display at this time! </p>
+                </li>
+             </ul>
+            </div>
           </li>
           <li onClick={handleDropDownToggle} className={`dropdown ${openDropDown ? "open" : ""}`}>
             <NavLink> Account </NavLink>

@@ -122,6 +122,12 @@ nav {
     display: block;
 }
 
+.notifcation-disclaimer {
+    color: white;
+    font-size: 14px;
+    text-align: left;
+}
+
 @media (max-width: 860px) {
     .navbar-search-input i {
         font-size: 18px;

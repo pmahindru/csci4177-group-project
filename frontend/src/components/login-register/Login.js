@@ -71,7 +71,7 @@ const Login = () => {
         // URL: https://blog.hubspot.com/website/api-calls
         // Date Accessed: 07/23/2023
         const isSent = await twoFactorAuthentication(email);
-        const twoFactorAuth = prompt("Enter the Code: ");
+        const twoFactorAuth = prompt("Enter the 2FA Code sent to your email: ");
         if (twoFactorAuth === isSent.message) {
           alert("Authenticate and Login Successfully")
           // localstorage referred from w3schools
