@@ -5,6 +5,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/system';
+import "./favourites.css";
 import { getFavourites, deleteFavourite } from '../../../../api';
 //styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
