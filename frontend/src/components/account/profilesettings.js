@@ -170,12 +170,12 @@ function ProfileSettings() {
                     <li> Full Name: <input placeholder={fullName || ""} disabled/> </li>
                     <li> Email: <input type="text" value={email  || ""} placeholder="No email Address" onChange={handleEmailInput} /> </li>
                     <li> Address: <input type="text" value={locationAddress  || ""} placeholder="No address found" onChange={handleAddressInput}/> </li>
-                    <li> Phone Number: <input type="text" value={phoneNumber  || ""} placeholder="No Phone Number found" onChange={handlePhoneNumber}/> </li>
+                    <li> Phone Number: <input type="number" value={phoneNumber  || ""} placeholder="No Phone Number found" onChange={handlePhoneNumber}/> </li>
                     <li> Online Status:  
                         <select value={isActive} onChange={handleDropdown}> 
                             <option value="active"> Active </option>
                             <option value="offline"> Offline </option>
-                            <option value="do-not-disturb"> do not disturb </option>
+                            <option value="do-not-disturb"> Do Not Disturb </option>
                        </select>
                     </li>
                     <button id="updateButtons" onClick={updateSignUpData_General}> UPDATE GENERAL </button>

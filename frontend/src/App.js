@@ -28,7 +28,6 @@ import CustomerSupport from "./components/customer-support/customer_support";
 import NotFound from "./components/notfoundpage";
 import OrderSeller from "./components/seller-portal/orders-seller/orders_seller";
 import NotificationSetting from "./components/account/notificationSettings";
-import Notifications from "./components/notifications/notifications";
 import OrdersBuyers from "./components/buyers-portal/orders-buyers/orders-buyers";
 import CreateReview from "./components/buyers-portal/orders-buyers/review/create-review";
 import EditAd from "./components/seller-portal/postadd/editAd";
@@ -88,7 +87,6 @@ function App() {
           <Route path='/customer_support' element={<CustomerSupport/>}/>
           <Route path='/profile_setting' element={userLoggedIn ? <ProfileSetting/> : <Navigate to="/login"/>}/>
           <Route path='/notification_setting' element={userLoggedIn ? <NotificationSetting/> : <Navigate to="/login"/>}/>
-          <Route path='/notifications' element={userLoggedIn ? <Notifications/> : <Navigate to="/login"/>}/>
 
           {/* error handle */}
           {/* [1] M. Gathoni, “How to create a 404 page in react using react router,” MUO, 

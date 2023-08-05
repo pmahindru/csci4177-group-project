@@ -2,6 +2,7 @@
 /* This is my own css */
 .customerSupport-main-container {
     display: flex;
+    text-align: center;
     flex-direction: column;
 }
 
@@ -59,7 +60,6 @@
 
 @media (max-width: 807px) {
     .customerSupport-main-container {
-        text-align: center;
         padding-top: 70px;
     }
 }
