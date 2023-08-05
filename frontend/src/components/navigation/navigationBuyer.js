@@ -89,12 +89,12 @@ function NavBarBuyer() {
             <NavLink to="/orders"> Orders </NavLink>
           </li>
           <li>
-            <NavLink to="#">
+            <NavLink to="/analytics/chat">
               <MessageIcon />
             </NavLink>
           </li>
           <li>
-            <NavLink to="#">
+            <NavLink to="/notifications">
               <Notification />
             </NavLink>
           </li>
