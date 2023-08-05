@@ -2,6 +2,7 @@
 /* This is my own css */
 .customerSupport-main-container {
     display: flex;
+    text-align: center;
     flex-direction: column;
 }
 

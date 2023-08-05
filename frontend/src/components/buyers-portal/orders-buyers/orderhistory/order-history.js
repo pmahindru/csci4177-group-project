@@ -106,9 +106,7 @@ const OrderHistoryPage = () => {
   //use effect gets and sorts order history of user
   useEffect(() => {
     const fetchOrderHistory = async () => {
-      
         const result = await getOrderHistory(user_id);
-        
         if (!result.address) {
           const sortedData = result.sort((a,b) => {
             if (sortOrder === 'desc') {

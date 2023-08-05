@@ -577,6 +577,13 @@
   .chat-page {
     padding-top: 70px;
   }
+
+  .chat-container {
+    padding-top: 45px;
+  }
+  .message-container {
+    padding-top: 15px;
+  }
 }
 
 .toggle-button {
@@ -628,6 +635,7 @@
   display: grid;
   grid-template-columns: 25% 75%;
 }
+
 @media screen and (min-width: 720px) and (max-width: 1080px) {
   .chat-container {
     grid-template-columns: 35% 65%;

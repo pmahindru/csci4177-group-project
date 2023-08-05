@@ -588,11 +588,48 @@ const deleteSaveWithId = async (req,res) => {
       res.status(500).json(error);
     }
 }
+
+// get user with specific Id (Pranav Mahindru)
+const loginUserModel = async (req,res) => {
+    try {
+      const data = await model.loginUserModel({"_id": req.params.userId});
+      res.status(200).json(data);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+}
+
+// for the 2FA (Pranav Mahindru)
+// refer to the generate reset code method
+const twoFactorAuthentication = async (req, res) => {
+  try {
+    const { email, authenticationCode } = req.body;
+    try {
+      // email format referred from nodemailer
+      // URL: https://nodemailer.com/about/
+      // Date Accessed: 07/23/2023
+      const mailOptions = {
+        from: "ShopAesthetics01@gmail.com",
+        to: email,
+        subject: "2FA Code",
+        text: `Your code for login is: ${authenticationCode}`,
+      };
+      await transporter.sendMail(mailOptions);
+    } catch (error) {
+      return error;
+    }
+
+    res.status(200).json({message: authenticationCode});
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 /* User Profile Settings READ and UPDATE ControllerS | By: Joel Kuruvilla */
 const userProfileSettingsRead = async (req, res) => { //Profile READ Controller | Joel Kuruvilla
   try {
     const userSettingConfigs = await model.userProfileSettingsReadModel({ "user_id": req.params.userID });
-    return res.json(userSettingConfigs);
+    return res.status(200).json(userSettingConfigs);
   } 
   catch (error) {
     res.status(500).json(error);
@@ -603,7 +640,7 @@ const userProfileSettingsUpdate = async (req, res) => { //Profile UPDATE Control
     const userID = req.params.userID;
     const dataToUpdate = req.body;
     const settingChanges = await model.userProfileSettingsUpdateModel(userID, dataToUpdate);
-    return res.json(settingChanges);
+    return res.status(200).json(settingChanges);
   } 
   catch (error) {
     res.status(500).json(error);
@@ -616,7 +653,7 @@ const signupUpdate = async (req, res) => { //SignUp Controller | Joel Kuruvilla
     const userID = req.params.userID;
     const dataToUpdate = req.body;
     const settingChanges = await model.signupUpdateModel(userID, dataToUpdate);
-    return res.json(settingChanges);
+    return res.status(200).json(settingChanges);
   } 
   catch (error) {
     res.status(500).json(error);
@@ -627,7 +664,7 @@ const signupUpdate = async (req, res) => { //SignUp Controller | Joel Kuruvilla
 const userNotificationSettingsRead = async (req, res) => { //Notifications READ Controller | Joel Kuruvilla
   try {
     const userSettingConfigs = await model.userNotificationSettingsReadModel({"user_id": req.params.userID});
-    return res.json(userSettingConfigs);
+    return res.status(200).json(userSettingConfigs);
   } 
   catch (error) {
     res.status(500).json(error);
@@ -638,7 +675,7 @@ const userNotificationSettingsUpdate = async (req, res) => { //Notifications UPD
     const userID = req.params.userID;
     const dataToUpdate = req.body;
     const settingChanges = await model.userNotificationSettingsUpdateModel(userID, dataToUpdate);
-    return res.json(settingChanges);
+    return res.status(200).json(settingChanges);
   } 
   catch (error) {
     res.status(500).json(error);
@@ -687,4 +724,6 @@ module.exports = {
   previewSavePostAd,
   deletePostWithId,
   deleteSaveWithId,
+  loginUserModel,
+  twoFactorAuthentication,
 };

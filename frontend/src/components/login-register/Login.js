@@ -20,7 +20,7 @@ import './Login.css';
 import limage from '../images/login.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { loginUser } from '../../api';
+import { loginUser, twoFactorAuthentication, userProfileSettingsRead } from '../../api';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -61,17 +61,36 @@ const Login = () => {
 
     const data  = await loginUser({ email, password });
 
-    // API calling referred from Blogs
-    // URL: https://blog.hubspot.com/website/api-calls
-    // Date Accessed: 07/23/2023
-
+    // // API calling referred from Blogs
+    // // URL: https://blog.hubspot.com/website/api-calls
+    // // Date Accessed: 07/23/2023
     if (data.response === undefined){
-      alert('Login successful');
+      const profileSettingsReading  = await userProfileSettingsRead(data._id);
+      if (profileSettingsReading.email_auth) {
+        // API calling referred from Blogs
+        // URL: https://blog.hubspot.com/website/api-calls
+        // Date Accessed: 07/23/2023
+        const isSent = await twoFactorAuthentication(email);
+        const twoFactorAuth = prompt("Enter the 2FA Code sent to your email: ");
+        if (twoFactorAuth === isSent.message) {
+          alert("Authenticate and Login Successfully")
+          // localstorage referred from w3schools
+          // URL: https://www.w3schools.com/jsref/prop_win_localstorage.asp
+          // Date Accessed: 07/25/20230
+          localStorage.setItem('user_info', JSON.stringify(data));
+          localStorage.setItem('isLoggedIn', true);
+          navigate('/');
+          window.location.reload();
+          return;
+        }
+        alert("Code Doesn't Match")
+        return;
+      }
       
+      alert('Login successful');
       // localstorage referred from w3schools
       // URL: https://www.w3schools.com/jsref/prop_win_localstorage.asp
       // Date Accessed: 07/25/20230
-
       localStorage.setItem('user_info', JSON.stringify(data));
       localStorage.setItem('isLoggedIn', true);
       navigate('/');
@@ -80,10 +99,12 @@ const Login = () => {
     }
     if (data.response.status === 401){
       alert(data.response.data.message);
+      return;
     }else{
       alert(data.response.data.message);
       navigate('/Signup'); 
       window.location.reload();
+      return;
     }
   };
 

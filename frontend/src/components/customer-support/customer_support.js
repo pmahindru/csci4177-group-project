@@ -43,11 +43,11 @@ function CustomerSupport() {
                 </span>
                 <br/>
                 <span>
-                    <h4><CustomerPhone/> +1902-952-3128</h4>
+                    <h4><CustomerPhone/> +1 902-952-3128</h4>
                 </span>
                 <br/>
                 <span>
-                    <h4><CustomerEmail/> shppaesthetics@outlook.ca</h4>
+                    <h4><CustomerEmail/> <a href='mailto: shopaesthetics@outlook.ca'>shopaesthetics@outlook.ca</a></h4>
                 </span>
                 <br/>
                 <span>
