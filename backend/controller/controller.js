@@ -599,6 +599,32 @@ const loginUserModel = async (req,res) => {
     }
 }
 
+// for the 2FA (Pranav Mahindru)
+// refer to the generate reset code method
+const twoFactorAuthentication = async (req, res) => {
+  try {
+    const { email, authenticationCode } = req.body;
+    try {
+      // email format referred from nodemailer
+      // URL: https://nodemailer.com/about/
+      // Date Accessed: 07/23/2023
+      const mailOptions = {
+        from: "ShopAesthetics01@gmail.com",
+        to: email,
+        subject: "2FA Code",
+        text: `Your code for login is: ${authenticationCode}`,
+      };
+      await transporter.sendMail(mailOptions);
+    } catch (error) {
+      return error;
+    }
+
+    res.status(200).json({message: authenticationCode});
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 /* User Profile Settings READ and UPDATE ControllerS | By: Joel Kuruvilla */
 const userProfileSettingsRead = async (req, res) => { //Profile READ Controller | Joel Kuruvilla
   try {
@@ -699,4 +725,5 @@ module.exports = {
   deletePostWithId,
   deleteSaveWithId,
   loginUserModel,
+  twoFactorAuthentication,
 };

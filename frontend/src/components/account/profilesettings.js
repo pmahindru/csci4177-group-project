@@ -2,7 +2,7 @@
 /* Updated by Joel Kuruvilla for Assignment 3 | 2023-07-25 */
 import React, {useState, useEffect} from 'react'
 import './profileSettings.css';
-import { getAllUsers, getUserWithID, userProfileSettingsRead, userProfileSettingsUpdate, userSignUpUpdate } from '../../api.js';
+import { getUserWithID, userProfileSettingsRead, userProfileSettingsUpdate, userSignUpUpdate } from '../../api.js';
 import Switch from 'react-switch';
 
 function ProfileSettings() {
@@ -36,7 +36,10 @@ function ProfileSettings() {
             setlocationAddress(getUsers.address)
             setPhoneNumber(getUsers.phone)
 
-            const profileSettingsReading  = await userProfileSettingsRead(userID);
+            const profileSettingsReading = await userProfileSettingsRead(userID);
+            if (profileSettingsReading === null) {
+                return;
+            }
             if (Object.keys(profileSettingsReading).length !== 0) {
                 setEmail2FAEnabled(profileSettingsReading.email_auth);
                 setPhone2FAEnabled(profileSettingsReading.phone_auth);
@@ -48,6 +51,11 @@ function ProfileSettings() {
         readProfileConfigurations();
     }, [userID]);
 
+    useEffect(() => {
+        if (phoneNumber === null) {
+            setPhone2FAEnabled(false)
+        }
+    }, [phone2FAEnabled]);
 
     const handleAddressInput = (e) => {
         setlocationAddress(e.target.value);
@@ -72,7 +80,11 @@ function ProfileSettings() {
         setEmail2FAEnabled(e);
         updateProfileConfigurations({"email_auth": e});
     }
-    const handlePhoneToggleSwitch = (e) => {  
+    const handlePhoneToggleSwitch = (e) => {
+        if (phoneNumber === null) {
+            alert("Cant On there is No Phone number");
+            return;
+        }
         setPhone2FAEnabled(e); 
         updateProfileConfigurations({"phone_auth": e});
     }

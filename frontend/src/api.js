@@ -395,6 +395,21 @@ export const getUserWithID = async (userId) => {
     }
 };
 
+// 2FA (Pranav Mahindru)
+export const twoFactorAuthentication = async (email) => {
+  try {
+    const generatedCode = generateRandomCode();
+    const response = await axios.post(`${baseURL}/twoFactorAuthentication`, {
+      email,
+      authenticationCode: generatedCode,
+    });
+
+    return response.data;
+  } catch (error) {
+    return false;
+  }
+};
+
 /* User Profile Settings APIs | By: Joel Kuruvilla | 2023-07-26 */
 //User Profile READ API:
 export const userProfileSettingsRead = async (userID) => { //By Joel Kuruvilla

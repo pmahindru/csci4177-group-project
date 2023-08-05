@@ -4,6 +4,12 @@ import React, { useState, useEffect } from "react";
 import { deletePostAd, getAllPostedAd, pausePostAd } from "../../../api";
 import ReactLoading from "react-loading";
 import { useNavigate } from "react-router-dom";
+import { 
+    FacebookShareButton, FacebookIcon,
+    TwitterShareButton, TwitterIcon,
+    WhatsappShareButton, WhatsappIcon,
+    LinkedinShareButton, LinkedinIcon,
+} from "react-share";
 
 function SellerStatusPage() {
     const [getArrayObjects, setArrayObjects] = useState([]);
@@ -12,6 +18,10 @@ function SellerStatusPage() {
     const [selectDropdownOption, setSelectDropdownOption] = useState('');
     const getLocalStorage = localStorage.getItem("user_info");
     const user_data = JSON.parse(getLocalStorage);
+    // save the share info
+    const [shareAdIcons, setShareAdIcons] = useState(false);
+    const [saveTheUrlForShare, setSaveTheUrlForShare] = useState("");
+    const [saveShareItemId, setsaveShareItemId] = useState("");
 
     const handlePreviousImage = (len, itemId) => {
         if (len === 1) {
@@ -89,8 +99,9 @@ function SellerStatusPage() {
             window.location.reload();
         }
         else if (e.target.value === "share") {
-            alert("This is not working right now,\nNeed to integrate with Social Media!!!");
-            window.location.reload();
+            setSaveTheUrlForShare(window.location.origin+"/"+itemId);
+            setsaveShareItemId(itemId);
+            setShareAdIcons(true);
         }
         else{
             const res = await deletePostAd(itemId);
@@ -173,9 +184,37 @@ function SellerStatusPage() {
                                                 <option value="edit"> Edit </option>
                                                 <option value="delete"> Delete </option>
                                                 <option value="pause"> Pause </option>
-                                                <option value="share"> Share </option>
+                                                {item.isActive && (
+                                                    <option value="share"> Share </option>
+                                                )}
                                             </select>
                                         </div>
+                                    </div>
+                                    <div className='order-seller-page-section5'>
+                                        {/* [1] “React-share,” npm, https://www.npmjs.com/package/react-share (accessed Aug. 5, 2023).  */}
+                                        {/* [2] I. Alam, “How to add social share buttons to your react app,” MUO, https://www.makeuseof.com/add-social-share-buttons-in-react/#:~:text=For%20example%2C%20to%20add%20a,Facebook%20button%20to%20your%20app. (accessed Aug. 5, 2023).  */}
+                                        {shareAdIcons && saveShareItemId === item._id && (
+                                            <div>
+                                                <FacebookShareButton url={saveTheUrlForShare} quote="Share this Ad">
+                                                    <FacebookIcon size={24} round/>
+                                                </FacebookShareButton>
+                                                <br/>
+                                                <br/>
+                                                <TwitterShareButton url={saveTheUrlForShare} quote="Share this Ad">
+                                                    <TwitterIcon size={24} round/>
+                                                </TwitterShareButton>
+                                                <br/>
+                                                <br/>
+                                                <WhatsappShareButton url={saveTheUrlForShare} quote="Share this Ad">
+                                                    <WhatsappIcon size={24} round/>
+                                                </WhatsappShareButton>
+                                                <br/>
+                                                <br/>
+                                                <LinkedinShareButton url={saveTheUrlForShare} quote="Share this Ad">
+                                                    <LinkedinIcon size={24} round/>
+                                                </LinkedinShareButton>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             );

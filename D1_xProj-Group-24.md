@@ -36,9 +36,13 @@ Deployed using netify which was taught in lab
 
 [1] Login - Dalhousie University, https://dal.brightspace.com/d2l/le/content/274269/viewContent/3608571/View (accessed June 20, 2023). 
 
+[1] “Cloud application hosting for developers,” Render, https://dashboard.render.com/ (accessed Jul. 26, 2023). 
+
 ## Built With
 
 React - [1] Login - Dalhousie University, https://dal.brightspace.com/d2l/le/content/274269/viewContent/3608648/View (accessed June 20, 2023). - The web framework used
+
+NodeJS and Express - [1] Login - Dalhousie University, https://dal.brightspace.com/d2l/le/content/274269/viewContent/3608654/View (accessed Jul. 26, 2023).
 
 ## Sources Used
 
@@ -964,6 +968,305 @@ $("#imgInp").change(function(){
 ```
 
 I took reference from the above link and learnt about URL.createObjectURL to show image in the preview.js.
+
+### packge.json (in the main folder)
+
+[1] “Run-all,” npm, https://www.npmjs.com/package/npm-run-all (accessed Jul. 26, 2023).  
+
+use `npm-run-all` for run both backend and frontend at the same time locally (make sure to npm install int the backend and frontend folder)
+
+### routes.js
+
+```
+app.use(cors());
+
+```
+
+[1] “Cors,” Express cors middleware, https://expressjs.com/en/resources/middleware/cors.html (accessed Jul. 26, 2023). 
+
+```
+app.use(cors());
+
+```
+
+got issues with the cors, solve by install and using in the `routes.js`
+
+### model.js
+
+```
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://Team24:qwhoZh2NkExdtQu5@shopaestheticscluster.za4i1fn.mongodb.net/?retryWrites=true&w=majority";
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+```
+
+[1] “MongoDB cloud,” Cloud, https://cloud.mongodb.com/v2/64b0619b8139bd162a5df1c5#/clusters/connect?clusterId=ShopAestheticsCluster (accessed Jul. 26, 2023). 
+
+connection to mongodb (taken from the above link) there is connect button and I follow the steps in the model
+
+```
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://Team24:qwhoZh2NkExdtQu5@shopaestheticscluster.za4i1fn.mongodb.net/?retryWrites=true&w=majority";
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+```
+
+### Used in the both navigation buyer and seller
+
+*Lines 44*
+
+```
+getLocation.hash !== window.location.hash
+```
+
+[1] “Window location.hash,” Location hash Property, https://www.w3schools.com/jsref/prop_loc_hash.asp (accessed Jul. 26, 2023). 
+
+```
+location.hash
+```
+
+In the navigation I got problems with subnav which has `#PageName`, So I fix the top navigation refer to the above link
+
+### preview.js, Inside the order-seller folders mostly all the files
+
+```
+<ReactLoading type="bars" color="#3f1a6b" height={200} width={100}/>
+
+```
+
+[1] “React-loading,” npm, https://www.npmjs.com/package/react-loading (accessed Jul. 26, 2023).
+
+```
+<ReactLoading type={type} color={color} height={667} width={375} />
+
+```
+
+learn react-loading from the above link
+
+### createnewads.js
+
+*Lines ## - ##*
+
+```
+const saveInFiles = [];
+const fileReader = new FileReader();
+fileReader.onload = () => {
+    saveInFiles.push(fileReader.result);
+    if (saveInFiles.length === length) {
+        setSelectImageFiles(saveInFiles);
+    }
+    else{
+        fileReader.readAsDataURL(e.target.files[saveInFiles.length])
+    }
+}
+fileReader.readAsDataURL(e.target.files[0]);
+```
+
+[1] MozDevNet, “Filereader: Readasdataurl() method - web apis: MDN,” Web APIs | MDN, https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL (accessed Jul. 26, 2023). 
+[1] user2784722, user2784722user2784722 14711 gold badge11 silver badge88 bronze badges, PSLPSL 123k2121 gold badges253253 silver badges243243 bronze badges, mVChrmVChr 49.5k1111 gold badges107107 silver badges104104 bronze badges, and JivingsJivings 22.8k66 gold badges5959 silver badges100100 bronze badges, “Select and display image(s) using filereader,” Stack Overflow, https://stackoverflow.com/questions/18934738/select-and-display-images-using-filereader (accessed Jul. 26, 2023). 
+
+```
+<script type="text/javascript">
+function readURL(input) {
+
+    if (input.filers && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#imgInp").change(function(){
+    readURL(this);
+});
+</script>
+```
+
+```
+readAsDataURL(blob)
+```
+
+convert the image proper way and save in the database
+
+### used in the backend and frontend in couple of js files
+
+```
+getAllImage = [...getAllImage, ...item.image]
+```
+
+[1] fadedbeefadedbee 42.5k4444 gold badges176176 silver badges304304 bronze badges et al., “Correct modification of state arrays in react.js,” Stack Overflow, https://stackoverflow.com/questions/26253351/correct-modification-of-state-arrays-in-react-js (accessed Jul. 26, 2023). 
+
+```
+arrayvar: [...prevState.arrayvar, newelement]
+```
+
+use to store array in useState and if Id present find the object and update the array (in order-seller All other files)
+
+### In the order-seller folder, respected files inside that folder
+
+```
+imageSliderObject.some(objectItem => objectItem.prodID === item._id)
+```
+
+[1] MozDevNet, “Array.prototype.some() - javascript: MDN,” JavaScript | MDN, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some (accessed Jul. 26, 2023).
+
+```
+const even = (element) => element % 2 === 0;
+```
+
+learn new thing that we can use `some` if `id match` then return otherwise go with the normal flow.
+
+### In the order-seller folder, respected files inside that folder
+
+I got this `getArrayObjects.map is not a function TypeError: getArrayObjects.map is not a function`
+used the given to fix the error shown above
+
+[1] “[solved] javascript typeerror: Map is not a function,” Decoding Web Development, https://www.decodingweb.dev/fix-map-is-not-a-function-error-in-javascript (accessed Jul. 26, 2023). 
+[1] “Typeerror: Map() is not a function in react,” Datainfinities, https://www.datainfinities.com/31/map-is-not-a-function-in-react (accessed Jul. 26, 2023). 
+
+### api.js
+
+In my methods
+
+```
+const { _id, ...object } = data;
+```
+
+[1] Olawanletjoel, “How to consume rest apis in react – A beginner’s guide,” freeCodeCamp.org, https://www.freecodecamp.org/news/how-to-consume-rest-apis-in-react/ (accessed Jul. 26, 2023). 
+
+```
+setPosts((posts) => [data, ...posts]);
+```
+
+separate the id and rest keep it as object/array
+
+### routes.js
+
+*Lines 8*
+
+```
+app.use(express.json({limit: "20mb"}));
+```
+
+I got this error `Error: request entity too large` use the below link to solve
+
+[1] mike jamesmike james 8 et al., “Error: Request entity too large,” Stack Overflow, https://stackoverflow.com/questions/19917401/error-request-entity-too-large (accessed Jul. 26, 2023).
+
+```
+app.use(express.json({limit: '50mb'}));
+```
+
+it just increase the mb so that body can update the db 
+
+### seller_status_page.js
+
+*Lines 110*
+
+```
+const res = await getAllPostedAd({"user_id": user_data["_id"], "isActive": {$in: [true, false]} });
+```
+
+[1] .“CSS-19775fe{-webkit-text-decoration:none;text-decoration:none;color:#21313c;letter-spacing:unset;width:140px;}@media screen and (min-width: 1440px){.CSS-19775fe{width:216px;}}.CSS-1put1j{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:Akzidenz-Grotesk std;font-weight:300;cursor:pointer;-webkit-text-decoration:none;text-decoration:none;position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-align-content:flex-start;-ms-flex-line-pack:flex-start;align-content:Flex-start;letter-spacing:unset;font-size:16px;line-height:32px;-webkit-text-decoration:none;text-decoration:none;color:#21313c;letter-spacing:unset;width:140px;}.CSS-1put1j:hover{-webkit-text-decoration:none;text-decoration:none;color:#13AA52;}.CSS-1put1j:Focus-visible{outline:-webkit-focus-ring-color auto 1px;}.CSS-1put1j .textlink-arrow-class{font-family:arial,sans-serif;left:-50px;}.css-1put1j:hover .textlink-arrow-class{left:0;-webkit-animation:Linear 1 alternate;-webkit-animation-name:runlink;-webkit-animation-duration:300ms;}@-webkit-keyframes runlink{0%{left:-100px;}100%{left:0;}}@media screen and (min-width: 1440px){.CSS-1put1j{width:216px;}}database→,” $in - MongoDB Manual, https://www.mongodb.com/docs/manual/reference/operator/query/in/#:~:text=If%20the%20field%20holds%20an,%3E%20%2C%20and%20so%20on (accessed Jul. 26, 2023).
+
+```
+{ field: { $in: [<value1>, <value2>, ... <valueN> ] } }
+```
+
+get the value either true or false in the orders page using in the frontend
+
+### controller.js and model.js
+
+In my methods
+
+```
+{$set: req.body}
+```
+
+[1] .“CSS-19775fe{-webkit-text-decoration:none;text-decoration:none;color:#21313c;letter-spacing:unset;width:140px;}@media screen and (min-width: 1440px){.CSS-19775fe{width:216px;}}.CSS-1put1j{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;font-family:Akzidenz-Grotesk std;font-weight:300;cursor:pointer;-webkit-text-decoration:none;text-decoration:none;position:relative;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-align-content:flex-start;-ms-flex-line-pack:flex-start;align-content:Flex-start;letter-spacing:unset;font-size:16px;line-height:32px;-webkit-text-decoration:none;text-decoration:none;color:#21313c;letter-spacing:unset;width:140px;}.CSS-1put1j:hover{-webkit-text-decoration:none;text-decoration:none;color:#13AA52;}.CSS-1put1j:Focus-visible{outline:-webkit-focus-ring-color auto 1px;}.CSS-1put1j .textlink-arrow-class{font-family:arial,sans-serif;left:-50px;}.css-1put1j:hover .textlink-arrow-class{left:0;-webkit-animation:Linear 1 alternate;-webkit-animation-name:runlink;-webkit-animation-duration:300ms;}@-webkit-keyframes runlink{0%{left:-100px;}100%{left:0;}}@media screen and (min-width: 1440px){.CSS-1put1j{width:216px;}}database→,” $set - MongoDB Manual, https://www.mongodb.com/docs/manual/reference/operator/update/set/ (accessed Jul. 26, 2023). 
+
+```
+{ $set: { <field1>: <value1>, ... } }
+```
+
+update the existing post or other stuff in the db properly take from the above link
+
+### seller_active_page.js and seller_status_page.js
+
+used in those pages 
+
+```
+import { 
+    FacebookShareButton, FacebookIcon,
+    TwitterShareButton, TwitterIcon,
+    WhatsappShareButton, WhatsappIcon,
+    LinkedinShareButton, LinkedinIcon,
+} from "react-share";
+```
+
+and 
+
+```
+<FacebookShareButton url={saveTheUrlForShare} quote="Share this Ad">
+    <FacebookIcon size={24} round/>
+</FacebookShareButton>
+<br/>
+<br/>
+<TwitterShareButton url={saveTheUrlForShare} quote="Share this Ad">
+    <TwitterIcon size={24} round/>
+</TwitterShareButton>
+<br/>
+<br/>
+<WhatsappShareButton url={saveTheUrlForShare} quote="Share this Ad">
+    <WhatsappIcon size={24} round/>
+</WhatsappShareButton>
+<br/>
+<br/>
+<LinkedinShareButton url={saveTheUrlForShare} quote="Share this Ad">
+    <LinkedinIcon size={24} round/>
+</LinkedinShareButton>
+```
+
+[1] “React-share,” npm, https://www.npmjs.com/package/react-share (accessed Aug. 5, 2023). 
+[2] I. Alam, “How to add social share buttons to your react app,” MUO, https://www.makeuseof.com/add-social-share-buttons-in-react/#:~:text=For%20example%2C%20to%20add%20a,Facebook%20button%20to%20your%20app. (accessed Aug. 5, 2023). 
+
+```
+import React from 'react';
+import { FacebookShareButton, FacebookIcon } from 'react-share';
+
+const App = () => {
+  return (
+    <div>
+      <FacebookShareButton
+        url={'https://www.example.com'}
+        quote={'Dummy text!'}
+        hashtag="#muo"
+      >
+        <FacebookIcon size={32} round />
+      </FacebookShareButton>
+    </div>
+  );
+};
+
+export default App;
+```
+
+use these link to share the specific Ad to the Social media
 
 ***** 
 

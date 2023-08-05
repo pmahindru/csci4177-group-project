@@ -61,5 +61,6 @@ app.put(`${baseURL}/seller/previewSavePostAd/:postId`, controller.previewSavePos
 app.delete(`${baseURL}/seller/deletePostWithId/:postId`, controller.deletePostWithId);
 app.delete(`${baseURL}/seller/deleteSaveWithId/:postId`, controller.deleteSaveWithId);
 app.get(`${baseURL}/getSpecificUser/:userId`, controller.loginUserModel);
+app.post(`${baseURL}/twoFactorAuthentication`, controller.twoFactorAuthentication);
 
 module.exports = app;
