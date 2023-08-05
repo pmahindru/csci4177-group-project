@@ -94,8 +94,7 @@ function NotificationSettings() {
         "notify_ratings_reviews": ratingReviewsNotifcationsEnabled, "notify_sounds": notificationSoundsEnabled, 
         "notify_email": emailNotifcationsEnabled, "notify_phone": phoneNotifcationsEnabled};
 
-        /*const updateStatus = */await userNotificationSettingsUpdate(userID, settingStatus);
-        // console.log(JSON.stringify(updateStatus));
+        await userNotificationSettingsUpdate(userID, settingStatus);
         alert("Settings applied successfully");
         window.location.reload();
     }

@@ -385,6 +385,16 @@ export const deleteSavePostAd = async (postId) => {
     }
 };
 
+// get user with id (Pranav Mahindru)
+export const getUserWithID = async (userId) => {
+    try {
+      const res = await axios.get(`${baseURL}/getSpecificUser/${userId}`);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+};
+
 /* User Profile Settings APIs | By: Joel Kuruvilla | 2023-07-26 */
 //User Profile READ API:
 export const userProfileSettingsRead = async (userID) => { //By Joel Kuruvilla

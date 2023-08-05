@@ -114,7 +114,7 @@ function SellerDraftPage() {
     return (
         <div className='order-seller-page-main-container'>
             <div className='order-seller-page-section2'>
-                <h2>InActive Ads</h2>
+                <h2>Drafts Ads</h2>
             </div>
             {loading ? (
                 <div className='preview-loading'>

@@ -680,10 +680,18 @@ const userProfileSettingsUpdateModel = async (userID, dataToUpdate) => { //Profi
     const db = client.db("User_Management");
     const collection = db.collection("Profile");
 
+    const isCheckObject = await userProfileSettingsReadModel(userID);
+
+    if (Object.keys(isCheckObject).length !== 0) {
+      const porfileSettingsData = await collection.updateOne({"user_id": userID}, {$set: dataToUpdate});
+      await client.close();
+      return porfileSettingsData;
+    }
+
+    await registerUser_userDefaultSettingConfigs(userID);
+
     const porfileSettingsData = await collection.updateOne({"user_id": userID}, {$set: dataToUpdate});
-
     await client.close();
-
     return porfileSettingsData;
   } catch (error) {
     return error;
@@ -738,10 +746,16 @@ const userNotificationSettingsUpdateModel = async (userID, dataToUpdate) => { //
     const db = client.db("User_Management");
     const collection = db.collection("ProfileNotifications");
 
+    const isCheckObject = await userNotificationSettingsReadModel(userID)
+    if (Object.keys(isCheckObject).length !== 0) {
+      const notificationSettingsData = await collection.updateOne({"user_id": userID}, {$set: dataToUpdate});
+      await client.close();
+      return notificationSettingsData;
+    }
+
+    await registerUser_userDefaultSettingConfigs(userID);
     const notificationSettingsData = await collection.updateOne({"user_id": userID}, {$set: dataToUpdate});
-
     await client.close();
-
     return notificationSettingsData;
   } catch (error) {
     return error;
