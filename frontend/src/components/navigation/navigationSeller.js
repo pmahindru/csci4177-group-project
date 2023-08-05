@@ -73,12 +73,12 @@ function NavBarSeller() {
             <NavLink to="/postAd"> Post Ad </NavLink>
           </li>
           <li>
-            <NavLink to="#">
+            <NavLink to="/analytics/chat">
               <MessageIcon />
             </NavLink>
           </li>
           <li>
-            <NavLink to="#">
+            <NavLink to="/notifications">
               <Notification />
             </NavLink>
           </li>
