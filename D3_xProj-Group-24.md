@@ -1270,9 +1270,251 @@ use these link to share the specific Ad to the Social media
 
 ***** 
 
-## Joel Kuruvilla (About Us/ touched up navigation/ bug fixes) - Citation
+## Joel Kuruvilla (About Us/ touched up navigation / bug fixes / Profile Settings / Notification Settings) - Citation
 
-There are no citation for about us page.
+### notificationSettings.js
+
+*Lines 3 - 19, 55 - 89, 103, & 109 - 133 *
+
+```
+import React, {useState, useEffect} from 'react';
+import './notificationSettings.css';
+import { userNotificationSettingsRead, userNotificationSettingsUpdate } from '../../api.js';
+import Switch from 'react-switch';
+
+function NotificationSettings() {
+    const userData = JSON.parse(localStorage.getItem("user_info"));
+    const userID = userData._id;
+
+    const [allNotifcationsEnabled, setAllNotifcationsEnabled] = useState(false);
+    const [inboxNotifcationsEnabled, setInboxNotifcationsEnabled] = useState(false);
+    const [orderMessagsNotifcationsEnabled, setOrderMessagsNotifcationsEnabled] = useState(false);
+    const [orderUpdatesNotifcationsEnabled, setOrderUpdatesNotifcationsEnabled] = useState(false);
+    const [ratingReviewsNotifcationsEnabled, setRatingReviewsNotifcationsEnabled] = useState(false);
+    const [notificationSoundsEnabled, setNotificationSoundsEnabled] = useState(false);
+    const [emailNotifcationsEnabled, setEmailNotifcationsEnabled] = useState(false);
+    const [phoneNotifcationsEnabled, setPhoneNotifcationsEnabled] = useState(false);
+
+    ....
+
+    const handleToggleAllSwitch = (e) => {
+        setAllNotifcationsEnabled(e);
+        setInboxNotifcationsEnabled(e);
+        setOrderMessagsNotifcationsEnabled(e);
+        setOrderUpdatesNotifcationsEnabled(e);
+        setRatingReviewsNotifcationsEnabled(e);
+        setNotificationSoundsEnabled(e);
+        setEmailNotifcationsEnabled(e);
+        setPhoneNotifcationsEnabled(e);
+    }
+
+    const handleToggleInboxSwitch = (e) => {
+        setInboxNotifcationsEnabled(e);
+    }
+    const handleToggleOrderMessagesSwitch = (e) => {
+        setOrderMessagsNotifcationsEnabled(e);
+    }
+
+    const handleOrderUpdatesToggleSwitch = (e) => {
+        setOrderUpdatesNotifcationsEnabled(e);
+    }
+    const handleRatingReviewsToggleSwitch = (e) => {
+        setRatingReviewsNotifcationsEnabled(e);
+    }
+    const handleNotificationSoundsToggleSwitch = (e) => {
+        setNotificationSoundsEnabled(e);
+    }
+
+    const handleEmailNotificationToggleSwitch = (e) => {
+        setEmailNotifcationsEnabled(e);
+    }
+
+    const handlPhoneNotificationToggleSwitch = (e) => {
+        setPhoneNotifcationsEnabled(e);
+    }
+
+  ....
+
+    return (
+        ....
+              <form className='notificationSettings-form'>
+                <li> All Notifications: <Switch className="notificationSettings-toggle" id="notification-toggle-all"
+                 onChange={handleToggleAllSwitch} checked={allNotifcationsEnabled} borderRadius={12} /> </li>
+                <hr/>
+                <li> Inbox Messages: <Switch className="notificationSettings-toggle" onChange={handleToggleInboxSwitch}
+                 checked={inboxNotifcationsEnabled} borderRadius={12}/>  </li>
+                <hr/>
+                <li> Order Mesages: <Switch className="notificationSettings-toggle" onChange={handleToggleOrderMessagesSwitch}
+                 checked={orderMessagsNotifcationsEnabled} borderRadius={12} /> </li>
+                <hr/>
+                <li> Order Updates <Switch className="notificationSettings-toggle" onChange={handleOrderUpdatesToggleSwitch}
+                 checked={orderUpdatesNotifcationsEnabled} borderRadius={12} /> </li>
+                <hr/>
+                <li> Rating/Review Notifications: <Switch className="notificationSettings-toggle" onChange={handleRatingReviewsToggleSwitch}
+                 checked={ratingReviewsNotifcationsEnabled} borderRadius={12} /> </li>
+                <hr/>
+                <li> Notification Sounds: <Switch className="notificationSettings-toggle" onChange={handleNotificationSoundsToggleSwitch}
+                 checked={notificationSoundsEnabled} borderRadius={12} /> </li>
+                <hr/>
+                <li> Email Notification: <Switch className="notificationSettings-toggle" onChange={handleEmailNotificationToggleSwitch}
+                 checked={emailNotifcationsEnabled} borderRadius={12} /> </li>
+                <hr/>
+                <li> Phone Notification: <Switch className="notificationSettings-toggle" onChange={handlPhoneNotificationToggleSwitch}
+                 checked={phoneNotifcationsEnabled} borderRadius={12} /> </li>
+             </form>
+             
+```
+
+The code above was created by adapting the code in [npmjs - react-switch](https://www.npmjs.com/package/react-switch) as shown below: 
+
+```
+import React, { Component } from "react";
+import Switch from "react-switch";
+
+class SwitchExample extends Component {
+  constructor() {
+    super();
+    this.state = { checked: false };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(checked) {
+    this.setState({ checked });
+  }
+
+  render() {
+    return (
+      <label>
+        <span>Switch with default style</span>
+        <Switch onChange={this.handleChange} checked={this.state.checked} />
+      </label>
+    );
+  }
+}
+
+```
+
+- <!---How---> The code in [npmjs - react-switch](https://www.npmjs.com/package/react-switch) was implemented by copying specifically the code <Switch> tag code to add the toggle switch for this particular page. I also followed conceptually in adding the onchange and checking status; as they were required anyways, to implement its frontend implementation.
+- <!---Why---> [npmjs - react-switch](https://www.npmjs.com/package/react-switch)'s Code was used because it provided a quick, effective and efficient manner in which our team can implement toggle switches into our project.
+- <!---How---> [npmjs - react-switch](https://www.npmjs.com/package/react-switch)'s Code was modified by converting the code to use useStates in being able to pass and save the changes on a React project properly. I also modified its styling slightly to match context and make more visually appealing. 
+
+
+### profileSettings.js
+
+*Lines 3 - 21, 41 - 63, 89, & 119 - 143 *
+
+```
+import React, {useState, useEffect} from 'react'
+import './profileSettings.css';
+import { userProfileSettingsRead, userProfileSettingsUpdate, userSignUpUpdate } from '../../api.js';
+import Switch from 'react-switch';
+
+function ProfileSettings() {
+    const userData = JSON.parse(localStorage.getItem("user_info"));
+    const userID = userData._id;
+
+    //Signup Configurations
+    const [locationAddress, setlocationAddress] = useState(userData.address);
+    const [phoneNumber, setPhoneNumber] = useState(userData.phone);
+
+    //Profile Setting Configurations
+    const [email2FAEnabled, setEmail2FAEnabled] = useState(false);
+    const [phone2FAEnabled, setPhone2FAEnabled] = useState(false);
+    const [authenticationApp2FAEnabled, setAuthenticationApp2FAEnabled] = useState(false);
+    const [currentLocationEnabled, setCurrentLocationEnabled] = useState(false);
+    const [disableAccountEnabled, setDisableAccountEnabled] = useState(false);
+
+    .....
+
+
+    const handleAddressInput = (e) => {
+        setlocationAddress(e.target.value);
+    }
+    const handlePhoneNumber = (e) => {
+        setPhoneNumber(e.target.value);
+    }
+
+    const handleEmailToggleSwitch = (e) => { 
+        setEmail2FAEnabled(e);
+    }
+    const handlePhoneToggleSwitch = (e) => {  
+        setPhone2FAEnabled(e); 
+    }
+    const handleAuthenticationAppToggleSwitch = (e) => {  
+        setAuthenticationApp2FAEnabled(e);
+    }
+    const handleCurrentLocationToggleSwitch = (e) => { 
+        setCurrentLocationEnabled(e);
+    }
+    const handleDisableAccountToggleSwitch = (e) => { 
+        setDisableAccountEnabled(e);
+    }
+
+  ....
+
+    return (
+      ....
+            <div className='profileSettings-twoFactorAuthentication'>
+                <h3> Two Factor Authentication </h3>
+                <form className='profileSettings-twoFactorAuthentication-form'>
+                    <li> Email: <Switch className="profileSettings-toggle" onChange={handleEmailToggleSwitch}
+                     checked={email2FAEnabled} borderRadius={12} /></li>
+                    <li> Phone: <Switch className="profileSettings-toggle" onChange={handlePhoneToggleSwitch}
+                     checked={phone2FAEnabled} borderRadius={12} /> </li>
+                    <li> Authentication App: <Switch className="profileSettings-toggle" onChange={handleAuthenticationAppToggleSwitch}
+                     checked={authenticationApp2FAEnabled} borderRadius={12} /> </li>
+                </form>
+            </div>
+            <div className='profileSettings-setLocation'>
+                <h3> Set Current Loation </h3>
+                <form className='profileSettings-setLocation-form'>
+                    <li> Location: <Switch className="profileSettings-toggle" onChange={handleCurrentLocationToggleSwitch}
+                     checked={currentLocationEnabled} borderRadius={2} /> </li>
+                </form>
+            </div>
+            <div className='profileSettings-danger'>
+                <h3> Danger </h3>
+                <form className='profileSettings-danger-form'>
+                    <li> Disable Account <Switch className="profileSettings-toggle" onChange={handleDisableAccountToggleSwitch}
+                     checked={disableAccountEnabled} borderRadius={2} onColor='ff0000'/> </li>
+                </form>
+            </div>
+
+```
+
+The code above was created by adapting the code in [npmjs - react-switch](https://www.npmjs.com/package/react-switch) as shown below: 
+
+```
+import React, { Component } from "react";
+import Switch from "react-switch";
+
+class SwitchExample extends Component {
+  constructor() {
+    super();
+    this.state = { checked: false };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(checked) {
+    this.setState({ checked });
+  }
+
+  render() {
+    return (
+      <label>
+        <span>Switch with default style</span>
+        <Switch onChange={this.handleChange} checked={this.state.checked} />
+      </label>
+    );
+  }
+}
+
+```
+
+- <!---How---> The code in [npmjs - react-switch](https://www.npmjs.com/package/react-switch) was implemented by copying specifically the code <Switch> tag along with 'onchange' and 'checking' status. As was done for the notification settings page initially.
+- <!---Why---> [npmjs - react-switch](https://www.npmjs.com/package/react-switch)'s Code was used because it provided a quick, effective and efficient manner in which our team can implement toggle switches into our project.
+- <!---How---> [npmjs - react-switch](https://www.npmjs.com/package/react-switch)'s Code was modified by converting the code to use useStates in being able to pass and save the changes on a React project properly. I also modified its styling slightly to match context and make more visually appealing. 
+
 
 ## Acknowledgments
 
