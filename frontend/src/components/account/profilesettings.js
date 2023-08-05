@@ -112,8 +112,8 @@ function ProfileSettings() {
 
     const updateSignUpData_General = async (e) => {
         e.preventDefault();
-        if (phoneNumber.trim().length !== 10 && phoneNumber.trim().length !== 0) {
-            alert("Make sure Phone number is 10 long")
+        if (phoneNumber.trim().length !== 10  && phoneNumber.trim().length !== 0) {
+            alert("Make sure Phone number is 10 digits long.\nAlso ensure that only numbeers are entered! (no '-')");
             return;
         }
         
@@ -170,11 +170,12 @@ function ProfileSettings() {
                     <li> Full Name: <input placeholder={fullName || ""} disabled/> </li>
                     <li> Email: <input type="text" value={email  || ""} placeholder="No email Address" onChange={handleEmailInput} /> </li>
                     <li> Address: <input type="text" value={locationAddress  || ""} placeholder="No address found" onChange={handleAddressInput}/> </li>
-                    <li> Phone Number: <input type="Number" value={phoneNumber  || ""} placeholder="No Phone Number found" onChange={handlePhoneNumber}/> </li>
+                    <li> Phone Number: <input type="text" value={phoneNumber  || ""} placeholder="No Phone Number found" onChange={handlePhoneNumber}/> </li>
                     <li> Online Status:  
                         <select value={isActive} onChange={handleDropdown}> 
                             <option value="active"> Active </option>
                             <option value="offline"> Offline </option>
+                            <option value="do-not-disturb"> do not disturb </option>
                        </select>
                     </li>
                     <button id="updateButtons" onClick={updateSignUpData_General}> UPDATE GENERAL </button>

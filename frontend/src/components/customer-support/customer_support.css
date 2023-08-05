@@ -59,6 +59,7 @@
 
 @media (max-width: 807px) {
     .customerSupport-main-container {
+        text-align: center;
         padding-top: 70px;
     }
 }
