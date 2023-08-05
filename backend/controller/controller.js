@@ -139,10 +139,10 @@ const generateResetCode = async (req, res) => {
 const verifyResetCode = async (req, res) => {
   try {
     const { email, resetCode } = req.query;
-
     const isCodeValid = await model.verifyCode(email, resetCode);
 
     if (isCodeValid) {
+      await model.deleteCode(email, resetCode);
       res.status(200).json({ message: "Reset code is valid." });
     } else {
       res.status(400).json({ message: "Reset code is not valid." });

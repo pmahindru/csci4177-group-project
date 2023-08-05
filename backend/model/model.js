@@ -179,13 +179,37 @@ const verifyCode = async (email, resetCode) => {
 
     const user = await collection.findOne({ email });
 
-    // DB connection closed.
     await client.close();
     return user && user.resetCode == resetCode;
   } catch (error) {
     return false;
   }
 };
+
+// deleteCode created by Saiz Charolia
+const deleteCode = async (email, resetCode) => {
+  try {
+    await client.connect();
+
+    // calling the db and the collection
+    const db = client.db("User_Management");
+    const collection = db.collection("Signup");
+
+    const updateResult = await collection.updateOne(
+      { email },
+      { $unset: { resetCode: 1 } }
+    );
+
+    const isCodeDeleted = updateResult.modifiedCount > 0;
+
+    await client.close();
+
+    return isCodeDeleted;
+  } catch (error) {
+    return false;
+  }
+};
+
 
 // saveNewPassword created by Saiz Charolia
 const saveNewPassword = async (email, password) => {
@@ -1059,6 +1083,7 @@ module.exports = {
   loginUserModel,
   saveResetCode,
   verifyCode,
+  deleteCode,
   saveNewPassword,
   checkEmailExists,
   getOrderHistory,
