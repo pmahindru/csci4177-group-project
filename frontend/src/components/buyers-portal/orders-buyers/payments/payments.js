@@ -36,11 +36,8 @@ const AccountPayments = () => {
   //useeffect for getting all the users payment methods they already have
   useEffect(() => {
     const fetchPayments = async () => {
-        console.log(userId);
         const result = await getAllPayments(userId);
-        console.log(result);
         if (!result.address) {
-         
           setPayments(result);
         }
     };

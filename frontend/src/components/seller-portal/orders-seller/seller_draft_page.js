@@ -83,10 +83,6 @@ function SellerDraftPage() {
             alert("Update Successfully")
             window.location.reload();
         }
-        else if (e.target.value === "share") {
-            alert("This is not working right now,\nNeed to integrate with Social Media!!!");
-            window.location.reload();
-        }
         else{
             const res = await deleteSavePostAd(itemId);
             if (res.response === undefined) {
@@ -114,7 +110,7 @@ function SellerDraftPage() {
     return (
         <div className='order-seller-page-main-container'>
             <div className='order-seller-page-section2'>
-                <h2>InActive Ads</h2>
+                <h2>Drafts Ads</h2>
             </div>
             {loading ? (
                 <div className='preview-loading'>
@@ -168,7 +164,6 @@ function SellerDraftPage() {
                                                 <option value="edit"> Edit </option>
                                                 <option value="delete"> Delete </option>
                                                 <option value="pause"> Resume </option>
-                                                <option value="share"> Share </option>
                                             </select>
                                         </div>
                                     </div>

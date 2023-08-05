@@ -119,6 +119,16 @@
     mix-blend-mode: multiply;
 }
 
+.seller-order-dropdown {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.seller-order-dropdown select {
+    padding: 5px;
+    border: none;
+}
+
 @media (max-width: 805px) {
     .order-seller-page-section1 {
         margin-top: 52px;

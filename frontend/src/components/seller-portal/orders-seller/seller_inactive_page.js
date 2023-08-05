@@ -83,10 +83,6 @@ function SellerInActivePage() {
             alert("Update Successfully")
             window.location.reload();
         }
-        else if (e.target.value === "share") {
-            alert("This is not working right now,\nNeed to integrate with Social Media!!!");
-            window.location.reload();
-        }
         else{
             const res = await deletePostAd(itemId);
             if (res.response === undefined) {
@@ -168,7 +164,6 @@ function SellerInActivePage() {
                                                 <option value="edit"> Edit </option>
                                                 <option value="delete"> Delete </option>
                                                 <option value="pause"> Resume </option>
-                                                <option value="share"> Share </option>
                                             </select>
                                         </div>
                                     </div>

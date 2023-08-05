@@ -64,38 +64,62 @@ function NotificationSettings() {
     }
 
     const handleToggleInboxSwitch = (e) => {
+        if (!e) {
+            setAllNotifcationsEnabled(false)
+        }
         setInboxNotifcationsEnabled(e);
     }
     const handleToggleOrderMessagesSwitch = (e) => {
+        if (!e) {
+            setAllNotifcationsEnabled(false)
+        }
         setOrderMessagsNotifcationsEnabled(e);
     }
 
     const handleOrderUpdatesToggleSwitch = (e) => {
+        if (!e) {
+            setAllNotifcationsEnabled(false)
+        }
         setOrderUpdatesNotifcationsEnabled(e);
     }
     const handleRatingReviewsToggleSwitch = (e) => {
+        if (!e) {
+            setAllNotifcationsEnabled(false)
+        }
         setRatingReviewsNotifcationsEnabled(e);
     }
     const handleNotificationSoundsToggleSwitch = (e) => {
+        if (!e) {
+            setAllNotifcationsEnabled(false)
+        }
         setNotificationSoundsEnabled(e);
     }
-
     const handleEmailNotificationToggleSwitch = (e) => {
+        if (!e) {
+            setAllNotifcationsEnabled(false)
+        }
         setEmailNotifcationsEnabled(e);
     }
-
     const handlPhoneNotificationToggleSwitch = (e) => {
+        if (!e) {
+            setAllNotifcationsEnabled(false)
+        }
         setPhoneNotifcationsEnabled(e);
     }
+
+    useEffect(() => {
+        if (inboxNotifcationsEnabled && orderMessagsNotifcationsEnabled && orderUpdatesNotifcationsEnabled && ratingReviewsNotifcationsEnabled && notificationSoundsEnabled && emailNotifcationsEnabled && phoneNotifcationsEnabled) {
+            setAllNotifcationsEnabled(true);
+        }
+    }, [inboxNotifcationsEnabled, orderMessagsNotifcationsEnabled, orderUpdatesNotifcationsEnabled, ratingReviewsNotifcationsEnabled, notificationSoundsEnabled, emailNotifcationsEnabled, phoneNotifcationsEnabled])
 
     const saveNotificationChanges = async (e) => {
         const settingStatus = {"notify_all": allNotifcationsEnabled, "notify_inbox_messages": inboxNotifcationsEnabled, 
         "notify_order_messages": orderMessagsNotifcationsEnabled, "notify_order_updates": orderUpdatesNotifcationsEnabled,
         "notify_ratings_reviews": ratingReviewsNotifcationsEnabled, "notify_sounds": notificationSoundsEnabled, 
         "notify_email": emailNotifcationsEnabled, "notify_phone": phoneNotifcationsEnabled};
-
-        /*const updateStatus = */await userNotificationSettingsUpdate(userID, settingStatus);
-        // console.log(JSON.stringify(updateStatus));
+        
+        await userNotificationSettingsUpdate(userID, settingStatus);
         alert("Settings applied successfully");
         window.location.reload();
     }

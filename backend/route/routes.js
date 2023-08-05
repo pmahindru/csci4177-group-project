@@ -48,6 +48,7 @@ app.put(`${baseURL}/notification_settings/:userID`, controller.userNotificationS
 app.post(`${baseURL}/addmsg`, controller.addMessage);
 app.post(`${baseURL}/getmsg`, controller.getMessages);
 app.get(`${baseURL}/allusers/:id`, controller.getAllUsers);
+
 // SELLER PORTAL ROUTES
 app.post(`${baseURL}/seller/addPost`, controller.addNewPostAd);
 app.post(`${baseURL}/seller/savePost`, controller.savePostAd);
@@ -59,5 +60,7 @@ app.put(`${baseURL}/seller/updatePostWithId/:postId`, controller.updatePostWithI
 app.put(`${baseURL}/seller/previewSavePostAd/:postId`, controller.previewSavePostAd);
 app.delete(`${baseURL}/seller/deletePostWithId/:postId`, controller.deletePostWithId);
 app.delete(`${baseURL}/seller/deleteSaveWithId/:postId`, controller.deleteSaveWithId);
+app.get(`${baseURL}/getSpecificUser/:userId`, controller.loginUserModel);
+app.post(`${baseURL}/twoFactorAuthentication`, controller.twoFactorAuthentication);
 
 module.exports = app;

@@ -56,7 +56,6 @@ const CreateReview = ({ onClose, selectedAdId }) => {
 
   const handleReviewChange = (event) => {
     setReview(event.target.value);
-    console.log(event.target.value);
   };
 
   const handleRatingChange = (newValue) => {
