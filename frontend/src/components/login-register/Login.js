@@ -59,6 +59,7 @@ const Login = () => {
         return;
     }
 
+    
     const data  = await loginUser({ email, password });
 
     // // API calling referred from Blogs
