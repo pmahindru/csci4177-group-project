@@ -112,13 +112,11 @@ function ProfileSettings() {
 
     const updateSignUpData_General = async (e) => {
         e.preventDefault();
-        if (phoneNumber !== null) {
-            if (phoneNumber.trim().length !== 10) {
-                alert("Make sure Phone number is 10 long")
-                return;
-            }
+        if (phoneNumber.trim().length !== 10 && phoneNumber.trim().length !== 0) {
+            alert("Make sure Phone number is 10 long")
+            return;
         }
-
+        
         await userSignUpUpdate(userID, {"email": email, "address": locationAddress, "phone": phoneNumber});
         alert("Update the General information");
         window.location.reload();
