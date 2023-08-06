@@ -46,7 +46,7 @@ const AccountPayments = () => {
 
   return (
     <div className="container">
-      <h1 className="paymentHeading">Payment Page {payments.length}</h1> 
+      <h1 className="paymentHeading">Payment Page</h1> 
       {payments.length === 0 ? (
         <div className="center-container">
           <h2 className="paymentLabel">No Payment Methods</h2>
