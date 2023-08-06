@@ -65,7 +65,7 @@ const Login = () => {
     // // URL: https://blog.hubspot.com/website/api-calls
     // // Date Accessed: 07/23/2023
     if (data.response === undefined){
-      const profileSettingsReading  = await userProfileSettingsRead(data._id);
+      const profileSettingsReading = await userProfileSettingsRead(data._id);
       if (profileSettingsReading.email_auth) {
         // API calling referred from Blogs
         // URL: https://blog.hubspot.com/website/api-calls
