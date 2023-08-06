@@ -107,15 +107,18 @@ const OrderHistoryPage = () => {
   useEffect(() => {
     const fetchOrderHistory = async () => {
         const result = await getOrderHistory(user_id);
-        if (!result.address) {
-          const sortedData = result.sort((a,b) => {
-            if (sortOrder === 'desc') {
-              return new Date(a.date_purchased) - new Date(b.date_purchased);
-            } else {
-              return new Date(b.date_purchased) - new Date(a.date_purchased);
-            }
-          });
-          setOrders(sortedData);
+        console.log(result)
+        if (Object.keys(result).length > 0) {
+          if (!result.address) {
+            const sortedData = result.sort((a,b) => {
+              if (sortOrder === 'desc') {
+                return new Date(a.date_purchased) - new Date(b.date_purchased);
+              } else {
+                return new Date(b.date_purchased) - new Date(a.date_purchased);
+              }
+            });
+            setOrders(sortedData);
+          }
         }
     };
 

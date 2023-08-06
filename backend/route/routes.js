@@ -53,6 +53,7 @@ app.get(`${baseURL}/allusers/:id`, controller.getAllUsers);
 app.post(`${baseURL}/seller/addPost`, controller.addNewPostAd);
 app.post(`${baseURL}/seller/savePost`, controller.savePostAd);
 app.post(`${baseURL}/seller/getPost`, controller.getAllPostedAd);
+app.get(`${baseURL}/seller/getPostForDashboard`, controller.getPostForDashboard);
 app.post(`${baseURL}/seller/getSavePost`, controller.getAllSavePostedAd);
 app.post(`${baseURL}/seller/getPostAdWithId/:postId`, controller.getPostAdWithId);
 app.put(`${baseURL}/seller/pausePostAdWithId/:postId`, controller.pausePostAdWithId);

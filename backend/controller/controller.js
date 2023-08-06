@@ -372,12 +372,8 @@ const createCartItem = async (req, res) => {
       user_id: req.body.user_id,
       ad_id: req.body.ad_id,
     };
-    const response = await model.createFavourite(newItem);
-    if (response && response.data) {
-      res.status(200).json(response);
-    } else {
-      res.status(500).json(error);
-    }
+    const response = await model.createCartItem(newItem);
+    res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -523,6 +519,15 @@ const getAllSavePostedAd = async (req,res) => {
 const getAllPostedAd = async (req,res) => {
     try {
       const data = await model.getAllPostedAd({"user_id": req.body.user_id, "isActive": req.body.isActive});
+      res.status(200).json(data);
+    } catch (error) {
+      res.status(500).json(object);
+    }
+}
+
+const getPostForDashboard = async (req,res) => {
+    try {
+      const data = await model.getAllPostedAd({});
       res.status(200).json(data);
     } catch (error) {
       res.status(500).json(object);
@@ -717,6 +722,7 @@ module.exports = {
   savePostAd,
   getAllSavePostedAd,
   getAllPostedAd,
+  getPostForDashboard,
   getPostAdWithId,
   pausePostAdWithId,
   addNewPostAd,

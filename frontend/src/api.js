@@ -122,6 +122,14 @@ export const createPayment = async (data) => {
     return error;
   }
 };
+export const createCartItem = async (data) => {
+  try {
+    const res = await axios.post(`${baseURL}/cart`, data);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const createReview = async (data) => {
   try {
@@ -307,6 +315,16 @@ export const savePostAd = async (data) => {
 export const getAllPostedAd = async (data) => {
     try {
       const res = await axios.post(`${baseURL}/seller/getPost`, data);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
+export const getPostForDashboard = async () => {
+    try {
+      const res = await axios.get(`${baseURL}/seller/getPostForDashboard`);
       return res.data;
     } catch (error) {
       return error

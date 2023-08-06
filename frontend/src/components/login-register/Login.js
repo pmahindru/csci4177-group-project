@@ -66,25 +66,28 @@ const Login = () => {
     // // Date Accessed: 07/23/2023
     if (data.response === undefined){
       const profileSettingsReading = await userProfileSettingsRead(data._id);
-      if (profileSettingsReading.email_auth) {
-        // API calling referred from Blogs
-        // URL: https://blog.hubspot.com/website/api-calls
-        // Date Accessed: 07/23/2023
-        const isSent = await twoFactorAuthentication(email);
-        const twoFactorAuth = prompt("Enter the 2FA Code sent to your email: ");
-        if (twoFactorAuth === isSent.message) {
-          alert("Authenticate and Login Successfully")
-          // localstorage referred from w3schools
-          // URL: https://www.w3schools.com/jsref/prop_win_localstorage.asp
-          // Date Accessed: 07/25/20230
-          localStorage.setItem('user_info', JSON.stringify(data));
-          localStorage.setItem('isLoggedIn', true);
-          navigate('/');
-          window.location.reload();
+
+      if (profileSettingsReading !== null) {
+        if (profileSettingsReading.email_auth) {
+          // API calling referred from Blogs
+          // URL: https://blog.hubspot.com/website/api-calls
+          // Date Accessed: 07/23/2023
+          const isSent = await twoFactorAuthentication(email);
+          const twoFactorAuth = prompt("Enter the 2FA Code sent to your email: ");
+          if (twoFactorAuth === isSent.message) {
+            alert("Authenticate and Login Successfully")
+            // localstorage referred from w3schools
+            // URL: https://www.w3schools.com/jsref/prop_win_localstorage.asp
+            // Date Accessed: 07/25/20230
+            localStorage.setItem('user_info', JSON.stringify(data));
+            localStorage.setItem('isLoggedIn', true);
+            navigate('/');
+            window.location.reload();
+            return;
+          }
+          alert("Code Doesn't Match")
           return;
-        }
-        alert("Code Doesn't Match")
-        return;
+        } 
       }
       
       alert('Login successful');
