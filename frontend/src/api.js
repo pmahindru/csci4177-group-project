@@ -428,6 +428,16 @@ export const twoFactorAuthentication = async (email) => {
   }
 };
 
+// add to the user interaction
+export const addToUserInteraction = async (data) => {
+  try {
+    const response = await axios.post(`${baseURL}/addToUserInteraction`, data);
+    return response.data;
+  } catch (error) {
+    return false;
+  }
+};
+
 /* User Profile Settings APIs | By: Joel Kuruvilla | 2023-07-26 */
 //User Profile READ API:
 export const userProfileSettingsRead = async (userID) => { //By Joel Kuruvilla

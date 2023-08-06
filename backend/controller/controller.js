@@ -630,6 +630,15 @@ const twoFactorAuthentication = async (req, res) => {
   }
 };
 
+const addToUserInteraction = async (req, res) => {
+  try {
+      const data = await model.addToUserInteraction(req.body, uuid.v4());
+      res.status(200).json(data);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+};
+
 /* User Profile Settings READ and UPDATE ControllerS | By: Joel Kuruvilla */
 const userProfileSettingsRead = async (req, res) => { //Profile READ Controller | Joel Kuruvilla
   try {
@@ -732,4 +741,5 @@ module.exports = {
   deleteSaveWithId,
   loginUserModel,
   twoFactorAuthentication,
+  addToUserInteraction,
 };

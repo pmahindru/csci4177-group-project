@@ -967,6 +967,63 @@ const deleteSaveWithId = async (idObject) => {
     }
 }
 
+// add new post Ad
+const addToUserInteraction = async (data, uuid_user_interaction) => {
+    try {
+      // connection with db
+      await client.connect();
+
+      // call the db name and collection
+      const db = client.db("Seller_Management");
+      const collection = db.collection("User_Interactions");
+
+      const findUserInteraction = await collection.find({"ad_id": data.ad_id}).toArray();
+
+      if (Object.keys(findUserInteraction).length > 0) {
+        if (Object.keys(findUserInteraction[0]["user_id"]).length > 0) {
+          let isChecked = false;
+          for (let i = 0; i < findUserInteraction[0]["user_id"].length; i++) {
+            if (findUserInteraction[0]["user_id"][i] === data.user_id && findUserInteraction[0]["ad_id"] === data.ad_id) {
+              isChecked = true;
+            }
+          }
+
+          if (isChecked) {
+            if (data.share > 0) {
+              await collection.updateOne({"_id": findUserInteraction[0]["_id"]}, {$set: {"share": findUserInteraction[0]["share"]+1}});
+              await client.close();
+            }
+            if (data.save > 0) {
+              await collection.updateOne({"_id": findUserInteraction[0]["_id"]}, {$set: {"save": findUserInteraction[0]["save"]+1}});
+              await client.close();
+            }
+            return;
+          }
+          else{
+            const newArray = [...findUserInteraction[0]["user_id"], data.user_id]
+            await collection.updateOne({"_id": findUserInteraction[0]["_id"]}, {$set: {"clicks": findUserInteraction[0]["clicks"]+1, "user_id": newArray}});
+            await client.close();
+          }
+        }
+      }
+      else{
+        const newUser = {
+          _id: uuid_user_interaction,
+          ad_id: data.ad_id,
+          clicks: data.click,
+          share: data.share || 0,
+          save: data.save || 0,
+          user_id: [data.user_id]
+        };
+        const addUserInteraction = await collection.insertOne(newUser);
+        await client.close();
+        return addUserInteraction;
+      }
+    } catch (error) {
+      return error;
+    }
+}
+
 module.exports = {
   getAllUserSignup,
   registerUser,
@@ -1010,4 +1067,5 @@ module.exports = {
   previewSavePostAd,
   deletePostWithId,
   deleteSaveWithId,
+  addToUserInteraction,
 };

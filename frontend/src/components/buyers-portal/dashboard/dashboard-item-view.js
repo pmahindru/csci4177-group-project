@@ -1,9 +1,9 @@
 /* Created By: Pranav Mahindru*/
 import React, { useState, useEffect } from "react";
 import './dashboard-buyer.css'
-import { getAllPostedAd, getPostAdWithId, createCartItem } from "../../../api";
+import { getPostAdWithId, createCartItem, addToUserInteraction } from "../../../api";
 import ReactLoading from "react-loading";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { 
     FacebookShareButton, FacebookIcon,
     TwitterShareButton, TwitterIcon,
@@ -22,7 +22,6 @@ function DashBoardBuyerItemView() {
     const [saveTheUrlForShare, setSaveTheUrlForShare] = useState("");
     const [saveShareItemId, setsaveShareItemId] = useState("");
     const navigate = useNavigate();
-
     
     const handlePreviousImage = (len, itemId) => {
         if (len === 1) {
@@ -83,7 +82,8 @@ function DashBoardBuyerItemView() {
         }
     };
 
-    const handleShareButton = (e, itemId, itemTitle) => {
+    const handleShareButton = async (e, itemId, itemTitle) => {
+        await addToUserInteraction({"user_id": user_data["_id"], "ad_id": itemId, "share": 1})
         setSaveTheUrlForShare(window.location.origin+"/"+itemId);
         setsaveShareItemId(itemId);
         setShareAdIcons(true);
@@ -96,12 +96,15 @@ function DashBoardBuyerItemView() {
         window.location.reload();
     }
 
+    const handleAddToFavorite = async (e, itemId, itemTitle) => {
+        await addToUserInteraction({"user_id": user_data["_id"], "ad_id": itemId, "save": 1})
+    }
+
     useEffect(() => {
         const getData = async () => {
             const postId = window.location.pathname.split("/")
             const res = await getPostAdWithId({"_id": postId[postId.length-1]});
             if (!res.address) {
-                console.log(res)
                 setSpecificItem(res)
                 setLoading(false);
             }
@@ -164,7 +167,7 @@ function DashBoardBuyerItemView() {
                                     <div className='order-seller-page-section5' onClick={(e) => handleAddToCart(e, item._id, item.title)}>
                                         <button>Add to Cart</button>
                                     </div>
-                                    <div className='order-seller-page-section5'>
+                                    <div className='order-seller-page-section5' onClick={(e) => handleAddToFavorite(e, item._id, item.title)}>
                                         {/* need to change to the heart icon */}
                                         <button>favorite</button>
                                     </div>
@@ -201,58 +204,6 @@ function DashBoardBuyerItemView() {
                                 </div>
                             );
                         })}
-
-
-
-
-
-
-
-
-                        {/* <div className='dashboardBuyer-section2'>
-                            {getSpecificItem.map((item, index) => {
-                                return (
-                                    <div className="seller-image-slider">
-                                        {item.image.map((getImage, index) => (
-                                            <div className="slides" key={index}>
-                                                {imageSliderObject.some(objectItem => objectItem.prodID === item._id) ? (
-                                                    imageSliderObject.map(objectItem => {
-                                                        if (objectItem.prodID === item._id) {
-                                                            return (
-                                                                <img src={item.image[objectItem.pos]} alt={`images${index+1}`} key={index+1}/>
-                                                            );
-                                                        }
-                                                        return null;
-                                                    })
-                                                ) : (
-                                                    <img src={item.image[0]} alt={`images${index+1}`} key={index}/>
-                                                )}
-                                                <div className="seller-image-button">
-                                                    <button onClick={() => handlePreviousImage(item.image.length, item._id)}>{"<"}</button>
-                                                    <button onClick={() => handleNextImage(item.image.length, item._id)}>{">"}</button>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                )
-                            })}
-
-
-                                <div className='dashboardBuyer-card-list'>
-                                    {getSpecificItem.map((item, index) => {
-                                        return (
-                                            <NavLink to={`/${item._id}`}>
-                                                <div className="dashboardBuyer-card-view">        
-                                                    <div className="dashboardBuyer-card-view-text">
-                                                        <img src={item.image[0]} width="100" height="100"/>
-                                                        <h3 className="card-title">{item.title}</h3>
-                                                    </div>
-                                                </div>
-                                            </NavLink>
-                                        );
-                                    })}
-                                </div> 
-                        </div> */}
                     </>
                 )
             )}
