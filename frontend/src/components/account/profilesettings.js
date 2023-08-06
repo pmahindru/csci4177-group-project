@@ -112,9 +112,11 @@ function ProfileSettings() {
 
     const updateSignUpData_General = async (e) => {
         e.preventDefault();
-        if (phoneNumber.trim().length !== 10  && phoneNumber.trim().length !== 0) {
-            alert("Make sure Phone number is 10 digits long.\nAlso ensure that only numbeers are entered! (no '-')");
-            return;
+        if (phoneNumber !== null) {
+            if (phoneNumber.trim().length !== 10  && phoneNumber.trim().length !== 0) {
+                alert("Make sure Phone number is 10 digits long.\nAlso ensure that only numbeers are entered! (no '-')");
+                return;
+            }   
         }
         
         await userSignUpUpdate(userID, {"email": email, "address": locationAddress, "phone": phoneNumber});
