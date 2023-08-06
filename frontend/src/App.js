@@ -17,7 +17,6 @@ import AnalyticalDashboard from "./components/seller-portal/analytics-seller/Ana
 import ActiveAdsPage from "./components/seller-portal/analytics-seller/ActiveAdsPage";
 import DeletePage from "./components/seller-portal/analytics-seller/DeletePage";
 import DraftsPage from "./components/seller-portal/analytics-seller/DraftsPage";
-import Chat from "./components/seller-portal/analytics-seller/chat/Chat";
 import SellerRatingPage from "./components/seller-portal/analytics-seller/SellerRatingPage";
 import RenewPage from "./components/seller-portal/analytics-seller/RenewPage";
 import SoldPage from "./components/seller-portal/analytics-seller/SoldPage";
@@ -34,6 +33,7 @@ import EditAd from "./components/seller-portal/postadd/editAd";
 import UpdatePreview from "./components/seller-portal/postadd/updatePreview";
 import DraftEdit from "./components/seller-portal/postadd/draftEdit";
 import UpdateDraftPreview from "./components/seller-portal/postadd/draftUpdate";
+import Chat from "./components/seller-portal/analytics-seller/Chat";
 
 function App() {
   // this array contains only seller portal

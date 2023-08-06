@@ -5,10 +5,25 @@ import "./style.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { Line, Bar, Pie } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
+import { getAllPostedAd } from "../../../api";
 
 Chart.register(...registerables);
 
 const AnalyticalDashboard = () => {
+  const getLocalStorage = localStorage.getItem("user_info");
+  const user_data = JSON.parse(getLocalStorage);
+  const [getArrayObjects, setArrayObjects] = useState(0);
+
+  useEffect(() => {
+      const getData = async () => {
+          const res = await getAllPostedAd({"user_id": user_data["_id"], "isActive": true});
+          if (!res.address) {
+              setArrayObjects(Object.keys(res).length);
+          }
+      }
+      getData();
+  }, [])
+
   // Dummy data for sold items with reviews
   const soldItems = [
     {
@@ -246,35 +261,35 @@ const AnalyticalDashboard = () => {
           to="/analytics/active-ads"
           className="sub-section-overview link-unstyled"
         >
-          <h2>25</h2>
+          <h2>{getArrayObjects}</h2>
           <p>Active Ads</p>
         </Link>
         <Link
           to="/analytics/sold"
           className="sub-section-listings link-unstyled"
         >
-          <h2>2</h2>
+          <h2>0</h2>
           <p>Sold & out of stock</p>
         </Link>
         <Link
           to="/analytics/draft-ads"
           className="sub-section-listings link-unstyled"
         >
-          <h2>2</h2>
+          <h2>0</h2>
           <p>Drafts</p>
         </Link>
         <Link
           to="/analytics/renew"
           className="sub-section-listings link-unstyled"
         >
-          <h2>3</h2>
+          <h2>0</h2>
           <p>To renew</p>
         </Link>
         <Link
           to="/analytics/delete-ads"
           className="sub-section-listings link-unstyled"
         >
-          <h2>2</h2>
+          <h2>0</h2>
           <p>To delete & relist</p>
         </Link>
         <div className="sub-section-listings">
