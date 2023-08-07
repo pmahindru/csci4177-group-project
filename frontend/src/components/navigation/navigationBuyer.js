@@ -49,7 +49,7 @@ function NavBarBuyer() {
     window.location.reload();
   };
 
-   // dropdown toggle
+  // dropdown toggle
   const handleDropDownToggle = () => {
     setShowDropDown((prevState) => !prevState);
     if (openDropDownNotifications === true) {
@@ -170,4 +170,3 @@ function NavBarBuyer() {
 }
 
 export default NavBarBuyer;
-

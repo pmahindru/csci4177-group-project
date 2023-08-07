@@ -129,6 +129,7 @@ const Cart = () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
+
   //local state variables
   const [cart, setCart] = useState([]);
   const [payments, setPayments] = useState([]);
@@ -170,6 +171,7 @@ const Cart = () => {
     fetchCart();
   }, []);
 
+ 
 
   // This function handles when the user clicks checkout. If the user has at least one payment method, they will be directed to the checkout screen. If not, they will be alerted to add a payment method before they can check out.
   const handleCheckout = () => {

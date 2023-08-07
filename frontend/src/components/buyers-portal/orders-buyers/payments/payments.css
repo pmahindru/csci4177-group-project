@@ -19,6 +19,7 @@
   background-color: rgb(230, 230, 230);
   font-size: 20px;
   text-align: center;
+
 }
 
 .paymentOverlay {
@@ -50,6 +51,7 @@
   justify-content: center;
   width: 100%;
 }
+
 
 .ratingContainer {
   display: flex;
@@ -163,7 +165,7 @@
   }
 
   .paymentContent {
-    width: 200px;
+    width: 300px;
     background-color: white;
     padding: 20px;
     display: flex;

@@ -5,7 +5,6 @@ import { addToUserInteraction, getPostForDashboard } from "../../../api";
 import ReactLoading from "react-loading";
 import { NavLink, useNavigate } from "react-router-dom";
 
-
 function DashBoardBuyer() {
     const [loading, setLoading] = useState(true);
     const [getArrayVehicle, setArrayVehicle] = useState([]);

@@ -6,8 +6,6 @@ import { getReview, createReview, editReview } from '../../../../api';
 
 import ResponsiveStarRating from './rating';
 
-import ResponsiveStarRating from './rating';
-
 //create review returns a form with a field for the users cards cvv, two select menus for updating the expiry data and a address field for the suer to enter a new address.
 const CreateReview = ({ onClose, selectedAdId }) => {
 

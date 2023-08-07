@@ -44,7 +44,7 @@ const AccountPayments = () => {
         }
     };
     fetchPayments();
-  }, [userId]);
+  }, []);
 
   return (
     <div className="container">

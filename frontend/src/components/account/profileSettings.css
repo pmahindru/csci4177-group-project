@@ -2,34 +2,44 @@
 .profileSettings {
     margin: 2% 12%;
 }
-.profileSettings > div {
+
+.profileSettings>div {
     text-transform: capitalize;
     font-size: 2.5vh;
     list-style: none;
 }
 
 /* Overvall Form Structural styling */
-.profileSettings > div > form > h3 { /* Form Title Buttons */
+.profileSettings>div>form>h3 {
+    /* Form Title Buttons */
     margin: 8px 0;
     width: 100%;
 }
-.profileSettings > div > form > li { /* Form Fields */
+
+.profileSettings>div>form>li {
+    /* Form Fields */
     float: left;
     clear: both;
     width: 70%;
     margin: 0;
 }
-.profileSettings > div > form > li > input { /* Input boxes */
+
+.profileSettings>div>form>li>input {
+    /* Input boxes */
     margin: 1% 5%;
     width: 60%;
     float: right;
 }
-.profileSettings > div > form > li > select { /* Drop down box selection input box */
+
+.profileSettings>div>form>li>select {
+    /* Drop down box selection input box */
     margin: 1% 5%;
     width: 35%;
     float: right;
 }
-.profileSettings > div > form > #updateButtons { /* Update Buttons */
+
+.profileSettings>div>form>#updateButtons {
+    /* Update Buttons */
     background-color: ghostwhite;
     float: right;
     padding: 1vh;
@@ -63,7 +73,8 @@
     clear: both;
     padding: 1vh;
 }
-.profileSettings-twoFactorAuthentication-form > li {
+
+.profileSettings-twoFactorAuthentication-form>li {
     margin: 1%;
     padding: 5px;
     /* background-color: aliceblue; */
@@ -85,6 +96,7 @@
     float: left;
     width: 25%;
 }
+
 .profileSettings-setLocation-form {
     margin: 1% 0%;
     height: 10%;
@@ -99,6 +111,7 @@
     float: left;
     margin: 1% 5% 0 0%;
 }
+
 .profileSettings-danger-form {
     display: flex;
     padding: 1% 5%;
@@ -111,7 +124,8 @@
     margin: 1% 3% 0 0%;
     width: 30%;
 }
-.profileSettings-delete-form > button {
+
+.profileSettings-delete-form>button {
     float: right;
     background-color: red;
     padding: 2vh;
@@ -125,14 +139,14 @@
     align-content: center;
 }
 
-.save-profile-settings-button > button {
+.save-profile-settings-button>button {
     padding: 8px;
     margin: 10px;
     cursor: pointer;
     background-color: white;
 }
 
-.save-profile-settings-button > button a {
+.save-profile-settings-button>button a {
     color: black;
     text-decoration: none;
 }
@@ -143,20 +157,24 @@
         margin-top: 12vh;
     }
 
-    .profileSettings > div {
+    .profileSettings>div {
         margin: 2vh 0;
     }
 
     /* Form component stylings - @media */
-    .profileSettings > div > form > li {
+    .profileSettings>div>form>li {
         width: 100%;
         margin: 1vh;
     }
-    .profileSettings > div > form > li > input { /* Media adapted Input boxes */
+
+    .profileSettings>div>form>li>input {
+        /* Media adapted Input boxes */
         margin: 1% 5%;
         width: 40%;
     }
-    .profileSettings > form > #updateButtons { /* Media adapted Update Buttons */
+
+    .profileSettings>form>#updateButtons {
+        /* Media adapted Update Buttons */
         padding: 1vh;
         margin: 0 3% 0 0;
     }
@@ -207,6 +225,7 @@
 }
 
 @media (max-width: 405px) {
+
     /* General Settings Styling - @media #2 */
     .profileSettings-general-form {
         height: 35vh;
@@ -217,8 +236,9 @@
         background-color: lightgray;
         height: 40vh;
     }
+
     .profileSettings-twoFactorAuthentication-form {
         display: inline;
-        
+
     }
 }
