@@ -297,7 +297,6 @@ const AnalyticalDashboard = () => {
           <p>Need attention</p>
         </div>
       </div>
-
       <div className="section-insights">
         {isGraphsPageVisible ? (
           <div className="graphs-page">
