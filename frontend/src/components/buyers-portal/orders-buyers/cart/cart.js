@@ -196,7 +196,7 @@ const Cart = () => {
       <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={12} alignItems="center">
           <Grid container justifyContent="center">
-            <h1  className="checkoutHeading">Cart {payments.length}</h1>
+            <h1  className="checkoutHeading">Cart </h1>
           </Grid>
         </Grid>
         <Grid item xs={12}>
