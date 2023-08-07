@@ -11,17 +11,21 @@ import AccountPayments from './payments/payments';
 import Cart from './cart/cart';
 
 const OrdersBuyers = () => {
-  const [savePageName , setPageName] = useState('#order-history');
-  const [currentLocation, setCurrentLocation] = useState('#order-history');
+  const [savePageName , setPageName] = useState('');
+  const [currentLocation, setCurrentLocation] = useState('');
   const handleLocation = (e) => {
       setCurrentLocation(e);
       setPageName(e);
   }
 
   useEffect(() => {
-    if (window.location.hash.length > 0 && window.location.hash !== "#order-history") {
+    if (window.location.hash.length > 0) {
         setPageName(window.location.hash);
-        setCurrentLocation(window.location.hash);   
+        setCurrentLocation(window.location.hash);
+    }
+    else{
+        setPageName("#order-history");
+        setCurrentLocation("#order-history");
     }
   }, [])
 
@@ -79,11 +83,7 @@ const OrdersBuyers = () => {
               <div className='order-seller-page-section2'>
                   <Cart/>
               </div>
-          )  : (
-              <div className='order-seller-page-section2'>
-                  <h1>ERROR</h1>
-              </div>
-          )}
+          )  : (null)}
       </div>
   );
 

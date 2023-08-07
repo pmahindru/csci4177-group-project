@@ -1,8 +1,7 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
-import { Grid, Card, CardMedia, Typography } from '@mui/material';
-import { styled } from '@mui/system';
-import { getTrackedOrders } from '../../../../api';
+import { Grid } from '@mui/material';
+import { getOrderHistory } from '../../../../api';
 import "./track-orders.css";
 import ImageSlider from '../image-slider';
 
@@ -10,13 +9,14 @@ const TrackOrders = () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
+  
   //local variable to hold the incomming data from database
   const [orders, setOrders] = useState([]);
 
   //useffect to get the orders in transit the user has from the database
   useEffect(() => {
     const fetchOrderHistory = async () => {
-       const result = await getTrackedOrders(user_id);
+       const result = await getOrderHistory(user_id);
         if (Object.keys(result).length > 0) {
           if (!result.address) {
             setOrders(result);

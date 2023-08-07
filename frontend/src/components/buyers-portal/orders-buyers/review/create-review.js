@@ -108,11 +108,13 @@ const CreateReview = ({ onClose, selectedAdId }) => {
               onChange={handleReviewChange}
             />
           </div>
-          <div className="formRow ">
-            <button type="button" className="reviewButton"onClick={handleCreateReview}>
+          <div className="postAd-button formRow">
+            <button type="button"onClick={handleCreateReview}>
               Submit Review
             </button>
-            <button  className="reviewButton" type="button" onClick={onClose}>
+          </div>
+          <div className="postAd-button formRow">
+            <button type="button" onClick={onClose}>
               Cancel
             </button>
           </div>

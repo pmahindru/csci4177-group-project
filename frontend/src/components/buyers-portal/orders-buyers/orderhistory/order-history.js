@@ -58,10 +58,11 @@ const OrderHistoryPage = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" style={{ display: 'flex', alignItems: 'center' }}>
-            <p className="orderHistoryLabel">Order by Date</p>
-            <CalendarMonthIcon style={{ marginLeft: '5px'}} onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} />
-          </Typography>
+          <div className='sort-by-style'>
+              <p>Sort By</p>
+              <CalendarMonthIcon onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} />
+          </div>
+
           {orders.length === 0 ? (
             <div className="center-container">
               <h2 className="orderHistoryLabel">No Products Purchased</h2>

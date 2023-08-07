@@ -1,7 +1,7 @@
 /* Created By: Pranav Mahindru*/
 import React, { useState, useEffect } from "react";
 import './dashboard-buyer.css'
-import { getPostAdWithId, createCartItem, addToUserInteraction } from "../../../api";
+import { getPostAdWithId, createCartItem, addToUserInteraction, addFavourites } from "../../../api";
 import ReactLoading from "react-loading";
 import { useNavigate } from "react-router-dom";
 import { 
@@ -93,11 +93,13 @@ function DashBoardBuyerItemView() {
         const postId = window.location.pathname.split("/")
         await createCartItem({"user_id": user_data["_id"],"ad_id": postId[postId.length-1]});
         navigate("/orders");
-        window.location.reload();
     }
 
     const handleAddToFavorite = async (e, itemId, itemTitle) => {
+        const postId = window.location.pathname.split("/")
         await addToUserInteraction({"user_id": user_data["_id"], "ad_id": itemId, "save": 1})
+        await addFavourites({"user_id": user_data["_id"],"ad_id": postId[postId.length-1]});
+        navigate("/orders");
     }
 
     useEffect(() => {

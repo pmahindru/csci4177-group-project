@@ -297,10 +297,6 @@ const deleteCartItem = async (itemId) => {
     const db = client.db("Order_Management");
     const Collection = db.collection("Cart");
     const deleteResult = await Collection.deleteOne({ _id: itemId });
-
-    
-    
-
     return deleteResult;
   } catch (error) {
     return error;
@@ -308,8 +304,6 @@ const deleteCartItem = async (itemId) => {
     await client.close();
   }
 };
-
-
 
 //get all the payment methods a user has using user id (Patrick Wooden)
 const getPayments = async (userId) => {

@@ -4,9 +4,7 @@ import Rating from '@mui/material/Rating';
 
 //This returns a modified rating from material ui, making it responsive
 const ResponsiveStarRatingDisplay = ({ value}) => {
-
   return (
-   
     <span sx={{ display: 'flex', alignItems: 'center' }}>
       <Rating name="responsive-rating" value={value} precision={0.5} readOnly sx={{
         fontSize: '10px',
