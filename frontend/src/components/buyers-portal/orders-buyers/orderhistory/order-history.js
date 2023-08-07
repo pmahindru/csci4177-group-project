@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CreateReview from '../review/create-review';
-import { getOrderHistory } from '../../../../api';
+import { getOrderHistory, getPayments } from '../../../../api';
 import "./order-history.css";
 import ImageSlider from '../image-slider';
 
@@ -48,6 +48,23 @@ const OrderHistoryPage = () => {
 
     fetchOrderHistory();
   }, [sortOrder, user_id]);
+
+  useEffect(() => {
+    const fetchPayments = async () => {
+      const result = await getPayments(user_id);
+      if (Object.keys(result).length > 0) {
+        if (!result.address) {
+          console.log(result)
+          setPayments(result);
+
+           
+           localStorage.setItem('payments', JSON.stringify(result));
+        }
+      }
+    };
+
+    fetchPayments();
+  }, []);
 
   return (
     <div style={{ padding: '20px' }}>

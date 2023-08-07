@@ -31,29 +31,30 @@ const Cart = () => {
   };
   
   useEffect(() => {
+    const fetchPayments = async () => {
+      const result = await getPayments(user_id);
+      if (Object.keys(result).length > 0 && !result.address) {
+          setPayments(result);
+      }
+    };
+
+    fetchPayments();
+  }, []);
+  
+  useEffect(() => {
     const fetchCart = async () => {
       const result = await getCart(user_id);
       if (Object.keys(result).length > 0) {
         if (!result.address) {
           setCart(result);
+          console.log(user_id);
         }
       }
     };
     fetchCart();
   }, []);
 
-  useEffect(() => {
-    const fetchPayments = async () => {
-      const result = await getPayments(user_id);
-      if (Object.keys(result).length > 0) {
-        if (!result.address) {
-          setPayments(result);
-        }
-      }
-    };
-
-    fetchPayments();
-  }, []);
+ 
 
   // This function handles when the user clicks checkout. If the user has at least one payment method, they will be directed to the checkout screen. If not, they will be alerted to add a payment method before they can check out.
   const handleCheckout = () => {
