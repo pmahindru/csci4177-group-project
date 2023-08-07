@@ -1,40 +1,171 @@
 /* Created By: Patrick Wooden*/
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .cards {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 15px;
-    width: 30%;
-    align-items: center;
-    margin-top: 10px;
-    border: 1px solid;
-    border-radius: 16px;
-    background-color: rgb(230, 230, 230);
-    font-size: 20px;
-    text-align: center;
-    
-  }
-  .paymentOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 15px;
+  width: 30%;
+  align-items: center;
+  margin-top: 10px;
+  border: 1px solid;
+  border-radius: 16px;
+  background-color: rgb(230, 230, 230);
+  font-size: 20px;
+  text-align: center;
+
+}
+
+.paymentOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.paymentContent {
+  width: 200px;
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+
+.ratingContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.paymentButton {
+  width: 100%;
+  font-size: 10px;
+}
+
+.paymentPageButton {
+  width: 50%;
+  font-size: 10px;
+}
+
+.paymentTextArea {
+  width: 100%;
+  justify-content: center;
+  font-size: 10px;
+}
+
+.paymentHeading {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.paymentForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+
+}
+
+.paymentLabel {
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+}
+
+.addPaymentButton {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  width: 20%;
+}
+
+@media screen and (min-width: 600px) {
   .paymentContent {
     width: 200px;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .formRow {
+
+    margin-bottom: 10px;
+    font-size: 12px;
+
+  }
+
+  label {
+    margin-bottom: 5px;
+  }
+
+  .paymentLabel {
+    margin-top: 5px;
+    font-size: 14px;
+  }
+
+
+  .paymentHeading {
+    font-size: 16px;
+  }
+
+  .paymentForm {
+
+    width: 75%;
+
+  }
+
+  .paymentTextArea {
+
+    font-size: 12px;
+  }
+
+  .paymentButton {
+
+    font-size: 14px;
+  }
+
+  .paymentPageButton {
+    margin-top: 5px;
+    font-size: 14px;
+  }
+
+  .addPaymentButton {
+    font-size: 14px;
+
+  }
+}
+
+@media screen and (min-width: 807px) {
+  .paymentContent {
+    padding: 10px;
+  }
+
+  .paymentContent {
+    width: 300px;
     background-color: white;
     padding: 20px;
     display: flex;
@@ -42,153 +173,47 @@
     justify-content: center;
     align-items: center;
   }
-  .formRow {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-    justify-content: center;
-    width: 100%;
-  }
-  
 
-  .ratingContainer {
-    display: flex;
-    justify-content: center;
+  .formRow {
+    margin-bottom: 7px;
+    font-size: 16px;
   }
-  .paymentButton{
-    width: 100%;
-    font-size: 10px;
+
+  .paymentLabel {
+    font-size: 18px;
   }
-  .paymentPageButton{
-    width: 50%;
-    font-size: 10px;
+
+  .buttonRow {
+    margin-top: 10px;
   }
-  .paymentTextArea{
-    width: 100%;
-    justify-content: center;
-    font-size: 10px;
-  }
+
   .paymentHeading {
-    margin-bottom: 5px;
-    font-size: 14px; 
+    font-size: 24px;
   }
+
   .paymentForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    width: 50%; 
-    
+
+    width: 100%;
+
   }
-  .paymentLabel{
-    margin-bottom: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
+
+  .paymentTextArea {
+
     font-size: 12px;
   }
-  .addPaymentButton{
-    margin-top: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    font-size: 12px;
-    width: 20%;
+
+  .paymentButton {
+
+    font-size: 16px;
   }
-  @media screen and (min-width: 600px) {
-    .paymentContent {
-      width: 200px;
-      max-width: 90%;
-      margin: 0 auto;
-    }
-  
-    .formRow {
-      
-      margin-bottom: 10px;
-      font-size: 12px;
-      
-    }
-   
-    label {
-      margin-bottom: 5px;
-    }
-    
-    .paymentLabel{
-      margin-top: 5px;
-      font-size: 14px;
-    }
-  
-  
-    .paymentHeading {
-      font-size: 16px; 
-    }
-    .paymentForm {
-      
-      width: 75%; 
-      
-    }
-    .paymentTextArea{
-    
-      font-size: 12px;
-    }
-    .paymentButton{
-     
-      font-size: 14px;
-    }
-    .paymentPageButton{
-      margin-top: 5px;
-      font-size: 14px;
-    }
-    .addPaymentButton{
-      font-size: 14px;
-      
-    }
+
+  .paymentPageButton {
+
+    font-size: 18px;
   }
-  @media screen and (min-width: 807px) {
-    .paymentContent {
-      padding: 10px;
-    }
-    .paymentContent {
-      width: 300px;
-      background-color: white;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .formRow {
-      margin-bottom: 7px;
-      font-size: 16px;
-    }
-   
-    .paymentLabel{
-      font-size: 18px;
-    }
-    .buttonRow {
-      margin-top: 10px;
-    }
-    .paymentHeading {
-      font-size: 24px; 
-    }
-    .paymentForm {
-      
-      width: 100%; 
-      
-    }
-    .paymentTextArea{
-    
-      font-size: 12px;
-    }
-    .paymentButton{
-     
-      font-size: 16px;
-    }
-    .paymentPageButton{
-      
-      font-size: 18px;
-    }
-    .addPaymentButton{
-      font-size: 18px;
-      
-    }
+
+  .addPaymentButton {
+    font-size: 18px;
+
   }
+}

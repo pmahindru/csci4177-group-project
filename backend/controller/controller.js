@@ -33,6 +33,8 @@ const getSignUpUser = async (req, res) => {
 };
 
 // getSignUpUser created by Saiz Charolia
+
+const bcrypt = require('bcryptjs');
 const registerUser = async (req, res) => {
   try {
     const isEmailExists = await model.checkEmailExists({
@@ -65,6 +67,7 @@ const registerUser = async (req, res) => {
   }
 };
 
+
 // loginUser created by Saiz Charolia
 const loginUser = async (req, res) => {
   try {
@@ -79,10 +82,14 @@ const loginUser = async (req, res) => {
       return;
     }
 
-    if (data.password !== req.body.password) {
+    const isPasswordValid = await bcrypt.compare(req.body.password, data.password);
+
+    if (!isPasswordValid) {
       res.status(401).json({ message: "Invalid Password" });
       return;
     }
+
+    console.log("Hashed Password in Database:", data.password); // Add this line to log the hashed password stored in the database
 
     res.status(200).json(data);
   } catch (error) {
@@ -93,6 +100,17 @@ const loginUser = async (req, res) => {
 // generateResetCode created by Saiz Charolia
 const generateResetCode = async (req, res) => {
   try {
+    const isEmailExists = await model.checkEmailExists({
+      email: req.body.email,
+    });
+
+    if (!isEmailExists) {
+      res
+        .status(400)
+        .json({ message: "Email doesn't exists\nUse a different email" });
+      return;
+    }
+
     const { email, resetCode } = req.body;
 
     const updatedUser = await model.saveResetCode(email, resetCode);
@@ -122,10 +140,10 @@ const generateResetCode = async (req, res) => {
 const verifyResetCode = async (req, res) => {
   try {
     const { email, resetCode } = req.query;
-
     const isCodeValid = await model.verifyCode(email, resetCode);
 
     if (isCodeValid) {
+      await model.deleteCode(email, resetCode);
       res.status(200).json({ message: "Reset code is valid." });
     } else {
       res.status(400).json({ message: "Reset code is not valid." });

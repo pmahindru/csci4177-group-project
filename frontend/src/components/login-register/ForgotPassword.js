@@ -51,7 +51,7 @@ function ForgotPassword() {
       setIsCodeSent(true);
       alert('Reset code has been sent to your email address.');
     } else {
-      alert('Failed to generate reset code. Use registered email and try again.');
+      alert('Email not found');
     }
   };
 

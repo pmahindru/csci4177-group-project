@@ -148,13 +148,37 @@ const verifyCode = async (email, resetCode) => {
 
     const user = await collection.findOne({ email });
 
-    // DB connection closed.
     await client.close();
     return user && user.resetCode == resetCode;
   } catch (error) {
     return false;
   }
 };
+
+// deleteCode created by Saiz Charolia
+const deleteCode = async (email, resetCode) => {
+  try {
+    await client.connect();
+
+    // calling the db and the collection
+    const db = client.db("User_Management");
+    const collection = db.collection("Signup");
+
+    const updateResult = await collection.updateOne(
+      { email },
+      { $unset: { resetCode: 1 } }
+    );
+
+    const isCodeDeleted = updateResult.modifiedCount > 0;
+
+    await client.close();
+
+    return isCodeDeleted;
+  } catch (error) {
+    return false;
+  }
+};
+
 
 // saveNewPassword created by Saiz Charolia
 const saveNewPassword = async (email, password) => {
@@ -274,7 +298,7 @@ const deleteCartItem = async (itemId) => {
     const Collection = db.collection("Cart");
     const deleteResult = await Collection.deleteOne({ _id: itemId });
 
-    // Ensures that the client will close when you finish/error
+    
     
 
     return deleteResult;
@@ -292,7 +316,6 @@ const getPayments = async (userId) => {
   try {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
-
     //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Payments");
@@ -323,7 +346,6 @@ const createPayment = async (data) => {
     return error;
   }
 };
-
 //create a new review using data sent over from controller(Patrick Wooden)
 const createReview = async (data) => {
   try {
@@ -347,7 +369,6 @@ const editPayment = async (paymentId, paymentData) => {
   try {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
-
     //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Payments");
@@ -403,7 +424,6 @@ const getReview = async (userId, adId) => {
   try {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
-
     //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Reviews");
@@ -421,7 +441,6 @@ const editReview = async (reviewId, reviewData) => {
   try {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
-
     //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Reviews");
@@ -443,7 +462,6 @@ const deletePaymentMethod = async (paymentId) => {
   try {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
-
     //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Payments");
@@ -496,7 +514,6 @@ const deleteFavourite = async (favouriteId) => {
   try {
     // Connect the client to the server    (optional starting in v4.7)
     await client.connect();
-
     //call db name and collection
     const db = client.db("Order_Management");
     const Collection = db.collection("Favourites");
@@ -1035,6 +1052,7 @@ module.exports = {
   loginUserModel,
   saveResetCode,
   verifyCode,
+  deleteCode,
   saveNewPassword,
   checkEmailExists,
   getOrderHistory,

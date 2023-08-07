@@ -10,6 +10,7 @@
 // Used by Saiz Charolia
 
 import axios from "axios";
+import bcrypt from 'bcryptjs';
 
 const baseURL = "http://localhost:3001/api";
 
@@ -27,12 +28,22 @@ const generateRandomCode = () => {
 // Date Accessed: 07/23/2023
 export const createUser = async (data) => {
   try {
-    const res = await axios.post(`${baseURL}/register`, data);
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+
+    console.log("Hashed signup Password:", hashedPassword);
+
+    const requestData = {
+      ...data,
+      password: hashedPassword,
+    };
+
+    const res = await axios.post(`${baseURL}/register`, requestData);
     return res.data;
   } catch (error) {
     return error;
   }
 };
+
 
 // getAllUser created by Saiz Charolia
 // axios get request referred from atatus
@@ -266,9 +277,11 @@ export const verifyResetCodeFromDatabase = async (email, resetCode) => {
 // Date Accessed: 07/23/2023
 export const resetPassword = async (email, password) => {
   try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const response = await axios.post(`${baseURL}/reset-password`, {
       email,
-      password,
+      password: hashedPassword,
     });
 
     if (response.status === 200) {
