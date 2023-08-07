@@ -275,11 +275,7 @@ const createPayment = async (req, res) => {
       address: req.body.address,
     };
     const response = await model.createPayment(newPayment);
-    if (response && response.data) {
-      res.status(200).json(data);
-    } else {
-      res.status(500).json(error);
-    }
+    res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error);
   }

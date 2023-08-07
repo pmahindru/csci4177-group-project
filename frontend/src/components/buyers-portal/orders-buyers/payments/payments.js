@@ -9,11 +9,13 @@ const AccountPayments = () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const userId = parsedData._id;
+  
   //local variables to toggle opening create/edit payment components and to recive data from database
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [payments, setPayments] = useState([]);
   const [selectedPaymentId, setSelectedPaymentId] = useState(null);
+
   //event handlers to update local variables and to toggle opening the edit payment component and create payment componenet
   const handleCreatePayment = () => {
     setIsCreateModalOpen(true);
@@ -33,7 +35,8 @@ const AccountPayments = () => {
     setSelectedPaymentId(null);
     setIsEditModalOpen(false);
   };
-  //useeffect for getting all the users payment methods they already have
+
+  //useffect for getting all the users payment methods they already have
   useEffect(() => {
     const fetchPayments = async () => {
         const result = await getPayments(userId);
@@ -70,7 +73,6 @@ const AccountPayments = () => {
             </div>
           </div>
           )
-
         })
       )}
 

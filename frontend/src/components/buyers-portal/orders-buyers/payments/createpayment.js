@@ -1,5 +1,5 @@
 /* Created By: Patrick Wooden | 2023-July-16 */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./payments.css";
 import { createPayment } from '../../../../api';
 //CreatePayment returns a 
@@ -7,6 +7,7 @@ const CreatePayment= ({ onClose }) => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
+
   //local vairables for submitting new payment method to database
   const [card_number, setCardNumber] = useState('');
   const [cvv, setCVV] = useState('');
@@ -15,15 +16,20 @@ const CreatePayment= ({ onClose }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
+
+  useEffect(() => {
+    setFirstName(parsedData.firstName || "")
+    setLastName(parsedData.lastName || "")
+    setAddress(parsedData.address || "")
+  }, [])
+
   //event handlers to update local variables when values change
   const handleCardNumberChange = (event) => {
-    const inputValue = event.target.value.replace(/\D/g, '');
-    setCardNumber(inputValue);
+    setCardNumber(event.target.value);
   };
 
   const handleCVVChange = (event) => {
-    const inputValue = event.target.value.replace(/\D/g, '');
-    setCVV(inputValue);
+    setCVV(event.target.value);
   };
 
   const handleExpiryMonthChange = (event) => {
@@ -45,30 +51,40 @@ const CreatePayment= ({ onClose }) => {
   const handleAddressChange = (event) => {
     setAddress(event.target.value);
   };
+
   //method to handle submitting new payment method to database when user clicks add payment
   const handleCreatePayment = async (e) => {
     e.preventDefault();
+
     const expiry = `${expiryMonth}/${expiryYear}`;
+
     if (!card_number || !cvv || !expiry || !firstName || !lastName || !address) {
       alert('Please fill in all fields');
       return;
     }
+
     if(card_number.trim().length !== 16){
       alert("Card number is not valid");
       return;
     }
-    try {
-      const paymentData = {
-        user_id, card_number, cvv, expiry, firstName, lastName, address
-      };
-      await createPayment(paymentData);
-      alert("Payment added successfully");
-      onClose();
-      window.location.reload();
-    } catch (error) {
-      alert('Failed to add payment method');
-      return error;
-    }
+
+    const paymentData = {user_id, card_number, cvv, expiry, firstName, lastName, address};
+    const res = await createPayment(paymentData);
+    console.log(res)
+    // if (paymentData) {
+      
+    // }
+
+    // try {
+    //   const paymentData = {user_id, card_number, cvv, expiry, firstName, lastName, address};
+      // await createPayment(paymentData);
+    //   alert("Payment added successfully");
+    //   onClose();
+    //   window.location.reload();
+    // } catch (error) {
+    //   alert('Failed to add payment method');
+    //   return error;
+    // }
   };
 
   return (
@@ -80,7 +96,7 @@ const CreatePayment= ({ onClose }) => {
             <label className="paymentLabel" >Card Number:</label>
             <input
               id="cardNumberInput"
-              type="text"
+              type="Number"
               value={card_number}
               onChange={handleCardNumberChange}
               pattern="[0-9]*"
@@ -91,9 +107,8 @@ const CreatePayment= ({ onClose }) => {
           <div className="formRow">
             <label className="paymentLabel" >CVV:</label>
             <input
-            
               id="cvvInput"
-              type="text"
+              type="Number"
               value={cvv}
               onChange={handleCVVChange}
               pattern="[0-9]*"
