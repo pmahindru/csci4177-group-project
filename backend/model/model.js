@@ -275,13 +275,17 @@ const deleteCartItem = async (itemId) => {
     const deleteResult = await Collection.deleteOne({ _id: itemId });
 
     // Ensures that the client will close when you finish/error
-    await client.close();
+    
 
     return deleteResult;
   } catch (error) {
     return error;
+  }finally{
+    await client.close();
   }
 };
+
+
 
 //get all the payment methods a user has using user id (Patrick Wooden)
 const getPayments = async (userId) => {
@@ -547,7 +551,7 @@ const createOrder = async (data) => {
     //call db name and collection
     const db = client.db("Order_Management");
     const collection = db.collection("Orders");
-    const newOrder = await collection.insertOne(data);
+    const newOrder = await collection.insertMany(data);
 
     // Ensures that the client will close when you finish/error
     await client.close();
@@ -1010,4 +1014,5 @@ module.exports = {
   previewSavePostAd,
   deletePostWithId,
   deleteSaveWithId,
+  
 };

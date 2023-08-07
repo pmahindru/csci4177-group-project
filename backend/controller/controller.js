@@ -183,6 +183,31 @@ const deleteCartItem = async (req, res) => {
     res.status(500).json(error);
   }
 };
+//create a new order using request data(Patrick Wooden)
+const createOrder = async (req, res) => {
+  try {
+
+    const orders = req.body.orderArray; 
+    
+    
+    const newOrders = orders.map((order) => ({
+      _id: uuid.v4(),
+      user_id: order.user_id,
+      ad_id: order.ad_id,
+      date_purchased: order.date_purchased,
+      address: order.address,
+      status: order.status,
+    }));
+    
+
+    const response = await model.createOrder(newOrders);
+
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 // get all payment methods for logged in user id(Patrick Wooden)
 const getPayments = async (req, res) => {
   try {
@@ -331,24 +356,7 @@ const getTrackedOrders = async (req, res) => {
     res.status(500).json(error);
   }
 };
-//create a new order using request data(Patrick Wooden)
-const createOrder = async (req, res) => {
-  try {
-    const newOrder = {
-      _id: uuid.v4(),
-      user_id: req.body.user_id,
-      ad_id: req.body.ad_id,
-      date_purchased: req.body.date_purchased,
-      address: req.body.address,
-      status: req.body.status,
-    };
-    const response = await model.createOrder(newOrder);
 
-    res.status(200).json(response);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
 //create a new favourite ad based off request body (Patrick Wooden)
 const createFavourite = async (req, res) => {
   try {
@@ -372,6 +380,7 @@ const createCartItem = async (req, res) => {
       user_id: req.body.user_id,
       ad_id: req.body.ad_id,
     };
+   
     const response = await model.createCartItem(newItem);
     res.status(200).json(response);
   } catch (error) {

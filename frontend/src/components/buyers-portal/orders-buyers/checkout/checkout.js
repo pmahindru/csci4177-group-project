@@ -1,7 +1,7 @@
 /* Created By: Patrick Wooden | 2023-July-24 */
 import React, { useState } from 'react';
 import "./checkout.css";
-import { createOrder, deleteCartItem } from '../../../../api';
+import { createOrder, deleteCart, deleteCartItem, deleteCartItems} from '../../../../api';
 import { useNavigate } from 'react-router-dom';
 
 const Checkout = ({ onClose, totalPrice, payments, cart }) => {
@@ -31,26 +31,24 @@ const Checkout = ({ onClose, totalPrice, payments, cart }) => {
     try {
       const currentDate = new Date();
       const formattedDate = currentDate.toISOString();
-      const orderPromises = cart.map((item) => {
-        const orderData = {
+
+     
+
+      const orderArray = cart.map((item) => ({
           user_id,
           address,
           ad_id: item.ad_id,
           date_purchased: formattedDate,
           status: "In Transit"
-        };
-        return createOrder(orderData);
-      });
+      }));
+      
       // waits to submit each ad in users cart as a order before moving on
-      await Promise.all(orderPromises);
-
-
-      const cartPromises = cart.map((item) => {
-        return deleteCartItem(item._id);
-      });
-      // waits to submit each ad in users cart as a order before moving on
-      await Promise.all(cartPromises);
-
+      await createOrder({ orderArray: orderArray });
+      const itemIds = cart.map((item) => item._id);
+      for (const itemId of itemIds) {
+        await deleteCartItem(itemId);
+      }
+   
       alert('Order created successfully');
       onClose();
       navigate("/orders#order-history")

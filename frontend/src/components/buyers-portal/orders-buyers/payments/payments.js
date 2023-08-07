@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import CreatePayment from './createpayment';
 import EditPaymentModal from './editpayment';
-import { getAllPayments } from '../../../../api';
+import { getPayments } from '../../../../api';
 import "./payments.css";
 
 const AccountPayments = () => {
@@ -36,7 +36,7 @@ const AccountPayments = () => {
   //useeffect for getting all the users payment methods they already have
   useEffect(() => {
     const fetchPayments = async () => {
-        const result = await getAllPayments(userId);
+        const result = await getPayments(userId);
         if(Object.keys(result).length > 0){
           if (!result.address) {
             setPayments(result);

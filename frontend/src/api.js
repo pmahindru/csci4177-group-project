@@ -59,7 +59,7 @@ export const loginUser = async (data) => {
     return error;
   }
 };
-export const getAllPayments = async (userId) => {
+export const getPayments = async (userId) => {
   try {
     const res = await axios.get(`${baseURL}/payments/${userId}`);
 
@@ -193,6 +193,7 @@ export const deleteCartItem = async (itemId) => {
     return error;
   }
 };
+
 export const getTrackedOrders = async (userId) => {
   try {
     const trackedOrdersResponse = await axios.get(
@@ -203,6 +204,7 @@ export const getTrackedOrders = async (userId) => {
     return error;
   }
 };
+
 export const createOrder = async (data) => {
   try {
     const res = await axios.post(`${baseURL}/orders`, data);
@@ -211,6 +213,7 @@ export const createOrder = async (data) => {
     return error;
   }
 };
+
 
 // sendResetCode created by Saiz Charolia
 // axios post request referred from LogRocket
