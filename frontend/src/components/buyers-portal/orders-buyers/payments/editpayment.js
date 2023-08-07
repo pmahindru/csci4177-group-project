@@ -36,10 +36,10 @@ const EditPayment = ({ paymentId, onClose }) => {
       alert('Please set both Expiry Month and Expiry Year!');
       return;
     }
-    const expiry = `${expiryMonth}/${expiryYear}`;
-    const change = cvv || expiry || address;
-    if (!change) {
-      alert('Please fill one field to submit a change');
+    const expiry = expiryMonth && expiryYear ? `${expiryMonth}/${expiryYear}` : undefined;
+    
+    if (!cvv && !expiry && !address ) {
+      alert('Please fill at least one field to submit a change');
       return;
     }
     try {
