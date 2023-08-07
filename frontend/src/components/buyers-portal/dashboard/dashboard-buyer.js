@@ -1,86 +1,19 @@
 /* Created By: Pranav Mahindru*/
 import React, { useState, useEffect } from "react";
 import './dashboard-buyer.css'
-import { getPostForDashboard } from "../../../api";
+import { addToUserInteraction, getPostForDashboard } from "../../../api";
 import ReactLoading from "react-loading";
 import { NavLink, useNavigate } from "react-router-dom";
 
 
 function DashBoardBuyer() {
-    const getLocalStorage = localStorage.getItem("user_info");
-    const user_data = JSON.parse(getLocalStorage);
     const [loading, setLoading] = useState(true);
     const [getArrayVehicle, setArrayVehicle] = useState([]);
     const [getArrayItems, setArrayItems] = useState([]);
     const [getArrayAccommodation, setArrayAccommodation] = useState([]);
-
-    // const [imageSliderObject, setImageSliderObject] = useState([]);
-    // const [selectDropdownOption, setSelectDropdownOption] = useState('');
-    // // save the share info
-    // const [shareAdIcons, setShareAdIcons] = useState(false);
-    // const [saveTheUrlForShare, setSaveTheUrlForShare] = useState("");
-    // const [saveShareItemId, setsaveShareItemId] = useState("");
-    
-    // const handlePreviousImage = (len, itemId) => {
-    //     if (len === 1) {
-    //         alert("No more Images");
-    //         return;
-    //     }
-    //     if (imageSliderObject.length !== 0) {
-    //         const findImageObject = imageSliderObject.find(item => item.prodID === itemId);
-    //         if (findImageObject === null || findImageObject === undefined) {
-    //             return;
-    //         }
-    //         else{
-    //             if (findImageObject.pos > 0) {
-    //                 const getIndex = imageSliderObject.findIndex(item => item.prodID === itemId);
-    //                 if (getIndex !== -1) {
-    //                     setImageSliderObject(prevState => {
-    //                         const arr = [...prevState];
-    //                         arr[getIndex] = {"len": len, "prodID": itemId, "pos": findImageObject.pos - 1};
-    //                         return arr;
-    //                     })
-    //                 }
-    //             }
-    //         }
-    //     }
-    // };
-
-    // const handleNextImage = (len, itemId) => {
-    //     if (len === 1) {
-    //         alert("No more Images");
-    //         return;
-    //     }
-    //     if (imageSliderObject.length === 0) {
-    //         setImageSliderObject(prevState => [
-    //             ...prevState,
-    //             {"len": len, "prodID": itemId, "pos": 1}
-    //         ])
-    //     }
-    //     else{
-    //         const findImageObject = imageSliderObject.find(item => item.prodID === itemId);
-    //         if (findImageObject === null || findImageObject === undefined) {
-    //             setImageSliderObject(prevState => [
-    //                 ...prevState,
-    //                 {"len": len, "prodID": itemId, "pos": 1}
-    //             ])
-    //         }
-    //         else{
-    //             if (findImageObject.pos < len-1) {
-    //                 const getIndex = imageSliderObject.findIndex(item => item.prodID === itemId);
-    //                 if (getIndex !== -1) {
-    //                     setImageSliderObject(prevState => {
-    //                         const arr = [...prevState];
-    //                         arr[getIndex] = {"len": len, "prodID": itemId, "pos": findImageObject.pos+1};
-    //                         return arr;
-    //                     })
-    //                 }
-    //             }
-    //         }
-    //     }
-    // };
-
-    // const navigate = useNavigate();
+    const getLocalStorage = localStorage.getItem("user_info");
+    const user_data = JSON.parse(getLocalStorage);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getData = async () => {
@@ -110,6 +43,11 @@ function DashBoardBuyer() {
         getData();
     }, [])
 
+    const handleClick = async (itemID) => {
+        await addToUserInteraction({"user_id": user_data["_id"], "ad_id": itemID, "click": 1})
+        navigate(`/${itemID}`);
+    }
+
     return (
         <div className='dashboardBuyer-main-container'>
             <div className='dashboardBuyer-section1'>
@@ -128,7 +66,7 @@ function DashBoardBuyer() {
                             <div className='dashboardBuyer-card-list'>
                                 {getArrayVehicle.map((item, index) => {
                                     return (
-                                        <NavLink to={`/${item._id}`} key={item._id}>
+                                        <NavLink onClick={() => handleClick(item._id)} key={item._id}>
                                             <div className="dashboardBuyer-card-view">        
                                                 <div className="dashboardBuyer-card-view-text">
                                                     <img src={item.image[0]} width="100" height="100"/>
@@ -148,7 +86,7 @@ function DashBoardBuyer() {
                             <div className='dashboardBuyer-card-list'>
                                 {getArrayItems.map((item, index) => {
                                     return (
-                                        <NavLink to={`/${item._id}`} key={item._id}>
+                                        <NavLink onClick={() => handleClick(item._id)} key={item._id}>
                                             <div className="dashboardBuyer-card-view">        
                                                 <div className="dashboardBuyer-card-view-text">
                                                     <img src={item.image[0]} width="100" height="100"/>
@@ -168,7 +106,7 @@ function DashBoardBuyer() {
                                 <div className='dashboardBuyer-card-list'>
                                     {getArrayAccommodation.map((item, index) => {
                                         return (
-                                            <NavLink to={`/${item._id}`} key={item._id}>
+                                            <NavLink onClick={() => handleClick(item._id)} key={item._id}>
                                                 <div className="dashboardBuyer-card-view">        
                                                     <div className="dashboardBuyer-card-view-text">
                                                         <img src={item.image[0]} width="100" height="100"/>

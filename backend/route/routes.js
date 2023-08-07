@@ -48,6 +48,7 @@ app.put(`${baseURL}/notification_settings/:userID`, controller.userNotificationS
 app.post(`${baseURL}/addmsg`, controller.addMessage);
 app.post(`${baseURL}/getmsg`, controller.getMessages);
 app.get(`${baseURL}/allusers/:id`, controller.getAllUsers);
+app.post(`${baseURL}/addToUserInteraction`, controller.addToUserInteraction);
 
 // SELLER PORTAL ROUTES
 app.post(`${baseURL}/seller/addPost`, controller.addNewPostAd);

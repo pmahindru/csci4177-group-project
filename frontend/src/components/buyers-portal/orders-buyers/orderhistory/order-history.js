@@ -108,7 +108,6 @@ const OrderHistoryPage = () => {
   useEffect(() => {
     const fetchOrderHistory = async () => {
         const result = await getOrderHistory(user_id);
-        console.log(result)
         if (Object.keys(result).length > 0) {
           if (!result.address) {
             const sortedData = result.sort((a,b) => {
