@@ -80,7 +80,7 @@ const AccountPayments = () => {
 
       {isCreateModalOpen && (
         <div className="modalOverlay">
-          <CreatePayment onClose={handleCreatePaymentClose} />
+          <CreatePayment onClose={handleCreatePaymentClose} payments={payments}/>
         </div>
       )}
 

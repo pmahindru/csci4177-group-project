@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import "./payments.css";
 import { createPayment } from '../../../../api';
 //CreatePayment returns a 
-const CreatePayment= ({ onClose }) => {
+const CreatePayment= ({ onClose, payments }) => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
@@ -55,9 +55,9 @@ const CreatePayment= ({ onClose }) => {
   //method to handle submitting new payment method to database when user clicks add payment
   const handleCreatePayment = async (e) => {
     e.preventDefault();
-
-    const expiry = `${expiryMonth}/${expiryYear}`;
-
+    const formattedExpiryMonth = expiryMonth.padStart(2, '0');
+    const formattedExpiryYear = expiryYear.padStart(2, '0');
+    const expiry = `${formattedExpiryMonth}/${formattedExpiryYear}`;
     if (!card_number || !cvv || !expiry || !firstName || !lastName || !address) {
       alert('Please fill in all fields');
       return;
@@ -67,10 +67,15 @@ const CreatePayment= ({ onClose }) => {
       alert("Card number is not valid");
       return;
     }
-
-    const paymentData = {user_id, card_number, cvv, expiry, firstName, lastName, address};
-    const res = await createPayment(paymentData);
-    console.log(res)
+    const existingPayment = payments.find(payment => payment.card_number === card_number);
+    if(existingPayment){
+      alert("This card number is already on file. Please add a different card");
+      return;
+    }
+    const existingPaymentCount = payments.find(payment => payment.user_id === user_id && payments.card_number === card_number);
+    //const paymentData = {user_id, card_number, cvv, expiry, firstName, lastName, address};
+    //const res = await createPayment(paymentData);
+    console.log(Object.keys(existingPaymentCount).length);
     // if (paymentData) {
       
     // }
@@ -96,7 +101,7 @@ const CreatePayment= ({ onClose }) => {
             <label className="paymentLabel" >Card Number:</label>
             <input
               id="cardNumberInput"
-              type="Number"
+              type="text"
               value={card_number}
               onChange={handleCardNumberChange}
               pattern="[0-9]*"
@@ -143,18 +148,18 @@ const CreatePayment= ({ onClose }) => {
               onChange={handleExpiryYearChange}
             >
               <option value=''>--Select Year--</option>
-              <option value='1'>2023</option>
-              <option value='2'>2024</option>
-              <option value='3'>2025</option>
-              <option value='4'>2026</option>
-              <option value='5'>2027</option>
-              <option value='6'>2028</option>
-              <option value='7'>2029</option>
-              <option value='8'>2030</option>
-              <option value='9'>2031</option>
-              <option value='10'>2032</option>
-              <option value='11'>2033</option>
-              <option value='12'>2034</option>
+              <option value='23'>2023</option>
+              <option value='24'>2024</option>
+              <option value='25'>2025</option>
+              <option value='26'>2026</option>
+              <option value='27'>2027</option>
+              <option value='28'>2028</option>
+              <option value='29'>2029</option>
+              <option value='30'>2030</option>
+              <option value='31'>2031</option>
+              <option value='32'>2032</option>
+              <option value='33'>2033</option>
+              <option value='34'>2034</option>
             </select>
           </div>
           <div className="formRow">
