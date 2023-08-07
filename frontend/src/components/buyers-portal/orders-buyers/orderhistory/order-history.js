@@ -125,23 +125,6 @@ const OrderHistoryPage = () => {
     fetchOrderHistory();
   }, [sortOrder]);
 
-  useEffect(() => {
-    const fetchPayments = async () => {
-      const result = await getPayments(user_id);
-      if (Object.keys(result).length > 0) {
-        if (!result.address) {
-          console.log(result)
-          setPayments(result);
-
-           
-           localStorage.setItem('payments', JSON.stringify(result));
-        }
-      }
-    };
-
-    fetchPayments();
-  }, []);
-
   return (
     <div style={{ padding: '20px' }}>
       <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
