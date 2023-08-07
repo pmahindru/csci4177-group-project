@@ -71,7 +71,7 @@ const ReviewCard = ({ review, handleCreateReviewOpen }) => {
         <Grid item xs={4} md={4} sx={{ margin: '10px' }}>
           <StyledTypography>
             
-             <ResponsiveStarRatingDisplay value={parseInt(star_rating)}  /> 
+             <ResponsiveStarRatingDisplay value={star_rating}  /> 
             
           </StyledTypography>
         </Grid>
