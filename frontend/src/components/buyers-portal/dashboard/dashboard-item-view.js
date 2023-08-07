@@ -125,19 +125,18 @@ function DashBoardBuyerItemView() {
                             <h2>{getSpecificItem[0].title}</h2>
                         </div>
 
-
                         {getSpecificItem.map((item, index) => {
                             return(
                                 <div className='order-page-section4' key={item._id}>
                                     {/* image slider */}
-                                    <div className="seller-image-slider">
+                                    <div className="seller-image-slider-dashboard-buyer">
                                         {item.image.map((getImage, index) => (
-                                            <div className="slides" key={index}>
+                                            <div className="slides-dashboard-buyer" key={index}>
                                                 {imageSliderObject.some(objectItem => objectItem.prodID === item._id) ? (
                                                     imageSliderObject.map(objectItem => {
                                                         if (objectItem.prodID === item._id) {
                                                             return (
-                                                                <img src={item.image[objectItem.pos]} alt={`images${index+1}`} key={index+1}/>
+                                                                <img src={item.image[objectItem.pos]} alt={`images${index+1}`} key={index+1} width="600" className="item-show-in-dashboard-buyer"/>
                                                             );
                                                         }
                                                         return null;
@@ -152,54 +151,56 @@ function DashBoardBuyerItemView() {
                                             </div>
                                         ))}
                                     </div>
-                                    <div className='order-seller-page-section5'>
-                                        <b>Name: {item.title}</b>
-                                    </div>
-                                    <div className='order-seller-page-section5'>
-                                        <b>Description: {item.description}</b>
-                                    </div>
-                                    <div className='order-seller-page-section5'>
-                                        <b>Active: {item.isActive ? ("Yes") : ("No")}</b>
-                                    </div>
-                                    <div className='order-seller-page-section5'>
-                                        <b>Status: {item.status}</b>
-                                    </div>
-                                    <div className='order-seller-page-section5' onClick={(e) => handleAddToCart(e, item._id, item.title)}>
-                                        <button>Add to Cart</button>
-                                    </div>
-                                    <div className='order-seller-page-section5' onClick={(e) => handleAddToFavorite(e, item._id, item.title)}>
-                                        {/* need to change to the heart icon */}
-                                        <button>favorite</button>
-                                    </div>
-                                    <div className='order-seller-page-section5' onClick={(e) => handleShareButton(e, item._id, item.title)}>
-                                        {/* need to change to the share icon */}
-                                        <button>Share</button>
-                                    </div>
-                                    <div className='order-seller-page-section5'>
-                                        {/* [1] “React-share,” npm, https://www.npmjs.com/package/react-share (accessed Aug. 5, 2023).  */}
-                                        {/* [2] I. Alam, “How to add social share buttons to your react app,” MUO, https://www.makeuseof.com/add-social-share-buttons-in-react/#:~:text=For%20example%2C%20to%20add%20a,Facebook%20button%20to%20your%20app. (accessed Aug. 5, 2023).  */}
-                                        {shareAdIcons && saveShareItemId === item._id && (
-                                            <div>
-                                                <FacebookShareButton url={saveTheUrlForShare} quote="Share this Ad">
-                                                    <FacebookIcon size={24} round/>
-                                                </FacebookShareButton>
-                                                <br/>
-                                                <br/>
-                                                <TwitterShareButton url={saveTheUrlForShare} quote="Share this Ad">
-                                                    <TwitterIcon size={24} round/>
-                                                </TwitterShareButton>
-                                                <br/>
-                                                <br/>
-                                                <WhatsappShareButton url={saveTheUrlForShare} quote="Share this Ad">
-                                                    <WhatsappIcon size={24} round/>
-                                                </WhatsappShareButton>
-                                                <br/>
-                                                <br/>
-                                                <LinkedinShareButton url={saveTheUrlForShare} quote="Share this Ad">
-                                                    <LinkedinIcon size={24} round/>
-                                                </LinkedinShareButton>
-                                            </div>
-                                        )}
+                                    <div>
+                                        <div className='order-seller-page-section5'>
+                                            <b>Description: {item.description}</b>
+                                        </div>
+                                        <div className='order-seller-page-section5'>
+                                            <b>Price: {item.price}</b>
+                                        </div>
+                                        <div className='order-seller-page-section5'>
+                                            <b>Condition: {item.condition}</b>
+                                        </div>
+                                        <div className='order-seller-page-section5'>
+                                            <b>Location: {item.location || ""}</b>
+                                        </div>
+                                        <div className='order-seller-page-section5'>
+                                            <b>Payments: {item.payments_type || ""}</b>
+                                        </div>
+                                        <div className='order-seller-page-section5'>
+                                            <b>Tags: {item.prod_tags || ""}</b>
+                                        </div>
+                                        <div className='postAd-button-dashboard-buyer'>
+                                            <button onClick={(e) => handleAddToCart(e, item._id, item.title)}>Add to Cart</button>
+                                            <button onClick={(e) => handleAddToFavorite(e, item._id, item.title)}>favorite</button>
+                                            <button onClick={(e) => handleShareButton(e, item._id, item.title)}>Share</button>
+                                        </div>
+                                        <div className='order-seller-page-section5'>
+                                            {/* [1] “React-share,” npm, https://www.npmjs.com/package/react-share (accessed Aug. 5, 2023).  */}
+                                            {/* [2] I. Alam, “How to add social share buttons to your react app,” MUO, https://www.makeuseof.com/add-social-share-buttons-in-react/#:~:text=For%20example%2C%20to%20add%20a,Facebook%20button%20to%20your%20app. (accessed Aug. 5, 2023).  */}
+                                            {shareAdIcons && saveShareItemId === item._id && (
+                                                <div>
+                                                    <FacebookShareButton url={saveTheUrlForShare} quote="Share this Ad">
+                                                        <FacebookIcon size={24} round/>
+                                                    </FacebookShareButton>
+                                                    <br/>
+                                                    <br/>
+                                                    <TwitterShareButton url={saveTheUrlForShare} quote="Share this Ad">
+                                                        <TwitterIcon size={24} round/>
+                                                    </TwitterShareButton>
+                                                    <br/>
+                                                    <br/>
+                                                    <WhatsappShareButton url={saveTheUrlForShare} quote="Share this Ad">
+                                                        <WhatsappIcon size={24} round/>
+                                                    </WhatsappShareButton>
+                                                    <br/>
+                                                    <br/>
+                                                    <LinkedinShareButton url={saveTheUrlForShare} quote="Share this Ad">
+                                                        <LinkedinIcon size={24} round/>
+                                                    </LinkedinShareButton>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             );
