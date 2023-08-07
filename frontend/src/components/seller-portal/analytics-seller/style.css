@@ -628,13 +628,6 @@
   font-size: 14px;
 }
 
-/*
-// Referred to the youtube video on how to use socket.io for real time commjunication and partially used the code after understanding to implement the chat feature.
-// URL1: https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth
-// URL2: https://github.com/koolkishan/chat-app-react-nodejs
-// Date Accessed: 07/26/2023
-// Used by Parth Patel
-*/
 .chat-container {
   height: 100vh;
   width: 100vw;
@@ -654,13 +647,6 @@
   }
 }
 
-/*
-// Referred to the youtube video on how to use socket.io for real time commjunication and partially used the code after understanding to implement the chat feature.
-// URL1: https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth
-// URL2: https://github.com/koolkishan/chat-app-react-nodejs
-// Date Accessed: 07/26/2023
-// Used by Parth Patel
-*/
 .contacts-container {
   display: grid;
   grid-template-rows: 5% 75% 15%;
@@ -743,13 +729,6 @@
   }
 }
 
-/*
-// Referred to the youtube video on how to use socket.io for real time commjunication and partially used the code after understanding to implement the chat feature.
-// URL1: https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth
-// URL2: https://github.com/koolkishan/chat-app-react-nodejs
-// Date Accessed: 07/26/2023
-// Used by Parth Patel
-*/
 .message-container {
   display: grid;
   grid-template-rows: 10% 80% 10%;
@@ -850,14 +829,7 @@
   }
 }
 
-/*
-// Referred to the youtube video on how to use socket.io for real time commjunication and partially used the code after understanding to implement the chat feature.
-// URL1: https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth
-// URL2: https://github.com/koolkishan/chat-app-react-nodejs
-// Date Accessed: 07/26/2023
-// Used by Parth Patel
-*/
-.messageInputContainer {
+.message-input-section {
   display: grid;
   align-items: center;
   grid-template-columns: 1% 99%;
@@ -932,20 +904,9 @@
       }
 
       svg {
-        font-size: 1.5rem;
+        font-size: 2rem;
+        color: white;
       }
-    }
-
-    @media screen and (min-width: 720px) and (max-width: 1080px) {
-      padding: 0.3rem 1rem;
-      svg {
-        font-size: 1rem;
-      }
-    }
-
-    svg {
-      font-size: 2rem;
-      color: white;
     }
   }
 }
