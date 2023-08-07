@@ -372,12 +372,8 @@ const createCartItem = async (req, res) => {
       user_id: req.body.user_id,
       ad_id: req.body.ad_id,
     };
-    const response = await model.createFavourite(newItem);
-    if (response && response.data) {
-      res.status(200).json(response);
-    } else {
-      res.status(500).json(error);
-    }
+    const response = await model.createCartItem(newItem);
+    res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -529,6 +525,15 @@ const getAllPostedAd = async (req,res) => {
     }
 }
 
+const getPostForDashboard = async (req,res) => {
+    try {
+      const data = await model.getAllPostedAd({});
+      res.status(200).json(data);
+    } catch (error) {
+      res.status(500).json(object);
+    }
+}
+
 // get posted Ad with specific Id (Pranav Mahindru)
 const getPostAdWithId = async (req,res) => {
     try {
@@ -625,6 +630,15 @@ const twoFactorAuthentication = async (req, res) => {
   }
 };
 
+const addToUserInteraction = async (req, res) => {
+  try {
+      const data = await model.addToUserInteraction(req.body, uuid.v4());
+      res.status(200).json(data);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+};
+
 /* User Profile Settings READ and UPDATE ControllerS | By: Joel Kuruvilla */
 const userProfileSettingsRead = async (req, res) => { //Profile READ Controller | Joel Kuruvilla
   try {
@@ -717,6 +731,7 @@ module.exports = {
   savePostAd,
   getAllSavePostedAd,
   getAllPostedAd,
+  getPostForDashboard,
   getPostAdWithId,
   pausePostAdWithId,
   addNewPostAd,
@@ -726,4 +741,5 @@ module.exports = {
   deleteSaveWithId,
   loginUserModel,
   twoFactorAuthentication,
+  addToUserInteraction,
 };

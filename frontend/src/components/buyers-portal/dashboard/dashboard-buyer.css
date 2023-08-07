@@ -25,6 +25,11 @@
     flex-wrap: wrap;
 }
 
+.dashboardBuyer-card-list a {
+    text-decoration: none;
+    color: black;
+}
+
 .dashboardBuyer-card-view {
     display: flex;
     flex-direction: column;

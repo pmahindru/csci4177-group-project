@@ -1,33 +1,53 @@
 /* Created By: Parth Patel*/
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./style.css";
+import React, { useState, useEffect } from "react";
+import { getAllPostedAd } from "../../../api";
+import ReactLoading from "react-loading";
 
 const ActiveAdsPage = () => {
-  // Dummy data for active ads
-  const activeAds = [
-    {
-      id: 1,
-      title: "Item 1",
-      status: "Active",
-    },
-    {
-      id: 2,
-      title: "Item 2",
-      status: "Active",
-    },
-  ];
+  const [getArrayObjects, setArrayObjects] = useState([]);
+  const getLocalStorage = localStorage.getItem("user_info");
+  const user_data = JSON.parse(getLocalStorage);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+      const getData = async () => {
+          const res = await getAllPostedAd({"user_id": user_data["_id"], "isActive": true});
+          if (!res.address) {
+              setArrayObjects(res);
+              setLoading(false);
+          }
+      }
+      getData();
+  }, [])
   return (
     <div className="active-ads-page">
       <h2 className="active-ads-title">Active Ads</h2>
       <div className="active-ads-list">
-        {activeAds.map((ad) => (
-          <div key={ad.id} className="ad-item">
-            <h3 className="ad-title">{ad.title}</h3>
-            <p className="ad-status">Status: {ad.status}</p>
-          </div>
-        ))}
+        {loading ? (
+            <div className='preview-loading'>
+                <ReactLoading type="bars" color="#3f1a6b" height={100} width={50}/>
+            </div>
+        ) : (
+          getArrayObjects.length > 0 ? (
+            getArrayObjects.map((ad) => {
+              return (
+                <div key={ad._id} className="ad-item">
+                  <Link to="/business_orders#Active" className="link-unstyled">
+                      <h3 className="ad-title">{ad.title}</h3>
+                      <h4 className="ad-title">{ad.description}</h4>
+                      <p className="ad-status">Status: {ad.status}</p>
+                  </Link>
+                </div>
+              );
+            })
+          ) : (
+            <div className="ad-item">
+              <h3 className="ad-title">There are no Active Ads</h3>
+            </div>
+          )
+        )}
       </div>
       <Link to="/analytics" className="back-link">
         Back to Analytics

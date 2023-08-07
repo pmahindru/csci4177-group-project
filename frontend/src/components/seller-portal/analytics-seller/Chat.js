@@ -61,7 +61,7 @@ const Chat = () => {
       <Contacts contacts={contactList} changeChat={handleChatChange} />
       {/* Display the chat container if a chat is selected, otherwise show a message */}
       {currentChat === null ? (
-        <h2 style={{ padding: "300px 500px" }}>Select a chat to begin</h2>
+        <h2>Select a chat to begin</h2>
       ) : (
         <ChatContainer currentChat={currentChat} socket={socketRef} />
       )}

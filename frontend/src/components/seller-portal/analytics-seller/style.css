@@ -2,8 +2,10 @@
 .analytic-app {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   padding: 20px;
   background-color: white;
+  overflow: hidden;
 }
 
 .section-insights,
@@ -51,10 +53,10 @@
   background-color: #f0f0f0;
 }
 
-.sub-section-listings > *:not(:last-child),
-.sub-section-insights > *:not(:last-child),
-.sub-section-overview-chats > *:not(:last-child),
-.sub-section-overview > *:not(:last-child) {
+.sub-section-listings>*:not(:last-child),
+.sub-section-insights>*:not(:last-child),
+.sub-section-overview-chats>*:not(:last-child),
+.sub-section-overview>*:not(:last-child) {
   margin-bottom: 10px;
 }
 
@@ -65,6 +67,7 @@
 }
 
 @media screen and (max-width: 768px) {
+
   .sub-section-listings,
   .sub-section-insights,
   .sub-section-overview-chats,
@@ -131,8 +134,6 @@
 }
 
 .seller-rating-page {
-  /* background-color: #f2f2f2;
-   */
   background-color: white;
   padding: 20px;
   border-radius: 8px;
@@ -573,16 +574,17 @@
 }
 
 @media screen and (max-width: 805px) {
-  .analytic-app,
-  .chat-page {
-    padding-top: 70px;
-  }
 
-  .chat-container {
-    padding-top: 45px;
-  }
-  .message-container {
-    padding-top: 15px;
+  .analytic-app,
+  .chat-page,
+  .seller-rating-page,
+  .chat-container,
+  .active-ads-page,
+  .sold-page,
+  .drafts-page,
+  .renew-page,
+  .delete-page {
+    padding-top: 70px;
   }
 }
 
@@ -636,6 +638,12 @@
   grid-template-columns: 25% 75%;
 }
 
+
+.chat-container h2 {
+  padding: 50px;
+  text-align: center;
+}
+
 @media screen and (min-width: 720px) and (max-width: 1080px) {
   .chat-container {
     grid-template-columns: 35% 65%;
@@ -655,14 +663,17 @@
     align-items: center;
     overflow: auto;
     gap: 0.8rem;
+
     &::-webkit-scrollbar {
       width: 0.2rem;
+
       &-thumb {
         background-color: #ffffff39;
         width: 0.1rem;
         border-radius: 1rem;
       }
     }
+
     .contact {
       background-color: #ffffff34;
       min-height: 5rem;
@@ -674,12 +685,14 @@
       gap: 1rem;
       align-items: center;
       transition: 0.5s ease-in-out;
+
       .username {
         h3 {
           color: black;
         }
       }
     }
+
     .selected {
       background-color: #e6e6e6;
     }
@@ -688,12 +701,14 @@
   .contact:hover {
     background-color: #e6e6e6;
   }
+
   .current-user {
     background-color: #f2f2f2;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2rem;
+
     .username {
       h2 {
         color: black;
@@ -707,6 +722,7 @@
     @media screen and (min-width: 720px) and (max-width: 1080px) {
       gap: 0.5rem;
       flex-basis: auto;
+
       .username {
         h2 {
           font-size: 1rem;
@@ -722,6 +738,7 @@
   gap: 0.1rem;
   overflow: hidden;
   border: 1px solid #ccc;
+
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 15% 70% 15%;
   }
@@ -744,6 +761,7 @@
     color: black;
     font-size: 20px;
     font-weight: bold;
+
     @media screen and (max-width: 720px) {
       font-size: 16px;
     }
@@ -755,10 +773,14 @@
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
-    border-top: 1px solid #ccc; /* Add border between header and messages */
-    border-bottom: 1px solid #ccc; /* Add border between messages and input */
+    border-top: 1px solid #ccc;
+    /* Add border between header and messages */
+    border-bottom: 1px solid #ccc;
+
+    /* Add border between messages and input */
     &::-webkit-scrollbar {
       width: 0.2rem;
+
       &-thumb {
         background-color: #ffffff39;
         width: 0.1rem;
@@ -769,6 +791,7 @@
     .message {
       display: flex;
       align-items: center;
+
       .content {
         max-width: 40%;
         overflow-wrap: break-word;
@@ -776,12 +799,15 @@
         font-size: 1.1rem;
         border-radius: 1rem;
         color: black;
+
         @media screen and (min-width: 720px) and (max-width: 1080px) {
           max-width: 70%;
         }
+
         @media screen and (max-width: 720px) {
           .content {
-            max-width: 100%; /* Adjust max-width for smaller screens */
+            max-width: 100%;
+            /* Adjust max-width for smaller screens */
           }
         }
       }
@@ -789,6 +815,7 @@
 
     .sended {
       justify-content: flex-end;
+
       .content {
         background-color: #6c4998;
         color: white;
@@ -797,6 +824,7 @@
 
     .received {
       justify-content: flex-start;
+
       .content {
         background-color: #f2f2f2;
       }
@@ -810,16 +838,19 @@
   grid-template-columns: 1% 99%;
   background-color: white;
   padding: 0 2rem;
+
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     padding: 0 1rem;
     gap: 1rem;
   }
+
   .button-container {
     display: flex;
     align-items: center;
     color: white;
     gap: 1rem;
   }
+
   .input-container {
     width: 100%;
     border-radius: 2rem;
@@ -827,6 +858,7 @@
     align-items: center;
     gap: 2rem;
     background-color: #f2f2f2;
+
     input {
       width: 90%;
       height: 60%;
@@ -835,6 +867,7 @@
       border: none;
       padding-left: 1rem;
       font-size: 1.2rem;
+
       @media screen and (max-width: 720px) {
         font-size: 14px;
       }
@@ -842,10 +875,12 @@
       &::selection {
         background-color: #9a86f3;
       }
+
       &:focus {
         outline: none;
       }
     }
+
     button {
       padding: 0.3rem 2rem;
       border-radius: 2rem;
@@ -857,6 +892,7 @@
 
       @media screen and (max-width: 720px) {
         padding: 0.3rem 1rem;
+
         svg {
           font-size: 1.5rem;
         }
@@ -864,14 +900,23 @@
 
       @media screen and (min-width: 720px) and (max-width: 1080px) {
         padding: 0.3rem 1rem;
+
         svg {
           font-size: 1rem;
         }
       }
+
       svg {
         font-size: 2rem;
         color: white;
       }
     }
+  }
+}
+
+@media (max-width: 501px) {
+  .contacts-container, .contacts-container h2 {
+    text-align: left;
+    font-size: 14px;
   }
 }

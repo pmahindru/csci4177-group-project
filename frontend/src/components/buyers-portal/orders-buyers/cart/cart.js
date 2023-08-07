@@ -9,6 +9,7 @@ import Checkout from '../checkout/checkout';
 import { getCart, deleteCartItem, getAllPayments } from '../../../../api';
 import "./cart.css";
 import "../checkout/checkout.css";
+import { useNavigate } from 'react-router-dom';
 //styling for my card, cardmedia, typography and button I use in this file
 const StyledTypography = styled(Typography)({
   margin: '10px',
@@ -128,10 +129,14 @@ const Cart = () => {
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
+
   //local state variables
   const [cart, setCart] = useState([]);
   const [payments, setPayments] = useState([]);
   const [isCheckoutOpen, setCheckoutOpen] = useState(false);
+
+  const navigate = useNavigate();
+
   //event handles to open/close the checkout component
   const handleCheckoutPopup = () => {
     setCheckoutOpen(true);
@@ -144,13 +149,11 @@ const Cart = () => {
   // The two useEffects below get the data for the user's cart and the payment methods that they have.
   useEffect(() => {
     const fetchCart = async () => {
-      try {
-        const result = await getCart(user_id);
+      const result = await getCart(user_id);
+      if (Object.keys(result).length > 0) {
         if (!result.address) {
           setCart(result);
         }
-      } catch (error) {
-        return error;
       }
     };
 
@@ -159,15 +162,11 @@ const Cart = () => {
 
   useEffect(() => {
     const fetchPayments = async () => {
-      try {
-        const result = await getAllPayments(user_id);
+      const result = await getAllPayments(user_id);
+      if (Object.keys(result).length > 0) {
         if (!result.address) {
           setPayments(result);
         }
-
-        
-      } catch (error) {
-        return error;
       }
     };
 
@@ -178,8 +177,12 @@ const Cart = () => {
   const handleCheckout = () => {
     if (payments.length > 0) {
       handleCheckoutPopup();
+      return;
     } else {
       alert("Please add a payment method to this account to checkout");
+      navigate("/orders#payments");
+      window.location.reload();
+      return;
     }
   }
 
@@ -197,31 +200,28 @@ const Cart = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          {cart.length === 0 ? (
-            <div className="center-container">
+           {Object.keys(cart).length > 0 ? (
+              cart.map((item) => {
+                return(
+                    <div key={item._id}>
+                      <CartCard
+                      item={item}
+                    ></CartCard>
+                  </div>
+                  )
+              })
+           ) : (
+             <div className="center-container">
               <h2 className="checkoutLabel">Your Cart Is Empty</h2>
             </div>
-          ) : (
-              Array.isArray(cart) && cart.map((item) => {
-                return(
-                  <div key={item._id}>
-                    <CartCard
-                    item={item}
-                  ></CartCard>
-                 </div>
-                )
-               
-                  
-              })
-            )}
+           )}
+
           {cart.length > 0 && (
-            
               <><div className="card-total">
               <StyledTypography>Total: ${totalPrice.toFixed(2)}</StyledTypography>
             </div><div className="card-total">
                 <StyledButton variant="contained" onClick={() => handleCheckout()}>Checkout</StyledButton>
               </div></>
-            
           )}
           {isCheckoutOpen && (
             <div className="modalOverlay">

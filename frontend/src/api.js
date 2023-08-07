@@ -122,6 +122,14 @@ export const createPayment = async (data) => {
     return error;
   }
 };
+export const createCartItem = async (data) => {
+  try {
+    const res = await axios.post(`${baseURL}/cart`, data);
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const createReview = async (data) => {
   try {
@@ -314,6 +322,16 @@ export const getAllPostedAd = async (data) => {
 }
 
 // GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
+export const getPostForDashboard = async () => {
+    try {
+      const res = await axios.get(`${baseURL}/seller/getPostForDashboard`);
+      return res.data;
+    } catch (error) {
+      return error
+    }
+}
+
+// GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
 export const getAllSavePostedAd = async (data) => {
     try {
       const res = await axios.post(`${baseURL}/seller/getSavePost`, data);
@@ -404,6 +422,16 @@ export const twoFactorAuthentication = async (email) => {
       authenticationCode: generatedCode,
     });
 
+    return response.data;
+  } catch (error) {
+    return false;
+  }
+};
+
+// add to the user interaction
+export const addToUserInteraction = async (data) => {
+  try {
+    const response = await axios.post(`${baseURL}/addToUserInteraction`, data);
     return response.data;
   } catch (error) {
     return false;

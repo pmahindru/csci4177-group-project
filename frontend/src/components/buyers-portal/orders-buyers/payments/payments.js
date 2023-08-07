@@ -37,8 +37,10 @@ const AccountPayments = () => {
   useEffect(() => {
     const fetchPayments = async () => {
         const result = await getAllPayments(userId);
-        if (!result.address) {
-          setPayments(result);
+        if(Object.keys(result).length > 0){
+          if (!result.address) {
+            setPayments(result);
+          }
         }
     };
     fetchPayments();

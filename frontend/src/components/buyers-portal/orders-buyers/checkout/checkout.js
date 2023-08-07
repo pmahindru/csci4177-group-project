@@ -1,7 +1,8 @@
 /* Created By: Patrick Wooden | 2023-July-24 */
 import React, { useState } from 'react';
 import "./checkout.css";
-import { createOrder } from '../../../../api';
+import { createOrder, deleteCartItem } from '../../../../api';
+import { useNavigate } from 'react-router-dom';
 
 const Checkout = ({ onClose, totalPrice, payments, cart }) => {
   const storedData = localStorage.getItem('user_info');
@@ -10,6 +11,7 @@ const Checkout = ({ onClose, totalPrice, payments, cart }) => {
   //local state variables
   const [paymentMethod, setPaymentMethod] = useState('');
   const [address, setAddress] = useState('');
+  const navigate = useNavigate();
 
   //event handlers to update locat states when input change
   const handlePaymentChange = (event) => {
@@ -42,8 +44,16 @@ const Checkout = ({ onClose, totalPrice, payments, cart }) => {
       // waits to submit each ad in users cart as a order before moving on
       await Promise.all(orderPromises);
 
+
+      const cartPromises = cart.map((item) => {
+        return deleteCartItem(item._id);
+      });
+      // waits to submit each ad in users cart as a order before moving on
+      await Promise.all(cartPromises);
+
       alert('Order created successfully');
       onClose();
+      navigate("/orders#order-history")
       window.location.reload();
     } catch (error) {
       alert('Failed to create order');
