@@ -4,7 +4,7 @@ import { Grid, Card, CardMedia, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CreateReview from '../review/create-review';
-import { getOrderHistory } from '../../../../api';
+import { getOrderHistory, getPayments } from '../../../../api';
 import "./order-history.css";
 
 //styling for my card, cardmedia, typography and button I use in this file
@@ -92,6 +92,7 @@ const OrderHistoryPage = () => {
   const [sortOrder, setSortOrder] = useState('desc');
   const [selectedAdId, setAdId] = useState('');
   const [orders, setOrders] = useState([]);
+  const [payments, setPayments] = useState([]);
   //event handlers to update locat states when review button is clicked
   const handleCreateReviewOpen = (adId) => {
     setAdId(adId);
@@ -123,6 +124,23 @@ const OrderHistoryPage = () => {
 
     fetchOrderHistory();
   }, [sortOrder]);
+
+  useEffect(() => {
+    const fetchPayments = async () => {
+      const result = await getPayments(user_id);
+      if (Object.keys(result).length > 0) {
+        if (!result.address) {
+          console.log(result)
+          setPayments(result);
+
+           
+           localStorage.setItem('payments', JSON.stringify(result));
+        }
+      }
+    };
+
+    fetchPayments();
+  }, []);
 
   return (
     <div style={{ padding: '20px' }}>

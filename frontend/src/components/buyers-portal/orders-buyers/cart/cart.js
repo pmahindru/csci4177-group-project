@@ -134,7 +134,6 @@ const Cart = () => {
   const [cart, setCart] = useState([]);
   const [payments, setPayments] = useState([]);
   const [isCheckoutOpen, setCheckoutOpen] = useState(false);
-
   const navigate = useNavigate();
 
   //event handles to open/close the checkout component
@@ -148,11 +147,23 @@ const Cart = () => {
 
   // The two useEffects below get the data for the user's cart and the payment methods that they have.
   useEffect(() => {
+    const fetchPayments = async () => {
+      const result = await getPayments(user_id);
+      if (Object.keys(result).length > 0 && !result.address) {
+          setPayments(result);
+      }
+    };
+
+    fetchPayments();
+  }, []);
+  
+  useEffect(() => {
     const fetchCart = async () => {
       const result = await getCart(user_id);
       if (Object.keys(result).length > 0) {
         if (!result.address) {
           setCart(result);
+          console.log(user_id);
         }
       }
     };
@@ -160,18 +171,7 @@ const Cart = () => {
     fetchCart();
   }, []);
 
-  useEffect(() => {
-    const fetchPayments = async () => {
-      const result = await getPayments(user_id);
-      if (Object.keys(result).length > 0) {
-        if (!result.address) {
-          setPayments(result);
-        }
-      }
-    };
-
-    fetchPayments();
-  }, []);
+ 
 
   // This function handles when the user clicks checkout. If the user has at least one payment method, they will be directed to the checkout screen. If not, they will be alerted to add a payment method before they can check out.
   const handleCheckout = () => {
