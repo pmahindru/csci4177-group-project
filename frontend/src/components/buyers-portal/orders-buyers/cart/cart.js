@@ -7,7 +7,6 @@ import MenuItem from '@mui/material/MenuItem';
 import { styled } from '@mui/system';
 import Checkout from '../checkout/checkout';
 import { getCart, deleteCartItem, getPayments } from '../../../../api';
-import { getCart, deleteCartItem, getPayments } from '../../../../api';
 import "./cart.css";
 import "../checkout/checkout.css";
 import { useNavigate } from 'react-router-dom';
