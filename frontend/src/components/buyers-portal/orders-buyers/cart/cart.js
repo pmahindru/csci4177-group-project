@@ -146,16 +146,7 @@ const Cart = () => {
   };
 
   // The two useEffects below get the data for the user's cart and the payment methods that they have.
-  useEffect(() => {
-    const fetchPayments = async () => {
-      const result = await getPayments(user_id);
-      if (Object.keys(result).length > 0 && !result.address) {
-          setPayments(result);
-      }
-    };
 
-    fetchPayments();
-  }, []);
   
   useEffect(() => {
     const fetchCart = async () => {
@@ -169,6 +160,17 @@ const Cart = () => {
     };
 
     fetchCart();
+  }, []);
+
+    useEffect(() => {
+    const fetchPayments = async () => {
+      const result = await getPayments(user_id);
+      if (Object.keys(result).length > 0 && !result.address) {
+          setPayments(result);
+      }
+    };
+
+    fetchPayments();
   }, []);
 
  
