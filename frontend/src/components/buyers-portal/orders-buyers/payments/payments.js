@@ -1,6 +1,6 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
-import { getPayments, createPayment, deletePaymentMethod, getPaymentMethod, updatePaymentMethod  } from '../../../../api';
+import { getPayments, createPayment, deletePaymentMethod, updatePaymentMethod  } from '../../../../api';
 import "./payments.css";
 
 const AccountPayments = () => {
@@ -74,7 +74,7 @@ const AccountPayments = () => {
     setFirstName(parsedData.firstName || "")
     setLastName(parsedData.lastName || "")
     setAddress(parsedData.address || "")
-  }, [])
+  }, [parsedData])
 
   //useffect for getting all the users payment methods they already have
   const fetchPayments = async (isChecked) => {

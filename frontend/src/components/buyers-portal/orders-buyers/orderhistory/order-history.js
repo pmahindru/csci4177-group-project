@@ -1,6 +1,6 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CreateReview from '../review/create-review';
 import { getOrderHistory } from '../../../../api';
@@ -47,7 +47,7 @@ const OrderHistoryPage = () => {
     };
 
     fetchOrderHistory();
-  }, [sortOrder]);
+  }, [sortOrder, user_id]);
 
   return (
     <div style={{ padding: '20px' }}>

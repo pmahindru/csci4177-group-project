@@ -55,7 +55,7 @@ function ProfileSettings() {
         if (phoneNumber === null) {
             setPhone2FAEnabled(false)
         }
-    }, [phone2FAEnabled]);
+    }, [phone2FAEnabled, phoneNumber]);
 
     const handleAddressInput = (e) => {
         setlocationAddress(e.target.value);

@@ -125,7 +125,7 @@ function SellerStatusPage() {
             }
         }
         getData();
-    }, [])
+    }, [user_data])
 
     return (
         <div className='order-seller-page-main-container'>

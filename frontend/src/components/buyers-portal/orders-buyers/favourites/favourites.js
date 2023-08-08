@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import "./favourites.css";
-import { getFavourites, deleteFavourite } from '../../../../api';
+import { getFavourites } from '../../../../api';
 import ImageSlider from '../image-slider';
 
 const Favourites = () => {
@@ -21,7 +21,7 @@ const Favourites = () => {
         }
     };
     fetchFavourites();
-  }, []);
+  }, [user_id]);
 
   return (
     <div style={{ padding: '20px' }}>

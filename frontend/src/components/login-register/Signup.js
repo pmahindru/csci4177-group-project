@@ -17,7 +17,6 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import simage from '../images/signup.png';
 import { createUser } from '../../api';
 import { useNavigate } from 'react-router-dom';
-import bcrypt from 'bcryptjs';
 
 function RegisterPage() {
   const [firstName, setFirstName] = useState('');

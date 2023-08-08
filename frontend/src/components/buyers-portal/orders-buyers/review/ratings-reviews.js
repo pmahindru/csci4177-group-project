@@ -4,7 +4,6 @@ import { Grid } from '@mui/material';
 import CreateReview from './create-review';
 import './ratings-reviews.css';
 import { getReviews } from '../../../../api';
-import ResponsiveStarRatingDisplay from './star_rating';
 import ImageSlider from '../image-slider';
 
 const Rating_Reviews = () => {
@@ -39,7 +38,7 @@ const Rating_Reviews = () => {
       }
     };
     fetchReviews();
-  }, []);
+  }, [user_id]);
 
   return (
     <div style={{ padding: '20px' }}>
