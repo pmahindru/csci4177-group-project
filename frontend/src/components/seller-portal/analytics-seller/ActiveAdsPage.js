@@ -1,5 +1,5 @@
 /* Created By: Parth Patel*/
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./style.css";
 import React, { useState, useEffect } from "react";
 import { getAllPostedAd } from "../../../api";
@@ -20,7 +20,7 @@ const ActiveAdsPage = () => {
           }
       }
       getData();
-  }, [])
+  }, [user_data])
   return (
     <div className="active-ads-page">
       <h2 className="active-ads-title">Active Ads</h2>

@@ -27,13 +27,20 @@
 
 }
 
+.sort-by-style {
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 5px;
+  padding: 5px;
+}
+
 @media screen and (min-width: 600px) {
-
-
   .orderHistoryLabel {
     font-size: 14px;
   }
-
 
   .orderHistoryHeading {
     font-size: 20px;

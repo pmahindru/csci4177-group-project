@@ -4,7 +4,6 @@ import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 //This returns a modified rating from material ui, making it responsive
 const ResponsiveStarRating = ({ value, handleRatingChange}) => {
-
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Rating name="responsive-rating" value={value} precision={0.5}  onChange={(event, newValue) => {

@@ -19,7 +19,6 @@
   background-color: rgb(230, 230, 230);
   font-size: 20px;
   text-align: center;
-
 }
 
 .paymentOverlay {
@@ -32,6 +31,7 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 .paymentContent {

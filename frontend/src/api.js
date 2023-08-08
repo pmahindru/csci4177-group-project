@@ -10,7 +10,8 @@
 // Used by Saiz Charolia
 
 import axios from "axios";
-import bcrypt from 'bcryptjs';
+// import bcrypt from 'bcryptjs';
+import bcrypt from "react-native-bcrypt";
 
 const baseURL = "http://localhost:3001/api";
 
@@ -73,7 +74,6 @@ export const loginUser = async (data) => {
 export const getPayments = async (userId) => {
   try {
     const res = await axios.get(`${baseURL}/payments/${userId}`);
-
     return res.data;
   } catch (error) {
     return error;
@@ -102,6 +102,14 @@ export const getFavourites = async (userId) => {
     const favouriteResponse = await axios.get(
       `${baseURL}/favourites/${userId}`
     );
+    return favouriteResponse.data;
+  } catch (error) {
+    return error;
+  }
+};
+export const addFavourites = async (data) => {
+  try {
+    const favouriteResponse = await axios.post(`${baseURL}/favourites`, data);
     return favouriteResponse.data;
   } catch (error) {
     return error;

@@ -22,7 +22,7 @@ const AnalyticalDashboard = () => {
           }
       }
       getData();
-  }, [])
+  }, [user_data])
 
   // Dummy data for sold items with reviews
   const soldItems = [

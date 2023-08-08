@@ -171,7 +171,6 @@ const getOrderHistory = async (req, res) => {
   try {
     const userId = req.params.userId;
     const data = await model.getOrderHistory(userId);
-
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json(error);
@@ -231,7 +230,6 @@ const getPayments = async (req, res) => {
   try {
     const userId = req.params.userId;
     const data = await model.getPayments(userId);
-
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json(error);
@@ -275,11 +273,7 @@ const createPayment = async (req, res) => {
       address: req.body.address,
     };
     const response = await model.createPayment(newPayment);
-    if (response && response.data) {
-      res.status(200).json(data);
-    } else {
-      res.status(500).json(error);
-    }
+    res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -310,7 +304,6 @@ const getFavourites = async (req, res) => {
   try {
     const userId = req.params.userId;
     const data = await model.getFavourites(userId);
-
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json(error);
@@ -384,7 +377,6 @@ const createFavourite = async (req, res) => {
       ad_id: req.body.ad_id,
     };
     const response = await model.createFavourite(newFavourite);
-
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error);

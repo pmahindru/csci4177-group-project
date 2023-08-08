@@ -2,13 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import "./ratings-reviews.css";
 import { getReview, createReview, editReview } from '../../../../api';
-
-
 import ResponsiveStarRating from './rating';
+import { useNavigate } from 'react-router-dom';
 
 //create review returns a form with a field for the users cards cvv, two select menus for updating the expiry data and a address field for the suer to enter a new address.
 const CreateReview = ({ onClose, selectedAdId }) => {
-
   const storedData = localStorage.getItem('user_info');
   const parsedData = JSON.parse(storedData);
   const user_id = parsedData._id;
@@ -19,30 +17,20 @@ const CreateReview = ({ onClose, selectedAdId }) => {
   const [title, setTitle] = useState('');
   const [review, setReview] = useState('');
   const [existingReview, setExistingReview] = useState(false);
+  const navigate = useNavigate();
+  
   //use effect gets the current reviews data if a review for the product already exists
   useEffect(() => {
     const fetchReview = async () => {
-      try {
-        const reviewExists = await getReview(user_id, selectedAdId);
-
-        if (reviewExists) {
-          const response = await getReview(user_id, selectedAdId);
-          if (!response.address) {
-            setRating(response.star_rating);
-            setTitle(response.title);
-            setReview(response.review);
-            setExistingReview(true);
-            setId(response._id);
-          }
-          
-        } else {
-          setRating(0);
-          setTitle('');
-          setReview('');
-          setExistingReview(false);
+      const reviewExists = await getReview(user_id, selectedAdId);
+      if (reviewExists) {
+        if (!reviewExists.address) {
+          setRating(reviewExists.star_rating);
+          setTitle(reviewExists.title);
+          setReview(reviewExists.review);
+          setExistingReview(true);
+          setId(reviewExists._id);
         }
-      } catch (error) {
-        return error;
       }
     };
 
@@ -75,10 +63,12 @@ const CreateReview = ({ onClose, selectedAdId }) => {
       if (existingReview) {
         await editReview(reviewId, reviewData);
         alert('Review edited successfully');
+        navigate("/orders#reviews")
         onClose();
       } else {
         await createReview(reviewData);
         alert('Review created successfully');
+        navigate("/orders#reviews")
         onClose();
       }
     } catch (error) {
@@ -118,11 +108,13 @@ const CreateReview = ({ onClose, selectedAdId }) => {
               onChange={handleReviewChange}
             />
           </div>
-          <div className="formRow ">
-            <button type="button" className="reviewButton"onClick={handleCreateReview}>
+          <div className="postAd-button formRow">
+            <button type="button"onClick={handleCreateReview}>
               Submit Review
             </button>
-            <button  className="reviewButton" type="button" onClick={onClose}>
+          </div>
+          <div className="postAd-button formRow">
+            <button type="button" onClick={onClose}>
               Cancel
             </button>
           </div>

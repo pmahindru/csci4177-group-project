@@ -55,7 +55,7 @@ function ProfileSettings() {
         if (phoneNumber === null) {
             setPhone2FAEnabled(false)
         }
-    }, [phone2FAEnabled]);
+    }, [phone2FAEnabled, phoneNumber]);
 
     const handleAddressInput = (e) => {
         setlocationAddress(e.target.value);
@@ -121,6 +121,9 @@ function ProfileSettings() {
         
         await userSignUpUpdate(userID, {"email": email, "address": locationAddress, "phone": phoneNumber});
         alert("Update the General information");
+
+        const getUsers = await getUserWithID(userID);
+        localStorage.setItem('user_info', JSON.stringify(getUsers));
         window.location.reload();
     }
 
