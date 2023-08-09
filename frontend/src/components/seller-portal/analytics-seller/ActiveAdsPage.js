@@ -20,7 +20,7 @@ const ActiveAdsPage = () => {
           }
       }
       getData();
-  }, [user_data])
+  }, [])
   return (
     <div className="active-ads-page">
       <h2 className="active-ads-title">Active Ads</h2>

@@ -464,6 +464,10 @@
   padding: 20px;
 }
 
+.hide-insights {
+  display: none;
+}
+
 .insights-page {
   padding: 20px;
 }
@@ -489,12 +493,12 @@
 }
 
 .graph-container {
-  width: 300px;
+  width: 400px;
   margin: 10px;
-  padding: 20px;
+  padding: 10px;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -510,66 +514,42 @@
   }
 }
 
-@media screen and (max-width: 450px) {
-  .graphs-container {
-    margin: 10px;
-    padding: 0;
-  }
-
+@media screen and (max-width: 470px) {
   .graph-container {
-    .graphs-container {
-      margin: 10px;
-      padding: 0;
-    }
-
-    .graphs-page {
-      padding: 10px;
-    }
-
-    .graph-container {
-      width: calc(100% - 40px);
-      margin: 10px 20px;
-      padding: 10px;
-    }
-
-    .graph-container canvas {
-      width: 100% !important;
-      height: auto !important;
-    }
-
-    .graph-container .chartjs-render-monitor {
-      font-size: 12px;
-    }
+    margin: 10px;
   }
+}
 
-  .toggle-button {
-    display: block;
-  }
-
-  .graphs-page {
-    display: block;
-  }
-
+@media screen and (max-width: 450px) {
   .insights-page {
     display: none;
   }
 
-  @media screen and (max-width: 428px) {
-    .toggle-button {
-      display: none;
-    }
-
-    .graphs-page {
-      display: none;
-    }
-
-    .insights-page {
-      display: block;
-    }
+  .section-insights {
+    padding: 0;
   }
 
   .graphs-page {
     padding: 10px;
+  }
+
+  .graph-container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .graphs-page {
+    display: none;
+  }
+
+  .hide-insights {
+    display: block;
+  }
+
+  .section-insights {
+    padding: 20px;
   }
 }
 

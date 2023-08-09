@@ -95,9 +95,8 @@ function DashBoardBuyerItemView() {
         navigate("/orders");
     }
 
-    const handleAddToFavorite = async (e, itemId, itemTitle) => {
+    const handleAddToFavorite = async () => {
         const postId = window.location.pathname.split("/")
-        await addToUserInteraction({"user_id": user_data["_id"], "ad_id": itemId, "save": 1})
         await addFavourites({"user_id": user_data["_id"],"ad_id": postId[postId.length-1]});
         navigate("/orders");
     }
@@ -174,7 +173,7 @@ function DashBoardBuyerItemView() {
                                         </div>
                                         <div className='postAd-button-dashboard-buyer'>
                                             <button onClick={(e) => handleAddToCart(e, item._id, item.title)}>Add to Cart</button>
-                                            <button onClick={(e) => handleAddToFavorite(e, item._id, item.title)}>favorite</button>
+                                            <button onClick={(e) => handleAddToFavorite()}>favorite</button>
                                             <button onClick={(e) => handleShareButton(e, item._id, item.title)}>Share</button>
                                         </div>
                                         <div className='order-seller-page-section5'>

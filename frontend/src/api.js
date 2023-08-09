@@ -10,7 +10,6 @@
 // Used by Saiz Charolia
 
 import axios from "axios";
-// import bcrypt from 'bcryptjs';
 import bcrypt from "react-native-bcrypt";
 
 const baseURL = "http://localhost:3001/api";
@@ -31,8 +30,6 @@ export const createUser = async (data) => {
   try {
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
-    console.log("Hashed signup Password:", hashedPassword);
-
     const requestData = {
       ...data,
       password: hashedPassword,
@@ -44,8 +41,6 @@ export const createUser = async (data) => {
     return error;
   }
 };
-
-
 // getAllUser created by Saiz Charolia
 // axios get request referred from atatus
 // URL: https://www.atatus.com/blog/how-to-perform-http-requests-with-axios-a-complete-guide/#:~:text=Axios%20Get%20Request,-Axios%20can%20make&text=get()%20method%20is%20used,should%20be%20supplied%20to%20it.
@@ -58,7 +53,6 @@ export const getAllUser = async () => {
     return error;
   }
 };
-
 // loginUser created by Saiz Charolia
 // axios post request referred from LogRocket
 // URL: https://blog.logrocket.com/how-to-use-axios-post-requests/
@@ -149,7 +143,6 @@ export const createCartItem = async (data) => {
     return error;
   }
 };
-
 export const createReview = async (data) => {
   try {
     const res = await axios.post(`${baseURL}/reviews`, data);
@@ -158,7 +151,6 @@ export const createReview = async (data) => {
     return error;
   }
 };
-
 export const getPaymentMethod = async (paymentId) => {
   try {
     const res = await axios.get(`${baseURL}/payments/${paymentId}`);
@@ -167,7 +159,6 @@ export const getPaymentMethod = async (paymentId) => {
     return error;
   }
 };
-
 export const updatePaymentMethod = async (paymentId, updatedPaymentData) => {
   try {
     const res = await axios.put(
@@ -187,7 +178,6 @@ export const editReview = async (reviewId, reviewData) => {
     return error;
   }
 };
-
 export const deletePaymentMethod = async (paymentId) => {
   try {
     const res = await axios.delete(`${baseURL}/payments/${paymentId}`);
@@ -212,7 +202,6 @@ export const deleteCartItem = async (itemId) => {
     return error;
   }
 };
-
 export const getTrackedOrders = async (userId) => {
   try {
     const trackedOrdersResponse = await axios.get(
@@ -223,7 +212,6 @@ export const getTrackedOrders = async (userId) => {
     return error;
   }
 };
-
 export const createOrder = async (data) => {
   try {
     const res = await axios.post(`${baseURL}/orders`, data);
@@ -232,8 +220,6 @@ export const createOrder = async (data) => {
     return error;
   }
 };
-
-
 // sendResetCode created by Saiz Charolia
 // axios post request referred from LogRocket
 // URL: https://blog.logrocket.com/how-to-use-axios-post-requests/
@@ -255,7 +241,6 @@ export const sendResetCode = async (email) => {
     return false;
   }
 };
-
 // verifyResetCodeFromDatabase created by Saiz Charolia
 // axios get request referred from atatus
 // URL: https://www.atatus.com/blog/how-to-perform-http-requests-with-axios-a-complete-guide/#:~:text=Axios%20Get%20Request,-Axios%20can%20make&text=get()%20method%20is%20used,should%20be%20supplied%20to%20it.
@@ -278,7 +263,6 @@ export const verifyResetCodeFromDatabase = async (email, resetCode) => {
     return false;
   }
 };
-
 // resetPassword created by Saiz Charolia
 // axios post request referred from LogRocket
 // URL: https://blog.logrocket.com/how-to-use-axios-post-requests/
@@ -301,7 +285,6 @@ export const resetPassword = async (email, password) => {
     return false;
   }
 };
-
 // profileUserDetails created by Saiz Charolia
 // axios post request referred from LogRocket
 // URL: https://blog.logrocket.com/how-to-use-axios-post-requests/
@@ -314,7 +297,6 @@ export const profileUserDetails = async (data) => {
     return error;
   }
 };
-
 // ADD NEW POST ADD APIs CALL (Pranav Mahindru)
 export const addNewPostAd = async (data) => {
     try {
@@ -324,7 +306,6 @@ export const addNewPostAd = async (data) => {
       return error
     }
 }
-
 // SAVE POST ADD APIs CALL (Pranav Mahindru)
 export const savePostAd = async (data) => {
     try {
@@ -334,7 +315,6 @@ export const savePostAd = async (data) => {
       return error
     }
 }
-
 // GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
 export const getAllPostedAd = async (data) => {
     try {
@@ -344,7 +324,6 @@ export const getAllPostedAd = async (data) => {
       return error
     }
 }
-
 // GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
 export const getPostForDashboard = async () => {
     try {
@@ -354,7 +333,6 @@ export const getPostForDashboard = async () => {
       return error
     }
 }
-
 // GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
 export const getAllSavePostedAd = async (data) => {
     try {
@@ -364,7 +342,6 @@ export const getAllSavePostedAd = async (data) => {
       return error
     }
 }
-
 // GET ALL POSTED ADD APIs CALL (Pranav Mahindru)
 export const getPostAdWithId = async (data) => {
     try {
@@ -374,7 +351,6 @@ export const getPostAdWithId = async (data) => {
       return error
     }
 }
-
 // update the POST ADD APIs CALL (Pranav Mahindru)
 export const updatePostAd = async (data) => {
     try {
@@ -385,7 +361,6 @@ export const updatePostAd = async (data) => {
       return error
     }
 }
-
 // update the POST ADD APIs CALL (Pranav Mahindru)
 export const previewSavePostAd = async (data) => {
     try {
@@ -396,7 +371,6 @@ export const previewSavePostAd = async (data) => {
       return error
     }
 }
-
 // pause the POST ADD APIs CALL (Pranav Mahindru)
 export const pausePostAd = async (data) => {
     try {
@@ -406,7 +380,6 @@ export const pausePostAd = async (data) => {
       return error
     }
 }
-
 // delete the POST ADD APIs CALL (Pranav Mahindru)
 export const deletePostAd = async (postId) => {
     try {
@@ -416,7 +389,6 @@ export const deletePostAd = async (postId) => {
       return error
     }
 }
-
 // delete the POST ADD APIs CALL (Pranav Mahindru)
 export const deleteSavePostAd = async (postId) => {
     try {
@@ -426,7 +398,6 @@ export const deleteSavePostAd = async (postId) => {
       return error
     }
 };
-
 // get user with id (Pranav Mahindru)
 export const getUserWithID = async (userId) => {
     try {
@@ -436,7 +407,6 @@ export const getUserWithID = async (userId) => {
       return error
     }
 };
-
 // 2FA (Pranav Mahindru)
 export const twoFactorAuthentication = async (email) => {
   try {
@@ -451,8 +421,7 @@ export const twoFactorAuthentication = async (email) => {
     return false;
   }
 };
-
-// add to the user interaction
+// add to the user interaction (Pranav Mahindru)
 export const addToUserInteraction = async (data) => {
   try {
     const response = await axios.post(`${baseURL}/addToUserInteraction`, data);
@@ -461,7 +430,15 @@ export const addToUserInteraction = async (data) => {
     return false;
   }
 };
-
+// get user interaction (Pranav Mahindru)
+export const getToUserInteraction = async (user_id) => {
+  try {
+    const response = await axios.get(`${baseURL}/getToUserInteraction/${user_id}`);
+    return response.data;
+  } catch (error) {
+    return false;
+  }
+};
 /* User Profile Settings APIs | By: Joel Kuruvilla | 2023-07-26 */
 //User Profile READ API:
 export const userProfileSettingsRead = async (userID) => { //By Joel Kuruvilla
@@ -481,7 +458,6 @@ export const userProfileSettingsUpdate = async (userID, data) => { //By Joel Kur
     return error
   }
 };
-
 /* User SignUp API | B: Joel Kuruvilla | 2023-07-26 */
 export const userSignUpUpdate = async (userID, data) => { //By Joel Kuruvilla
   try {
@@ -491,7 +467,6 @@ export const userSignUpUpdate = async (userID, data) => { //By Joel Kuruvilla
     return error
   }
 };
-
 /* User Notification Settings APIs | By: Joel Kuruvilla | 2023-07-26 */
 //User Notification READ API:
 export const userNotificationSettingsRead = async (userID) => { //By Joel Kuruvilla

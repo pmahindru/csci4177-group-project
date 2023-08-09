@@ -9,7 +9,8 @@ Before running or working with this codebase please ensure you install node modu
 
 * *Date Created*: 20 06 2023
 * *Last Modification Date*: 20 06 2023
-* *Project URL*: https://csci-4177-grp-project-xproj-group-24.netlify.app/
+* *Frontend Project URL*: https://csci-4177-grp-project-xproj-group-24.netlify.app/
+* *Backend Project URL*: https://csci4177-group-project-backend.onrender.com/api
 * *Git URL*: https://git.cs.dal.ca/mahindru/csci-4177-5709-xproj-group-24
 
 ## Authors
