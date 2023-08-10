@@ -1,5 +1,5 @@
 /* Created By: Parth Patel*/
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 import React, { useState, useEffect } from "react";
 import { getAllPostedAd } from "../../../api";
@@ -21,6 +21,13 @@ const ActiveAdsPage = () => {
       }
       getData();
   }, [])
+
+  const navigate = useNavigate();
+  const handleClickActive = () => {
+    navigate("/business_orders#Active");
+    window.location.reload();
+  }
+
   return (
     <div className="active-ads-page">
       <h2 className="active-ads-title">Active Ads</h2>
@@ -34,7 +41,7 @@ const ActiveAdsPage = () => {
             getArrayObjects.map((ad) => {
               return (
                 <div key={ad._id} className="ad-item">
-                  <Link to="/business_orders#Active" className="link-unstyled">
+                  <Link className="link-unstyled" onClick={() => handleClickActive(ad._id)}>
                       <h3 className="ad-title">{ad.title}</h3>
                       <h4 className="ad-title">{ad.description}</h4>
                       <p className="ad-status">Status: {ad.status}</p>

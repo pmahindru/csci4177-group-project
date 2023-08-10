@@ -15,7 +15,6 @@ import AboutUs from "./components/account/aboutUs";
 import ProfileSetting from "./components/account/profilesettings";
 import AnalyticalDashboard from "./components/seller-portal/analytics-seller/Analytic_dashboard";
 import ActiveAdsPage from "./components/seller-portal/analytics-seller/ActiveAdsPage";
-import DeletePage from "./components/seller-portal/analytics-seller/DeletePage";
 import DraftsPage from "./components/seller-portal/analytics-seller/DraftsPage";
 import SellerRatingPage from "./components/seller-portal/analytics-seller/SellerRatingPage";
 import RenewPage from "./components/seller-portal/analytics-seller/RenewPage";
@@ -77,7 +76,6 @@ function App() {
           <Route path='/update_edit/:id' element={userLoggedIn ? <UpdatePreview/> : <Navigate to="/login"/>}/>
           <Route path="/analytics" element={userLoggedIn ? <AnalyticalDashboard/> : <Navigate to="/login"/>}/>
           <Route path="/analytics/active-ads" element={userLoggedIn ? <ActiveAdsPage/> : <Navigate to="/login"/>}/>
-          <Route path="/analytics/delete-ads" element={userLoggedIn ? <DeletePage/> : <Navigate to="/login"/>}/>
           <Route path="/analytics/draft-ads" element={userLoggedIn ? <DraftsPage/> : <Navigate to="/login"/>}/>
           <Route path="/analytics/chat" element={userLoggedIn ? <Chat/> : <Navigate to="/login"/>}/>
           <Route path="/analytics/seller-rating" element={userLoggedIn ? <SellerRatingPage/> : <Navigate to="/login"/>}/>

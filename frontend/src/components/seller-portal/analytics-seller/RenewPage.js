@@ -1,46 +1,64 @@
 /* Created By: Parth Patel*/
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
+import { getAllPostedAd, getAllSavePostedAd, getReviewWithAdId, getToUserInteraction, pausePostAd } from "../../../api";
 
 const RenewPage = () => {
-  const [items, setItems] = useState([
-    { id: 1, name: "Item 1", renewed: false },
-    { id: 2, name: "Item 2", renewed: false },
-    { id: 3, name: "Item 3", renewed: false },
-  ]);
+  const getLocalStorage = localStorage.getItem("user_info");
+  const user_data = JSON.parse(getLocalStorage);
+  // for active ads
+  const [getAllActivePost, setInActivePost] = useState([]);
 
-  const handleRenew = (itemId) => {
-    setItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === itemId ? { ...item, renewed: true } : item
-      )
-    );
-  };
+  useEffect(() => {
+    const getData = async () => {
+      const Active_inActive = await getAllPostedAd({"user_id": user_data["_id"], "isActive": {$in: [true, false]} });
+      if (!Active_inActive.address) {
+        const inActiveArr = []
+        for (let i = 0; i < Active_inActive.length; i++) {
+          if (Active_inActive[i].isActive === false) {
+            inActiveArr.push(Active_inActive[i])
+          }
+        }
+        setInActivePost(inActiveArr);
+      }
+    }
+    getData();
+  }, [])
+
+  const handleRenew = async (itemId) => {
+    await pausePostAd({"_id": itemId, "page": ""});
+    alert("Update Successfully")
+    window.location.reload();
+  }
 
   return (
     <div className="renew-page">
       <h1 className="renew-title">Renew Page</h1>
       <ul className="renew-list">
-        {items.map((item) => (
-          <li key={item.id} className="renew-item">
+        {getAllActivePost.length > 0 ? (
+          getAllActivePost.map(item => {
+            return (
+              <li key={item._id} className="renew-item">
+                <div className="item-details">
+                  <h3 className="item-name">{item.title}</h3>
+                  <button className="renew-button" onClick={() => handleRenew(item._id)}>
+                      Renew
+                    </button>
+                </div>
+              </li>
+            )})
+        ) : (
+          <li className="renew-item">
             <div className="item-details">
-              <h3 className="item-name">{item.name}</h3>
-              {item.renewed ? (
-                <p className="renewed-text">
-                  Renewed on {new Date().toLocaleDateString()}
-                </p>
-              ) : (
-                <button
-                  className="renew-button"
-                  onClick={() => handleRenew(item.id)}
-                >
-                  Renew
-                </button>
-              )}
+              <h3 className="item-name">There are no InActive Ads</h3>
             </div>
           </li>
-        ))}
+        )}
+
+        {/* {items.map((item) => (
+          
+        ))} */}
       </ul>
       <Link to="/analytics" className="back-link">
         Back to Analytics

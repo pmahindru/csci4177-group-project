@@ -26,6 +26,7 @@ app.post(`${baseURL}/create-payment`, controller.createPayment);
 app.put(`${baseURL}/reviews/:reviewId`, controller.editReview);
 app.post(`${baseURL}/reviews`, controller.createReview);
 app.get(`${baseURL}/review/:userId/:adId`, controller.getReview);
+app.get(`${baseURL}/getReviewWithAdId/:adId`, controller.getReviewWithAdId);
 app.get(`${baseURL}/cart/:userId`, controller.getCart);
 app.delete(`${baseURL}/cart/:itemId`, controller.deleteCartItem);
 app.get(`${baseURL}/reviews/:userId`, controller.getReviews);

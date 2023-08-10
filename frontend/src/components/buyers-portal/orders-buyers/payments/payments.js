@@ -24,6 +24,15 @@ const AccountPayments = () => {
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
 
+  // for the payments
+  useEffect(() => {
+    setFirstName(parsedData.firstName)
+    setLastName(parsedData.lastName)
+    if (parsedData.address !== null) {
+      setAddress(parsedData.address)
+    }
+  }, [parsedData])
+
   //event handlers to update local variables and to toggle opening the edit payment component and create payment componenet
   const handleCreatePaymentOpen = () => {
     setIsCreateModalOpen(true);
@@ -44,6 +53,7 @@ const AccountPayments = () => {
     setIsEditModalOpen(true);
     fetchPayments(true);
   };
+
   // edit payments
   //event handlers to update local variables when values change
   const handleCVVChange = (event) => {
@@ -69,16 +79,8 @@ const AccountPayments = () => {
     setCardNumber(event.target.value);
   };
 
-  // for the payments
-  useEffect(() => {
-    setFirstName(parsedData.firstName || "")
-    setLastName(parsedData.lastName || "")
-    setAddress(parsedData.address || "")
-  }, [parsedData])
-
   //useffect for getting all the users payment methods they already have
   const fetchPayments = async (isChecked) => {
-    console.log(isChecked);
     const result = await getPayments(user_id);
     if(Object.keys(result).length > 0){
       if (!result.address) {
@@ -144,7 +146,7 @@ const AccountPayments = () => {
       return;
     }
     alert("Payment added successfully");
-    // window.location.reload();
+    window.location.reload();
     handleCreatePaymentClose();
   };
 

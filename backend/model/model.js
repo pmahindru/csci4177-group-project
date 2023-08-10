@@ -14,6 +14,7 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+
 // getAllUserSignup created by Saiz Charolia
 const getAllUserSignup = async () => {
   try {
@@ -58,7 +59,7 @@ const registerUser_userDefaultSettingConfigs = async (userID) => {
     const db = client.db("User_Management");
     const collectionProfile = db.collection("Profile");
     const collectionNotification = db.collection("ProfileNotifications");
-     
+    
     const addUserProfileConfig = await collectionProfile.insertOne(
       {
         "_id": userID,
@@ -415,6 +416,24 @@ const getReview = async (userId, adId) => {
     return error;
   }
 };
+//get a specific review using userId and adId (Patrick Wooden)
+const getReviewWithAdId = async (data) => {
+  try {
+    // Connect the client to the server    (optional starting in v4.7)
+    await client.connect();
+    //call db name and collection
+    const db = client.db("Order_Management");
+    const Collection = db.collection("Reviews");
+
+    const review = await Collection.find(data).toArray();
+
+    // Ensures that the client will close when you finish/error
+    await client.close();
+    return review;
+  } catch (error) {
+    return error;
+  }
+};
 //edit a review by finding it using reviewId and then setting the reviewData (Patrick Wooden)
 const editReview = async (reviewId, reviewData) => {
   try {
@@ -532,7 +551,6 @@ const getTrackedOrders = async (userId) => {
     );
 
     await client.close();
-
     return ordersWithAdDetails;
   } catch (error) {
     return error;
@@ -805,250 +823,250 @@ const getAllSavePostedAd = async (data) => {
 }
 // get all post Ad (pranav mahindru)
 const getAllPostedAd = async (data) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("post_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("post_ad");
 
-      const postedAd = await collection.find(data).toArray();
+    const postedAd = await collection.find(data).toArray();
 
-      await client.close();
+    await client.close();
 
-      return postedAd;
-    } catch (error) {
-      return error;
-    }
+    return postedAd;
+  } catch (error) {
+    return error;
+  }
 }
 // get all post Ad (pranav mahindru)
 const pausePostAdWithId = async (data) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("post_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("post_ad");
 
-      const postedAd = await collection.find({"_id": data._id}).toArray();
+    const postedAd = await collection.find({"_id": data._id}).toArray();
 
-      if (data.page === "seller_status" || data.page === "seller_draft") {
-        var updatePost;
-        if (postedAd[0]["isActive"] === true) {
-          updatePost = await collection.updateOne({"_id": data._id}, {$set: {"isActive": !postedAd[0]["isActive"]}});
-        }
-        else{
-          updatePost = {messages: "It is already Paused"};
-        }
-        await client.close();
-        return updatePost;
+    if (data.page === "seller_status" || data.page === "seller_draft") {
+      var updatePost;
+      if (postedAd[0]["isActive"] === true) {
+        updatePost = await collection.updateOne({"_id": data._id}, {$set: {"isActive": !postedAd[0]["isActive"]}});
       }
       else{
-        const updatePost = await collection.updateOne({"_id": data._id}, {$set: {"isActive": !postedAd[0]["isActive"]}});
-        await client.close();
-        return updatePost;
+        updatePost = {messages: "It is already Paused"};
       }
-    } catch (error) {
-      return error;
+      await client.close();
+      return updatePost;
     }
+    else{
+      const updatePost = await collection.updateOne({"_id": data._id}, {$set: {"isActive": !postedAd[0]["isActive"]}});
+      await client.close();
+      return updatePost;
+    }
+  } catch (error) {
+    return error;
+  }
 }
 // add new post Ad (pranav mahindru)
 const addNewPostAd = async (data) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("post_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("post_ad");
 
-      const postedAd = await collection.insertOne(data);
+    const postedAd = await collection.insertOne(data);
 
-      await client.close();
+    await client.close();
 
-      return postedAd;
-    } catch (error) {
-      return error;
-    }
+    return postedAd;
+  } catch (error) {
+    return error;
+  }
 }
 // get all update posted Ad (pranav mahindru)
 const updatePostWithId = async (idObject, data) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("post_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("post_ad");
 
-      const updatepostedAd = await collection.updateOne(idObject, data);
+    const updatepostedAd = await collection.updateOne(idObject, data);
 
-      await client.close();
+    await client.close();
 
-      return updatepostedAd;
-    } catch (error) {
-      return error;
-    }
+    return updatepostedAd;
+  } catch (error) {
+    return error;
+  }
 }
 // get all update posted Ad (pranav mahindru)
 const previewSavePostAd = async (idObject, data) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection1 = db.collection("save_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection1 = db.collection("save_ad");
 
-      // update the save ad
-      await collection1.updateOne(idObject, data);
-      
-      // find the item in collection 1
-      const collection1Find = await collection1.findOne(idObject);
+    // update the save ad
+    await collection1.updateOne(idObject, data);
+    
+    // find the item in collection 1
+    const collection1Find = await collection1.findOne(idObject);
 
-      const collection2 = db.collection("post_ad");
-     
-      // insert the save ad to the post ad because it is updated
-      await collection2.insertOne(collection1Find);
+    const collection2 = db.collection("post_ad");
+  
+    // insert the save ad to the post ad because it is updated
+    await collection2.insertOne(collection1Find);
 
-      // // delete from the collection 
-      const deletePostWithId = await collection1.deleteOne(idObject);
+    // // delete from the collection 
+    const deletePostWithId = await collection1.deleteOne(idObject);
 
-      await client.close();
+    await client.close();
 
-      return deletePostWithId;
-    } catch (error) {
-      return error;
-    }
+    return deletePostWithId;
+  } catch (error) {
+    return error;
+  }
 }
 // get all update posted Ad (pranav mahindru)
 const deletePostWithId = async (idObject) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("post_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("post_ad");
 
-      const deletePostWithId = await collection.deleteOne(idObject);
+    const deletePostWithId = await collection.deleteOne(idObject);
 
-      await client.close();
+    await client.close();
 
-      return deletePostWithId;
-    } catch (error) {
-      return error;
-    }
+    return deletePostWithId;
+  } catch (error) {
+    return error;
+  }
 }
 // get all update posted Ad (pranav mahindru)
 const deleteSaveWithId = async (idObject) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("save_ad");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("save_ad");
 
-      const deletePostWithId = await collection.deleteOne(idObject);
+    const deletePostWithId = await collection.deleteOne(idObject);
 
-      await client.close();
+    await client.close();
 
-      return deletePostWithId;
-    } catch (error) {
-      return error;
-    }
+    return deletePostWithId;
+  } catch (error) {
+    return error;
+  }
 }
 // add new post Ad (pranav mahindru)
 const addToUserInteraction = async (data, uuid_user_interaction) => {
-    try {
-      // connection with db
-      await client.connect();
+  try {
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("User_Interactions");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("User_Interactions");
 
-      const findUserInteraction = await collection.find({"ad_id": data.ad_id}).toArray();
+    const findUserInteraction = await collection.find({"ad_id": data.ad_id}).toArray();
 
-      if (Object.keys(findUserInteraction).length > 0) {
-        if (Object.keys(findUserInteraction[0]["user_id"]).length > 0) {
-          let isChecked = false;
-          for (let i = 0; i < findUserInteraction[0]["user_id"].length; i++) {
-            if (findUserInteraction[0]["user_id"][i] === data.user_id && findUserInteraction[0]["ad_id"] === data.ad_id) {
-              isChecked = true;
-            }
+    if (Object.keys(findUserInteraction).length > 0) {
+      if (Object.keys(findUserInteraction[0]["user_id"]).length > 0) {
+        let isChecked = false;
+        for (let i = 0; i < findUserInteraction[0]["user_id"].length; i++) {
+          if (findUserInteraction[0]["user_id"][i] === data.user_id && findUserInteraction[0]["ad_id"] === data.ad_id) {
+            isChecked = true;
           }
+        }
 
-          if (isChecked) {
-            if (data.share > 0) {
-              const res = await collection.updateOne({"_id": findUserInteraction[0]["_id"]}, {$set: {"share": findUserInteraction[0]["share"]+1}});
-              await client.close();
-              return res;
-            }
-            if (data.save > 0) {
-              const res = await collection.updateOne({"_id": findUserInteraction[0]["_id"]}, {$set: {"save": findUserInteraction[0]["save"]+1}});
-              await client.close();
-              return res;
-            }
+        if (isChecked) {
+          if (data.share > 0) {
+            const res = await collection.updateOne({"_id": findUserInteraction[0]["_id"]}, {$set: {"share": findUserInteraction[0]["share"]+1}});
+            await client.close();
+            return res;
           }
-          else{
-            const newArray = [...findUserInteraction[0]["user_id"], data.user_id]
-            const res = await collection.updateOne({"_id": findUserInteraction[0]["_id"]}, {$set: {"clicks": findUserInteraction[0]["clicks"]+1, "user_id": newArray}});
+          if (data.save > 0) {
+            const res = await collection.updateOne({"_id": findUserInteraction[0]["_id"]}, {$set: {"save": findUserInteraction[0]["save"]+1}});
             await client.close();
             return res;
           }
         }
+        else{
+          const newArray = [...findUserInteraction[0]["user_id"], data.user_id]
+          const res = await collection.updateOne({"_id": findUserInteraction[0]["_id"]}, {$set: {"clicks": findUserInteraction[0]["clicks"]+1, "user_id": newArray}});
+          await client.close();
+          return res;
+        }
       }
-      else{
-        const newUser = {
-          _id: uuid_user_interaction,
-          ad_id: data.ad_id,
-          clicks: data.click,
-          share: data.share || 0,
-          save: data.save || 0,
-          user_id: [data.user_id]
-        };
-        const addUserInteraction = await collection.insertOne(newUser);
-        await client.close();
-        return addUserInteraction;
-      }
-    } catch (error) {
-      return error;
     }
+    else{
+      const newUser = {
+        _id: uuid_user_interaction,
+        ad_id: data.ad_id,
+        clicks: data.click,
+        share: data.share || 0,
+        save: data.save || 0,
+        user_id: [data.user_id]
+      };
+      const addUserInteraction = await collection.insertOne(newUser);
+      await client.close();
+      return addUserInteraction;
+    }
+  } catch (error) {
+    return error;
+  }
 }
 // get all post Ad (pranav mahindru)
 const getToUserInteraction = async (data) => {
-    try {
-      // get all post
-      const getpostedAd = await getAllPostedAd(data);
+  try {
+    // get all post
+    const getpostedAd = await getAllPostedAd(data);
 
-      // connection with db
-      await client.connect();
+    // connection with db
+    await client.connect();
 
-      // call the db name and collection
-      const db = client.db("Seller_Management");
-      const collection = db.collection("User_Interactions");
+    // call the db name and collection
+    const db = client.db("Seller_Management");
+    const collection = db.collection("User_Interactions");
 
-      const saveNewArray = []
+    const saveNewArray = []
 
-      // loop through it and save in the array
-      for (let i = 0; i < getpostedAd.length; i++) {
-        const postAdId = getpostedAd[i]._id;
-        const findUserInteraction = await collection.findOne({"ad_id": postAdId});
-        if (findUserInteraction && findUserInteraction !== null) {
-          saveNewArray.push(findUserInteraction)
-        }
+    // loop through it and save in the array
+    for (let i = 0; i < getpostedAd.length; i++) {
+      const postAdId = getpostedAd[i]._id;
+      const findUserInteraction = await collection.findOne({"ad_id": postAdId});
+      if (findUserInteraction && findUserInteraction !== null) {
+        saveNewArray.push(findUserInteraction)
       }
-
-      await client.close();
-
-      return saveNewArray;
-    } catch (error) {
-      return error;
     }
+
+    await client.close();
+
+    return saveNewArray;
+  } catch (error) {
+    return error;
+  }
 }
 // export all methods
 module.exports = {
@@ -1097,4 +1115,5 @@ module.exports = {
   deleteSaveWithId,
   addToUserInteraction,
   getToUserInteraction,
+  getReviewWithAdId,
 };

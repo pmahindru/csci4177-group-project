@@ -127,6 +127,14 @@ export const getReview = async (userId, adId) => {
     return error;
   }
 };
+export const getReviewWithAdId = async (adId) => {
+  try {
+    const reviewResponse = await axios.get(`${baseURL}/getReviewWithAdId/${adId}`);
+    return reviewResponse.data;
+  } catch (error) {
+    return error;
+  }
+};
 export const createPayment = async (data) => {
   try {
     const res = await axios.post(`${baseURL}/create-payment`, data);
