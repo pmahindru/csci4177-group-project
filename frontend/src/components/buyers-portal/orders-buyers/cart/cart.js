@@ -36,7 +36,6 @@ const Cart = () => {
       if (Object.keys(result).length > 0) {
         if (!result.address) {
           setCart(result);
-          console.log(user_id);
         }
       }
     };
