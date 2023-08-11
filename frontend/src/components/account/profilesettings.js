@@ -2,8 +2,9 @@
 /* Updated by Joel Kuruvilla for Assignment 3 | 2023-07-25 */
 import React, {useState, useEffect} from 'react'
 import './profileSettings.css';
-import { getUserWithID, userProfileSettingsRead, userProfileSettingsUpdate, userSignUpUpdate } from '../../api.js';
+import { getUserWithID, resetPassword, userProfileSettingsRead, userProfileSettingsUpdate, userSignUpUpdate } from '../../api.js';
 import Switch from 'react-switch';
+const bcrypt = require('bcryptjs');
 
 function ProfileSettings() {
     const userData = JSON.parse(localStorage.getItem("user_info"));
@@ -134,7 +135,9 @@ function ProfileSettings() {
             return;
         }
 
-        if (oldPassword !== userPassword) {
+        const isPasswordValid = await bcrypt.compare(oldPassword, userPassword);
+
+        if (!isPasswordValid) {
             alert("Old Password do not match");
             return;
         }
@@ -158,9 +161,13 @@ function ProfileSettings() {
             alert('Passwords do not match');
             return;
         }
-
-        await userSignUpUpdate(userID, {"password": newPassword});
+        
+        const res = await resetPassword(userData.email, newPassword);
+        console.log(res)
         alert("Update the Password");
+
+        const getUsers = await getUserWithID(userID);
+        localStorage.setItem('user_info', JSON.stringify(getUsers));
         window.location.reload();
     }
 

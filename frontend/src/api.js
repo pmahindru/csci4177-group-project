@@ -10,7 +10,7 @@
 // Used by Saiz Charolia
 
 import axios from "axios";
-import bcrypt from "react-native-bcrypt";
+const bcrypt = require('bcryptjs');
 
 const baseURL = "http://localhost:3001/api";
 
