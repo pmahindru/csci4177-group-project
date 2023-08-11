@@ -1348,124 +1348,527 @@ export default App;
 *****
 
 
-
-*****
-
-## Parth Patel (Seller Analytics) - Citation
-
-I used the css file and code file from assignment 1 - individual with following citations:
-
-- W3Schools. (n.d.). React Router. w3schools.com. Available: https://www.w3schools.com/react/react_router.asp. Accessed: June 06, 2023.
-- W3Schools. (n.d.). React useState Hook. w3schools.com. Available: https://www.w3schools.com/react/react_usestate.asp. Accessed: June 06, 2023.
-- React Training. (n.d.). useNavigate Hook - React Router. reactrouter.com. Available: https://reactrouter.com/en/main/hooks/use-navigate. Accessed: June 06, 2023.
-- React Training. (n.d.). Link Component - React Router. reactrouter.com. Available: https://reactrouter.com/en/main/components/link. Accessed: June 06, 2023
-- React School. (n.d.). Button - React UI Components. react.school. Available: https://react.school/ui/button. Accessed: June 06, 2023
-- W3Schools. (n.d.). ES6 Array Methods. w3schools.com. Available: https://www.w3schools.com/react/react_es6_array_methods.asp. Accessed: June 06, 2023
-
-*****
-
-Parth Patel, Analytic_dashboard.js, Line 8 Chart.register(...registerables), I used this code to register the chart controller, https://stackoverflow.com/questions/65002923/chart-js-where-do-i-find-which-components-should-be-registered. Accessed: June 06, 2023c
-
-*****
-
-Parth Patel, ChatPage.js, Line 75-77, Close button icon, I referred to this code style the close button, https://stackoverflow.com/questions/63459047/tri-state-close-button. Accessed: June 06, 2023
-
-*****
-
-Parth Patel, DeletePage.js, Line 12-14, handleDelete(), I referred to this code to implement a filter and delet functionality, https://stackoverflow.com/questions/69323625/how-can-i-filter-out-an-item-by-its-id. Accessed: June 06, 2023
-
-*****
-
-Parth Patel, RenewPage.js, Line 13-19, handleRenew(), I referred to this code to learn how to store previous string array value amnd change its flag, https://stackoverflow.com/questions/64815353/how-is-the-previtem-getting-the-value-of-the-previous-item. Accessed: June 06, 2023
-
-*****
-
-Parth Patel, SellerRatingPage.js, Line 35, <i className="fas fa-star-half-alt"></i>, I used this code to show the half star srting for the page. I imported @fortawesome/fontawesome-free/css/all.css , https://www.w3schools.com/icons/tryit.asp?icon=fas_fa-star-half-alt&unicon=f5c0. Accessed: June 06, 2023
-
-*****
-
-Parth Patel, SellerRatingPage.js, Line 32, <i key={index} className="fas fa-star"></i>, I used this code to show the star srting for the page. I imported @fortawesome/fontawesome-free/css/all.css , https://www.w3schools.com/icons/tryit.asp?icon=far_fa-star&unicon=f005. Accessed: June 06, 2023
-
-*****
-
-Parth Patel, Analytic_dashboard.js, Line 5, react-chartjs-2 , I used this library to create line, bar and pie charts for the page . I imported react-chartjs-2, and lerant how to use it from: https://www.chartjs.org/docs/latest/getting-started/. Accessed: June 06, 2023
-
-*****
-
 ## Saiz Charolia (Login/Register/forgetPassword) - Citation
 
-1. css referred from Assignment 1 (Individual Submission)
-   URL: https://git.cs.dal.ca/charolia/csci-4177-5709-assignments/-/tree/main/Assignment1
-   Author: Saiz Charolia
-   Date Accessed: 06/11/2023
+Login.js
 
-2. Code referred from Assignment 1 (Individual Submission)
-   URL: https://git.cs.dal.ca/charolia/csci-4177-5709-assignments/-/tree/main/Assignment1
-   Author: Saiz Charolia
-   Date Accessed: 06/11/2023
+OLD CITATIONS
 
-*****
+1.  Code referred from Assignment 1 (Individual Submission)
+    Explaination: I used the A1 Submission and have extended the code for backend
+    URL: https://git.cs.dal.ca/charolia/csci-4177-5709-assignments/-/tree/main/Assignment1
+    Author: Saiz Charolia
+    Date Accessed: 06/11/2023 
 
-3. Login page and validation referred from Contact Mentor
-   URL: https://contactmentor.com/login-form-react-js-code/
-   Date Accessed: 06/11/2023
+2.  Login page and validation referred from Contact Mentor
+    Line: 32-60
+    Explaination: I used handleSubmit and validation with modifing it to the project needs
+    Below code was adapted:
+    	const handleSubmit = (event) => {
+  		// Prevent page reload
+  		event.preventDefault();
+	};
+    URL: https://contactmentor.com/login-form-react-js-code/
+    Date Accessed: 06/11/2023
 
-4. Image referred from icon8
-   URL: https://icons8.com/illustrations/illustration/taxi-online-shop
-   Date Accessed: 06/11/2023
+3.  Regex for password referred from stackoverflow
+    Line: 40-45
+    	const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+	const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()]).{8,}$/;
 
-*****
+    Explaination: I used ^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$ pattern from stackoverflow into the login
+    URL: https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+    Date Accessed: 06/12/2023
 
-5. Form referred from handsonreact
-   URL: https://handsonreact.com/docs/forms
-   Date Accessed: 06/11/2023
+4.  Image referred from icon8
+    URL: https://icons8.com/illustrations/illustration/taxi-online-shop
+    Date Accessed: 06/11/2023  
 
-6. Eye Splash and Eye icon referred from fontawesome
-   URL: https://fontawesome.com/v4/icon/eye-slash
-   https://fontawesome.com/v4/icon/eye
-   Date Accessed: 06/11/2023
+5.  Form referred from handsonreact
+    Line: 135-169
+    <form onSubmit={handleSubmit}>
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <label>Password:</label>
+            <div className="password-input">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <span
+                className="password-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {/* 
+                  Eye Splash and Eye icon referred from fontawesome
+                  URL: https://fontawesome.com/v4/icon/eye-slash 
+                       https://fontawesome.com/v4/icon/eye
+                  Date Accessed: 06/11/2023
+                  */}
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+              </span>
+            </div>
+            <div className="forgot-password">
+              <a href="/ForgotPassword">Forgot Password?</a>
+            </div>
+            <button type="submit">Login</button>
+            <div className="signup-link">
+              Don't have an account? <a href="/Signup">Sign up</a>
+            </div>
+          </form>
 
-*****
+    Explaination: I used the form from handsonreact that uses username and password and modified it with show/hide password and take email
+    URL: https://handsonreact.com/docs/forms
+    Date Accessed: 06/11/2023
 
-7. Registeration form referred from geeksforgeeks
-   URL: https://www.geeksforgeeks.org/how-to-develop-user-registration-form-in-reactjs/
-   Date Accessed: 06/12/2023
+6.  Eye Splash and Eye icon referred from fontawesome
+    URL: https://fontawesome.com/v4/icon/eye-slash 
+    https://fontawesome.com/v4/icon/eye
+    Date Accessed: 06/11/2023
 
-8. Regex for password referred from stackoverflow
-   URL: https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
-   Date Accessed: 06/12/2023
+NEW ADDED CITATIONS:
 
-*****
+1.  Backend referred and understood from Techy Web Dev
+    Explaination: I watched this video to understand how basic connection between frontend and backend work for login along with implementation in controller.js/model.js
+    URL: https://www.youtube.com/watch?v=S9eCBX-Re8A&ab_channel=TechyWebDev
+    Author: Techy Web Dev
+    Date Accessed: 07/23/2023
 
-9. Image referred from icon8
-   URL: https://icons8.com/illustrations/illustration/bloom-online-store
-   Date Accessed: 06/12/2023
+2.  API calling referred from Blogs
+    Explaination: I understood API calling from Blogs and used "const   = await ({ , });"
+    URL: https://blog.hubspot.com/website/api-calls
+    Date Accessed: 07/23/2023
 
-10. Form referred from sectio.io
+3.  localstorage referred from w3schools
+    line: 82-83
+    localStorage.setItem('user_info', JSON.stringify(data));
+    localStorage.setItem('isLoggedIn', true);
+
+    Explaination: I used localStorage.setItem('', JSON.stringify(data));   from W3Schools
+                         localStorage.setItem('', true);
+
+    URL: https://www.w3schools.com/jsref/prop_win_localstorage.asp
+    Date Accessed: 07/25/20230
+
+------------------------------------------------------------------------------------------
+Signup.js
+
+OLD CITATIONS
+
+1.  Registeration form referred from geeksforgeeks
+    Line: 95-161
+    <form onSubmit={handleRegister}>
+            <div>
+              <label>First Name:</label>
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+            <div>
+              <label>Last Name:</label>
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+            <div>
+              <label>Email:</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <label>Password:</label>
+              <div className="password-input">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <span
+                  className="password-toggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {/* 
+                  Eye Splash and Eye icon referred from fontawesome
+                  URL: https://fontawesome.com/v4/icon/eye-slash 
+                       https://fontawesome.com/v4/icon/eye
+                  Date Accessed: 06/11/2023
+                  */}
+
+                  <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                </span>
+              </div>
+            </div>
+            <div>
+              <label>Confirm Password:</label>
+              <div className="password-input">
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <span
+                  className="password-toggle"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+                </span>
+              </div>
+            </div>
+            <button type="submit">Register</button>
+            <button><a href="/login"> Back to Login </a></button>
+          </form>
+
+    Explaination: I used the form from geeksforgeeks with function, event/error handling
+    Below code was adapted:
+    <form>
+                {/* Labels and inputs for form data */}
+                <label className="label">Name</label>
+                <input onChange={handleName} className="input"
+                    value={name} type="text" />
+ 
+                <label className="label">Email</label>
+                <input onChange={handleEmail} className="input"
+                    value={email} type="email" />
+ 
+                <label className="label">Password</label>
+                <input onChange={handlePassword} className="input"
+                    value={password} type="password" />
+ 
+                <button onClick={handleSubmit} className="btn"
+                        type="submit">
+                    Submit
+                </button>
+            </form>
+
+    URL: https://www.geeksforgeeks.org/how-to-develop-user-registration-form-in-reactjs/
+    Date Accessed: 06/12/2023
+
+2.  Image referred from icon8
+    URL: https://icons8.com/illustrations/illustration/bloom-online-store
+    Date Accessed: 06/12/2023
+
+3.  Regex for password referred from stackoverflow
+    Line: 43
+    const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()]).{8,}$/;
+
+    Explaination: I used ^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$ pattern from stackoverflow into the login
+    URL: https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+    Date Accessed: 06/12/2023
+
+4.  Form referred from sectio.io
+    Explaination: I used the form from sectio.io using the same input fields
     URL: https://www.section.io/engineering-education/registration-form-react.js-firebase/
     Date Accessed: 06/12/2023
 
-*****
+5.  Eye Splash and Eye icon referred from fontawesome
+    URL: https://fontawesome.com/v4/icon/eye-slash 
+    https://fontawesome.com/v4/icon/eye
+    Date Accessed: 06/11/2023
 
-11. Forgot password referred from codevoweb
+NEW ADDED CITATIONS
+
+1.  Backend referred and understood from Techy Web Dev
+    Explaination: I watched this video to understand how basic connection between frontend and backend work for signup along with implementation in controller.js/model.js
+    URL: https://www.youtube.com/watch?v=S9eCBX-Re8A&ab_channel=TechyWebDev
+    Author: Techy Web Dev
+    Date Accessed: 07/23/2023
+
+2.  API calling referred from Blogs
+    Line: 62
+    const data = await createUser({firstName, lastName, email, password, addr, phone, loc});
+
+    Explaination: I understood API calling from Blogs and used "const   = await ({ , });"
+    URL: https://blog.hubspot.com/website/api-calls
+    Date Accessed: 07/23/2023
+
+------------------------------------------------------------------------------------------
+ForgotPassword.js
+
+OLD CITATIONS
+
+1.  Forgot password referred from codevoweb
     URL: https://codevoweb.com/forgot-reset-password-in-reactjs-and-axios/
     Date Accessed: 06/13/2023
 
-12. OTP verification method referred from makeuseof (although not yet implemented)
+2.  OTP verification method referred from makeuseof (although not yet implemented)
+    Line: 42-56
+
+	const handleSendCode = async (event) => {
+    event.preventDefault();
+
+    // API calling referred from Blogs
+    // URL: https://blog.hubspot.com/website/api-calls
+    // Date Accessed: 07/23/2023
+    const isSent = await sendResetCode(email);
+
+    if (isSent) {
+      setIsCodeSent(true);
+      alert('Reset code has been sent to your email address.');
+    } else {
+      alert('Email not found');
+    }
+  };
+
     URL: https://www.makeuseof.com/password-reset-forgot-react-node-how-handle/
+    Below code was adapted: 
+
+      function sendOtp() {
+    if (userEmail) {
+      axios.get(`http://localhost:5000/check_email?email=${userEmail}`).then((response) => {
+        if (response.status === 200) {
+          const OTP = Math.floor(Math.random() * 9000 + 1000);
+          console.log(OTP);
+          setOTP(OTP);
+          setEmail(userEmail);
+
+          axios.post("http://localhost:5000/send_email", {
+            OTP,
+            recipient_email: userEmail,
+          })
+          .then(() => setPage("otp"))
+          .catch(console.log);
+        } else {
+          alert("User with this email does not exist!");
+          console.log(response.data.message);
+        }}).catch(console.log);
+    } else {
+      alert("Please enter your email");
+    }}
+
     Date Accessed: 06/13/2023
 
-*****
+3.  Regex for password referred from stackoverflow
+    Line: 82
 
-13. Image referred from icon8
+    const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()]).{8,}$/;
+
+    URL: https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+    Date Accessed: 06/13/2023
+
+4.  Image referred from icon8
     URL: https://icons8.com/illustrations/illustration/abstract-password-recovery
+    Date Accessed: 06/13/2023 
+
+5.  Form referred from sectio.io
+    Line: 128-141
+    <form onSubmit={handleSendCode}>
+              <label>
+                Registered Email:
+                <input
+                  type="email"
+                  value={email}
+                  onChange={handleEmailChange}
+                  required
+                />
+              </label>
+              <br />
+              <button type="submit">Send Reset Code</button>
+              <button><a href="/login"> Back to Login </a></button>
+            </form>
+
+    URL: https://www.section.io/engineering-education/registration-form-react.js-firebase/
+    Below code was adapted:
+    egistrationForm() {
+    return(
+      <div className="form">
+          <div className="form-body">
+              <div className="username">
+                  <label className="form__label" for="firstName">First Name </label>
+                  <input className="form__input" type="text" id="firstName" placeholder="First Name"/>
+              </div>
+              <div className="lastname">
+                  <label className="form__label" for="lastName">Last Name </label>
+                  <input  type="text" name="" id="lastName"  className="form__input"placeholder="LastName"/>
+              </div>
+              <div className="email">
+                  <label className="form__label" for="email">Email </label>
+                  <input  type="email" id="email" className="form__input" placeholder="Email"/>
+              </div>
+              <div className="password">
+                  <label className="form__label" for="password">Password </label>
+                  <input className="form__input" type="password"  id="password" placeholder="Password"/>
+              </div>
+              <div className="confirm-password">
+                  <label className="form__label" for="confirmPassword">Confirm Password </label>
+                  <input className="form__input" type="password" id="confirmPassword" placeholder="Confirm Password"/>
+              </div>
+          </div>
+          <div class="footer">
+              <button type="submit" class="btn">Register</button>
+          </div>
+      </div> 
+    Date Accessed: 06/12/2023
+
+6.  Eye Splash and Eye icon referred from fontawesome
+    URL: https://fontawesome.com/v4/icon/eye-slash 
+    https://fontawesome.com/v4/icon/eye
     Date Accessed: 06/13/2023
 
-*****
+NEW ADDED CITATIONS
+
+1.  Backend referred and understood from Koding 101
+    Explaination: I watched this video to understand how basic connection between frontend and backend work for forgot password with reset code along with implementation in controller.js/model.js
+    URL: https://www.youtube.com/watch?v=A8k4A7TuhDY&ab_channel=Koding101
+    Author: Koding 101
+    Date Accessed: 07/23/2023
+
+2.  API calling referred from Blogs
+    URL: https://blog.hubspot.com/website/api-calls
+    Date Accessed: 07/23/2023
+
+------------------------------------------------------------------------------------------
+api.js
+
+1.  try catch referred from mdn web docs
+    URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch
+    Date Accessed: 07/23/2023
+    Used by Saiz Charolia
+
+2.  status codes referred from educative
+    Explaination: I used the status code 200, 400, 500, 401
+    URL: https://www.educative.io/answers/how-to-use-the-nodejs-httpserverresponsestatuscode-property
+    Date Accessed: 07/23/2023
+    Used by Saiz Charolia
+
+3.  random number generating referred from iqcode
+    Explaination: I used and modified the code from iqcode Math.floor(1000 + Math.random() * 9000) to Math.floor(100000 + Math.random() * 900000).toString()
+    URL: https://iqcode.com/code/javascript/javascript-random-4-digit-number
+    Date Accessed: 07/23/2023
+
+4.  axios post request referred from LogRocket
+    Explaination: post structure referred from atatus 
+
+        const res = await axios.post(`${baseURL}/`,data);
+        return res.data; 
+
+    URL: https://blog.logrocket.com/how-to-use-axios-post-requests/
+    Date Accessed: 07/23/2023
+
+5.  axios get request referred from atatus
+    Explaination: params structure referred from atatus
+
+        const response = await axios.get(`${baseURL}/`, {
+        params: {
+            : ,
+            : ,
+      },
+
+    URL: https://www.atatus.com/blog/how-to-perform-http-requests-with-axios-a-complete-guide/
+    Date Accessed: 07/23/2023
+
+------------------------------------------------------------------------------------------
+contoller.js
+
+1.  nodemailer and overall mailing system referred from nodemailer
+    Line: 14-22
+    const nodemailer = require("nodemailer");
+	// transporter created by Saiz Charolia
+	const transporter = nodemailer.createTransport({
+ 	 service: "gmail",
+  	auth: {
+    	user: "shopaesthetics01@gmail.com",
+    	pass: "kibbicuuhilxovsj",
+  	},
+    });
+
+    Explaination: I used the format
+
+    const nodemailer = require('nodemailer');
+    const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: '', 
+        pass: '',
+    },
+    });
+
+    URL: https://nodemailer.com/about/
+    Date Accessed: 07/23/2023
+
+2.  status codes referred from educative
+    Explaination: I used the status code 200, 400, 500, 401
+    URL: https://www.educative.io/answers/how-to-use-the-nodejs-httpserverresponsestatuscode-property
+    Date Accessed: 07/23/2023
+
+3.  email format referred from nodemailer
+    Explaination: I used the format from nodemailer 
+
+        const mailOptions = {
+        from: ', 
+        to: email,
+        subject: '',
+        text: ``,
+      };
+
+    URL: https://nodemailer.com/about/
+    Date Accessed: 07/23/2023
+
+------------------------------------------------------------------------------------------
+model.js
+
+1.  CRUD operations referred from MongoDB
+    URL: https://mongodb.github.io/node-mongodb-native/3.0/reference/ecmascriptnext/crud/
+    Below code was adapted:
+	const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+
+const url = 'mongodb://localhost:27017';
+const dbName = 'myproject';
+
+(async function() {
+  let client;
+
+  try {
+    client = await MongoClient.connect(url);
+    console.log("Connected correctly to server");
+
+    const db = client.db(dbName);
+
+    // Insert a single document
+    let r = await db.collection('inserts').insertOne({a:1});
+    assert.equal(1, r.insertedCount);
+
+    // Insert multiple documents
+    r = await db.collection('inserts').insertMany([{a:2}, {a:3}]);
+    assert.equal(2, r.insertedCount);
+  } catch (err) {
+    console.log(err.stack);
+  }
+
+  // Close connection
+  client.close();
+})();
+    Date Accessed: 07/23/2023
+    Used by Saiz Charolia
+
+------------------------------------------------------------------------------------------
+css
+
+1.  flex structure referred from Assignment 1 (Individual Submission) Login.css
+    Explaination: I used and extended my previous A1 submission for this assignment
+    URL: https://git.cs.dal.ca/charolia/csci-4177-5709-assignments/-/tree/main/Assignment1
+    Author: Saiz Charolia
+    Date Accessed: 06/13/2023  
+
+2.  css referred from Assignment 1 (Individual Submission)
+    Explaination: I used and extended my previous A1 submission for this assignment
+    URL: https://git.cs.dal.ca/charolia/csci-4177-5709-assignments/-/tree/main/Assignment1
+    Author: Saiz Charolia
+    Date Accessed: 06/11/2023 
 
 ## Pranav Mahindru (Buyer dashboard, Navigation, footer, Seller Dashboard, Customer Support, Create/Preview Ad) - Citation
-
-*****
 
 ### register.js and login.js
 
@@ -2300,9 +2703,468 @@ class SwitchExample extends Component {
 - <!---Why---> [npmjs - react-switch](https://www.npmjs.com/package/react-switch)'s Code was used because it provided a quick, effective and efficient manner in which our team can implement toggle switches into our project.
 - <!---How---> [npmjs - react-switch](https://www.npmjs.com/package/react-switch)'s Code was modified by converting the code to use useStates in being able to pass and save the changes on a React project properly. I also modified its styling slightly to match context and make more visually appealing. 
 
+*****
+
+## Parth Patel (Analytic Dashboard and Chat Feature) - Citation
+
+- URL1: https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth
+- W3Schools. (n.d.). React Router. w3schools.com. Available: https://www.w3schools.com/react/react_router.asp. Accessed: May 30, 2023.
+- W3Schools. (n.d.). React useState Hook. w3schools.com. Available: https://www.w3schools.com/react/react_usestate.asp. Accessed: May 30, 2023.
+- React Training. (n.d.). useNavigate Hook - React Router. reactrouter.com. Available: https://reactrouter.com/en/main/hooks/use-navigate. Accessed: May 30, 2023.
+- React Training. (n.d.). Link Component - React Router. reactrouter.com. Available: https://reactrouter.com/en/main/components/link. Accessed: May 30, 2023.
+- React School. (n.d.). Button - React UI Components. react.school. Available: https://react.school/ui/button. Accessed: May 30, 2023.
+- W3Schools. (n.d.). ES6 Array Methods. w3schools.com. Available: https://www.w3schools.com/react/react_es6_array_methods.asp. Accessed: May 30, 2023.
+
+### Chat.js
+
+_Lines 1 - 77_
+
+```
+
+const SERVER_URL = "http://localhost:3001";
+const ALL_USERS_ROUTE = "http://localhost:3001/api/allusers";
+
+const Chat = () => {
+  const navigateTo = useNavigate();
+  const socketRef = useRef(null);
+  const [contactList, setContactList] = useState([]);
+  const [currentChat, setCurrentChat] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    // Check if user info exists in local storage, if not, redirect to the login page
+    const checkLocalStorage = async () => {
+      const userInfo = localStorage.getItem("user_info");
+      if (!userInfo) {
+        navigateTo("/login");
+      } else {
+        setCurrentUser(JSON.parse(userInfo));
+      }
+    };
+
+    checkLocalStorage();
+  }, [navigateTo]);
+
+  useEffect(() => {
+    // Create and initialize the socket when the currentUser is available
+    if (currentUser) {
+      socketRef.current = io(SERVER_URL);
+      socketRef.current.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    // Fetch the list of contacts when the currentUser is available
+    const fetchContacts = async () => {
+      if (currentUser) {
+        const data = await axios.get(`${ALL_USERS_ROUTE}/${currentUser._id}`);
+        setContactList(data.data);
+      }
+    };
+
+    fetchContacts();
+  }, [currentUser]);
+
+  return (
+    <div className="chat-container">
+      {/* Display the contacts list */}
+      <Contacts contacts={contactList} changeChat={handleChatChange} />
+      {/* Display the chat container if a chat is selected, otherwise show a message */}
+      {currentChat === null ? (
+        <h2 style={{ padding: "300px 500px" }}>Select a chat to begin</h2>
+      ) : (
+        <ChatContainer currentChat={currentChat} socket={socketRef} />
+      )}
+    </div>
+  );
+};
+
+export default Chat;
+
+```
+
+The code above was created by adapting the code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) as shown below:
+
+```
+
+export default function Chat() {
+  useEffect(async () => {
+    if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
+      navigate("/login");
+    } else {
+        await JSON.parse(
+          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+      );
+    }
+  }, []);
+  useEffect(() => {
+    if (currentUser) {
+      socket.current.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
+
+  useEffect(async () => {
+        const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+  });
+  return (
+    <>
+      <Container>
+        <div className="container">
+          <Contacts contacts={contacts} changeChat={handleChatChange} />
+            <ChatContainer currentChat={currentChat} socket={socket} />
+        </div>
+      </Container>
+    </>
+  );
+}
+
+
+```
+
+- <!---How---> The code in  [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) was implemented by setting up a successfull socket connection with the Database
+- <!---Why--->  [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was used because i wanted to understand how to esatablish a socket connection to the server and add the current user to the chat application and also to retriev the user-info from the local storage.
+- <!---How---> [NAME](link)'s Code was modified by first setting up a socket connction after successfully retrieving the user-info from the local storage. I modified the logic for retrieving the user-info from the local-storage. Got rid of the styling as i was using my own. Modified the useffect logics to fit what i wanted to do. I had similar style of UI. so didnt need the styling.
+
+### Contacts.js
+
+_Lines 10 - 31_
+
+```
+function Contact({ contact, isSelected, onClick }) {
+  return (
+    <div
+      className={`contact ${isSelected ? "selected" : ""}`}
+      onClick={onClick}
+    >
+      <div className="username">
+        <h3>{`${contact.firstName} ${contact.lastName}`}</h3>
+      </div>
+    </div>
+  );
+}
+// Main Contacts component to display the list of contacts
+export default function Contacts({ contacts, changeChat }) {
+  const [currentSelected, setCurrentSelected] = useState(null);
+
+  //Function to change the currently selected chat and trigger the chat change
+  const changeCurrentChat = (index, contact) => {
+    setCurrentSelected(index);
+    changeChat(contact);
+  };
+
+
+```
+
+The code above was created by adapting the code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) as shown below:
+
+```
+export default function Contacts({ contacts, changeChat }) {
+  const [currentUserName, setCurrentUserName] = useState(undefined);
+  useEffect(async () => {
+    const data = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
+    setCurrentUserName(data.username);
+    setCurrentUserImage(data.avatarImage);
+  }, []);
+  const changeCurrentChat = (index, contact) => {
+    setCurrentSelected(index);
+    changeChat(contact);
+  };
+
+```
+
+- <!---How---> The code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) was implemented by creating a component that will display the contacts and when the contacts are clicked will trigger chat change
+- <!---Why---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was used because I wanted to learn and understand how i can create two components and pass a list of objects from one to the other which would trigger an event in the main component.
+- <!---How---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was modified by creating a seperate function component that will display a list of contacts and when the contacts is clicked it will notify the parent component and trigger a chat change. This is what i wanted to do also for my feature
+
+### Contacts.js
+
+_Lines 34 - 47_
+
+```
+<div className="contacts-container">
+      <div className="brand"></div>
+      <div className="contacts">
+        <h2>Chats</h2>
+        {contacts.map((contact, index) => (
+          <Contact
+            key={contact._id}
+            contact={contact}
+            isSelected={index === currentSelected}
+            onClick={() => changeCurrentChat(index, contact)}
+          />
+        ))}
+      </div>
+    </div>
+
+```
+
+The code above was created by adapting the code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) as shown below:
+
+```
+<>
+      {currentUserImage && currentUserImage && (
+        <Container>
+          <div className="brand">
+            <img src={Logo} alt="logo" />
+            <h3>snappy</h3>
+          </div>
+          <div className="contacts">
+            {contacts.map((contact, index) => {
+              return (
+                <div
+                  key={contact._id}
+                  className={`contact ${
+                    index === currentSelected ? "selected" : ""
+                  }`}
+                  onClick={() => changeCurrentChat(index, contact)}
+                >
+                  <div className="avatar">
+                    <img
+                      src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+                      alt=""
+                    />
+                  </div>
+                  <div className="username">
+                    <h3>{contact.username}</h3>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="current-user">
+            <div className="avatar">
+              <img
+                src={`data:image/svg+xml;base64,${currentUserImage}`}
+                alt="avatar"
+              />
+            </div>
+            <div className="username">
+              <h2>{currentUserName}</h2>
+            </div>
+          </div>
+        </Container>
+      )}
+    </>
+
+```
+
+- <!---How---> The code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) was implemented by creating a container to have just the contacts
+- <!---Why---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was referred to because i was doing the same for my UI as well
+- <!---How---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was modified by partially to what i initially had for the web prototype
+
+### ChatContainer.js
+
+_Lines 28 - 45_
+
+```
+ useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const currentUser = JSON.parse(localStorage.getItem("user_info"));
+        const response = await axios.post(receiveMessageRoute, {
+          from: currentUser._id,
+          to: currentChat._id,
+        });
+        setMessages(response.data);
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      }
+    };
+
+    if (currentChat) {
+      fetchMessages();
+    }
+  }, [currentChat]);
+
+```
+
+The code above was created by adapting the code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) as shown below:
+
+```
+useEffect(async () => {
+    const data = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
+    const response = await axios.post(recieveMessageRoute, {
+      from: data._id,
+      to: currentChat._id,
+    });
+    setMessages(response.data);
+  }, [currentChat]);
+
+```
+
+- <!---How---> The code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) was implemented by using a get request to fetch the messages for that particular user
+- <!---Why---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was referred to because i wanted to understand how i can send a get request to the backend and fetch all the messages for the current user
+- <!---How---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was modified partially to use the post request and send the current user-id as well the current chat-id
+
+### ChatContainer.js
+
+_Lines 38 - 44_
+
+```
+ useEffect(() => {
+    // Create and initialize the socket when the currentUser is available
+    if (currentUser) {
+      socketRef.current = io(SERVER_URL);
+      socketRef.current.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
+
+```
+
+The code above was created by adapting the code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) as shown below:
+
+```
+useEffect(() => {
+    if (socket.current) {
+      socket.current.on("msg-recieve", (msg) => {
+        setArrivalMessage({ fromSelf: false, message: msg });
+      });
+    }
+  }, []);
+
+```
+
+- <!---How---> The code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) was implemented by using a useEffect hook and listen for incoming messages from the server
+- <!---Why---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was referred to because i wanted to understand how i can set up a listner for receiving messages from the server using socket.io
+- <!---How---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was modified partially and referred to use socket-io
+
+### ChatContainer.js
+
+_Lines 57 - 74_
+
+```
+ const handleSendMsg = async (msg) => {
+    const data = JSON.parse(localStorage.getItem("user_info"));
+    socket.current.emit("send-msg", {
+      to: currentChat._id,
+      from: data._id,
+      msg,
+    });
+
+    await axios.post(sendMessageRoute, {
+      from: data._id,
+      to: currentChat._id,
+      message: msg,
+    });
+
+    const updatedMessages = [...messages];
+    updatedMessages.push({ fromSelf: true, message: msg });
+    setMessages(updatedMessages);
+  };
+
+```
+
+The code above was created by adapting the code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) as shown below:
+
+```
+const handleSendMsg = async (msg) => {
+    socket.current.emit("send-msg", {
+      to: currentChat._id,
+      from: data._id,
+      msg,
+    });
+    await axios.post(sendMessageRoute, {
+      from: data._id,
+      to: currentChat._id,
+      message: msg,
+    });
+  };
+
+```
+
+- <!---How---> The code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) was implemented by using socket.io to emmit the message
+- <!---Why---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was referred to because i wanted to understand how i can use the socket.io and emit the message and store the message on server using and axio POST request
+- <!---How---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was modified partially and referred to use socket-io emit
+
+### ChatContainer.js
+
+_Lines 77 - 83_
+
+```
+ useEffect(() => {
+    if (socket.current) {
+      socket.current.on("msg-receive", (msg) => {
+        setArrivalMessage({ fromSelf: false, message: msg });
+      });
+    }
+  }, [socket]);
+
+
+```
+
+The code above was created by adapting the code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) as shown below:
+
+```
+useEffect(() => {
+    if (socket.current) {
+      socket.current.on(
+        set-self({ flag: false, agent: temp })
+      );
+    }
+  }, []);
+
+```
+
+- <!---How---> The code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) was implemented by using socket.io to receive the message
+- <!---Why---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was referred to because i wanted to understand how i can use the socket.io handle incoming messages from the server, and update the state accordingly
+- <!---How---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was modified partially and referred to use socket-io emit
+
+### Controller.js
+
+_Lines 391 - 409_
+
+```
+ const addMessage = async (req, res, next) => {
+  try {
+    const { from, to, message } = req.body;
+    const data = await model.addMessageModel({
+      message: { text: message },
+      users: [from, to],
+      sender: from,
+    });
+
+    if (data)
+      return res.status(200).json({ msg: "Message added successfully." });
+    else
+      return res
+        .status(200)
+        .json({ msg: "Failed to add message to the database" });
+  } catch (ex) {
+    next(ex);
+  }
+};
+
+```
+
+The code above was created by adapting the code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) as shown below:
+
+```
+module.exports.addObject = async (req, res) => {
+  try {
+    const { message } = req.body;
+    const data = await text.create({
+      message: { text: message,users: [from, to] },
+    });
+    if (data) return res.json({ msg: "Message added successfully." });
+  } catch (ex) {
+    res(ex);
+  }
+};
+
+```
+
+- <!---How---> The code in [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth) was implemented add messages to the database
+- <!---Why---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was referred to because i wanted to understand the logic for adding the messages to the database
+- <!---How---> [Kishan Sheth. "Socket.io Tutorial - Real Time Chat Application.](https://www.youtube.com/watch?v=otaQKODEUFs&t=13178s&ab_channel=KishanSheth)'s Code was modified partially to work with my database model
+
+*****
 
 ## Acknowledgments
 
 Everyone refer to their A1 assignment code
 
-*****
+---
