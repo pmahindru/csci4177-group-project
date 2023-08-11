@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CreateReview from '../review/create-review';
-import { getOrderHistory, getPayments } from '../../../../api';
+import { getOrderHistory } from '../../../../api';
 import "./order-history.css";
 import ImageSlider from '../image-slider';
 

@@ -1,8 +1,6 @@
 /* Created By: Patrick Wooden | 2023-June-19 */
 import React, { useEffect, useState } from 'react';
-import CreatePayment from './createpayment';
-import EditPaymentModal from './editpayment';
-import { getAllPayments } from '../../../../api';
+import { getPayments, createPayment, deletePaymentMethod, updatePaymentMethod  } from '../../../../api';
 import "./payments.css";
 
 const AccountPayments = () => {
@@ -80,17 +78,29 @@ const AccountPayments = () => {
   const handleCardNumberChange = (event) => {
     setCardNumber(event.target.value);
   };
-  //useeffect for getting all the users payment methods they already have
-  useEffect(() => {
-    const fetchPayments = async () => {
-        const result = await getAllPayments(userId);
-        if(Object.keys(result).length > 0){
-          if (!result.address) {
-            setPayments(result);
-          }
+
+  //useffect for getting all the users payment methods they already have
+  const fetchPayments = async (isChecked) => {
+    const result = await getPayments(user_id);
+    if(Object.keys(result).length > 0){
+      if (!result.address) {
+        if (isChecked) {
+          setCVV(result[0].cvv);
+          const [expiryMonth, expiryYear] = result[0].expiry.split('/');
+          setExpiryMonth(expiryMonth);
+          setExpiryYear(expiryYear);
         }
-    };
-    fetchPayments();
+        else{
+          setCVV("");
+          setExpiryMonth("");
+          setExpiryYear("");
+          setPayments(result); 
+        } 
+      }
+    }
+  };
+  useEffect(() => {
+    fetchPayments(false);
   }, []);
 
   //method to handle submitting new payment method to database when user clicks add payment

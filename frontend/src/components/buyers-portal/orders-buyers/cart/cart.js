@@ -29,39 +29,24 @@ const Cart = () => {
   const handleCheckoutClose = () => {
     setCheckoutOpen(false);
   };
-
-  // The two useEffects below get the data for the user's cart and the payment methods that they have.
-
-
+  
   useEffect(() => {
     const fetchCart = async () => {
       const result = await getCart(user_id);
       if (Object.keys(result).length > 0) {
         if (!result.address) {
           setCart(result);
-          console.log(user_id);
         }
       }
     };
     fetchCart();
-  }, []);
-
-    useEffect(() => {
-    const fetchPayments = async () => {
-      const result = await getPayments(user_id);
-      if (Object.keys(result).length > 0 && !result.address) {
-          setPayments(result);
-      }
-    };
-
-    fetchPayments();
-  }, []);
-
- 
+  }, [user_id]);
 
   // This function handles when the user clicks checkout. If the user has at least one payment method, they will be directed to the checkout screen. If not, they will be alerted to add a payment method before they can check out.
-  const handleCheckout = () => {
-    
+  const handleCheckout = async () => {
+    const payments = await getPayments(user_id);
+    setPayments(payments)
+    setAddress(parsedData.address || "")
     if (Object.keys(payments).length > 0) {
       handleCheckoutPopup();
       return;
@@ -126,7 +111,7 @@ const Cart = () => {
     <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
         <Grid item xs={12} alignItems="center">
           <Grid container justifyContent="center">
-            <h1  className="checkoutHeading">Cart </h1>
+            <h1 className="favouriteHeading">Cart</h1>
           </Grid>
         </Grid>
         <Grid item xs={12}>
