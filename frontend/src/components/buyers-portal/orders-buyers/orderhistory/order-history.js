@@ -59,7 +59,7 @@ const OrderHistoryPage = () => {
         </Grid>
         <Grid item xs={12}>
           <div className='sort-by-style'>
-              <p>Sort By{orders.length}</p>
+              <p>Sort By</p>
               <CalendarMonthIcon onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} />
           </div>
 
