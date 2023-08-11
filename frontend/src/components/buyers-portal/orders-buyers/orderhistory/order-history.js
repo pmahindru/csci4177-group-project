@@ -59,7 +59,7 @@ const OrderHistoryPage = () => {
         </Grid>
         <Grid item xs={12}>
           <div className='sort-by-style'>
-              <p>Sort By</p>
+              <p>Sort By{orders.length}</p>
               <CalendarMonthIcon onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')} />
           </div>
 
@@ -68,14 +68,14 @@ const OrderHistoryPage = () => {
               <h2 className="orderHistoryLabel">No Products Purchased</h2>
             </div>
           ) : (
-            orders.map((item) => {
+            orders.map(item => {
                 return(
-                    <ImageSlider
-                      item={item}
-                      handleCreateReviewOpen={handleCreateReviewOpen}
-                      pageName="order-history"
-                      key={item._id}
-                    />
+                  <ImageSlider
+                    item={item}
+                    handleCreateReviewOpen={handleCreateReviewOpen}
+                    pageName="order-history"
+                    key={item._id}
+                  />
                 );
             })
           )}

@@ -56,10 +56,10 @@ NodeJS and Express - [1] Login - Dalhousie University, https://dal.brightspace.c
 
 ```
  {isCreateModalOpen && (
-            <div className="modalOverlay">
-              <CreateReview onClose={handleCreateReviewClose} selectedAdId={selectedAdId}/>
-            </div>
-          )}
+  <div className="modalOverlay">
+    <CreateReview onClose={handleCreateReviewClose} selectedAdId={selectedAdId}/>
+  </div>
+)}
 ```
 
 The code above was created by adapting the code in [geeksforgeeks](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) as shown below:
@@ -95,16 +95,14 @@ export default App;
 *Lines 71-81*
 
 ```
-orders.map((item) => {
-                return(
-                    <ImageSlider
-                      item={item}
-                      handleCreateReviewOpen={handleCreateReviewOpen}
-                      pageName="order-history"
-                      key={item._id}
-                    />
-                );
-            })
+ orders.map((order) => (
+              <div key={order._id}>
+                <OrderHistoryCard
+                   order={order}
+                   handleCreateReviewOpen={handleCreateReviewOpen}
+                ></OrderHistoryCard>
+              </div>
+            ))
           )}
 ```
 
@@ -688,16 +686,16 @@ export default App;
 
 ```
  cart.map((item) => {
-              return(
-                <ImageSlider
-                    item={item}
-                    handleCreateReviewOpen=""
-                    pageName="cart"
-                    key={item._id}
-                />
-              )
-            })
-          )}
+    return(
+      <ImageSlider
+          item={item}
+          handleCreateReviewOpen=""
+          pageName="cart"
+          key={item._id}
+      />
+    )
+  })
+)}
 ```
 
 The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
@@ -721,53 +719,53 @@ The code above was created by adapting the code in [geeksforgeeks](https://www.g
 *Lines 144-190*
 
 ```
-         {isCheckoutOpen && (
-            <div className="checkoutOverlay">
-              <div className="checkoutContent">
-                <h2 className="checkoutHeading">Place Order</h2>
-                <form>
-                  <div className="formRow">
-                    <label className="checkoutLabel">Shipping Address</label>
-                    <input
-                      id="addressInput"
-                      type="text"
-                      value={address}
-                      onChange={handleAddressChange}
-                    />
-                  </div>
+{isCheckoutOpen && (
+  <div className="checkoutOverlay">
+    <div className="checkoutContent">
+      <h2 className="checkoutHeading">Place Order</h2>
+      <form>
+        <div className="formRow">
+          <label className="checkoutLabel">Shipping Address</label>
+          <input
+            id="addressInput"
+            type="text"
+            value={address}
+            onChange={handleAddressChange}
+          />
+        </div>
 
-                  <div className="formRow">
-                    <label className="checkoutLabel">Payment Method</label>
-                    <select
-                      id="paymentMethod"
-                      onChange={handlePaymentChange}
-                    >
-                      <option>Chose Payment Method</option>
-                      {Array.isArray(payments) &&
-                        payments.map((payment) => (
-                          <option key={payment._id} value={payment._id}>
-                            {payment.card_number}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                  <div className="postAd-button formRow">
-                    <p className="checkoutLabel" >Total: ${totalPrice.toFixed(2)}</p>
-                  </div>
-                  <div className="postAd-button formRow">
-                    <button type="button" onClick={handleCreateOrder}>
-                      Place Order
-                    </button>
-                  </div>
-                  <div className="postAd-button formRow">
-                    <button type="button" onClick={handleCheckoutClose}>
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          )}
+        <div className="formRow">
+          <label className="checkoutLabel">Payment Method</label>
+          <select
+            id="paymentMethod"
+            onChange={handlePaymentChange}
+          >
+            <option>Chose Payment Method</option>
+            {Array.isArray(payments) &&
+              payments.map((payment) => (
+                <option key={payment._id} value={payment._id}>
+                  {payment.card_number}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div className="postAd-button formRow">
+          <p className="checkoutLabel" >Total: ${totalPrice.toFixed(2)}</p>
+        </div>
+        <div className="postAd-button formRow">
+          <button type="button" onClick={handleCreateOrder}>
+            Place Order
+          </button>
+        </div>
+        <div className="postAd-button formRow">
+          <button type="button" onClick={handleCheckoutClose}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+)}
 ```
 
 The code above was created by adapting the code in [geeksforgeeks](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) as shown below:
@@ -918,7 +916,13 @@ onClose();
 
 ---------
 
+---------
+
 onClose();
+
+--------
+
+ <button  className="reviewButton" type="button" onClick={onClose}>
 
 --------
 
