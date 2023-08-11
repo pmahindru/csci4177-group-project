@@ -92,13 +92,13 @@ function DashBoardBuyerItemView() {
     const handleAddToCart = async (e, itemId, itemTitle) => {
         const postId = window.location.pathname.split("/")
         await createCartItem({"user_id": user_data["_id"],"ad_id": postId[postId.length-1]});
-        navigate("/orders");
+        navigate("/orders#cart");
     }
 
     const handleAddToFavorite = async () => {
         const postId = window.location.pathname.split("/")
         await addFavourites({"user_id": user_data["_id"],"ad_id": postId[postId.length-1]});
-        navigate("/orders");
+        navigate("/orders#favourites");
     }
 
     useEffect(() => {

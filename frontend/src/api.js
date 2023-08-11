@@ -210,6 +210,7 @@ export const deleteCartItem = async (itemId) => {
     return error;
   }
 };
+
 export const getTrackedOrders = async (userId) => {
   try {
     const trackedOrdersResponse = await axios.get(
@@ -220,6 +221,7 @@ export const getTrackedOrders = async (userId) => {
     return error;
   }
 };
+
 export const createOrder = async (data) => {
   try {
     const res = await axios.post(`${baseURL}/orders`, data);

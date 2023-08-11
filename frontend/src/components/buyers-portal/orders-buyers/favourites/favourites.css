@@ -3,7 +3,6 @@
   display: grid;
   place-items: center;
   padding-top: 15px;
-
 }
 
 .favouriteHeading {
@@ -16,7 +15,6 @@
 }
 
 .responsive-button {
-
   padding: 8px 16px;
   font-size: 8px;
   background-color: #007bff;
@@ -28,14 +26,10 @@
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
-
   color: white;
-
 }
 
 @media screen and (min-width: 600px) {
-
-
   .favouriteLabel {
     font-size: 14px;
   }
@@ -47,7 +41,6 @@
   }
 
   .responsive-button {
-
     padding: 10px 20px;
     font-size: 12px;
   }
@@ -55,8 +48,6 @@
 }
 
 @media screen and (min-width: 807px) {
-
-
   .favouriteLabel {
     font-size: 18px;
   }
@@ -67,9 +58,7 @@
   }
 
   .responsive-button {
-
     padding: 12px 24px;
     font-size: 16px;
   }
-
 }
