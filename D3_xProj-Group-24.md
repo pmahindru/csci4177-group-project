@@ -50,51 +50,138 @@ NodeJS and Express - [1] Login - Dalhousie University, https://dal.brightspace.c
 ## Patrick wooden (Order buyer) - Citation
 
 *****
-
 ### order-history.js
 
-*Lines 54-56 and line 86*
+*Lines 82-86*
 
-const handleClick = (event) => {
-navigate("/createreview", { state: { id: id, product: product, photoUrl: photoUrl } });
+```
+ {isCreateModalOpen && (
+            <div className="modalOverlay">
+              <CreateReview onClose={handleCreateReviewClose} selectedAdId={selectedAdId}/>
+            </div>
+          )}
+```
+
+The code above was created by adapting the code in [geeksforgeeks](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) as shown below:
+
+```
+import React, { useState } from "react";
+import styles from "./App.module.css";
+
+import Modal from "./components/Modal";
+
+const App = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <main>
+      <button className={styles.primaryBtn} onClick={() => setIsOpen(true)}>
+        Open Modal
+      </button>
+      {isOpen && <Modal setIsOpen={setIsOpen} />}
+    </main>
+  );
 };
 
-<StyledButton variant="contained" onClick={handleClick}>Review</StyledButton>
-
-The code above was created by adapting the code in [reactrouter](https://v5.reactrouter.com/web/api/location) as shown below:
-
-```
-{
-key: 'ac3df4', // not with HashHistory!
-pathname: '/somewhere',
-search: '?some=search-string',
-hash: '#howdy',
-state: {
-[userDefined]: true
-}
-}
+export default App;
 ```
 
-- <How> The code in [reactrouter](https://v5.reactrouter.com/web/api/location) was implemented by Patrick Wooden
-- <Why> [reactrouter](https://v5.reactrouter.com/web/api/location)'s Code was used because it allowed for me to pass the values of my states to the profile page
-- <How> [reactouter](https://v5.reactrouter.com/web/api/location)'s Code was modified by not using the same state values, instead using my own and also only using the state part in the code above
+- <How> The code in [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) was implemented by Patrick Wooden
+- <Why> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was used because it allows for the required component to be displayed/hidden when the user clicks certian buttons
+- <How> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was modified by using different variable names for holding the value of the component being open or not. I also return my own component instead of the shown modal compoent and also pass in extra props to the component like selectedAdId for example. I also use two event handles to set my handler for opening the component, one for true and one for false which I can call instead of manually changing the value in the onclick like the code above shows.
+
+*****
+### order-history.js
+
+*Lines 71-81*
+
+```
+orders.map((item) => {
+                return(
+                    <ImageSlider
+                      item={item}
+                      handleCreateReviewOpen={handleCreateReviewOpen}
+                      pageName="order-history"
+                      key={item._id}
+                    />
+                );
+            })
+          )}
+```
+
+The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
+
+```
+(posts.map((item) =>
+// Presently we only fetch
+// title from the API
+
+<h4>{item.title}</h4>)
+)
+```
+
+- <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
+- <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
+- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and returned the image slider component created by pranav to display each item.
 
 *****
 
 ### order-history.js
 
-*Lines 157-165*
+*Lines 32-50*
+
+```  
+  useEffect(() => {
+    const fetchOrderHistory = async () => {
+        const result = await getOrderHistory(user_id);
+        if (Object.keys(result).length > 0) {
+          if (!result.address) {
+            const sortedData = result.sort((a,b) => {
+              if (sortOrder === 'desc') {
+                return new Date(a.date_purchased) - new Date(b.date_purchased);
+              } else {
+                return new Date(b.date_purchased) - new Date(a.date_purchased);
+              }
+            });
+            setOrders(sortedData);
+          }
+        }
+    };
+
+    fetchOrderHistory();
+  }, [sortOrder, user_id]);
+```
+
+The code above was created by adapting the code in [stackoverflow](https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property) as shown below:
 
 ```
- orders.map((order) => (
-              <div key={order._id}>
-                <OrderHistoryCard
-                   order={order}
-                   handleCreateReviewOpen={handleCreateReviewOpen}
-                ></OrderHistoryCard>
-              </div>
-            ))
-          )}
+array.sort(function(a,b){
+  // Turn your strings into dates, and then subtract them
+  // to get a value that is either negative, positive, or zero.
+  return new Date(b.date) - new Date(a.date);
+});
+```
+
+- <How> The code in [stackoverflow](https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property) was implemented by Patrick Wooden
+- <Why> [stackoverflow](https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property)'s Code was used because it allows for the order history to be sorted by newest to oldest, and vice versa.
+- <How> [stackoverflow](https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property)'s Code was modified by adding a if statement that checks if it is to be sorted ascending or descending. I also wrapped the whole thing in a if statement that checks and make sure there is a response from the database before trying to sort a empty array. I also use .date_purchased instead of date like the example does. Lastly I set my orders array with the sorted data which the example does not do 
+
+*****
+
+### track-orders.js
+
+*Lines 43-52*
+
+```
+ orders.map((item) => {
+                return(
+                    <ImageSlider
+                      item={item}
+                      handleCreateReviewOpen=""
+                      pageName="track-orders"
+                     key={item._id}
+                    />
+                );
+            })
 ```
 
 The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
@@ -110,109 +197,29 @@ The code above was created by adapting the code in [geeksforgeeks](https://www.g
 
 - <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
 - <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
-- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and used my own card component I created.
+- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and returned the image slider component created by pranav to display each item.
 
 *****
 
-### track-order.js
+### imageslider.js
 
-*Lines 106-113*
-
-```
- orders.map((order) => (
-              <div key={order._id}>
-                <TrackOrdersCard
-                  order={order}
-                ></TrackOrdersCard>
-              </div>
-            ))
-          )}
-```
-
-The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
+*Lines 172-177 and 189-194*
 
 ```
-(posts.map((item) =>
-// Presently we only fetch
-// title from the API
 
-<h4>{item.title}</h4>)
-)
-```
-
-- <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
-- <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
-- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and used my own card component I created.
-
-*****
-
-### favourites.js
-
-*Lines 145-153*
-
-```
-favourites.map((favourite) => (
-              <div key={favourite._id}>
-                <FavouritesCard
-                  key={favourite._id}
-                  favourite={favourite}
-                ></FavouritesCard>
-              </div>
-            ))
-          )}
-```
-
-The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
-
-```
-(posts.map((item) =>
-// Presently we only fetch
-// title from the API
-
-<h4>{item.title}</h4>)
-)
-```
-
-- <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
-- <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
-- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and used my own card component I created.
-
-*****
-### favourites.js
-
-*Lines 46-69 and 100-102*
-
-```
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-  };
-  //handleRemoveFavourites removes the favourited ad from the users favourite list in the database
-  const handleRemoveFavourite = async () => {
-    const shouldRemove = window.confirm('Are you sure you want to unfavourite this ad?');
-    if (shouldRemove) {
-      try {
-        await deleteFavourite(favourite._id);
-        alert("Ad removed from favourites list");
-        setAnchorEl(null);
-        window.location.reload();
-      } catch (error) {
-        alert('Failed to remove favourite ad');
-        console.error('Error removing ad from favourites:', error);
-      }
-    }
-    setAnchorEl(null);
-  }
-
----
-
- <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+ <MoreVertIcon onClick={handleClick} />
+            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
               <MenuItem onClick={handleRemoveFavourite}>Remove from Favorites</MenuItem>
-  </Menu>
+            </Menu>
+
+---------------
+
+<Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
+                        <MoreVertIcon onClick={handleClick} />
+                        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+                            <MenuItem onClick={() => handleRemoveCartItem(item._id)}>Remove from cart</MenuItem>
+                        </Menu>
+</Grid>
 ```
 
 The code above was created by adapting the code in [mui](https://mui.com/material-ui/react-menu/) as shown below:
@@ -290,25 +297,21 @@ export default function LongMenu() {
 ```
 
 - <How> The code in [mui](https://mui.com/material-ui/react-menu/) was implemented by Patrick Wooden
-- <Why> [mui](https://mui.com/material-ui/react-menu/)'s Code was used because It allows us to hide more options for each ad on the favourite page, like removing an ad from the favourites list so the page looks cleaner overall.
+- <Why> [mui](https://mui.com/material-ui/react-menu/)'s Code was used because It allows us to hide more options for each ad on the favourite page and cart cart page, like removing an ad from the favourites list or from their cart so the page looks cleaner overall.
 - <How> [mui](https://mui.com/material-ui/react-menu/)'s Code was modified by only have one menu item and creating that individual one instead of creating a map and looping though multiple options like the website shows. I also do not set a key to each menu item or use the selected={} like they do in the example
 
 *****
-### ratings-reviews.js
+### favourites.js
 
-*Lines 137-146*
+*Lines 42-47 *
 
 ```
- Array.isArray(reviews) && reviews.map((review) => (
-              <div key={review._id}>
-                <ReviewCard
-                  key={review._id}
-                  review={review}
-                  handleCreateReviewOpen={handleCreateReviewOpen}
+<ImageSlider
+                  item={item}
+                  handleCreateReviewOpen=""
+                  pageName="favourites"
+                  key={item._id}
                 />
-              </div>
-            ))
-          )}
 ```
 
 The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
@@ -324,20 +327,256 @@ The code above was created by adapting the code in [geeksforgeeks](https://www.g
 
 - <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
 - <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
-- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and used my own card component I created. I also added a check to make sure the reviews object is a array before mapping it out
+- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and returned the image slider component created by pranav to display each item.
 
 *****
-### ratings-reviews.js
 
-*Lines 147-152*
+### payments.js
+
+*Lines 203-214*
 
 ```
-     {isCreateModalOpen && (
-            <div className="modalOverlay">
-              <CreateReview onClose={handleCreateReviewClose
-} selectedAdId={selectedAdId} />
+   payments.map((payment) => {
+          return (
+            <div className="cards" key={payment._id}>
+            <div>
+              <p className="paymentLabel">Card Number: {payment.card_number}</p>
+              <p className="paymentLabel">Expiry Date: {payment.expiry}</p>
+              <button className="paymentPageButton" onClick={() => handleEditPaymentOpen(payment._id)}>Edit</button>
             </div>
-          )}
+          </div>
+          )
+        })
+      )}
+```
+
+The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
+
+```
+(posts.map((item) =>
+// Presently we only fetch
+// title from the API
+
+<h4>{item.title}</h4>)
+)
+```
+
+- <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
+- <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
+- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and returning my own styled divs and buttons.
+
+*****
+### payments.js
+
+*Lines 218-329 and 331-421*
+
+```
+        {isCreateModalOpen && (
+        <div className="modalOverlay">
+          <div className="paymentOverlay">
+            <div className="paymentContent">
+              <h2 className="paymentHeading">Create Payment</h2>
+              <form>
+                <div className="formRow">
+                  <label className="paymentLabel">Card Number:</label>
+                  <input
+                    id="cardNumberInput"
+                    type="Number"
+                    value={card_number}
+                    onChange={handleCardNumberChange}
+                    pattern="[0-9]*"
+                    inputMode="numeric"
+                    maxLength={16}
+                  />
+                </div>
+                <div className="formRow">
+                  <label className="paymentLabel" >CVV:</label>
+                  <input
+                    id="cvvInput"
+                    type="Number"
+                    value={cvv}
+                    onChange={handleCVVChange}
+                    pattern="[0-9]*"
+                    inputMode="numeric"
+                    maxLength={3}
+                  />
+                </div>
+                <div className="formRow">
+                  <label className="paymentLabel"  >Expiry Date:</label>
+                  <select
+                    id="expiryMonthSelect"
+                    value={expiryMonth}
+                    onChange={handleExpiryMonthChange}
+                  >
+                    <option value="">--Select Month--</option>
+                    <option value='01'>Janaury</option>
+                    <option value='02'>February</option>
+                    <option value='03'>March</option>
+                    <option value='04'>April</option>
+                    <option value='05'>May</option>
+                    <option value='06'>June</option>
+                    <option value='07'>July</option>
+                    <option value='08'>August</option>
+                    <option value='09'>September</option>
+                    <option value='10'>October</option>
+                    <option value='11'>November</option>
+                    <option value='12'>December</option>
+                  </select>
+                  <select
+                    id="expiryYearSelect"
+                    value={expiryYear}
+                    onChange={handleExpiryYearChange}
+                  >
+                    <option value=''>--Select Year--</option>
+                    <option value='23'>2023</option>
+                    <option value='24'>2024</option>
+                    <option value='25'>2025</option>
+                    <option value='26'>2026</option>
+                    <option value='27'>2027</option>
+                    <option value='28'>2028</option>
+                    <option value='29'>2029</option>
+                    <option value='30'>2030</option>
+                    <option value='31'>2031</option>
+                    <option value='32'>2032</option>
+                    <option value='33'>2033</option>
+                    <option value='34'>2034</option>
+                  </select>
+                </div>
+                <div className="formRow">
+                  <label className="paymentLabel"  >First Name:</label>
+                  <input
+                    id="firstNameInput"
+                    type="text"
+                    value={firstName}
+                    onChange={handleFirstNameChange}
+                  />
+                </div>
+                <div className="formRow">
+                  <label className="paymentLabel" >Last Name:</label>
+                  <input
+                    id="lastNameInput"
+                    type="text"
+                    value={lastName}
+                    onChange={handleLastNameChange}
+                  />
+                </div>
+                <div className="formRow">
+                  <label className="paymentLabel"  >Address:</label>
+                  <textarea
+                    id="addressInput"
+                    value={address}
+                    onChange={handleAddressChange}
+                  />
+                </div>
+                <div className="formRow">
+                  <button className="paymentButton" type="button" onClick={handleCreatePayment}>
+                    Create Payment
+                  </button>
+                </div>
+                <div className="formRow">
+                  <button className="paymentButton" type="button" onClick={handleCreatePaymentClose}>
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )} 
+
+------------------------
+
+{isEditModalOpen && (
+        <div className="modalOverlay">
+          <div className="paymentOverlay">
+            <div className="paymentContent">
+              <h2 className="paymentHeading">Edit Payment Method </h2>
+              <form>
+                <div className="formRow">
+                  <label className="paymentLabel" >CVV:</label>
+                  <input
+                    id="cvvInput"
+                    type="text"
+                    value={cvv || ""}
+                    onChange={handleCVVChange}
+                    pattern="[0-9]*"
+                    inputMode="numeric"
+                    maxLength={3}
+                  />
+                </div>
+                <div className="formRow">
+                  <label className="paymentLabel" >Expiry Date:</label>
+                  <select
+                    id="expiryMonthSelect"
+                    value={expiryMonth || ""}
+                    onChange={handleExpiryMonthChange}
+                  >
+                    <option value="">--Select Month--</option>
+                    <option value='01'>Janaury</option>
+                    <option value='02'>February</option>
+                    <option value='03'>March</option>
+                    <option value='04'>April</option>
+                    <option value='05'>May</option>
+                    <option value='06'>June</option>
+                    <option value='07'>July</option>
+                    <option value='08'>August</option>
+                    <option value='09'>September</option>
+                    <option value='10'>October</option>
+                    <option value='11'>November</option>
+                    <option value='12'>December</option>
+                  </select>
+                  <select
+                    id="expiryYearSelect"
+                    value={expiryYear || ""}
+                    onChange={handleExpiryYearChange}
+                  >
+                    <option value=''>--Select Year--</option>
+                    <option value='23'>2023</option>
+                    <option value='24'>2024</option>
+                    <option value='25'>2025</option>
+                    <option value='26'>2026</option>
+                    <option value='27'>2027</option>
+                    <option value='28'>2028</option>
+                    <option value='29'>2029</option>
+                    <option value='30'>2030</option>
+                    <option value='31'>2031</option>
+                    <option value='32'>2032</option>
+                    <option value='33'>2033</option>
+                    <option value='34'>2034</option>
+                  </select>
+                </div>
+                <div className="formRow">
+                  <label className="paymentLabel">Address:</label>
+                  <textarea
+                  className="paymentTextArea"
+                    id="addressInput"
+                    value={address || ""}
+                    onChange={handleAddressChange}
+                  />
+                </div>
+                <div className="formRow">
+                  <button className="paymentButton" type="button" onClick={handleRemovePayment}>
+                    Remove Payment Method
+                  </button>
+                </div>
+                <div className="formRow">
+                  <button className="paymentButton" type="button" onClick={handleEditPayment}>
+                    Save Changes
+                  </button>
+                </div>
+                <div className="formRow">
+                  <button className="paymentButton" type="button" onClick={handleEditPaymentClose}>
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 ```
 
 The code above was created by adapting the code in [geeksforgeeks](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) as shown below:
@@ -368,12 +607,255 @@ export default App;
 - <How> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was modified by using different variable names for holding the value of the component being open or not. I also return my own component instead of the shown modal compoent and also pass in extra props to the component like selectedAdId for example. I also use two event handles to set my handler for opening the component, one for true and one for false which I can call instead of manually changing the value in the onclick like the code above shows.
 
 *****
-### create-review.js
+### ratings-reviews.js
 
-*Lines 90*
+*Lines 57-68*
 
 ```
-<Rating defaultValue={2} precision={0.5} onChange={handleRatingChange}/>
+  reviews.map((item) => {
+              return(
+                <ImageSlider
+                    item={item}
+                    handleCreateReviewOpen={handleCreateReviewOpen}
+                    pageName="reviews"
+                    key={item._id}
+                  />
+              )
+             
+            })
+          )}
+```
+
+The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
+
+```
+(posts.map((item) =>
+// Presently we only fetch
+// title from the API
+
+<h4>{item.title}</h4>)
+)
+```
+
+- <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
+- <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
+- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and returned the image slider component created by pranav to display each item.
+
+*****
+### ratings-reviews.js
+
+*Lines 69-73*
+
+```
+{isCreateReviewOpen && (
+            <div className="modalOverlay">
+              <CreateReview onClose={handleCreateReviewClose} selectedAdId={selectedAdId} />
+            </div>
+          )}
+```
+
+The code above was created by adapting the code in [geeksforgeeks](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) as shown below:
+
+```
+import React, { useState } from "react";
+import styles from "./App.module.css";
+
+import Modal from "./components/Modal";
+
+const App = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <main>
+      <button className={styles.primaryBtn} onClick={() => setIsOpen(true)}>
+        Open Modal
+      </button>
+      {isOpen && <Modal setIsOpen={setIsOpen} />}
+    </main>
+  );
+};
+
+export default App;
+```
+
+- <How> The code in [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) was implemented by Patrick Wooden
+- <Why> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was used because it allows for the required component to be displayed/hidden when the user clicks certian buttons
+- <How> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was modified by using different variable names for holding the value of the component being open or not. I also return my own component instead of the shown modal compoent and also pass in extra props to the component like selectedAdId for example. I also use two event handles to set my handler for opening the component, one for true and one for false which I can call instead of manually changing the value in the onclick like the code above shows. Im also passing a value to the component which is the selectedPaymentId
+
+*****
+### cart.js
+
+*Lines 123-133*
+
+```
+ cart.map((item) => {
+              return(
+                <ImageSlider
+                    item={item}
+                    handleCreateReviewOpen=""
+                    pageName="cart"
+                    key={item._id}
+                />
+              )
+            })
+          )}
+```
+
+The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
+
+```
+(posts.map((item) =>
+// Presently we only fetch
+// title from the API
+
+<h4>{item.title}</h4>)
+)
+```
+
+- <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
+- <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
+- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and returned the image slider component created by pranav to display each item.
+
+*****
+### cart.js
+
+*Lines 144-190*
+
+```
+         {isCheckoutOpen && (
+            <div className="checkoutOverlay">
+              <div className="checkoutContent">
+                <h2 className="checkoutHeading">Place Order</h2>
+                <form>
+                  <div className="formRow">
+                    <label className="checkoutLabel">Shipping Address</label>
+                    <input
+                      id="addressInput"
+                      type="text"
+                      value={address}
+                      onChange={handleAddressChange}
+                    />
+                  </div>
+
+                  <div className="formRow">
+                    <label className="checkoutLabel">Payment Method</label>
+                    <select
+                      id="paymentMethod"
+                      onChange={handlePaymentChange}
+                    >
+                      <option>Chose Payment Method</option>
+                      {Array.isArray(payments) &&
+                        payments.map((payment) => (
+                          <option key={payment._id} value={payment._id}>
+                            {payment.card_number}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                  <div className="postAd-button formRow">
+                    <p className="checkoutLabel" >Total: ${totalPrice.toFixed(2)}</p>
+                  </div>
+                  <div className="postAd-button formRow">
+                    <button type="button" onClick={handleCreateOrder}>
+                      Place Order
+                    </button>
+                  </div>
+                  <div className="postAd-button formRow">
+                    <button type="button" onClick={handleCheckoutClose}>
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+```
+
+The code above was created by adapting the code in [geeksforgeeks](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) as shown below:
+
+```
+import React, { useState } from "react";
+import styles from "./App.module.css";
+
+import Modal from "./components/Modal";
+
+const App = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <main>
+      <button className={styles.primaryBtn} onClick={() => setIsOpen(true)}>
+        Open Modal
+      </button>
+      {isOpen && <Modal setIsOpen={setIsOpen} />}
+    </main>
+  );
+};
+
+export default App;
+```
+
+- <How> The code in [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) was implemented by Patrick Wooden
+- <Why> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was used because it allows for the required component to be displayed/hidden when the user clicks certian buttons
+- <How> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was modified by returning a form directly in that check instead of opening a model. I also call a method directly to close the popup instead of directly changing the values like they do in the code I referenced it from.
+
+*****
+
+### cart.js
+
+*Lines 62-64*
+
+```
+  const totalPrice = cart.length > 0
+    ? cart.reduce((total, item) => total + parseInt(item.ad_details.price), 0)
+    : 0;
+```
+
+The code above was created by adapting the code in [Mdm](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) as shown below:
+
+```
+const array1 = [1, 2, 3, 4];
+
+// 0 + 1 + 2 + 3 + 4
+const initialValue = 0;
+const sumWithInitial = array1.reduce(
+  (accumulator, currentValue) => accumulator + currentValue,
+  initialValue
+);
+
+console.log(sumWithInitial);
+// Expected output: 10
+
+```
+
+- <How> The code in [Mdm](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) was implemented by Patrick Wooden
+- <Why> [Mdm](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)'s Code was used because it allows the total price in the users cart
+- <How> [Mdm](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)'s Code was modified by adding a if statement to check to make sure that the cart array has items in it before trying to get the total. I also used parseInt and call the certian items price instead of currentValue like the example above does. 
+
+*****
+
+### rating.js
+
+*Lines 6-23*
+
+```
+const ResponsiveStarRating = ({ value, handleRatingChange}) => {
+
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Rating name="responsive-rating" value={value} precision={0.5} onClick={handleRatingChange}sx={{
+        fontSize: '10px',
+        '@media (min-width: 600px)': {
+          fontSize: '20px', 
+        },
+        '@media (min-width: 600px)': {
+          fontSize: '20px', 
+        },
+        '@media (min-width: 807px)': {
+          fontSize: '26px', 
+        },
+      }}/>
+    </Box>
+  );
+};
 ```
 
 The code above was created by adapting the code in [mui](https://mui.com/material-ui/react-rating/) as shown below:
@@ -384,18 +866,63 @@ The code above was created by adapting the code in [mui](https://mui.com/materia
 
 - <How> The code in [mui](https://mui.com/material-ui/react-rating/) was implemented by Patrick Wooden
 - <Why> [mui](https://mui.com/material-ui/react-rating/)'s Code was used because it allows us to allow users to enter a star rating with their product when creating a review
-- <How> [mui](https://mui.com/material-ui/react-rating/)'s Code was modified by changing the default value to the existing star rating if there was already a review created. If there is not a existing review the star rating is set to 1 by default. I also added a onclick method which updates the star_rating value when the user sets a star review. 
+- <How> [mui](https://mui.com/material-ui/react-rating/)'s Code was modified by changing the default value to whatever value is passed through as value to the responsiveStarRating. I also modified it by making it responsive as the code above shows, so that when the screen size is changed it will be responsive as the default rating from mui is not responsive.
+
+*****
+
+### star_rating.js
+
+*Lines 6-21*
+
+```
+const ResponsiveStarRatingDisplay = ({ value}) => {
+
+  return (
+   
+    <span sx={{ display: 'flex', alignItems: 'center' }}>
+      <Rating name="responsive-rating" value={value} precision={0.5} readOnly sx={{
+        fontSize: '10px',
+        '@media (min-width: 600px)': {
+          fontSize: '20px', 
+        },
+        '@media (min-width: 600px)': {
+          fontSize: '20px', 
+        },
+        '@media (min-width: 807px)': {
+          fontSize: '26px', 
+        },
+      }}/>
+    </span>
+    
+  );
+};
+```
+
+The code above was created by adapting the code in [mui](https://mui.com/material-ui/react-rating/) as shown below:
+
+```
+<Rating name="half-rating" defaultValue={2.5} precision={0.5} readOnly />
+```
+
+- <How> The code in [mui](https://mui.com/material-ui/react-rating/) was implemented by Patrick Wooden
+- <Why> [mui](https://mui.com/material-ui/react-rating/)'s Code was used because it allows us to allow users to see the star rating they left on a review while not being able to change it.
+- <How> [mui](https://mui.com/material-ui/react-rating/)'s Code was modified by changing the default value to whatever value is passed through as value to the responsiveStarRatingDisplay. I also modified it by making it responsive as the code above shows, so that when the screen size is changed it will be responsive as the default rating from mui is not responsive.
 
 *****
 
 ### create-review.js
 
-*Lines 72 and 76*
+*Lines 67 and 72 and 117*
 
 onClose();
 
-```
+---------
+
 onClose();
+
+--------
+
+ <button  className="reviewButton" type="button" onClick={onClose}>
 ```
 
 The code above was created by adapting the code in [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) as shown below:
@@ -441,48 +968,348 @@ const Modal = ({ setIsOpen }) => {
 - <How> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was modified by changing the methods name that handles closing the component. Instead of it manually being changed to false here a method that is created in the ratings-review file is called which does it for us. I also return a form instead of two buttons like the example shows, as well as pass through more props to use like the selectedAdId of the review the user has clicked to add.
 
 *****
-### cart.js
 
-*Lines 137-146*
+
+### payments.js
+
+*Lines 51 and 65 and 171*
+
+onClose();
+
+----------
+
+onClose();
+
+--------
+
+<button className="paymentButton" type="button" onClick={handleEditPaymentClose}>
+
+--------
+
+<button className="paymentButton" type="button" onClick={handleCreatePaymentClose}>
+```
+
+The code above was created by adapting the code in [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) as shown below:
 
 ```
- Array.isArray(reviews) && reviews.map((review) => (
-              <div key={review._id}>
-                <ReviewCard
-                  key={review._id}
-                  review={review}
-                  handleCreateReviewOpen={handleCreateReviewOpen}
-                />
+const Modal = ({ setIsOpen }) => {
+  return (
+    <>
+      <div className={styles.darkBG} onClick={() => setIsOpen(false)} />
+      <div className={styles.centered}>
+        <div className={styles.modal}>
+          <div className={styles.modalHeader}>
+            <h5 className={styles.heading}>Dialog</h5>
+          </div>
+          <button className={styles.closeBtn} onClick={() => setIsOpen(false)}>
+            <RiCloseLine style={{ marginBottom: "-3px" }} />
+          </button>
+          <div className={styles.modalContent}>
+            Are you sure you want to delete the item?
+          </div>
+          <div className={styles.modalActions}>
+            <div className={styles.actionsContainer}>
+              <button className={styles.deleteBtn} onClick={() => setIsOpen(false)}>
+                Delete
+              </button>
+              <button
+                className={styles.cancelBtn}
+                onClick={() => setIsOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+- <How> The code in [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) was implemented by Patrick Wooden
+- <Why> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was used because it allows the components for create review, edit review, checkout and create/edit payment components to be displayed to the users without moving them to another page.
+- <How> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was modified by changing the methods name that handles closing the component. Instead of it manually being changed to false here a method that is created in the payments.js file is called which does it for us. I also return a form instead of two buttons like the example shows, as well as pass through more props to use like the selectedPaymentId of the payment the user has clicked.
+
+*****
+
+
+### payments.js
+
+*Lines 150 and 320-324*
+
+
+```
+handleCreatePaymentClose();
+
+----------
+ <div className="formRow">
+                  <button className="paymentButton" type="button" onClick={handleEditPaymentClose}>
+                    Cancel
+                  </button>
+                </div>
+```
+
+The code above was created by adapting the code in [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) as shown below:
+
+```
+const Modal = ({ setIsOpen }) => {
+  return (
+    <>
+      <div className={styles.darkBG} onClick={() => setIsOpen(false)} />
+      <div className={styles.centered}>
+        <div className={styles.modal}>
+          <div className={styles.modalHeader}>
+            <h5 className={styles.heading}>Dialog</h5>
+          </div>
+          <button className={styles.closeBtn} onClick={() => setIsOpen(false)}>
+            <RiCloseLine style={{ marginBottom: "-3px" }} />
+          </button>
+          <div className={styles.modalContent}>
+            Are you sure you want to delete the item?
+          </div>
+          <div className={styles.modalActions}>
+            <div className={styles.actionsContainer}>
+              <button className={styles.deleteBtn} onClick={() => setIsOpen(false)}>
+                Delete
+              </button>
+              <button
+                className={styles.cancelBtn}
+                onClick={() => setIsOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+- <How> The code in [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc) was implemented by Patrick Wooden
+- <Why> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was used because it allows the components for create review, edit review, checkout and create/edit payment components to be displayed to the users without moving them to another page.
+- <How> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was modified by changing the methods name that handles closing the component. Instead of it manually being changed to false here a method that is created in the payments.js file is called which does it for us. I also return a form instead of two buttons like the example shows.The onclose method is passed through to the component instead of manually changing the value like the example shows.
+
+*****
+
+### orders-buyers.js
+
+*Lines 33-90*
+
+```
+     <div className='order-seller-page-main-container'>
+          <div className='order-seller-page-section1'>
+              <br/>
+              <h1> Orders Listing</h1>
+              <br/>
+               <nav className="order-seller-page-navbar">
+                  <ul className='order-seller-page-nav-list'>
+                      <li className={currentLocation === "#order-history" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#order-history" onClick={() => handleLocation("#order-history")}> Order History </NavLink>
+                      </li>
+                      <li className={currentLocation === "#track-orders" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#track-orders" onClick={() => handleLocation("#track-orders")}> Track Orders </NavLink>
+                      </li>
+                      <li className={currentLocation === "#favourites" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#favourites" onClick={() => handleLocation("#favourites")}> Favourites </NavLink>
+                      </li>
+                      <li className={currentLocation === "#payments" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#payments" onClick={() => handleLocation("#payments")}> Payments </NavLink>
+                      </li>
+                      <li className={currentLocation === "#reviews" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#reviews" onClick={() => handleLocation("#reviews")}> Reviews </NavLink>
+                      </li>
+                      <li className={currentLocation === "#cart" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#cart" onClick={() => handleLocation("#cart")}> Cart </NavLink>
+                      </li>
+                     
+                  </ul>
+              </nav>
+          </div>
+          {savePageName === "#order-history" ? (
+              <div className='order-seller-page-section2'>
+                  <OrderHistoryPage/>
               </div>
-            ))
-          )}
+          ) : savePageName === "#track-orders" ?  (
+              <div className='order-seller-page-section2'>
+                  <TrackOrders/>
+              </div>
+          ) : savePageName === "#favourites" ?  (
+              <div className='order-seller-page-section2'>
+                  <Favourites/>
+              </div>
+          ) : savePageName === "#payments" ?  (
+              <div className='order-seller-page-section2'>
+                  <AccountPayments/>
+              </div>
+          ) : savePageName === "#reviews" ?  (
+              <div className='order-seller-page-section2'>
+                  <RatingAndReviews/>
+              </div>
+          ) : savePageName === "#cart" ?  (
+              <div className='order-seller-page-section2'>
+                  <Cart/>
+              </div>
+          )  : (null)}
+      </div>
+  );
+
+};
+
 ```
 
-The code above was created by adapting the code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs//) as shown below:
+The code above was created by adapting the code in [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts) as shown below:
 
 ```
-(posts.map((item) =>
-// Presently we only fetch
-// title from the API
+<button onClick={() => setActive('FirstCard)}> One</button>
 
-<h4>{item.title}</h4>)
+<div>
+{active === "FirstCard" && <Card data={Data} cardIndex='0'/>}
+```
+
+- <How> The code in [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts) was implemented by Patrick Wooden
+- <Why> [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts)'s Code was used because it allowed for all the order page components to be rendered and displayed on the orders page without being moved to another page. I also used this code for making the current page in the orders navbar be a different color to show it is the active link
+- <How> [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts)'s Code was modified by placing the onclick handler inside a navlink instead of a button. I also used different names for the states as well as returned pages that were created like orderhistory and did not pass any data into them. I also removed the cardIndex that they had used. I also modified it for the NavLinks by adding a condtional modifier for applying the active_page_navigation styling when active was equal to that page.
+
+
+*****
+### orders-buyers.js
+
+*Lines 33-90*
+
+```
+     <div className='order-seller-page-main-container'>
+          <div className='order-seller-page-section1'>
+              <br/>
+              <h1> Orders Listing</h1>
+              <br/>
+               <nav className="order-seller-page-navbar">
+                  <ul className='order-seller-page-nav-list'>
+                      <li className={currentLocation === "#order-history" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#order-history" onClick={() => handleLocation("#order-history")}> Order History </NavLink>
+                      </li>
+                      <li className={currentLocation === "#track-orders" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#track-orders" onClick={() => handleLocation("#track-orders")}> Track Orders </NavLink>
+                      </li>
+                      <li className={currentLocation === "#favourites" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#favourites" onClick={() => handleLocation("#favourites")}> Favourites </NavLink>
+                      </li>
+                      <li className={currentLocation === "#payments" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#payments" onClick={() => handleLocation("#payments")}> Payments </NavLink>
+                      </li>
+                      <li className={currentLocation === "#reviews" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#reviews" onClick={() => handleLocation("#reviews")}> Reviews </NavLink>
+                      </li>
+                      <li className={currentLocation === "#cart" ? "order_seller_page_active_page_navigation" : ""}>
+                          <NavLink to="#cart" onClick={() => handleLocation("#cart")}> Cart </NavLink>
+                      </li>
+                     
+                  </ul>
+              </nav>
+          </div>
+          {savePageName === "#order-history" ? (
+              <div className='order-seller-page-section2'>
+                  <OrderHistoryPage/>
+              </div>
+          ) : savePageName === "#track-orders" ?  (
+              <div className='order-seller-page-section2'>
+                  <TrackOrders/>
+              </div>
+          ) : savePageName === "#favourites" ?  (
+              <div className='order-seller-page-section2'>
+                  <Favourites/>
+              </div>
+          ) : savePageName === "#payments" ?  (
+              <div className='order-seller-page-section2'>
+                  <AccountPayments/>
+              </div>
+          ) : savePageName === "#reviews" ?  (
+              <div className='order-seller-page-section2'>
+                  <RatingAndReviews/>
+              </div>
+          ) : savePageName === "#cart" ?  (
+              <div className='order-seller-page-section2'>
+                  <Cart/>
+              </div>
+          )  : (null)}
+      </div>
+  );
+
+};
+
+```
+
+The code above was created by adapting the code in [w3schools](https://www.w3schools.com/jsref/prop_loc_hash.asp) as shown below:
+
+```
+<a href="/js/js_strings.asp#part2">JavaScript Strings</a>
+
+location.hash = "part5";
+```
+
+- <How> The code in [w3schools](https://www.w3schools.com/jsref/prop_loc_hash.asp) was implemented by Pranav Mahindru (I reused part of his code here so our subnavs worked the same so im referening the source and trying to explain it the best I can so please refer to his read me for a better understanding)
+- <Why> [w3schools](https://www.w3schools.com/jsref/prop_loc_hash.asp)'s Code was used because it fixed problems with subnav which has #PageName, it fixes the top navigation refer to the given link by using `location.hash` in the navigation pages
+- <How> [w3schools](https://www.w3schools.com/jsref/prop_loc_hash.asp)'s Code was modified by creating lis that each of the hashes are in. Also Navlinks are used not <a herf> like the example shows.
+
+*****
+
+### model.js
+
+*Lines 355-35 and 445-448*
+
+```
+ const payment = await Collection.updateOne(
+      { _id: paymentId },
+      { $set: paymentData }
+    );
+
+------------
+
+ const review = await Collection.updateOne(
+      { _id: reviewId },
+      { $set: reviewData }
+    );
+
+
+
+---------
+
+
+
+
+```
+
+The code above was created by adapting the code in [mongodb](https://www.mongodb.com/docs/manual/reference/operator/update/set/) as shown below:
+
+```
+db.products.updateOne(
+   { _id: 100 },
+   { $set:
+      {
+        quantity: 500,
+        details: { model: "2600", make: "Fashionaires" },
+        tags: [ "coats", "outerwear", "clothing" ]
+      }
+   }
 )
 ```
 
-- <How> The code in [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/) was implemented by Patrick Wooden
-- <Why> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was used because It allows us map through each order and create a card to display them in
-- <How> [geeksforgeeks](https://www.geeksforgeeks.org/how-to-fetch-data-from-apis-using-asynchronous-await-in-reactjs/)'s Code was modified by adding a grid wrap around each item, changing the name of the array that was mapped out and used my own card component I created. I also added a check to make sure the reviews object is a array before mapping it out
+- <How> The code in [mongodb](https://www.mongodb.com/docs/manual/reference/operator/update/set/) was implemented by Patrick Wooden
+- <Why> [mongodb](https://www.mongodb.com/docs/manual/reference/operator/update/set/)'s Code was used because it allowed for the reviews and payments to be updated in the database.
+- <How> [mongodb](https://www.mongodb.com/docs/manual/reference/operator/update/set/)'s Code was modified by changing what was in the $set. Instead of.
 
 *****
-### cart.js
 
-*Lines 147-152*
+### ratings-reviews.js
+
+*Lines 69-73*
 
 ```
-     {isCreateModalOpen && (
+  {isCreateReviewOpen && (
             <div className="modalOverlay">
-              <CreateReview onClose={handleCreateReviewClose
-} selectedAdId={selectedAdId} />
+              <CreateReview onClose={handleCreateReviewClose} selectedAdId={selectedAdId} />
             </div>
           )}
 ```
@@ -515,55 +1342,8 @@ export default App;
 - <How> [dev](https://dev.to/franciscomendes10866/how-to-create-a-modal-in-react-3coc)'s Code was modified by using different variable names for holding the value of the component being open or not. I also return my own component instead of the shown modal compoent and also pass in extra props to the component like selectedAdId for example. I also use two event handles to set my handler for opening the component, one for true and one for false which I can call instead of manually changing the value in the onclick like the code above shows.
 
 *****
-### orders-buyers.js
 
-*Lines 31-56*
 
-```
-<NavLink href="/order-history" className="simple-navbar-link" onClick={() => handleNavLinkClick('order-history')}>Order History</NavLink>
-  </li>
-  <li className={`order-navbar-item ${active === 'track-orders' ? 'active_page_navigation' : ''}`}>
-    <NavLink href="/track-orders" className="simple-navbar-link" onClick={() => handleNavLinkClick('track-orders')}>Track Orders</NavLink>
-  </li>
-  <li className={`order-navbar-item ${active === 'favourites' ? 'active_page_navigation' : ''}`}>
-    <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('favourites')}>Favourites</NavLink>
-  </li>
-  <li className={`order-navbar-item ${active === 'payments' ? 'active_page_navigation' : ''}`}>
-    <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('payments')}>Payments</NavLink>
-  </li>
-  <li className={`order-navbar-item ${active === 'rating-review' ? 'active_page_navigation' : ''}`}>
-    <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('rating-review')}>Rating/Review</NavLink>
-  </li>
-  <li className={`order-navbar-item ${active === 'cart' ? 'active_page_navigation' : ''}`}>
-    <NavLink href="#" className="simple-navbar-link" onClick={() => handleNavLinkClick('cart')}>Cart</NavLink>
-  </li>
-</ul>
-</nav>
-<div className='PageContainer'>
-  {active === 'order-history' && <OrderHistoryPage />}
-  {active === 'track-orders' && <TrackOrders />}
-  {active === 'favourites' && <Favourites />}
-  {active === 'payments' && <AccountPayments />}
-  {active === 'rating-review' && <RatingAndReviews />}
-  {active === 'cart' && <Cart />}
-```
-
-The code above was created by adapting the code in [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts) as shown below:
-
-```
-<button onClick={() => setActive('FirstCard)}> One</button>
-
-<div>
-{active === "FirstCard" && <Card data={Data} cardIndex='0'/>}
-```
-
-- <How> The code in [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts) was implemented by Patrick Wooden
-- <Why> [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts)'s Code was used because it allowed for all the order page components to be rendered and displayed on the orders page without being moved to another page. I also used this code for making the current page in the orders navbar be a different color to show it is the active link
-- <How> [h3webdevtuts](https://www.youtube.com/watch?v=eGaaw1Py2aY&t=708s&ab_channel=h3webdevtuts)'s Code was modified by placing the onclick handler inside a navlink instead of a button. I also used different names for the states as well as returned pages that were created like orderhistory and did not pass any data into them. I also removed the cardIndex that they had used. I also modified it for the NavLinks by adding a condtional modifier for applying the active_page_navigation styling when active was equal to that page.
-
-Sources for images used:
-The images below were used in this assignment with proper author attributions which were retrived off Creative Commons
-"Catalana LEGO Sports Car" by dluders is licensed under CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/?ref=openverse.
 
 *****
 
