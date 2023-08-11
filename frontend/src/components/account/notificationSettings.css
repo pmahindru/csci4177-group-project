@@ -9,12 +9,13 @@
     padding: 1% 0%;
 }
 
-.notificationSettings-form > li {
+.notificationSettings-form>li {
     list-style: none;
     background-color: lightgray;
     margin: 3px;
     padding: 3vh;
 }
+
 .notificationSettings-toggle {
     float: right;
 }
@@ -26,14 +27,14 @@
     align-content: center;
 }
 
-.save-profile-settings-button > button {
+.save-profile-settings-button>button {
     padding: 8px;
     margin: 0 10px;
     cursor: pointer;
     background-color: white;
 }
 
-.save-profile-settings-button > button a {
+.save-profile-settings-button>button a {
     color: black;
     text-decoration: none;
 }

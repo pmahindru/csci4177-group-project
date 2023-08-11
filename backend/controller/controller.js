@@ -11,7 +11,6 @@ const uuid = require("uuid");
 // URL: https://nodemailer.com/about/
 // Date Accessed: 07/23/2023
 // Used by Saiz Charolia
-
 const nodemailer = require("nodemailer");
 // transporter created by Saiz Charolia
 const transporter = nodemailer.createTransport({
@@ -21,7 +20,6 @@ const transporter = nodemailer.createTransport({
     pass: "kibbicuuhilxovsj",
   },
 });
-
 // getSignUpUser created by Saiz Charolia
 const getSignUpUser = async (req, res) => {
   try {
@@ -31,8 +29,8 @@ const getSignUpUser = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 // getSignUpUser created by Saiz Charolia
+const bcrypt = require('bcryptjs');
 const registerUser = async (req, res) => {
   try {
     const isEmailExists = await model.checkEmailExists({
@@ -64,7 +62,6 @@ const registerUser = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 // loginUser created by Saiz Charolia
 const loginUser = async (req, res) => {
   try {
@@ -79,7 +76,9 @@ const loginUser = async (req, res) => {
       return;
     }
 
-    if (data.password !== req.body.password) {
+    const isPasswordValid = await bcrypt.compare(req.body.password, data.password);
+
+    if (!isPasswordValid) {
       res.status(401).json({ message: "Invalid Password" });
       return;
     }
@@ -89,10 +88,20 @@ const loginUser = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 // generateResetCode created by Saiz Charolia
 const generateResetCode = async (req, res) => {
   try {
+    const isEmailExists = await model.checkEmailExists({
+      email: req.body.email,
+    });
+
+    if (!isEmailExists) {
+      res
+        .status(400)
+        .json({ message: "Email doesn't exists\nUse a different email" });
+      return;
+    }
+
     const { email, resetCode } = req.body;
 
     const updatedUser = await model.saveResetCode(email, resetCode);
@@ -117,15 +126,14 @@ const generateResetCode = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 // verifyResetCode created by Saiz Charolia
 const verifyResetCode = async (req, res) => {
   try {
     const { email, resetCode } = req.query;
-
     const isCodeValid = await model.verifyCode(email, resetCode);
 
     if (isCodeValid) {
+      await model.deleteCode(email, resetCode);
       res.status(200).json({ message: "Reset code is valid." });
     } else {
       res.status(400).json({ message: "Reset code is not valid." });
@@ -134,7 +142,6 @@ const verifyResetCode = async (req, res) => {
     res.status(500).json({ message: "Internal server error." });
   }
 };
-
 // resetNewPassword created by Saiz Charolia
 const resetNewPassword = async (req, res) => {
   try {
@@ -147,19 +154,16 @@ const resetNewPassword = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 //get order history with users id (Patrick Wooden)
 const getOrderHistory = async (req, res) => {
   try {
     const userId = req.params.userId;
     const data = await model.getOrderHistory(userId);
-
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json(error);
   }
 };
-
 //get cart with users id (Patrick Wooden)
 const getCart = async (req, res) => {
   try {
@@ -186,10 +190,7 @@ const deleteCartItem = async (req, res) => {
 //create a new order using request data(Patrick Wooden)
 const createOrder = async (req, res) => {
   try {
-
     const orders = req.body.orderArray; 
-    
-    
     const newOrders = orders.map((order) => ({
       _id: uuid.v4(),
       user_id: order.user_id,
@@ -198,7 +199,6 @@ const createOrder = async (req, res) => {
       address: order.address,
       status: order.status,
     }));
-    
 
     const response = await model.createOrder(newOrders);
 
@@ -207,13 +207,11 @@ const createOrder = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 // get all payment methods for logged in user id(Patrick Wooden)
 const getPayments = async (req, res) => {
   try {
     const userId = req.params.userId;
     const data = await model.getPayments(userId);
-
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json(error);
@@ -257,11 +255,7 @@ const createPayment = async (req, res) => {
       address: req.body.address,
     };
     const response = await model.createPayment(newPayment);
-    if (response && response.data) {
-      res.status(200).json(data);
-    } else {
-      res.status(500).json(error);
-    }
+    res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -292,7 +286,6 @@ const getFavourites = async (req, res) => {
   try {
     const userId = req.params.userId;
     const data = await model.getFavourites(userId);
-
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json(error);
@@ -327,7 +320,15 @@ const getReview = async (req, res) => {
     const adId = req.params.adId;
     const userId = req.params.userId;
     const data = await model.getReview(userId, adId);
-
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+//get a specific review using the adId (Pranav Mahindru)
+const getReviewWithAdId = async (req, res) => {
+  try {
+    const data = await model.getReviewWithAdId({"ad_id": req.params.adId});
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json(error);
@@ -356,7 +357,6 @@ const getTrackedOrders = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 //create a new favourite ad based off request body (Patrick Wooden)
 const createFavourite = async (req, res) => {
   try {
@@ -366,7 +366,6 @@ const createFavourite = async (req, res) => {
       ad_id: req.body.ad_id,
     };
     const response = await model.createFavourite(newFavourite);
-
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json(error);
@@ -387,7 +386,6 @@ const createCartItem = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 const addMessage = async (req, res, next) => {
   try {
     const { from, to, message } = req.body;
@@ -407,7 +405,6 @@ const addMessage = async (req, res, next) => {
     next(ex);
   }
 };
-
 const getMessages = async (req, res, next) => {
   try {
     const { from, to } = req.body;
@@ -429,7 +426,6 @@ const getMessages = async (req, res, next) => {
     res.status(500).json(error);
   }
 };
-
 const getAllUsers = async (req, res, next) => {
   try {
     const users = await model.findUsers({ _id: { $ne: req.params.id } });
@@ -438,7 +434,6 @@ const getAllUsers = async (req, res, next) => {
     res.status(500).json(ex);
   }
 };
-
 // SELLER PORTAL CONTROLLER METHODS
 // add new post Ad (Pranav Mahindru)
 const addNewPostAd = async (req,res) => {
@@ -472,7 +467,6 @@ const addNewPostAd = async (req,res) => {
       res.status(500).json(error);
     }
 }
-
 // save post Ad (Pranav Mahindru)
 const savePostAd = async (req,res) => {
     try {
@@ -506,113 +500,101 @@ const savePostAd = async (req,res) => {
       res.status(500).json(error);
     }
 }
-
 // get all posted Ad (Pranav Mahindru)
 const getAllSavePostedAd = async (req,res) => {
-    try {
-      const { _id, user_id} = req.body
-      if (req.body.user_id !== undefined) {
-        const data = await model.getAllSavePostedAd({"user_id": req.body.user_id});
-        res.status(200).json(data);
-      }
-      else {
-        const data = await model.getAllSavePostedAd({"_id": req.body._id});
-        res.status(200).json(data);
-      }
-    } catch (error) {
-      res.status(500).json(error);
+  try {
+    if (req.body.user_id !== undefined) {
+      const data = await model.getAllSavePostedAd({"user_id": req.body.user_id});
+      res.status(200).json(data);
     }
+    else {
+      const data = await model.getAllSavePostedAd({"_id": req.body._id});
+      res.status(200).json(data);
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
-
 // get all posted Ad (Pranav Mahindru)
 const getAllPostedAd = async (req,res) => {
-    try {
-      const data = await model.getAllPostedAd({"user_id": req.body.user_id, "isActive": req.body.isActive});
-      res.status(200).json(data);
-    } catch (error) {
-      res.status(500).json(object);
-    }
+  try {
+    const data = await model.getAllPostedAd({"user_id": req.body.user_id, "isActive": req.body.isActive});
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json(object);
+  }
 }
-
 const getPostForDashboard = async (req,res) => {
-    try {
-      const data = await model.getAllPostedAd({});
-      res.status(200).json(data);
-    } catch (error) {
-      res.status(500).json(object);
-    }
+  try {
+    const data = await model.getAllPostedAd({});
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json(object);
+  }
 }
-
 // get posted Ad with specific Id (Pranav Mahindru)
 const getPostAdWithId = async (req,res) => {
-    try {
-      const data = await model.getAllPostedAd({"_id": req.params.postId});
-      res.status(200).json(data);
-    } catch (error) {
-      res.status(500).json(error);
-    }
+  try {
+    const data = await model.getAllPostedAd({"_id": req.params.postId});
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
-
 // pause posted Ad with specific Id (Pranav Mahindru)
 const pausePostAdWithId = async (req,res) => {
-    try {
-      const data = await model.pausePostAdWithId(req.body);
-      res.status(200).json(data);
-    } catch (error) {
-      res.status(500).json(error);
-    }
+  try {
+    const data = await model.pausePostAdWithId(req.body);
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
-
 // get posted Ad with specific Id (Pranav Mahindru)
 const updatePostWithId = async (req,res) => {
-    try {
-      await model.updatePostWithId({"_id": req.params.postId}, {$set: req.body});
-      res.status(200).json({message: "Successfully Update Ad"});
-    } catch (error) {
-      res.status(500).json(error);
-    }
+  try {
+    await model.updatePostWithId({"_id": req.params.postId}, {$set: req.body});
+    res.status(200).json({message: "Successfully Update Ad"});
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
-
 // preview save posted Ad with specific Id (Pranav Mahindru)
 const previewSavePostAd = async (req,res) => {
-    try {
-      await model.previewSavePostAd({"_id": req.params.postId}, {$set: req.body});
-      res.status(200).json({message: "Successfully Update Ad"});
-    } catch (error) {
-      res.status(500).json(error);
-    }
+  try {
+    await model.previewSavePostAd({"_id": req.params.postId}, {$set: req.body});
+    res.status(200).json({message: "Successfully Update Ad"});
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
-
 // delete posted Ad with specific Id (Pranav Mahindru)
 const deletePostWithId = async (req,res) => {
-    try {
-      await model.deletePostWithId({"_id": req.params.postId});
-      res.status(200).json({message: "Successfully Delete Ad"});
-    } catch (error) {
-      res.status(500).json(error);
-    }
+  try {
+    await model.deletePostWithId({"_id": req.params.postId});
+    res.status(200).json({message: "Successfully Delete Ad"});
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
-
 // delete save Ad with specific Id (Pranav Mahindru)
 const deleteSaveWithId = async (req,res) => {
-    try {
-      await model.deleteSaveWithId({"_id": req.params.postId});
-      res.status(200).json({message: "Successfully Delete Ad"});
-    } catch (error) {
-      res.status(500).json(error);
-    }
+  try {
+    await model.deleteSaveWithId({"_id": req.params.postId});
+    res.status(200).json({message: "Successfully Delete Ad"});
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
-
 // get user with specific Id (Pranav Mahindru)
 const loginUserModel = async (req,res) => {
-    try {
-      const data = await model.loginUserModel({"_id": req.params.userId});
-      res.status(200).json(data);
-    } catch (error) {
-      res.status(500).json(error);
-    }
+  try {
+    const data = await model.loginUserModel({"_id": req.params.userId});
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
-
 // for the 2FA (Pranav Mahindru)
 // refer to the generate reset code method
 const twoFactorAuthentication = async (req, res) => {
@@ -638,7 +620,6 @@ const twoFactorAuthentication = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 const addToUserInteraction = async (req, res) => {
   try {
       const data = await model.addToUserInteraction(req.body, uuid.v4());
@@ -647,7 +628,14 @@ const addToUserInteraction = async (req, res) => {
       res.status(500).json(error);
     }
 };
-
+const getToUserInteraction = async (req, res) => {
+  try {
+    const data = await model.getToUserInteraction({"user_id": req.params.userId, "isActive": true});
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 /* User Profile Settings READ and UPDATE ControllerS | By: Joel Kuruvilla */
 const userProfileSettingsRead = async (req, res) => { //Profile READ Controller | Joel Kuruvilla
   try {
@@ -669,7 +657,6 @@ const userProfileSettingsUpdate = async (req, res) => { //Profile UPDATE Control
     res.status(500).json(error);
   }
 };
-
 /* User SignUp UPDATE Controller | By: Joel Kuruvilla */
 const signupUpdate = async (req, res) => { //SignUp Controller | Joel Kuruvilla
   try {
@@ -682,7 +669,6 @@ const signupUpdate = async (req, res) => { //SignUp Controller | Joel Kuruvilla
     res.status(500).json(error);
   }
 };
-
 /* User Notification Settings READ and UPDATE ControllerS | By: Joel Kuruvilla */
 const userNotificationSettingsRead = async (req, res) => { //Notifications READ Controller | Joel Kuruvilla
   try {
@@ -704,7 +690,7 @@ const userNotificationSettingsUpdate = async (req, res) => { //Notifications UPD
     res.status(500).json(error);
   }
 };
-
+// export all methods
 module.exports = {
   getSignUpUser,
   registerUser,
@@ -751,4 +737,6 @@ module.exports = {
   loginUserModel,
   twoFactorAuthentication,
   addToUserInteraction,
+  getToUserInteraction,
+  getReviewWithAdId,
 };

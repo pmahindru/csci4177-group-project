@@ -22,7 +22,7 @@ function DashBoardSeller() {
             }
         }
         getData();
-    }, [])
+    }, [user_data])
     return (
         <div className='dashboardSeller-main-container'>
             <div className='dashboardSeller-section1'>

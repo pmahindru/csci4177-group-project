@@ -170,4 +170,3 @@ function NavBarBuyer() {
 }
 
 export default NavBarBuyer;
-

@@ -5,7 +5,6 @@ import { addToUserInteraction, getPostForDashboard } from "../../../api";
 import ReactLoading from "react-loading";
 import { NavLink, useNavigate } from "react-router-dom";
 
-
 function DashBoardBuyer() {
     const [loading, setLoading] = useState(true);
     const [getArrayVehicle, setArrayVehicle] = useState([]);
@@ -69,7 +68,7 @@ function DashBoardBuyer() {
                                         <NavLink onClick={() => handleClick(item._id)} key={item._id}>
                                             <div className="dashboardBuyer-card-view">        
                                                 <div className="dashboardBuyer-card-view-text">
-                                                    <img src={item.image[0]} width="100" height="100"/>
+                                                    <img src={item.image[0]} width="100" height="100" alt={`Vehicle${item._id}`}/>
                                                     <h3 className="card-title">{item.title}</h3>
                                                 </div>
                                             </div>
@@ -89,7 +88,7 @@ function DashBoardBuyer() {
                                         <NavLink onClick={() => handleClick(item._id)} key={item._id}>
                                             <div className="dashboardBuyer-card-view">        
                                                 <div className="dashboardBuyer-card-view-text">
-                                                    <img src={item.image[0]} width="100" height="100"/>
+                                                    <img src={item.image[0]} width="100" height="100" alt={`Items${item._id}`}/>
                                                     <h3 className="card-title">{item.title}</h3>
                                                 </div>
                                             </div>
@@ -109,7 +108,7 @@ function DashBoardBuyer() {
                                             <NavLink onClick={() => handleClick(item._id)} key={item._id}>
                                                 <div className="dashboardBuyer-card-view">        
                                                     <div className="dashboardBuyer-card-view-text">
-                                                        <img src={item.image[0]} width="100" height="100"/>
+                                                        <img src={item.image[0]} width="100" height="100" alt={`Items${item._id}`}/>
                                                         <h3 className="card-title">{item.title}</h3>
                                                     </div>
                                                 </div>
