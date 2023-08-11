@@ -1056,7 +1056,7 @@ const getToUserInteraction = async (data) => {
     for (let i = 0; i < getpostedAd.length; i++) {
       const postAdId = getpostedAd[i]._id;
       const findUserInteraction = await collection.findOne({"ad_id": postAdId});
-      if (findUserInteraction && findUserInteraction !== null) {
+      if (Object.keys(findUserInteraction).length > 0) {
         saveNewArray.push(findUserInteraction)
       }
     }

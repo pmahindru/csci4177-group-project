@@ -98,10 +98,11 @@ const AnalyticalDashboard = () => {
   const getUserInteractionValue = () => {
     const getData = async () => {
       const getAllInteraction = await getToUserInteraction(user_data["_id"]);
+      console.log(getAllInteraction)
       if (!getAllInteraction.address) {
         setUserInteraction(getAllInteraction);
         if (Object.keys(getAllInteraction).length > 0) {
-          setSelectedItem(getAllInteraction[0]._id);
+          setSelectedItem(getAllInteraction[0].ad_id);
         }
       }
     }
@@ -114,6 +115,7 @@ const AnalyticalDashboard = () => {
 
   const handleChangeItem = (item) => {
     setSelectedItem(item);
+
   };
 
   const getActive = () => {
@@ -182,7 +184,7 @@ const AnalyticalDashboard = () => {
       );
     }
 
-    const getValue = getUserInteraction.find(item => item._id = selectedItem)
+    const getValue = getUserInteraction.find(item => item.ad_id === selectedItem)
 
     const clicksData = {
       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
@@ -287,7 +289,7 @@ const AnalyticalDashboard = () => {
       );
     }
 
-    const getValue = getUserInteraction.find(item => item._id = selectedItem)
+    const getValue = getUserInteraction.find(item => item.ad_id === selectedItem)
 
     return (
       <div className="section-insights">
