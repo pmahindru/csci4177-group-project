@@ -12,7 +12,7 @@ server.listen(port, ()=> {
 // for the chats
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://csci4177-group-project-backend.onrender.com",
     credentials: true,
   },
 });
