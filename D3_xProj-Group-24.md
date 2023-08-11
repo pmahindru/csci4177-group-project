@@ -2721,8 +2721,8 @@ _Lines 1 - 77_
 
 ```
 
-const SERVER_URL = "http://localhost:3001";
-const ALL_USERS_ROUTE = "http://localhost:3001/api/allusers";
+const SERVER_URL = "https://csci4177-group-project-backend.onrender.com";
+const ALL_USERS_ROUTE = "https://csci4177-group-project-backend.onrender.com/api/allusers";
 
 const Chat = () => {
   const navigateTo = useNavigate();

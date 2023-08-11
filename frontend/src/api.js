@@ -12,7 +12,7 @@
 import axios from "axios";
 const bcrypt = require('bcryptjs');
 
-const baseURL = "http://localhost:3001/api";
+const baseURL = "https://csci4177-group-project-backend.onrender.com/api";
 
 // generateRandomCode created by Saiz Charolia
 // random number generating referred from iqcode

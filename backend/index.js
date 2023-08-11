@@ -12,7 +12,7 @@ server.listen(port, ()=> {
 // for the chats
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://csci-4177-grp-project-xproj-group-24.netlify.app",
     credentials: true,
   },
 });

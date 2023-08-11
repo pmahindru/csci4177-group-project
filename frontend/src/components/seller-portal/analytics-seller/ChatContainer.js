@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function ChatContainer({ currentChat, socket }) {
   // API routes for sending and receiving messages
-  const sendMessageRoute = "http://localhost:3001/api/addmsg";
-  const receiveMessageRoute = "http://localhost:3001/api/getmsg";
+  const sendMessageRoute = "https://csci4177-group-project-backend.onrender.com/api/addmsg";
+  const receiveMessageRoute = "https://csci4177-group-project-backend.onrender.com/api/getmsg";
 
   // State to store the chat messages and handle scroll
   const [messages, setMessages] = useState([]);
