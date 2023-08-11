@@ -110,106 +110,109 @@ const ImageSlider = ({ item, handleCreateReviewOpen, pageName }) => {
     };
 
     return (
-        <div className='order-page-section4' key={item._id}>
-            {/* image slider */}
-            <div className="seller-image-slider">
-                {item.ad_details.image.map((getImage, index) => (
-                    <div className="slides" key={index}>
-                        {imageSliderObject.some(objectItem => objectItem.prodID === item._id) ? (
-                            imageSliderObject.map(objectItem => {
-                                if (objectItem.prodID === item._id) {
-                                    return (
-                                        <img src={item.ad_details.image[objectItem.pos]} alt={`images${index+1}`} key={index+1}/>
-                                    );
-                                }
-                                return null;
-                            })
-                        ) : (
-                            <img src={item.ad_details.image[0]} alt={`images${index+1}`} key={index}/>
-                        )}
-                        <div className="seller-image-button">
-                            <button onClick={() => handlePreviousImage(item.ad_details.image.length, item._id)}>{"<"}</button>
-                            <button onClick={() => handleNextImage(item.ad_details.image.length, item._id)}>{">"}</button>
+        <>
+        {item.ad_details !== null && (
+            <div className='order-page-section4' key={item._id}>
+                {/* image slider */}
+                <div className="seller-image-slider">
+                    {item.ad_details.image.map((getImage, index) => (
+                        <div className="slides" key={index}>
+                            {imageSliderObject.some(objectItem => objectItem.prodID === item._id) ? (
+                                imageSliderObject.map(objectItem => {
+                                    if (objectItem.prodID === item._id) {
+                                        return (
+                                            <img src={item.ad_details.image[objectItem.pos]} alt={`images${index+1}`} key={index+1}/>
+                                        );
+                                    }
+                                    return null;
+                                })
+                            ) : (
+                                <img src={item.ad_details.image[0]} alt={`images${index+1}`} key={index}/>
+                            )}
+                            <div className="seller-image-button">
+                                <button onClick={() => handlePreviousImage(item.ad_details.image.length, item._id)}>{"<"}</button>
+                                <button onClick={() => handleNextImage(item.ad_details.image.length, item._id)}>{">"}</button>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
+
+                {/* condition */}
+                {pageName === "order-history" && (
+                    <>
+                        <div className='order-seller-page-section5'>
+                            <b>Name: {item.ad_details.title}</b>
+                        </div>
+                        <div className='order-seller-page-section5'>
+                            <b>Price: {item.ad_details.price}</b>
+                        </div>
+                        <div className='order-seller-page-section5'>
+                            <button className="responsive-button" type="button" onClick={() => handleCreateReviewOpen(item.ad_details._id)}> Review</button>
+                        </div>
+                    </>
+                )}
+
+                {pageName === "track-orders" && (
+                    <>
+                        <div className='order-seller-page-section5'>
+                            <b>Status: {item.status}</b>
+                        </div>
+                        <div className='order-seller-page-section5'>
+                            <b>Shipping: {item.address}</b>
+                        </div>
+                    </>
+                )}
+
+                {pageName === "favourites" && (
+                    <>
+                        <div className='order-seller-page-section5'>
+                            <b>Title: {item.ad_details.title}</b>
+                        </div>
+                        <div className='order-seller-page-section5'>
+                            <b>Price: {item.ad_details.price}</b>
+                        </div>
+                        <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
+                            <MoreVertIcon onClick={handleClick} />
+                            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+                                <MenuItem onClick={() => handleRemoveFavourite(item._id)}>Remove from Favorites</MenuItem>
+                            </Menu>
+                        </Grid>
+                    </>
+                )}
+
+                {pageName === "cart" && (
+                    <>
+                        <div className='order-seller-page-section5'>
+                            <b>Title: {item.ad_details.title}</b>
+                        </div>
+                        <div className='order-seller-page-section5'>
+                            <b>Price: {item.ad_details.price}</b>
+                        </div>
+                        <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
+                            <MoreVertIcon onClick={handleClick} />
+                            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+                                <MenuItem onClick={() => handleRemoveCartItem(item._id)}>Remove from cart</MenuItem>
+                            </Menu>
+                        </Grid>
+                    </>
+                )}
+
+                {pageName === "reviews" && (
+                    <>
+                        <div className='order-seller-page-section5'>
+                            <b>Title: {item.ad_details.title}</b>
+                        </div>
+                        <div className='order-seller-page-section5'>
+                            <ResponsiveStarRatingDisplay value={item.star_rating}  /> 
+                        </div>
+                        <div className='order-seller-page-section5'>
+                            <button className="responsive-button" type="button" onClick={() => handleCreateReviewOpen(item.ad_details._id)}> Edit</button>
+                        </div>
+                    </>
+                )}
             </div>
-
-            {/* condition */}
-            {pageName === "order-history" && (
-                <>
-                    <div className='order-seller-page-section5'>
-                        <b>Name: {item.ad_details.title}</b>
-                    </div>
-                    <div className='order-seller-page-section5'>
-                        <b>Price: {item.ad_details.price}</b>
-                    </div>
-                    <div className='order-seller-page-section5'>
-                        <button className="responsive-button" type="button" onClick={() => handleCreateReviewOpen(item.ad_details._id)}> Review</button>
-                    </div>
-                </>
-            )}
-
-            {pageName === "track-orders" && (
-                <>
-                    <div className='order-seller-page-section5'>
-                        <b>Status: {item.status}</b>
-                    </div>
-                    <div className='order-seller-page-section5'>
-                        <b>Shipping: {item.address}</b>
-                    </div>
-                </>
-            )}
-
-            {pageName === "favourites" && (
-                <>
-                    <div className='order-seller-page-section5'>
-                        <b>Title: {item.ad_details.title}</b>
-                    </div>
-                    <div className='order-seller-page-section5'>
-                        <b>Price: {item.ad_details.price}</b>
-                    </div>
-                    <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
-                        <MoreVertIcon onClick={handleClick} />
-                        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-                            <MenuItem onClick={() => handleRemoveFavourite(item._id)}>Remove from Favorites</MenuItem>
-                        </Menu>
-                    </Grid>
-                </>
-            )}
-
-            {pageName === "cart" && (
-                <>
-                    <div className='order-seller-page-section5'>
-                        <b>Title: {item.ad_details.title}</b>
-                    </div>
-                    <div className='order-seller-page-section5'>
-                        <b>Price: {item.ad_details.price}</b>
-                    </div>
-                    <Grid item xs={1} md={1} sx={{ marginRight: '1px' }}>
-                        <MoreVertIcon onClick={handleClick} />
-                        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-                            <MenuItem onClick={() => handleRemoveCartItem(item._id)}>Remove from cart</MenuItem>
-                        </Menu>
-                    </Grid>
-                </>
-            )}
-
-            {pageName === "reviews" && (
-                <>
-                    <div className='order-seller-page-section5'>
-                        <b>Title: {item.ad_details.title}</b>
-                    </div>
-                    <div className='order-seller-page-section5'>
-                        <ResponsiveStarRatingDisplay value={item.star_rating}  /> 
-                    </div>
-                    <div className='order-seller-page-section5'>
-                        <button className="responsive-button" type="button" onClick={() => handleCreateReviewOpen(item.ad_details._id)}> Edit</button>
-                    </div>
-                </>
-            )}
-
-        </div>
+        )}
+        </>
     );
 };
 
