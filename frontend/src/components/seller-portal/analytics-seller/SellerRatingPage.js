@@ -7,22 +7,6 @@ import { getAllPostedAd, getReviewWithAdId } from "../../../api";
 
 
 const SellerRatingPage = () => {
-  // Dummy data for sold items with reviews
-  const soldItems = [
-    {
-      id: 1,
-      name: "Item 1",
-      rating: 4.5,
-      review: "Great product! Highly recommended.",
-    },
-    {
-      id: 2,
-      name: "Item 2",
-      rating: 3.8,
-      review: "Decent product. Could be better.",
-    },
-  ];
-
   const getLocalStorage = localStorage.getItem("user_info");
   const user_data = JSON.parse(getLocalStorage);
   // for active ads
@@ -47,8 +31,12 @@ const SellerRatingPage = () => {
           for (let i = 0; i < activeArr.length; i++) {
             const getAllReview = await getReviewWithAdId(activeArr[i]._id)
             if (!getAllReview.address) {
-              if (getAllReview[0] !== undefined) {
-                ReviewArray.push(getAllReview[0]);
+              if (getAllReview.length > 0) {
+                for (let i = 0; i < getAllReview.length; i++) {
+                  if (getAllReview[i] !== undefined) {
+                    ReviewArray.push(getAllReview[i]);
+                  }                  
+                }
               }
             }
           }
@@ -65,35 +53,36 @@ const SellerRatingPage = () => {
       <br/>
       {getAllActivePost.length > 0 ? (
         getAllActivePost.map(item => (
-            <div className="sold-item" key={item._id}>
-              <h3>{item.title}</h3>
-              {getReviewObjects.length > 0 ? (
-                getReviewObjects.map(itemReview => {
-                  if (item._id === itemReview.ad_id) {
-                    return (
-                      <>
-                        <div className="rating" key={itemReview.ad_id}>
-                          <span className="stars">
-                            {Array.from(Array(Math.floor(itemReview.star_rating)), (_, index) => (
-                              <i key={index} className="fas fa-star"></i>
-                            ))}
-                            {itemReview.star_rating % 1 !== 0 && (
-                              <i className="fas fa-star-half-alt"></i>
-                            )}
-                          </span>
-                          <span className="rating-value">{itemReview.star_rating}</span>
-                        </div>
-                        <p>{itemReview.title}<br/>{itemReview.review}</p>
-                      </>
-                    )
-                  }
-                })
-              ) : (
-                <div className="rating">
-                  This Ad is Active but no review and rating available
-                </div>
-              )}
-            </div>
+            getReviewObjects.length > 0 ? (
+              getReviewObjects.map(itemReview => {
+                if (item._id === itemReview.ad_id) {
+                  return (
+                    <>
+                    <div className="sold-item" key={item._id}>
+                      <h3>{item.title}</h3>
+                      <div className="rating" key={itemReview.ad_id}>
+                        <span className="stars">
+                          {Array.from(Array(Math.floor(itemReview.star_rating)), (_, index) => (
+                            <i key={index} className="fas fa-star"></i>
+                          ))}
+                          {itemReview.star_rating % 1 !== 0 && (
+                            <i className="fas fa-star-half-alt"></i>
+                          )}
+                        </span>
+                        <span className="rating-value">{itemReview.star_rating}</span>
+                      </div>
+                      <p>{itemReview.title}<br/>{itemReview.review}</p>
+                  </div>
+                    
+                    </>
+                  )
+                }
+              })
+            ) : (
+              <div className="rating">
+                This Ad is Active but no review and rating available
+              </div>
+            )
         ))
       ) : (
         <div className="sold-item">

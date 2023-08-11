@@ -56,9 +56,13 @@ const AnalyticalDashboard = () => {
           for (let i = 0; i < activeArr.length; i++) {
             const getAllReview = await getReviewWithAdId(activeArr[i]._id)
             if (!getAllReview.address) {
-              if (getAllReview[0] !== undefined) {
-                saveReviewCount++;
-                StarRatings = getAllReview[0].star_rating + StarRatings;
+              if (getAllReview.length > 0) {
+                for (let i = 0; i < getAllReview.length; i++) {
+                  if (getAllReview[i] !== undefined) {
+                    saveReviewCount++;
+                    StarRatings = getAllReview[i].star_rating + StarRatings;
+                  }                  
+                }
               }
             }
           }
@@ -140,12 +144,12 @@ const AnalyticalDashboard = () => {
   };
 
   const getSellerRatings = () => {
-    if (getReviewObjects ===0) {
+    if (getReviewObjects === 0) {
       return;
     }
     
-    const getAverage = getStarRating/getReviewObjects
-    
+    const getAverage = (getStarRating/getReviewObjects).toFixed(2);
+  
     return (
       <div>
         <h3>

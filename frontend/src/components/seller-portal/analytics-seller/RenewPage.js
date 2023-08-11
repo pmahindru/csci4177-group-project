@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
-import { getAllPostedAd, getAllSavePostedAd, getReviewWithAdId, getToUserInteraction, pausePostAd } from "../../../api";
+import { getAllPostedAd, pausePostAd } from "../../../api";
 
 const RenewPage = () => {
   const getLocalStorage = localStorage.getItem("user_info");

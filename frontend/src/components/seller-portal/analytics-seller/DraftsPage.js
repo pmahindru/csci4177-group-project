@@ -58,9 +58,6 @@ const DraftsPage = () => {
             There are no Save Drafts
           </div>
         )}
-
-
-       
       </div>
       <Link to="/analytics" className="back-link">
         Back to Analytics
